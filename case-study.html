@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>06 Case study · Battle Website Proposal</title><meta name="robots" content="noindex"><link rel="icon" href="assets/brand/bm-mark.webp">
+<link rel="stylesheet" href="lib/p.css">
+<script src="lib/gsap.min.js"></script><script src="lib/ScrollTrigger.min.js"></script><script src="lib/SplitText.min.js"></script><script src="lib/fire.js"></script>
+<style>
+/* ---- immersive scene ---- */
+.cx{position:relative;background:#07090c}
+.cx .stage{position:relative;height:100svh;overflow:hidden;isolation:isolate}
+.cx .L{position:absolute;will-change:transform}
+.cx .L img{display:block;width:100%;height:auto}
+.cx .bg{inset:-6%;width:112%;height:112%}
+.cx .bg img{width:100%;height:100%;object-fit:cover}
+.cx .logo{right:27%;top:12%;width:min(30vw,380px);opacity:.16;z-index:2}
+.cx .chef{right:4%;bottom:-2%;height:94%;z-index:4;aspect-ratio:588/1000}
+.cx .chef img{height:100%;width:auto;filter:drop-shadow(0 0 40px rgba(215,0,15,.35))}
+.cx .fish{right:30%;top:8%;width:min(26vw,360px);z-index:5}
+.cx .skewer{left:40%;bottom:6%;width:min(17vw,240px);z-index:3}
+.cx .sushi{right:-2%;bottom:4%;width:min(24vw,340px);z-index:6}
+.cx .food img{animation:bob 6s ease-in-out infinite}
+.cx .skewer img{animation-duration:7.5s;animation-delay:-2s}.cx .sushi img{animation-duration:5.2s;animation-delay:-1s}
+@keyframes bob{0%,100%{translate:0 0;rotate:-3deg}50%{translate:0 -18px;rotate:3deg}}
+.cx canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.cx #cxf{z-index:1;opacity:0}.cx #cxe{z-index:7}
+.cx .veil{position:absolute;inset:0;z-index:3;background:#05070a;opacity:0;pointer-events:none}
+.cx .shade{position:absolute;inset:0;z-index:7;pointer-events:none;background:linear-gradient(90deg,rgba(7,9,12,.92) 0%,rgba(7,9,12,.6) 34%,transparent 62%),linear-gradient(0deg,rgba(7,9,12,.7),transparent 30%)}
+.cx .ch{position:absolute;left:max(24px,calc((100vw - 1240px)/2));top:50%;translate:0 -50%;width:min(520px,calc(100vw - 48px));z-index:8}
+.cx .ch h2{font-size:clamp(46px,6.4vw,104px);line-height:.86}
+.cx .ch h3{font-size:clamp(38px,4.6vw,76px);line-height:.9}
+.cx .ch p{margin-top:16px;color:rgba(255,255,255,.82);font-size:clamp(15px,1.25vw,18px)}
+.cx .ch .g{background:linear-gradient(100deg,#FF2A1A,#FF6A1F 50%,#FFB347);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cx .tags{display:flex;gap:8px;margin-top:22px;flex-wrap:wrap}
+.cx .tags span{font:600 11px var(--f-d);letter-spacing:.14em;text-transform:uppercase;padding:8px 12px;border-radius:999px;background:rgba(215,0,15,.85)}
+.cx .sol{display:grid;gap:12px;margin-top:20px}
+.cx .sol div{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;padding:14px 16px;border-radius:14px;background:rgba(13,19,26,.72);box-shadow:0 0 0 1px rgba(255,122,26,.35);backdrop-filter:blur(6px)}
+.cx .sol b{font:700 28px/1 var(--f-n);color:#FF7A1A}
+.cx .sol span{font-size:15px;color:rgba(255,255,255,.88)}
+.cx .nums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 22px;margin-top:22px}
+.cx .nums div{border-top:2px solid rgba(255,122,26,.7);padding-top:12px}
+.cx .nums b{display:block;font:700 clamp(38px,4.4vw,72px)/1 var(--f-n)}
+.cx .nums span{font:600 11px var(--f-d);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.cx .rail{position:absolute;right:max(16px,2vw);top:50%;translate:0 -50%;z-index:9;display:grid;gap:6px}
+.cx .rail button{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;justify-content:flex-end;font:600 11px var(--f-d);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45);padding:6px 0}
+.cx .rail button i{width:22px;height:2px;background:currentColor;transition:width .4s,background .4s}
+.cx .rail button.on{color:#fff}.cx .rail button.on i{width:46px;background:#FF4A12}
+.cx .rail button:focus-visible{outline:2px solid #FF7A1A;outline-offset:4px}
+.cx .bar{position:absolute;left:0;bottom:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--fire);z-index:9}
+.cx .hint{position:absolute;left:50%;bottom:22px;translate:-50% 0;z-index:9;font:600 11px var(--f-d);letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+@media (max-width:760px){
+  .cx .shade{background:linear-gradient(180deg,rgba(7,9,12,.94) 0%,rgba(7,9,12,.75) 42%,transparent 70%),linear-gradient(0deg,rgba(7,9,12,.6),transparent 30%)}
+  .cx .ch{top:86px;translate:0 0}
+  .cx .chef{right:50%;translate:50% 0;height:54%}
+  .cx .logo{right:6%;top:auto;bottom:38%;width:40vw}
+  .cx .fish{right:auto;left:-6%;top:auto;bottom:24%;width:40vw}
+  .cx .skewer{left:auto;right:4%;bottom:30%;width:26vw}
+  .cx .sushi{right:-4%;bottom:2%;width:38vw}
+  .cx .rail{top:auto;bottom:18px;translate:0 0;right:16px;display:flex;gap:10px}
+  .cx .rail button span{display:none}.cx .rail button i{width:16px}.cx .rail button.on i{width:30px}
+  .cx .hint{left:16px;translate:0 0}
+  .cx .sol div{padding:10px 12px;grid-template-columns:32px 1fr}.cx .sol span{font-size:13.5px}.cx .sol b{font-size:22px}
+}
+.cx.static .ch{position:relative;inset:auto;translate:none;padding:40px 0;opacity:1!important}
+/* ---- collaborations ---- */
+.collab{background:#0D131A;padding:clamp(70px,9vw,120px) 0;border-top:1px solid var(--line)}
+.collab h3{font-size:clamp(34px,4.4vw,70px)}
+.lgrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;margin-top:34px}
+.lg{aspect-ratio:4/3;border-radius:18px;background:#121820;box-shadow:0 0 0 1px var(--line);display:grid;place-items:center;padding:22px;transition:box-shadow .4s}
+.lg img{max-width:100%;max-height:100%;object-fit:contain;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.lg:hover{box-shadow:0 0 0 1px #FF7A1A,0 24px 50px -24px rgba(255,74,18,.6)}.lg:hover img{transform:scale(1.08)}
+@media (max-width:800px){.lgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* ---- deck + video + work ---- */
+.cs-sec{padding:clamp(70px,9vw,120px) 0}
+.light{background:#fff;color:var(--black)}
+.slide{margin-top:24px;border-radius:20px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(13,19,26,.6)}
+.vid{aspect-ratio:16/9;border-radius:20px;background:#0D131A;color:#fff;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden;margin-top:30px}
+.vid img{width:96px;margin:0 auto 12px}
+.vid small{font:600 11px var(--f-d);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.work{background:#07090c}
+.wgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:34px;perspective:1100px}
+.wk{border-radius:18px;overflow:hidden;background:#121820;box-shadow:0 0 0 1px var(--line);text-decoration:none;transform-style:preserve-3d;will-change:transform;position:relative}
+.wk::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,140,60,.28),transparent 45%);opacity:0;transition:opacity .3s}
+.wk:hover::after{opacity:1}.wk:hover{box-shadow:0 0 0 1px #FF7A1A,0 30px 60px -30px rgba(255,74,18,.6)}
+.wk img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.wk div{padding:16px 18px;display:flex;justify-content:space-between;gap:14px;align-items:baseline}
+.wk b{font:600 17px var(--f-d);letter-spacing:.06em;text-transform:uppercase}
+.wk span{font:700 17px var(--f-n);color:var(--amber);white-space:nowrap}
+@media (max-width:1000px){.wgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.wgrid{grid-template-columns:minmax(0,1fr)}}
+</style></head>
+<body>
+<div class="wrap"><div class="ptitle"><div class="num">06</div><h1 data-split>Case study &amp; work</h1>
+  <p class="lead">The real Yaki Soul case from Battle's deck as an immersive scroll scene: depth layers that move with your mouse (or phone tilt), four chapters scrubbed by scroll, the lights going out for the challenge and the grill igniting for the solution, and the numbers climbing as you scroll. Then the collaborations, the deck slide, a video slot and the Work index.</p>
+  <ul class="asked"><li>Parallax, scrollable, immersive and interactive (7 Oct feedback)</li><li>Scrollable story where things move and the metrics jump out</li><li>Challenge, solution, before and after numbers, a founder quote or video</li><li>Work index: BHPetrol, Lalaport, Care Concierge, Airport FastTrack, Naturel, Luxe Living, Goodyear and more</li><li>Only cases the clients are happy to publish</li></ul>
+  <div style="margin-top:14px;display:flex;gap:10px"><span class="note heavy">Immersive · pinned scene</span><span class="note need">Confirm which cases are public</span></div></div></div>
+
+<section class="cx" id="cx" aria-label="Yaki Soul case study, told in four chapters">
+ <div class="stage">
+  <div class="L bg" data-d=".12"><img src="assets/img/cs_bg.webp" alt=""></div>
+  <canvas id="cxf" aria-hidden="true"></canvas>
+  <div class="L logo" data-d=".25"><img src="assets/sue/yakisoul_logo.webp" alt="Yaki Soul logo"></div>
+  <div class="veil"></div>
+  <div class="L chef" data-d=".45"><img src="assets/img/cs_chef_g.webp" alt="Illustrated izakaya chef with a knife (draft visual)"></div>
+  <div class="L food skewer" data-d=".7"><img src="assets/img/cs_skewer_g.webp" alt=""></div>
+  <div class="L food fish" data-d=".95"><img src="assets/img/cs_fish_g.webp" alt=""></div>
+  <div class="L food sushi" data-d="1.25"><img src="assets/img/cs_sushi_g.webp" alt=""></div>
+  <div class="shade"></div><canvas id="cxe" aria-hidden="true"></canvas>
+  <div class="ch c0"><div class="kick" style="color:#FFD7A8">Case study · F&amp;B · Kuala Lumpur</div><h2>From zero to <span class="g">No.1 izakaya</span> in KL.</h2>
+    <div class="tags"><span>Affiliate marketing</span><span>Creator content</span><span>On-ground activations</span></div></div>
+  <div class="ch c1"><div class="kick" style="color:#FFD7A8">01 · The challenge</div><h3>Off the main street.<br>Lost in the crowd.</h3>
+    <p>Yaki Soul entered a highly competitive KL nightlife and dining market dominated by established Changkat F&amp;Bs. Despite a unique product, the outlet sat away from the main street: limited walk-in traffic, low brand awareness, and nothing to separate it from countless other izakayas in the city.</p></div>
+  <div class="ch c2"><div class="kick" style="color:#FFD7A8">02 · The solution</div><h3>Light it <span class="g">up.</span></h3>
+    <div class="sol"><div><b>01</b><span>Seasonal and thematic campaigns that combined digital storytelling with on-ground activations.</span></div><div><b>02</b><span>Campaign ecosystems built to drive weeknight traffic, late-night visits and repeat customers.</span></div><div><b>03</b><span>Partnerships, community engagement, creator content and experiential marketing for continuous buzz.</span></div></div></div>
+  <div class="ch c3"><div class="kick" style="color:#FFD7A8">03 · The result</div><h3>The numbers.</h3>
+    <div class="nums"><div><b id="n0">RM300K</b><span>single-outlet monthly ROI (from RM300K)</span></div><div><b id="n1">0</b><span>monthly customers</span></div><div><b id="n2">0</b><span>pax daily reservations</span></div><div><b id="n3">No.1</b><span>izakaya in KL · most sand-grilled seasonal fish sold in a year</span></div></div></div>
+  <nav class="rail" aria-label="Chapters"><button data-c="0"><span>Intro</span><i></i></button><button data-c="1"><span>Challenge</span><i></i></button><button data-c="2"><span>Solution</span><i></i></button><button data-c="3"><span>Result</span><i></i></button></nav>
+  <div class="hint">Scroll · move your mouse</div><div class="bar"></div>
+ </div>
+</section>
+
+<section class="collab"><div class="wrap"><div class="kick">Affiliate marketing</div><h3 data-split>Successful collaborations.</h3>
+  <div class="lgrid"><div class="lg" data-rise><img src="assets/sue/collab_kirin.webp" alt="Kirin Ichiban logo" loading="lazy"></div><div class="lg" data-rise><img src="assets/sue/collab_autobacs.webp" alt="Autobacs Super GT logo" loading="lazy"></div><div class="lg" data-rise><img src="assets/sue/collab_harley.webp" alt="Harley-Davidson logo" loading="lazy"></div><div class="lg" data-rise><img src="assets/sue/collab_mbr.webp" alt="The Malaysia Book of Records logo" loading="lazy"></div><div class="lg" data-rise><img src="assets/sue/collab_creme.webp" alt="Crème de la Crème logo" loading="lazy"></div></div></div></section>
+
+<section class="cs-sec light"><div class="wrap"><div class="kick">As it appears in Battle's deck</div><img class="slide" src="assets/sue/case_yakisoul.webp" alt="Yaki Soul case slide" data-rise>
+  <div class="vid" data-rise><div><img src="assets/img/ui_play.webp" alt=""><small>Founder interview · 60–90 second video slot</small></div></div></div></section>
+
+<section class="cs-sec work"><div class="wrap"><div class="kick">Work</div><h3 data-split style="font-size:clamp(34px,4.4vw,70px)">Every battle we've won.</h3><div class="wgrid" id="wg"></div></div></section>
+<script>
+const WK = [["case_yakisoul", "Yaki Soul", "RM1.8M+"], ["case_bhpetrol", "BHPetrol", "7M+ reach"], ["case_easyeurope", "Easy Europe", "700+ leads/wk"], ["case_careconcierge", "Care Concierge", "-37% CPA"],
+  ["case_lapp", "LAPP", "141 leads/mo"], ["case_lalaport", "LaLaport", "3× vendors"], ["case_furniture", "Furniture brand", "22 ROAS"], ["case_royalselangor", "Royal Selangor", "6+ countries"], ["case_goodyear", "Goodyear", "Gamified loyalty"]];
+wg.innerHTML = WK.map(([img, n, m]) => `<a class="wk" href="#" data-rise><img src="assets/sue/${img}.webp" alt="${n} case study" loading="lazy"><div><b>${n}</b><span>${m}</span></div></a>`).join("");
+const R = matchMedia("(prefers-reduced-motion: reduce)").matches, cx = document.getElementById("cx"), stage = cx.querySelector(".stage");
+const $ = (q) => cx.querySelector(q), chs = [...cx.querySelectorAll(".ch")], rail = [...cx.querySelectorAll(".rail button")];
+const N = [$("#n0"), $("#n1"), $("#n2")], setNums = (k) => { const v = 0.3 + 1.5 * k;
+  N[0].textContent = "RM" + (v < 1 ? Math.round(v * 1000) + "K" : v.toFixed(1) + "M") + (k > 0.99 ? "+" : "");
+  N[1].textContent = Math.round(7000 * k).toLocaleString() + (k > 0.99 ? "+" : ""); N[2].textContent = Math.round(100 * k) + (k > 0.99 ? "+" : ""); };
+if (R) { cx.classList.add("static"); setNums(1); }
+else { gsap.registerPlugin(ScrollTrigger);
+  const fl = FX.flame($("#cxf"), { inten: 0.0, band: 0.34 }), sp = FX.embers($("#cxe"), { gravity: -30 });
+  const chef = $(".chef img"), food = [...cx.querySelectorAll(".food")], foodImg = food.map((f) => f.querySelector("img"));
+  // intro: chef rises out of the smoke, the food flies in, then the title
+  gsap.set(chs.slice(1), { autoAlpha: 0, y: 40 });
+  gsap.timeline({ delay: 0.2 }).from(".cx .bg img", { scale: 1.25, duration: 2, ease: "power2.out" }, 0).from(chef, { yPercent: 30, autoAlpha: 0, duration: 1.3, ease: "power3.out" }, 0.2)
+    .from(foodImg, { xPercent: (i) => [-160, 160, 160][i], yPercent: (i) => [60, -80, 80][i], rotate: (i) => [-60, 40, 50][i], autoAlpha: 0, duration: 1.2, stagger: 0.12, ease: "power3.out" }, 0.4)
+    .from(".cx .c0 > *", { y: 50, autoAlpha: 0, duration: 0.9, stagger: 0.1, ease: "power3.out" }, 0.5)
+    .from(".cx .logo img", { scale: 0.6, autoAlpha: 0, duration: 1.4, ease: "power2.out" }, 0.3);
+  // scroll story: 4 chapters, scrubbed while the stage is pinned
+  const tl = gsap.timeline({ defaults: { ease: "power2.inOut" } }), go = (a, b, at) => tl.to(a, { autoAlpha: 0, y: -40, duration: 0.4 }, at).to(b, { autoAlpha: 1, y: 0, duration: 0.5 }, at + 0.25);
+  tl.addLabel("c0", 0).to({}, { duration: 0.6 });
+  // 1 challenge: the lights go out, the chef is pushed back into the crowd, the food scatters
+  go(chs[0], chs[1], 0.6); tl.addLabel("c1", 1.1)
+    .to(".cx .veil", { opacity: 0.62, duration: 0.6 }, 0.6).to(".cx .bg img", { filter: "grayscale(.85) brightness(.55)", duration: 0.6 }, 0.6)
+    .to(chef, { scale: 0.78, yPercent: 10, filter: "grayscale(.7) brightness(.45)", duration: 0.6 }, 0.6)
+    .to(foodImg, { xPercent: (i) => [-90, 70, 90][i], yPercent: (i) => [50, -60, 70][i], autoAlpha: 0.15, scale: 0.7, duration: 0.6 }, 0.6)
+    .to(".cx .logo", { autoAlpha: 0.04, duration: 0.6 }, 0.6).to({}, { duration: 0.6 });
+  // 2 solution: the grill ignites, the chef steps forward lit, the food comes back
+  go(chs[1], chs[2], 1.7); tl.addLabel("c2", 2.2)
+    .to(".cx .veil", { opacity: 0, duration: 0.6 }, 1.7).to(".cx .bg img", { filter: "grayscale(0) brightness(1.1)", duration: 0.6 }, 1.7)
+    .to("#cxf", { opacity: 1, duration: 0.5 }, 1.7).to(fl.st, { inten: 0.75, duration: 0.6, onUpdate: () => fl.set("inten", fl.st.inten) }, 1.7)
+    .to(chef, { scale: 1.04, yPercent: 0, filter: "grayscale(0) brightness(1.1)", duration: 0.6 }, 1.7)
+    .to(foodImg, { xPercent: 0, yPercent: 0, autoAlpha: 1, scale: 1, duration: 0.6, stagger: 0.06 }, 1.75)
+    .from(".cx .sol div", { x: -40, autoAlpha: 0, stagger: 0.12, duration: 0.4 }, 2.0).to({}, { duration: 0.6 });
+  // 3 result: the numbers climb with the scroll, the logo glows behind the chef
+  go(chs[2], chs[3], 2.8); tl.addLabel("c3", 3.3)
+    .to(".cx .logo", { autoAlpha: 0.32, scale: 1.15, duration: 0.6 }, 2.8).to(chef, { scale: 1.12, duration: 0.8 }, 2.8)
+    .to({ k: 0 }, { k: 1, duration: 0.7, ease: "power1.out", onUpdate() { setNums(this.targets()[0].k); } }, 3.0)
+    .to({}, { duration: 0.6 });
+  const L = ["c0", "c1", "c2", "c3"]; let cur = -1, burst = false;
+  const st = ScrollTrigger.create({ trigger: cx, start: "top top", end: "+=420%", pin: stage, scrub: 0.8, animation: tl,
+    onUpdate(s) { const t = s.progress * tl.duration(), c = t >= 3.05 ? 3 : t >= 1.95 ? 2 : t >= 0.85 ? 1 : 0;
+      gsap.set(".cx .bar", { scaleX: s.progress }); gsap.set(".cx .hint", { autoAlpha: s.progress < 0.03 ? 1 : 0 });
+      if (c !== cur) { cur = c; rail.forEach((b, i) => b.classList.toggle("on", i === c)); }
+      if (c === 3 && !burst) { burst = true; N.forEach((b) => { const r = b.getBoundingClientRect(), z = stage.getBoundingClientRect(); sp.burst(r.left - z.left + r.width / 2, r.top - z.top + r.height / 2, 40, 1); }); }
+      if (c < 3) burst = false; } });
+  rail[0].classList.add("on");
+  rail.forEach((b, i) => b.addEventListener("click", () => scrollTo({ top: st.start + (st.end - st.start) * (tl.labels[L[i]] / tl.duration()), behavior: "smooth" })));
+  // embers off the grill while the fire is lit
+  setInterval(() => { if (cur < 2 || document.hidden) return; const z = stage.getBoundingClientRect(); if (z.bottom < 0 || z.top > innerHeight) return; sp.rise(Math.random() * z.width, z.height, 1, 40); }, 90);
+  // mouse parallax: every layer moves by its depth (deeper layers move less)
+  const mv = [...cx.querySelectorAll(".L")].map((el) => ({ d: +el.dataset.d, x: gsap.quickTo(el, "x", { duration: 0.9, ease: "power3" }), y: gsap.quickTo(el, "y", { duration: 0.9, ease: "power3" }) }));
+  stage.addEventListener("pointermove", (e) => { const z = stage.getBoundingClientRect(), kx = (e.clientX - z.left) / z.width - 0.5, ky = (e.clientY - z.top) / z.height - 0.5;
+    mv.forEach((m) => { m.x(-kx * 70 * m.d); m.y(-ky * 40 * m.d); }); });
+  stage.addEventListener("pointerleave", () => mv.forEach((m) => { m.x(0); m.y(0); }));
+  // phones: tilt instead of a mouse
+  addEventListener("deviceorientation", (e) => { if (e.gamma == null) return; const kx = Math.max(-1, Math.min(1, e.gamma / 30)) / 2, ky = Math.max(-1, Math.min(1, (e.beta - 45) / 30)) / 2; mv.forEach((m) => { m.x(-kx * 50 * m.d); m.y(-ky * 30 * m.d); }); });
+  // work cards: 3D tilt + a glow that follows the pointer
+  document.querySelectorAll(".wk").forEach((c) => { const rx = gsap.quickTo(c, "rotationX", { duration: 0.5 }), ry = gsap.quickTo(c, "rotationY", { duration: 0.5 });
+    c.addEventListener("pointermove", (e) => { const r = c.getBoundingClientRect(), kx = (e.clientX - r.left) / r.width, ky = (e.clientY - r.top) / r.height;
+      ry((kx - 0.5) * 14); rx((0.5 - ky) * 10); c.style.setProperty("--mx", kx * 100 + "%"); c.style.setProperty("--my", ky * 100 + "%"); });
+    c.addEventListener("pointerleave", () => { rx(0); ry(0); }); });
+}
+</script>
+<script src="lib/p.js"></script>
+</body></html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>03 About · Battle Website Proposal</title><meta name="robots" content="noindex"><link rel="icon" href="assets/brand/bm-mark.webp">
+<link rel="stylesheet" href="lib/p.css">
+<script src="lib/gsap.min.js"></script><script src="lib/ScrollTrigger.min.js"></script><script src="lib/SplitText.min.js"></script><script src="lib/fire.js"></script>
+<style>
+.epic{position:relative;height:100svh;overflow:hidden;background:#000}
+.scene{position:absolute;inset:0;opacity:0}
+.scene .plate{position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover;will-change:transform}
+.scene .lay{position:absolute;will-change:transform}
+.scene .shade{position:absolute;inset:0;pointer-events:none}
+.cap{position:absolute;left:var(--gut);bottom:16vh;z-index:6;max-width:640px;opacity:0}
+.cap .yr{font:700 16px var(--f-n);letter-spacing:.24em;color:#FFB347}
+.cap h2{font-size:clamp(40px,6vw,96px);line-height:.9;margin:10px 0 12px;text-shadow:0 6px 40px rgba(0,0,0,.7)}
+.cap p{font-size:clamp(15px,1.4vw,19px);color:rgba(255,255,255,.9);text-shadow:0 2px 14px #000;max-width:44ch}
+.cap small{display:block;margin-top:10px;font-style:italic;color:rgba(255,255,255,.65)}
+.cap.r{left:auto;right:var(--gut);text-align:right}
+.cap.r p{margin-left:auto}
+.bars::before,.bars::after{content:"";position:absolute;left:0;right:0;height:var(--bar,9vh);background:#000;z-index:8;transition:none}
+.bars::before{top:0}.bars::after{bottom:0}
+#rain{position:absolute;inset:0;width:100%;height:100%;z-index:4;pointer-events:none}
+#esp{position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none}
+.flash{position:absolute;inset:0;z-index:7;background:radial-gradient(circle at 50% 55%,rgba(255,220,180,.95),rgba(255,120,40,.4) 35%,transparent 70%);opacity:0;pointer-events:none}
+.heart{position:absolute;left:50%;top:36%;z-index:7;width:150px;opacity:0;translate:-50% -50%;filter:drop-shadow(0 0 24px #FF4A12)}
+.prog{position:absolute;left:var(--gut);right:var(--gut);bottom:calc(var(--bar,9vh) + 14px);z-index:9;display:flex;gap:6px}
+.prog i{flex:1;height:2px;background:rgba(255,255,255,.2);overflow:hidden}
+.prog i b{display:block;height:100%;background:linear-gradient(90deg,#D7000F,#FFB347);transform:scaleX(0);transform-origin:left}
+.chapter{position:absolute;right:var(--gut);top:calc(var(--bar,9vh) + 16px);z-index:9;font:600 11px var(--f-d);letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+/* after the epic: bright, technical, then the invitation */
+.how{background:#fff;color:var(--black);padding:clamp(70px,9vw,120px) 0}
+.how h2{font-size:clamp(40px,5.5vw,86px)}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:40px;counter-reset:s}
+.steps div{background:var(--light);border-radius:18px;padding:24px;counter-increment:s;position:relative}
+.steps div::before{content:counter(s,decimal-leading-zero);font:700 44px/1 var(--f-n);color:var(--red);display:block;margin-bottom:12px}
+.steps h3{font-size:22px;margin-bottom:8px}
+.steps p{font-size:14.5px;color:#3a4048}
+@media (max-width:900px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.meet{background:var(--fire);padding:clamp(70px,9vw,120px) 0;text-align:center}
+.meet h2{font-size:clamp(46px,7vw,110px)}
+.meet p{margin:14px auto 26px;max-width:46ch;font-size:18px}
+.disclaim{margin-top:16px;font-size:13px;color:var(--muted)}
+</style></head>
+<body>
+<div class="wrap"><div class="ptitle"><div class="num">03</div><h1 data-split>About · the epic</h1>
+  <p class="lead">From Sue's deck (slides 5–7): tell how Battle Group began like an animated film, in flat layers that move at different speeds. It runs dark and epic, turns comedic and romantic, then lands bright and hopeful. Scroll to play it.</p>
+  <ul class="asked"><li>Cinematic, dramatic, movie-like: the downturn, going digital, the reunion, the rescue, the light at the end of the tunnel</li><li>The boss's humour (the "bromance") played for laughs, then hope</li><li>Heavy animation is fine here: About visitors are high intent</li><li>Ends technical: how we work, then an invitation to meet</li></ul>
+  <p class="disclaim">The characters are illustrated stand-ins generated for this draft. The final scenes would use approved likenesses of Ben and his partner, made from their own photos and with their consent.</p>
+  <div style="margin-top:14px;display:flex;gap:10px"><span class="note heavy">Cinematic page</span><span class="note need">Story details + approval from Ben &amp; Ian</span></div></div></div>
+
+<section style="background:#07090c;padding:90px 0 70px;text-align:center"><div class="wrap"><div class="kick">About Battle Group · the humans behind the data</div>
+  <h2 data-split style="font-size:clamp(44px,7vw,116px);margin:12px auto 18px;max-width:16ch">Meet the AI humans behind the data &amp; dashboards.</h2>
+  <p style="max-width:64ch;margin:0 auto;color:rgba(255,255,255,.82);font-size:18px">AI ain't got a hold on us, because we're fun, we're cute and, at the same time, nerdily passionate about your growth. We cry when you scold us, but we also celebrate with you when you win.</p></div></section>
+<section class="epic bars" id="epic">
+  <div class="scene" id="s1"><img class="plate" src="assets/img/about_s1_hall.webp" alt=""><div class="shade" style="background:linear-gradient(0deg,rgba(0,0,0,.75),transparent 55%)"></div></div>
+  <div class="scene" id="s2"><img class="plate" src="assets/img/about_s2_room.webp" alt=""><img class="lay" id="hero2" src="assets/img/about_s2_hero_g.webp" alt="" style="right:14%;bottom:6%;height:72%"><div class="shade" style="background:linear-gradient(90deg,rgba(0,0,0,.8),transparent 60%)"></div></div>
+  <div class="scene" id="s3"><img class="plate" src="assets/img/about_s3_plate.webp" alt=""><img class="lay" id="runL" src="assets/img/about_s3_left_g.webp" alt="" style="left:0;bottom:4%;height:62%"><img class="lay" id="runR" src="assets/img/about_s3_right_g.webp" alt="" style="right:0;bottom:4%;height:66%"><div class="shade" style="background:linear-gradient(0deg,rgba(0,0,0,.6),transparent 45%)"></div></div>
+  <div class="scene" id="s4"><img class="plate" src="assets/img/about_s4_plate.webp" alt=""><img class="lay" id="carry" src="assets/img/about_s4_carry_g.webp" alt="" style="left:50%;bottom:2%;height:84%;translate:-50% 0"><div class="shade" style="background:linear-gradient(0deg,rgba(0,0,0,.55),transparent 40%)"></div></div>
+  <div class="scene" id="s5"><img class="plate" src="assets/img/about_s5_guardians.webp" alt=""><div class="shade" style="background:linear-gradient(0deg,rgba(0,0,0,.65),transparent 45%)"></div></div>
+  <canvas id="rain" aria-hidden="true"></canvas><canvas id="esp" aria-hidden="true"></canvas><div class="flash" id="flash"></div><img class="heart" id="heart" src="assets/img/ui_heart.webp" alt="">
+  <div class="cap" id="c1"><div class="yr">Chapter one · Our origin</div><h2>It began in<br>a downturn.</h2><p>Battle Group first had its origins during the economic downturn amid the pandemic, when our founder's original business in the events sector came to a halt.</p></div>
+  <div class="cap" id="c2"><div class="yr">Chapter two · The epiphany</div><h2>Then he saw<br>the light.</h2><p>It was no longer optional for businesses to digitalise. It was essential.</p></div>
+  <div class="cap r" id="c3"><div class="yr">Chapter three · The reunion</div><h2>And so, a love<br>child was born.</h2><p>Battle Group: a love child between our primary founder and his long-time bromance partner cum ex-superior.</p><small>(Their words, not ours.)</small></div>
+  <div class="cap" id="c4"><div class="yr">Chapter four · The heroic moment</div><h2>Heroes for<br>the little guys.</h2><p>We started as a Meta advertising specialist focused on lead generation, because our founder knew the heartbreak of chasing the right clients, and wanted to help fellow SME owners find quality leads.</p></div>
+  <div class="cap" id="c5"><div class="yr">Today · The humans behind the data</div><h2>Guardians of<br>your brand.</h2><p>A full digital marketing and web squad serving SMEs and corporates: Spider Web Man, Super Leads Gen Man, Lord Meteoric ROAS Man, the Guardian of the Brand Guidelaxy, the Ad Budget Annihilator and the Doom-Scroll Destroyer.</p></div>
+  <div class="chapter" id="chap">The downturn</div>
+  <div class="prog" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+</section>
+
+<section class="syn"><div class="wrap"><div class="kick">Our battle journey · synergy of territories</div><h2 data-split>One group. Three territories.</h2>
+  <p class="sl">Battle Mind Creative first began as a Meta advertising specialist, then grew into frontend web development, search marketing, KOL campaigns and video production. This year it upgrades to full-stack web development, so clients can capture leads, manage customers, streamline conversion and stay connected with the customers they already have.</p>
+  <div class="sbox"><canvas id="syc" aria-label="Three animated 3D icons: a ring of particles with orbiting channels, a molten shape-shifting form, and a glass core inside scanning rings" role="img"></canvas>
+    <div class="slab"><div><b>Omnichannel</b><span>marketing ecosystem</span></div><div><b>Agile &amp; innovative</b><span>methods</span></div><div><b>Next-gen focused</b><span>perspective</span></div></div></div>
+  <p class="snote">Live 3D (three.js), drawn only while on screen. Move the mouse over it. Replaces the flat icons on deck slide 18.</p></div></section>
+<style>
+.syn{background:#07090c;padding:clamp(70px,9vw,120px) 0;border-top:1px solid var(--line)}
+.syn h2{font-size:clamp(40px,5.5vw,86px)}
+.syn .sl{margin-top:14px;max-width:66ch;color:var(--muted)}
+.sbox{position:relative;margin-top:34px;border-radius:24px;overflow:hidden;background:radial-gradient(ellipse at 50% 60%,#2a0a0c,#0D131A 70%);box-shadow:0 0 0 1px var(--line)}
+#syc{display:block;width:100%;height:clamp(240px,30vw,420px)}
+.slab{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));text-align:center;padding:0 12px 26px}
+.slab b{display:block;font:700 clamp(15px,1.8vw,24px)/1.1 var(--f-d);text-transform:uppercase}
+.slab span{font-size:13px;color:var(--muted)}
+.snote{margin-top:12px;font-size:13px;color:var(--muted)}
+@media (max-width:640px){#syc{height:200px}.slab span{font-size:11.5px}}
+</style>
+<section class="how"><div class="wrap"><div class="kick">How we work</div><h2 data-split>Data + heart.</h2>
+  <div class="steps"><div data-rise><h3>Empathy first</h3><p>Your budget is treated like our own money.</p></div><div data-rise><h3>Plain language always</h3><p>If we can't explain it simply, we haven't done it right.</p></div><div data-rise><h3>Data + heart</h3><p>Cold hard numbers, guided by human understanding.</p></div><div data-rise><h3>Fast, friendly communication</h3><p>Never wait three days for a reply.</p></div></div></div></section>
+<section class="meet"><div class="wrap"><h2 data-split>The door is open.</h2><p>Whether you need a Guardian for your Brand Galaxy or a Super Leads Gen Man, pop by our KL office or drop us a WhatsApp message. Let's fight off your business' biggest nemesis together.</p><a class="btn" href="#" style="background:#fff;color:var(--red)">WhatsApp us</a></div></section>
+
+<script>
+const R = matchMedia("(prefers-reduced-motion: reduce)").matches;
+gsap.registerPlugin(ScrollTrigger);
+document.querySelectorAll(".scene img").forEach((im) => im.addEventListener("error", () => { im.style.display = "none"; im.closest(".scene").style.background = "radial-gradient(60% 60% at 50% 60%,#3a0a0c,#000)"; }));
+// rain (scene 1) and embers (scenes 4-5) on their own canvases
+const rc = document.getElementById("rain"), rg = rc.getContext("2d"); let rainOn = 0;
+const drops = Array.from({ length: 160 }, () => ({ x: Math.random(), y: Math.random(), v: 0.6 + Math.random() * 0.8 }));
+const size = () => { rc.width = rc.clientWidth; rc.height = rc.clientHeight; }; addEventListener("resize", size); size();
+const esp = FX.embers(document.getElementById("esp"), { gravity: -15 });
+FX.loop((dt) => { rg.clearRect(0, 0, rc.width, rc.height); if (rainOn > 0.01) { rg.strokeStyle = `rgba(180,200,220,${0.35 * rainOn})`; rg.lineWidth = 1; rg.beginPath();
+  for (const d of drops) { d.y += d.v * dt * 1.4; if (d.y > 1) { d.y = 0; d.x = Math.random(); } const x = d.x * rc.width, y = d.y * rc.height; rg.moveTo(x, y); rg.lineTo(x - 4, y + 18); } rg.stroke(); return true; } return false; });
+const caps = [...document.querySelectorAll(".cap")], scenes = ["#s1", "#s2", "#s3", "#s4", "#s5"], bars = [...document.querySelectorAll(".prog b")];
+const names = ["The downturn", "Going digital", "The reunion", "The rescue", "The light"];
+if (R) { gsap.set("#s5", { opacity: 1 }); gsap.set("#c5", { opacity: 1 }); }
+else {
+  const st = { rain: 1 }, tl = gsap.timeline({ defaults: { ease: "none" }, scrollTrigger: { trigger: "#epic", start: "top top", end: "+=650%", pin: true, scrub: 0.8,
+    onUpdate: (s) => { const k = Math.min(4, Math.floor(s.progress * 5)); document.getElementById("chap").textContent = names[k]; } } });
+  const show = (i, at) => { tl.to(scenes[i], { opacity: 1, duration: 0.25 }, at).fromTo(caps[i], { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, at + 0.15)
+    .to(caps[i], { opacity: 0, y: -30, duration: 0.2, ease: "power2.in" }, at + 0.85).to(bars[i], { scaleX: 1, duration: 1 }, at);
+    if (i > 0) tl.to(scenes[i - 1], { opacity: 0, duration: 0.25 }, at); };
+  [0, 1, 2, 3, 4].forEach((i) => show(i, i));
+  tl.set(caps[4], { opacity: 1 }, 4.86);   // the last caption stays
+  // scene 1: slow push-in, rain
+  tl.fromTo("#s1 .plate", { scale: 1 }, { scale: 1.15, duration: 1.2 }, 0).to(st, { rain: 0, duration: 0.3, onUpdate: () => (rainOn = st.rain) }, 1);
+  // scene 2: the plate drifts, the hero stays closer (parallax), the screen glow breathes
+  tl.fromTo("#s2 .plate", { xPercent: 2 }, { xPercent: -3, duration: 1.2 }, 1).fromTo("#hero2", { xPercent: 8, scale: 1.04 }, { xPercent: -6, scale: 1, duration: 1.2 }, 1);
+  // scene 3: slow-motion run toward each other, flash and a heart when they meet
+  tl.fromTo("#s3 .plate", { scale: 1.08 }, { scale: 1, duration: 1.2 }, 2).fromTo("#runL", { xPercent: -60 }, { xPercent: 70, duration: 0.8, ease: "power1.in" }, 2.05)
+    .fromTo("#runR", { xPercent: 60 }, { xPercent: -70, duration: 0.8, ease: "power1.in" }, 2.05)
+    .fromTo("#flash", { opacity: 0 }, { opacity: 1, duration: 0.06 }, 2.82).to("#flash", { opacity: 0, duration: 0.15 }, 2.88)
+    .fromTo("#heart", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1.2, duration: 0.1, ease: "back.out(3)" }, 2.84).to("#heart", { opacity: 0, y: -60, duration: 0.15 }, 2.95);
+  // scene 4: the rescue rises into the sunset; warm embers
+  tl.fromTo("#s4 .plate", { yPercent: 4, scale: 1.1 }, { yPercent: -2, scale: 1, duration: 1.2 }, 3).fromTo("#carry", { yPercent: 18, scale: 0.92 }, { yPercent: 0, scale: 1, duration: 0.9, ease: "power2.out" }, 3.05);
+  // scene 5: the letterbox opens, dawn, the squad
+  tl.fromTo("#epic", { "--bar": "9vh" }, { "--bar": "0vh", duration: 0.4, ease: "power2.inOut" }, 4.05).fromTo("#s5 .plate", { scale: 1.15 }, { scale: 1, duration: 1 }, 4);
+  setInterval(() => { const p = tl.scrollTrigger.progress; if (p > 0.6 && p < 0.99) esp.rise(Math.random() * innerWidth, innerHeight * 0.85, 1); }, 140);
+}
+</script>
+<script src="lib/p.js"></script>
+<script type="importmap">{"imports":{"three":"./lib/three.module.min.js","three/addons/":"./lib/addons/"}}</script>
+<script type="module">import { mountSynergy } from "./lib/synergy.js"; mountSynergy(document.getElementById("syc"));</script>
+</body></html>

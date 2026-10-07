@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>07 Team · Battle Website Proposal</title><meta name="robots" content="noindex"><link rel="icon" href="assets/brand/bm-mark.webp">
+<link rel="stylesheet" href="lib/p.css">
+<script src="lib/gsap.min.js"></script><script src="lib/ScrollTrigger.min.js"></script><script src="lib/SplitText.min.js"></script><script src="lib/fire.js"></script>
+<style>
+.poster{position:relative;height:100svh;overflow:hidden;background:#000}
+.poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.poster::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,9,12,.9),transparent 50%)}
+.poster .in{position:absolute;left:0;right:0;bottom:12vh;z-index:2;text-align:center}
+.poster h2{font-size:clamp(56px,10vw,170px);line-height:.85}
+.poster h2 span{background:var(--fire);-webkit-background-clip:text;background-clip:text;color:transparent}
+.poster p{margin-top:16px;color:rgba(255,255,255,.85);font-size:18px}
+.bosses{background:#0D131A;padding:clamp(70px,9vw,120px) 0}
+.bgrid{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:20px;align-items:end;margin-top:40px}
+.boss{border-radius:22px;overflow:hidden;background:#121820;box-shadow:0 0 0 1px var(--line)}
+.boss .ph{aspect-ratio:4/5;position:relative;background:#1a2028;display:grid;place-items:center}
+.boss .ph img{width:100%;height:100%;object-fit:cover}
+.boss .ph::after{content:"";position:absolute;inset:auto 0 0;height:40%;background:linear-gradient(0deg,rgba(215,0,15,.55),transparent)}
+.boss .bd{padding:18px 20px 22px}
+.boss .alias{font:600 11px var(--f-d);letter-spacing:.22em;text-transform:uppercase;color:var(--amber)}
+.boss h3{font-size:30px;margin:6px 0}
+.boss p{color:var(--muted);font-size:14px}
+.boss.main .ph{aspect-ratio:4/5.4}
+@media (max-width:900px){.bgrid{grid-template-columns:minmax(0,1fr)}}
+.squads{background:#fff;color:var(--black);padding:clamp(70px,9vw,120px) 0}
+.sq{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:34px}
+.sq div{border-radius:18px;padding:22px;background:var(--light)}
+.sq b{font:700 13px var(--f-n);letter-spacing:.14em;color:var(--red)}
+.sq h4{font-size:22px;margin:8px 0}
+.sq p{font-size:14px;color:#3a4048}
+@media (max-width:900px){.sq{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.grid8{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:30px}
+.grid8 .ph-box{aspect-ratio:3/4;color:#5b636c;border-color:#c9ccd0;background:repeating-linear-gradient(45deg,#f4f5f6 0 12px,#eceef0 12px 24px)}
+@media (max-width:760px){.grid8{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.join{background:var(--fire);padding:70px 0;text-align:center}
+.join h3{font-size:clamp(34px,5vw,80px)}
+.heroes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:34px}
+.hc{border-radius:20px;overflow:hidden;background:#0D131A;color:#fff;position:relative;transition:transform .4s}
+.hc:hover{transform:translateY(-6px)}
+.hc img{width:100%;aspect-ratio:2/3;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.hc:hover img{transform:scale(1.05)}
+.hc div{position:absolute;left:0;right:0;bottom:0;padding:20px;background:linear-gradient(0deg,rgba(7,9,12,.95),transparent)}
+.hc b{display:block;font:700 24px/1.05 var(--f-d);text-transform:uppercase}
+.hc span{display:block;margin-top:6px;font-size:13.5px;color:rgba(255,255,255,.8)}
+.hc small{display:block;font:600 11px var(--f-d);letter-spacing:.18em;text-transform:uppercase;color:#FFB347;margin-bottom:6px}
+.tph{margin:40px 0 0;border-radius:22px;overflow:hidden;position:relative}
+.tph img{width:100%}
+.tph figcaption{position:absolute;left:18px;bottom:16px;background:#fff;border-radius:999px;padding:9px 14px;font:600 11px var(--f-d);letter-spacing:.14em;text-transform:uppercase}
+@media (max-width:900px){.heroes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style></head>
+<body>
+<div class="wrap"><div class="ptitle"><div class="num">07</div><h1 data-split>Team · the Guardians</h1>
+  <p class="lead">The one page where the whole team appears, styled like a movie poster: the main hero big in the centre, the squad smaller around. Superhero names, futuristic red-and-black styling, real people only with their consent.</p>
+  <ul class="asked"><li>Cinematic heroes line-up: bosses at the centre, fictional heroes for the services (deck slide 5)</li><li>Cinematic poster: main character centred and big, side characters smaller</li><li>Superhero-style naming ("Guardians of your brand")</li><li>Only the three bosses on other pages; the wider team only here</li><li>Faceless (helmets) or generic characters where people prefer not to appear</li></ul>
+  <div style="margin-top:14px;display:flex;gap:10px"><span class="note heavy">Poster visuals</span><span class="note need">Boss photos + team list</span></div></div></div>
+
+<section class="poster" id="pst"><img src="assets/img/about_s5_guardians.webp" alt="Illustrated superhero squad at dawn (draft visual)"><div class="in"><div class="kick" style="color:#FFD7A8">The team</div><h2>Guardians of<br><span>your brand.</span></h2><p>Young, fearless, and on your side.</p></div></section>
+
+<section class="bosses"><div class="wrap"><div class="kick">The founders</div><h2 data-split style="font-size:clamp(40px,5.4vw,86px)">The ones in charge.</h2>
+  <div class="bgrid">
+    <article class="boss" data-rise><div class="ph"><div class="ph-box" style="width:100%;height:100%;border-radius:0">Ian · photo</div></div><div class="bd"><div class="alias">The Visionary</div><h3>Ian</h3><p>Role and one-line superpower, from Battle.</p></div></article>
+    <article class="boss main" data-rise><div class="ph"><div class="ph-box" style="width:100%;height:100%;border-radius:0">Ben · photo</div></div><div class="bd"><div class="alias">The Founder</div><h3>Ben</h3><p>Turned a lockdown into a digital agency.</p></div></article>
+    <article class="boss" data-rise><div class="ph"><img src="assets/img/Battle-Mind-about-us-v3.webp" alt="Matthew Leong, Business Director"></div><div class="bd"><div class="alias">The Strategist</div><h3>Matthew</h3><p>Business Director. Thinks like a founder, fixed on your objective.</p></div></article>
+  </div>
+  <p style="margin-top:16px;color:var(--muted);font-size:13px">The superhero titles are placeholders for Battle to rename. Real photos only; the poster above is an illustrated draft.</p></div></section>
+
+<section class="squads"><div class="wrap"><div class="kick">The squad · names from Battle's deck</div><h2 data-split style="font-size:clamp(40px,5.4vw,86px)">Every Guardian has a power.</h2>
+  <div class="heroes" id="hr"></div>
+  <p style="margin-top:14px;color:#5b636c;font-size:13px">Illustrated characters (helmets, faces hidden) stand for the services, as the deck suggests. Real team members appear only in the photo below.</p>
+  <div class="tstage" id="ts2" style="margin-top:40px"></div></div></section>
+<section class="join"><div class="wrap"><h3 data-split>Want to be a Guardian?</h3><a class="btn" href="#" style="background:#fff;color:var(--red);margin-top:20px">We're hiring →</a></div></section>
+<script>
+const HR=[["hero_web","Spider Web Man","Website & app development"],["hero_leads","Super Leads Gen Man","Lead generation"],["hero_roas","Lord Meteoric ROAS Man","Performance marketing"],["hero_brand","Guardian of the Brand Guidelaxy","Branding & creative"],["hero_budget","Ad Budget Annihilator","Paid media efficiency"],["hero_scroll","Doom-Scroll Destroyer","Social video & content"]];
+document.getElementById("hr").innerHTML=HR.map(([i,n,r])=>`<article class="hc" data-rise><img src="assets/img/${i}.webp" alt="${n}, illustrated hero"><div><small>${r}</small><b>${n}</b></div></article>`).join("");
+</script>
+<script>
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches) { gsap.registerPlugin(ScrollTrigger);
+  gsap.fromTo("#pst img", { scale: 1.2 }, { scale: 1, ease: "none", scrollTrigger: { trigger: "#pst", start: "top bottom", end: "bottom top", scrub: true } });
+  gsap.from("#pst .in > *", { y: 50, opacity: 0, duration: 1, stagger: 0.12, ease: "power3.out", scrollTrigger: { trigger: "#pst", start: "top 60%" } }); }
+</script>
+<script src="lib/team.js"></script><script>TEAM.mount(document.getElementById("ts2"));</script>
+<script src="lib/p.js"></script>
+</body></html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>08 Icons &amp; weapons · Battle Website Proposal</title><meta name="robots" content="noindex"><link rel="icon" href="assets/brand/bm-mark.webp">
+<link rel="stylesheet" href="lib/p.css">
+<script src="lib/gsap.min.js"></script><script src="lib/ScrollTrigger.min.js"></script><script src="lib/SplitText.min.js"></script>
+<style>
+.styles{display:grid;gap:30px;margin-top:20px}
+.st{border-radius:24px;padding:28px;box-shadow:0 0 0 1px var(--line)}
+.st.a{background:#0D131A}.st.b{background:#fff;color:var(--black)}.st.c{background:#F1F2F2;color:var(--black)}
+.st .top{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.st h3{font-size:clamp(28px,3.4vw,48px)}
+.st .top p{max-width:52ch;font-size:15px;opacity:.8}
+.irow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:24px}
+.irow figure{margin:0;text-align:center}
+.irow img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:18px;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.irow figure:hover img{transform:translateY(-8px) rotate(-3deg) scale(1.03)}
+.irow figcaption{margin-top:10px;font:600 13px var(--f-d);letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.pc{display:flex;gap:18px;margin-top:20px;flex-wrap:wrap;font-size:14px}
+.pc span{padding:8px 12px;border-radius:999px;background:rgba(127,127,127,.12)}
+.data{margin-top:30px;background:#fff;color:var(--black);border-radius:24px;padding:28px}
+.drow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:20px}
+.drow img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:16px}
+.drow p{text-align:center;margin-top:8px;font:600 12px var(--f-d);letter-spacing:.12em;text-transform:uppercase}
+@media (max-width:760px){.irow,.drow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+table{width:100%;border-collapse:collapse;margin-top:24px;font-size:15px}
+th,td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line)}
+th{font:600 12px var(--f-d);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+td b{font-family:var(--f-d);text-transform:uppercase;letter-spacing:.04em}
+td:first-child{color:var(--muted)}
+.wrapx{overflow-x:auto}
+</style></head>
+<body>
+<div class="wrap"><div class="ptitle"><div class="num">08</div><h1 data-split>Icons &amp; weapons</h1>
+  <p class="lead">Three 3D icon styles in the fiery battleground spirit, all fun but professional, plus the "data made digestible" set and name options for Choose your weapon. Pick one style and it runs across the whole site.</p>
+  <ul class="asked"><li>3D icons that fit a fiery battleground, like slide 18 of the company profile</li><li>Fun and professional at once (the hard part)</li><li>Services named like weapons, open to quirky titles</li></ul>
+  <div style="margin-top:14px;display:flex;gap:10px"><span class="note need">Pick a style · Ian approves names</span></div></div>
+
+  <div class="styles">
+    <section class="st a" data-rise><div class="top"><div><span class="note">Style A</span><h3>Forged</h3></div><p>Black steel with molten red-orange cracks and embers. The most "battle". Best on dark sections and for Performance.</p></div>
+      <div class="irow"><figure><img src="assets/img/icon_a_sword.webp" alt="Forged sword icon"><figcaption>Performance</figcaption></figure><figure><img src="assets/img/icon_a_brush.webp" alt="Forged brush icon"><figcaption>Creative</figcaption></figure><figure><img src="assets/img/icon_a_shield.webp" alt="Forged shield icon"><figcaption>Web · Battle X</figcaption></figure></div>
+      <div class="pc"><span>+ Strongest fire story</span><span>+ Premium, game-like</span><span>&minus; Heavy on light pages</span></div></section>
+    <section class="st b" data-rise><div class="top"><div><span class="note">Style B</span><h3>Glass</h3></div><p>Glossy red glass with the amber gradient glowing inside. Clean and corporate. Works on white and suits Battle X too.</p></div>
+      <div class="irow"><figure><img src="assets/img/icon_b_sword.webp" alt="Glass sword icon"><figcaption>Performance</figcaption></figure><figure><img src="assets/img/icon_b_brush.webp" alt="Glass brush icon"><figcaption>Creative</figcaption></figure><figure><img src="assets/img/icon_b_shield.webp" alt="Glass shield icon"><figcaption>Web · Battle X</figcaption></figure></div>
+      <div class="pc"><span>+ Most professional</span><span>+ Carries the gradient</span><span>&minus; Less cheeky</span></div></section>
+    <section class="st c" data-rise><div class="top"><div><span class="note">Style C</span><h3>Toy</h3></div><p>Chunky glossy toys with a little flame. Cheeky and friendly. Shows the young team; best for Creative.</p></div>
+      <div class="irow"><figure><img src="assets/img/icon_c_sword.webp" alt="Toy sword icon"><figcaption>Performance</figcaption></figure><figure><img src="assets/img/icon_c_brush.webp" alt="Toy brush icon"><figcaption>Creative</figcaption></figure><figure><img src="assets/img/icon_c_shield.webp" alt="Toy shield icon"><figcaption>Web · Battle X</figcaption></figure></div>
+      <div class="pc"><span>+ Most fun</span><span>+ Memorable</span><span>&minus; Can read young</span></div></section>
+  </div>
+
+  <section class="data" data-rise><div class="kick">Data made digestible · homepage set (glass family)</div><h3 style="font-size:clamp(26px,3vw,40px);margin-top:8px">One spreadsheet, three actions</h3>
+    <div class="drow"><div><img src="assets/img/sd_sheet.webp" alt=""><p>Your data</p></div><div><img src="assets/img/sd_web.webp" alt=""><p>Web UX</p></div><div><img src="assets/img/sd_search.webp" alt=""><p>SEM</p></div><div><img src="assets/img/sd_social.webp" alt=""><p>Social ads</p></div></div></section>
+
+  <section style="margin-top:60px" data-rise><div class="kick">Choose your weapon · name options</div><h3 style="font-size:clamp(28px,3.4vw,48px);margin-top:8px">Names for the services</h3>
+    <div class="wrapx"><table><thead><tr><th>Service</th><th>Straight</th><th>Battle</th><th>Cheeky</th></tr></thead><tbody>
+      <tr><td>Performance marketing</td><td><b>Performance</b></td><td><b>The Conversion Blade</b></td><td><b>The Money-Back-From-Ads Sword</b></td></tr>
+      <tr><td>Creative &amp; content</td><td><b>Creative</b></td><td><b>The Pixel Brush</b></td><td><b>The Scroll-Stopper</b></td></tr>
+      <tr><td>Web development</td><td><b>Web &amp; app</b></td><td><b>The Code Shield</b></td><td><b>The Never-Crash Shield</b></td></tr>
+      <tr><td>SEO / SEM</td><td><b>Search</b></td><td><b>The Search Spear</b></td><td><b>The Found-You Spear</b></td></tr>
+      <tr><td>KOL / influencer</td><td><b>Influencer</b></td><td><b>The Megaphone</b></td><td><b>The Borrowed-Fame Bow</b></td></tr>
+    </tbody></table></div>
+    <p style="margin-top:12px;color:var(--muted);font-size:14px">Suggestion: weapon names as headlines, the plain service name always underneath for SEO and clarity.</p></section>
+</div>
+<script src="lib/p.js"></script>
+</body></html>

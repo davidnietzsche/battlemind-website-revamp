@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>09 Next steps · Battle Website Proposal</title><meta name="robots" content="noindex"><link rel="icon" href="assets/brand/bm-mark.webp">
+<link rel="stylesheet" href="lib/p.css">
+<script src="lib/gsap.min.js"></script><script src="lib/ScrollTrigger.min.js"></script><script src="lib/SplitText.min.js"></script>
+<style>
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;margin-top:20px}
+@media (max-width:900px){.two{grid-template-columns:minmax(0,1fr)}}
+.box{background:var(--char);border-radius:20px;padding:26px;box-shadow:0 0 0 1px var(--line)}
+.box h3{font-size:26px;margin-bottom:16px}
+.dec{display:grid;gap:10px}
+.dec label{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.04);cursor:pointer;font-size:15px}
+.dec input{accent-color:#D7000F;width:18px;height:18px;margin-top:2px;flex:none}
+.dec small{display:block;color:var(--muted);font-size:13px;margin-top:3px}
+.need{display:grid;gap:10px}
+.need div{display:grid;grid-template-columns:92px minmax(0,1fr);gap:14px;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.04)}
+.need b{font:700 18px/1.1 var(--f-n);color:var(--amber)}
+.need span{font-size:15px}.need small{display:block;color:var(--muted);font-size:13px}
+.tl{margin-top:30px;position:relative;display:grid;gap:14px}
+.ph{display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px;padding:22px;border-radius:18px;background:var(--char);box-shadow:0 0 0 1px var(--line);position:relative;overflow:hidden}
+.ph::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--fire)}
+.ph .d{font:700 20px/1.1 var(--f-n);color:#fff}.ph .d small{display:block;font:600 11px var(--f-d);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.ph h4{font-size:22px;margin-bottom:6px}.ph p{color:var(--muted);font-size:14.5px}
+.ph.launch{background:var(--fire)}.ph.launch p,.ph.launch .d small{color:#fff}
+@media (max-width:700px){.ph,.need div{grid-template-columns:minmax(0,1fr)}}
+</style></head>
+<body data-nonext>
+<div class="wrap"><div class="ptitle"><div class="num">09</div><h1 data-split>Next steps</h1>
+  <p class="lead">Lock the structure and the look first, then the content. Here's what we need from Battle, the decisions to make on this proposal, and the plan to V1 before the year ends.</p></div>
+  <div class="two">
+    <div class="box" data-rise><h3>Decide on this proposal</h3><div class="dec">
+      <label><input type="checkbox"><span>Battle Mind style: Ember (A) or Daylight fire (B)<small>Page 01</small></span></label>
+      <label><input type="checkbox"><span>Battle X style: Forge tech (C) or White lab (D)<small>Page 01</small></span></label>
+      <label><input type="checkbox"><span>Hero copy: Superhero / sidekick or Technical<small>Page 02 · Ian</small></span></label>
+      <label><input type="checkbox"><span>Proof strip, logos and case-study module picks<small>Page 02</small></span></label>
+      <label><input type="checkbox"><span>About-page story: go ahead, and what to change<small>Page 03 · Ben &amp; Ian</small></span></label>
+      <label><input type="checkbox"><span>Icon style: Forged, Glass or Toy<small>Page 08</small></span></label>
+      <label><input type="checkbox"><span>Weapon names: Straight, Battle or Cheeky<small>Page 08 · Ian</small></span></label>
+      <label><input type="checkbox"><span>Homepage loader: yes / no, pending a speed check<small>Page 02</small></span></label></div></div>
+    <div class="box" data-rise><h3>What we need from Battle</h3><div class="need">
+      <div><b>17 Oct</b><span>Confirmed sitemap and homepage sections<small>Sue</small></span></div>
+      <div><b>3 Nov</b><span>Ian's approvals: hero copy, weapon names<small>Ian</small></span></div>
+      <div><b>3 Nov</b><span>Case studies cleared to publish, with real numbers<small>Sue · clients</small></span></div>
+      <div><b>3 Nov</b><span>Service-page content, made consistent<small>Sue</small></span></div>
+      <div><b>3 Nov</b><span>Photos of Ben, Matthew &amp; Ian (or a shoot date), and team photos<small>Sue</small></span></div>
+      <div><b>3 Nov</b><span>The real founder story details for the About page<small>Ben</small></span></div>
+      <div><b>Nov</b><span>Domain, hosting access, analytics accounts<small>Battle</small></span></div></div></div>
+  </div>
+  <section style="margin-top:60px"><div class="kick">The plan</div><h2 data-split style="font-size:clamp(40px,5.4vw,86px);margin-top:10px">Road to V1.</h2>
+    <div class="tl">
+      <div class="ph" data-rise><div class="d">7–20 Oct<small>Proposals</small></div><div><h4>This proposal → feedback</h4><p>Styles, homepage, About story, icons, modules. One round of feedback.</p></div></div>
+      <div class="ph" data-rise><div class="d">21 Oct–10 Nov<small>Design</small></div><div><h4>Lock the direction · design system · key pages</h4><p>Home, About, Services navigator, service template ×3, case study, Team, Contact. Tech stack and CMS chosen.</p></div></div>
+      <div class="ph" data-rise><div class="d">11 Nov–1 Dec<small>Build</small></div><div><h4>Build V1</h4><p>Fast homepage, cinematic About, light service pages, case studies, "coming soon" for the rest. AI-search and SEO structure.</p></div></div>
+      <div class="ph" data-rise><div class="d">2–15 Dec<small>Content &amp; QA</small></div><div><h4>Content in, test everything, one revision round</h4><p>Phones, speed, accessibility, forms, tracking.</p></div></div>
+      <div class="ph launch" data-rise><div class="d">by 22 Dec<small>Launch</small></div><div><h4>V1 live</h4><p>Domain, redirects from the old site, analytics. 23–31 Dec held as buffer.</p></div></div>
+    </div></section>
+</div>
+<div style="height:80px"></div>
+<script src="lib/p.js"></script>
+</body></html>

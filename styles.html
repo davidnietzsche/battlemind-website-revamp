@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>01 Look &amp; feel · Battle Website Proposal</title><meta name="robots" content="noindex"><link rel="icon" href="assets/brand/bm-mark.webp">
+<link rel="stylesheet" href="lib/p.css">
+<script src="lib/gsap.min.js"></script><script src="lib/ScrollTrigger.min.js"></script><script src="lib/SplitText.min.js"></script>
+<style>
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px;margin-top:30px}
+@media (max-width:1000px){.pair{grid-template-columns:minmax(0,1fr)}}
+.opt h3{font-size:26px;margin:8px 0 6px}
+.opt .why{color:var(--muted);font-size:14.5px;max-width:52ch;margin-bottom:14px}
+.mock{border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px var(--line),0 40px 80px -40px #000;font-size:13px}
+.mock .mn{display:flex;justify-content:space-between;align-items:center;padding:14px 22px}
+.mock .mn img{width:70px}
+.mock .mn span{display:flex;gap:14px;font:600 10px var(--f-d);letter-spacing:.14em;text-transform:uppercase}
+.mock .hx{padding:46px 26px 40px;position:relative;overflow:hidden}
+.mock .hx h4{font-size:clamp(34px,4vw,56px);line-height:.9}
+.mock .hx p{margin-top:12px;max-width:34ch;font-size:13.5px}
+.mock .hx .b{margin-top:18px;display:inline-flex;padding:10px 16px;font:600 10.5px/1 var(--f-d);letter-spacing:.14em;text-transform:uppercase}
+.mock .ix{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:22px 26px 26px}
+.mock .ix div{padding:14px;font-size:12px}
+.mock .ix b{display:block;font:700 30px/1 var(--f-n);margin-bottom:4px}
+/* A · Ember (Battle Mind) */
+.m-ember{background:#0D131A;color:#fff}
+.m-ember .hx{background:radial-gradient(70% 90% at 80% 120%,#FFB347 0%,#FF4A12 18%,#D7000F 40%,#5A0006 65%,#0D131A 85%)}
+.m-ember .hx .flow{position:absolute;inset:-40%;background:conic-gradient(from 0deg at 70% 80%,transparent,rgba(255,122,26,.35),transparent 30%);animation:spin 14s linear infinite;mix-blend-mode:screen}
+@keyframes spin{to{transform:rotate(360deg)}}
+.m-ember .hx>*{position:relative}
+.m-ember .hx .b{background:#fff;color:#D7000F;border-radius:999px}
+.m-ember .ix{background:#fff;color:#0D131A}
+.m-ember .ix div{background:#F1F2F2;border-radius:12px}.m-ember .ix b{color:#D7000F}
+/* B · Daylight fire (Battle Mind) */
+.m-day{background:#fff;color:#0D131A}
+.m-day .hx h4 em{font-style:normal;background:var(--fire);-webkit-background-clip:text;background-clip:text;color:transparent}
+.m-day .hx .blob{position:absolute;right:-60px;top:-40px;width:300px;height:300px;border-radius:42% 58% 63% 37%/45% 38% 62% 55%;background:var(--fire);filter:saturate(1.1);animation:morph 10s ease-in-out infinite alternate}
+@keyframes morph{to{border-radius:58% 42% 40% 60%/55% 60% 40% 45%;transform:rotate(25deg)}}
+.m-day .hx>*:not(.blob){position:relative}
+.m-day .hx .b{background:#0D131A;color:#fff;border-radius:999px}
+.m-day .ix{background:#F1F2F2}.m-day .ix div{background:#fff;border-radius:16px;box-shadow:0 10px 30px -18px rgba(13,19,26,.4)}.m-day .ix b{color:#D7000F}
+/* C · Forge tech (Battle X) */
+.m-forge{background:#0B0F14;color:#fff}
+.m-forge .hx{background:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px) 0 0/100% 32px,linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px) 0 0/32px 100%,#0B0F14}
+.m-forge .hx h4{letter-spacing:.06em;font-weight:500}
+.m-forge .hx .code{position:absolute;right:20px;top:30px;font:500 10.5px/1.7 ui-monospace,Menlo,monospace;color:rgba(255,255,255,.45);text-align:right}
+.m-forge .hx .code b{color:#ff5a5f;font-weight:500}
+.m-forge .hx .b{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px #D7000F;border-radius:2px}
+.m-forge .hx .line{position:absolute;left:0;bottom:0;height:2px;width:100%;background:linear-gradient(90deg,#D7000F,#FF4A12 60%,transparent)}
+.m-forge .ix{background:#0B0F14;border-top:1px solid rgba(255,255,255,.08)}.m-forge .ix div{border:1px solid rgba(255,255,255,.1);border-radius:2px}.m-forge .ix b{color:#fff;font-weight:600}
+.m-forge .ix div span{color:#ff5a5f;font:500 10px ui-monospace,Menlo,monospace}
+/* D · White lab (Battle X) */
+.m-lab{background:#F7F8F8;color:#0D131A}
+.m-lab .hx{border-bottom:1px solid #d9dde1}
+.m-lab .hx h4{font-weight:600}
+.m-lab .hx .spec{position:absolute;right:24px;top:36px;width:150px;border-top:1px solid #0D131A;font:500 10px/1.8 ui-monospace,Menlo,monospace;color:#5b636c}
+.m-lab .hx .spec div{display:flex;justify-content:space-between;border-bottom:1px solid #d9dde1}
+.m-lab .hx .spec b{color:#D7000F;font-weight:600}
+.m-lab .hx .b{background:#D7000F;color:#fff;border-radius:4px}
+.m-lab .ix div{background:#fff;border:1px solid #e1e4e7;border-radius:6px}.m-lab .ix b{color:#0D131A}
+.m-lab .ix div i{display:block;height:3px;margin-top:8px;background:linear-gradient(90deg,#D7000F,#FF4A12);width:var(--w)}
+.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
+.rule{background:var(--char);border-radius:16px;padding:22px;box-shadow:0 0 0 1px var(--line)}
+.rule h4{font-size:18px;margin-bottom:10px}
+.rule ul{margin:0;padding-left:18px;color:rgba(255,255,255,.82);font-size:14px;display:grid;gap:6px}
+@media (max-width:900px){.rules{grid-template-columns:minmax(0,1fr)}}
+.ratio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:24px}
+.ratio div{border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px var(--line)}
+.ratio .bar{display:flex;height:70px}
+.ratio .bar span{flex:var(--f);background:var(--c)}
+.ratio p{padding:14px 16px;font-size:14px;color:rgba(255,255,255,.82);background:var(--char)}
+.ratio p b{display:block;font:600 16px var(--f-d);text-transform:uppercase;letter-spacing:.06em;color:#fff;margin-bottom:4px}
+@media (max-width:900px){.ratio{grid-template-columns:minmax(0,1fr)}}
+section.blk{padding:50px 0}
+</style></head>
+<body>
+<div class="wrap">
+  <div class="ptitle"><div class="num">01</div><h1 data-split>Look &amp; feel</h1>
+    <p class="lead">Two options for each side of the house. Both keep the logo, Oswald / Inter, and brand red. They differ in how much fire they show, the shape language and the tone.</p>
+    <ul class="asked"><li>More corporate and professional, still fun and human</li><li>The fiery amber gradient (Ian's pick) for brand moments, black or white for information</li><li>Battle Mind = fun and on-trend · Battle X = expert, technical, still the same family</li></ul></div>
+
+  <section class="blk"><div class="kick">Battle Mind · creative &amp; performance</div>
+    <div class="pair">
+      <div class="opt" data-rise><span class="note">Option A</span><h3>Ember</h3><p class="why">Dark cinematic heroes that glow with the amber gradient, then clean white sections for the facts. The most "fire".</p>
+        <div class="mock m-ember"><div class="mn"><img src="assets/brand/battle-white.webp" alt="Battle"><span>Services · Work · About</span></div>
+          <div class="hx"><div class="flow"></div><h4>Your growth,<br>on fire.</h4><p>Performance marketing and creative that turns heat into results.</p><span class="b">Start a project →</span></div>
+          <div class="ix"><div><b>3×</b>sales for a client who aimed for 2×</div><div><b>200+</b>brands fired up</div><div><b>24h</b>to your first plan</div></div></div></div>
+      <div class="opt" data-rise><span class="note">Option B</span><h3>Daylight fire</h3><p class="why">White-led and friendly. The gradient lives in shapes, highlights and one hero blob. The most corporate of the Battle Mind options.</p>
+        <div class="mock m-day"><div class="mn"><img src="assets/brand/battle-red.webp" alt="Battle"><span>Services · Work · About</span></div>
+          <div class="hx"><div class="blob"></div><h4>Marketing that<br><em>actually</em> moves.</h4><p>A young team that thinks like founders, and reports you can read in a minute.</p><span class="b">Let's talk →</span></div>
+          <div class="ix"><div><b>3×</b>sales growth</div><div><b>200+</b>clients</div><div><b>5.0</b>Google rating</div></div></div></div>
+    </div></section>
+
+  <section class="blk"><div class="kick">Battle X · web &amp; tech</div>
+    <div class="pair">
+      <div class="opt" data-rise><span class="note">Option C</span><h3>Forge tech</h3><p class="why">Black, precise, engineered. A visible grid, code-like details and a single ember line: the fire, cooled into steel.</p>
+        <div class="mock m-forge"><div class="mn"><img src="assets/brand/bx-lockup.webp" alt="Battle X" style="width:110px;filter:invert(1)"><span>Build · Systems · Cases</span></div>
+          <div class="hx"><div class="code">deploy <b>ok</b> 0.8s<br>lighthouse <b>98</b><br>uptime <b>99.9%</b></div><h4>Websites &amp; apps<br>engineered to convert.</h4><p>Fast, secure, measurable. Built for businesses with serious technical needs.</p><span class="b">Book a technical call →</span><div class="line"></div></div>
+          <div class="ix"><div><span>// speed</span><b>0.8s</b>first paint</div><div><span>// seo</span><b>98</b>lighthouse</div><div><span>// stack</span><b>CMS</b>you control</div></div></div></div>
+      <div class="opt" data-rise><span class="note">Option D</span><h3>White lab</h3><p class="why">Light, clinical, spec-sheet clear. Thin rules, data first, red only where it matters, and the gradient as a progress line.</p>
+        <div class="mock m-lab"><div class="mn"><img src="assets/brand/bx-lockup.webp" alt="Battle X" style="width:110px"><span>Build · Systems · Cases</span></div>
+          <div class="hx"><div class="spec"><div>Core Web Vitals<b>Pass</b></div><div>Accessibility<b>AA</b></div><div>Integrations<b>40+</b></div></div><h4>Built right.<br>Built to scale.</h4><p>Web and app development with the numbers to prove it.</p><span class="b">Get a proposal →</span></div>
+          <div class="ix"><div><b>98</b>performance<i style="--w:98%"></i></div><div><b>100</b>SEO<i style="--w:100%"></i></div><div><b>AA</b>accessibility<i style="--w:90%"></i></div></div></div></div>
+    </div></section>
+
+  <section class="blk"><div class="kick">How the two sides stay one family</div>
+    <div class="rules">
+      <div class="rule" data-rise><h4>Always shared</h4><ul><li>Battle logo and lockups, untouched</li><li>Oswald headlines, Inter body, DIN numbers</li><li>Brand red #D7000F as the action colour</li><li>The amber-red gradient as the signature</li></ul></div>
+      <div class="rule" data-rise><h4>Battle Mind turns up</h4><ul><li>More gradient, more motion, rounder shapes</li><li>Cheeky copy, playful 3D icons</li><li>Cinematic moments (hero, About)</li></ul></div>
+      <div class="rule" data-rise><h4>Battle X turns down</h4><ul><li>Gradient only as a line or progress bar</li><li>Square corners, grids, spec-sheet data</li><li>Calm motion: reveals and transitions only</li></ul></div>
+    </div>
+    <div class="kick" style="margin-top:44px">Colour ratio per service group (Sue's idea)</div>
+    <div class="ratio">
+      <div data-rise><div class="bar"><span style="--c:#0D131A;--f:5"></span><span style="--c:#D7000F;--f:2"></span><span style="--c:linear-gradient(90deg,#FF4A12,#FFB347);--f:2"></span><span style="--c:#fff;--f:1"></span></div><p><b>Performance marketing</b>Dark and hot: black-led, strong red, the most gradient. Energy and results.</p></div>
+      <div data-rise><div class="bar"><span style="--c:#fff;--f:4"></span><span style="--c:linear-gradient(90deg,#D7000F,#FF4A12,#FFB347);--f:3"></span><span style="--c:#0D131A;--f:2"></span><span style="--c:#F1F2F2;--f:1"></span></div><p><b>Creative &amp; content</b>Light and playful: white-led with gradient shapes. Ideas and craft.</p></div>
+      <div data-rise><div class="bar"><span style="--c:#F1F2F2;--f:4"></span><span style="--c:#0D131A;--f:4"></span><span style="--c:#D7000F;--f:1"></span><span style="--c:linear-gradient(90deg,#D7000F,#FF4A12);--f:.5"></span></div><p><b>Web development · Battle X</b>Cool and precise: grey and black, red as a detail, gradient as a line.</p></div>
+    </div></section>
+</div>
+<script src="lib/p.js"></script>
+</body></html>

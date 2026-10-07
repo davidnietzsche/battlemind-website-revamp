@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>02 Homepage · Battle Website Proposal</title><meta name="robots" content="noindex"><link rel="icon" href="assets/brand/bm-mark.webp">
+<link rel="stylesheet" href="lib/p.css">
+<script src="lib/gsap.min.js"></script><script src="lib/ScrollTrigger.min.js"></script><script src="lib/SplitText.min.js"></script><script src="lib/Flip.min.js"></script><script src="lib/fire.js"></script><script src="lib/content.js"></script>
+<style>
+.sh{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:14px var(--gut);background:#0b0e12;border-top:1px solid var(--line);border-bottom:1px solid var(--line);position:sticky;top:54px;z-index:40}
+.sh .l{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.sh .l b{font:700 18px var(--f-n);color:var(--red)}
+.sh .l span{font:600 14px var(--f-d);letter-spacing:.12em;text-transform:uppercase}
+.sh .l i{font-style:normal;font-size:13px;color:var(--muted)}
+.sh .r{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+@media (max-width:900px){.sh{position:static}}
+.demo{position:relative;overflow:hidden}
+/* 1 hero */
+.hero{min-height:94svh;background:#0D131A;display:grid;align-content:center;padding:90px 0 120px}
+#hfl,#hsp{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero .grad{position:absolute;inset:0;background:radial-gradient(60% 70% at 82% 112%,#FFB347 0%,#FF4A12 16%,#D7000F 36%,#5A0006 58%,transparent 80%)}
+.hero .in{position:relative;z-index:2}
+.hero h2{font-size:clamp(46px,7.4vw,124px);line-height:.88;max-width:15ch}
+.hero h2 .g{background:linear-gradient(90deg,#fff 0%,#FFD7A8 40%,#FF7A1A 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin-top:20px;max-width:52ch;font-size:clamp(16px,1.4vw,19px);color:rgba(255,255,255,.86)}
+.hero .row{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.foes{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.foes span{font:600 12px var(--f-d);letter-spacing:.14em;text-transform:uppercase;padding:10px 14px;border-radius:999px;background:rgba(13,19,26,.65);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2);position:relative}
+.foes span::after{content:"";position:absolute;left:10px;right:10px;top:50%;height:2px;background:#FF7A1A;transform:scaleX(var(--x,0));transform-origin:left;box-shadow:0 0 10px #FF4A12}
+/* 2 logos */
+.logos{background:#F1F2F2;padding:56px 0;color:var(--black)}
+.logos .lh{text-align:center;margin-bottom:26px}
+.logos .lh h3{font-size:clamp(28px,3.4vw,48px)}
+.lrow{display:flex;gap:16px;width:max-content;margin:8px 0}
+.lchip{flex:none;width:150px;height:84px;border-radius:12px;background:#fff;display:grid;place-items:center;padding:12px 18px;box-shadow:0 6px 18px -12px rgba(13,19,26,.3)}
+.lchip img{max-height:56px;object-fit:contain}
+.lwall{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;max-width:1180px;margin:0 auto;padding:0 var(--gut)}
+.lwall .lchip{width:auto;transition:transform .35s,box-shadow .35s}
+.lwall .lchip:hover{transform:translateY(-4px);box-shadow:0 0 0 2px #FF7A1A,0 14px 30px -12px rgba(255,74,18,.6)}
+.lwall .more{display:grid;place-items:center;border-radius:12px;background:var(--fire);color:#fff;font:700 22px var(--f-n)}
+/* 2C ember wall */
+.logos.dk{background:#07090c;color:#fff}
+.lember{position:relative;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:1px;max-width:1180px;margin:0 auto;background:rgba(255,255,255,.08);border-radius:16px;overflow:hidden}
+.lember .lt{position:relative;aspect-ratio:3/2;background:#0b0e12;display:grid;place-items:center;padding:18px 22px;overflow:hidden}
+.lember .lt::before{content:"";position:absolute;inset:0;background:var(--fire);opacity:0;transition:opacity .4s}
+.lember .lt img{position:relative;max-height:44px;max-width:82%;object-fit:contain;opacity:.55;transition:opacity .4s,transform .4s}
+.lember .lt:hover::before,.lember .lt.hot::before{opacity:1}
+.lember .lt:hover img,.lember .lt.hot img{opacity:1;transform:scale(1.1)}
+.lember .spot{position:absolute;width:320px;height:320px;border-radius:50%;pointer-events:none;translate:-50% -50%;background:radial-gradient(circle,rgba(255,122,26,.22),transparent 65%);mix-blend-mode:screen;opacity:0;transition:opacity .3s;z-index:2}
+.lember:hover .spot{opacity:1}
+@media (max-width:640px){.lember{grid-template-columns:repeat(3,minmax(0,1fr))}.lember .lt{padding:12px}.lember .lt:nth-child(n+17){display:none}}
+/* 2D flip board */
+.lflip{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr);gap:40px;align-items:center;max-width:1180px;margin:0 auto;padding:0 var(--gut)}
+.lflip .big{font:700 clamp(90px,13vw,190px)/.85 var(--f-n);background:var(--fire);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lflip .big + p{font:600 13px var(--f-d);letter-spacing:.18em;text-transform:uppercase;color:#5b636c;margin-top:12px}
+.slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;perspective:800px}
+.slot{aspect-ratio:3/2;position:relative;transform-style:preserve-3d}
+.slot .face{position:absolute;inset:0;border-radius:14px;background:#fff;display:grid;place-items:center;padding:16px 22px;box-shadow:0 10px 26px -16px rgba(13,19,26,.45);backface-visibility:hidden}
+.slot .face img{max-height:64px;max-width:78%;object-fit:contain}
+.slot .face.b{transform:rotateX(180deg)}
+@media (max-width:760px){.lflip{grid-template-columns:minmax(0,1fr);text-align:center}.slots{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* 2E speed band */
+.logos.rd{background:var(--fire);color:#fff;overflow:hidden}
+.logos.rd .kick{color:#fff}
+.lband{display:flex;gap:70px;width:max-content;align-items:center;padding:18px 0;will-change:transform}
+.lband img{height:clamp(34px,4.4vw,56px);width:auto;max-width:none}
+.lband.two img{height:clamp(30px,3.6vw,46px);opacity:.6}
+/* 2F featured + rest */
+.lfeat{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;max-width:1180px;margin:0 auto;padding:0 var(--gut)}
+.lfeat .ft{border-radius:18px;background:#fff;aspect-ratio:1;display:grid;grid-template-rows:1fr auto;padding:22px;box-shadow:0 14px 34px -22px rgba(13,19,26,.5);transition:transform .4s,box-shadow .4s}
+.lfeat .ft:hover{transform:translateY(-6px);box-shadow:0 0 0 2px #FF7A1A,0 24px 44px -20px rgba(255,74,18,.55)}
+.lfeat .ft img{max-height:120px;max-width:72%;object-fit:contain;place-self:center}
+.lfeat .ft span{font:600 11px var(--f-d);letter-spacing:.16em;text-transform:uppercase;color:#5b636c;text-align:center}
+.lmini{display:flex;gap:34px;width:max-content;align-items:center;margin-top:30px}
+.lmini img{height:28px;width:auto;max-width:none;filter:grayscale(1);opacity:.5}
+@media (max-width:760px){.lfeat{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* 3 metrics */
+.proof{background:#fff;color:var(--black);padding:46px 0 56px}
+.tick{display:flex;gap:60px;width:max-content;align-items:baseline}
+.tick span{font:700 clamp(40px,5vw,72px)/1 var(--f-n);white-space:nowrap}
+.tick span em{font:600 14px var(--f-d);font-style:normal;letter-spacing:.14em;text-transform:uppercase;color:#5b636c;margin-left:10px}
+.tick span:nth-child(odd){color:var(--red)}
+.pcards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.pcards div{background:var(--light);border-radius:16px;padding:24px;position:relative;overflow:hidden}
+.pcards div::after{content:"";position:absolute;left:0;bottom:0;height:4px;width:100%;background:var(--fire)}
+.pcards small{font:600 11px var(--f-d);letter-spacing:.16em;text-transform:uppercase;color:#5b636c}
+.pcards b{display:block;font:700 clamp(46px,5vw,76px)/1 var(--f-n);color:var(--red);margin:6px 0}
+.pcards span{color:#3a4048;font-size:14px}
+@media (max-width:860px){.pcards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* 4 bridge */
+.bridge{background:#0D131A;padding:80px 0}
+.b3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:36px}
+.bc{border-radius:20px;overflow:hidden;background:#121820;box-shadow:0 0 0 1px var(--line)}
+.bc .pain{padding:26px 24px;font:600 clamp(20px,2vw,26px)/1.15 var(--f-d);text-transform:uppercase;letter-spacing:.03em;position:relative}
+.bc .pain::after{content:"";position:absolute;left:20px;right:20px;top:50%;height:3px;background:linear-gradient(90deg,#D7000F,#FFB347);transform:scaleX(var(--x,0));transform-origin:left;box-shadow:0 0 14px #FF4A12}
+.bc .fix{padding:22px 24px;background:#fff;color:var(--black);opacity:var(--o,0)}
+.bc .fix b{display:block;font:600 12px var(--f-d);letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.bc .fix span{font-size:16px;font-weight:600}
+@media (max-width:900px){.b3{grid-template-columns:minmax(0,1fr)}}
+/* 5 battle armour: the avatar suits up */
+.armour{background:#07090c}
+.apin{height:100svh;position:relative;overflow:hidden}
+.apin .st{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0}
+.apin .st.s0{opacity:1}
+.apin::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,9,12,.88) 0%,rgba(7,9,12,.35) 45%,transparent 70%),linear-gradient(0deg,rgba(7,9,12,.7),transparent 30%);pointer-events:none}
+.aflash{position:absolute;inset:0;z-index:2;background:radial-gradient(40% 60% at 50% 55%,rgba(255,190,110,.75),rgba(255,74,18,.25) 40%,transparent 70%);opacity:0;pointer-events:none}
+#asp{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
+.acopy{position:absolute;left:var(--gut);top:128px;z-index:4;width:min(520px,44vw)}
+.acopy h2{font-size:clamp(34px,3.8vw,60px);margin:8px 0 16px}
+.acc{display:grid;gap:8px}
+.acc div{border-radius:14px;padding:14px 16px;background:rgba(13,19,26,.72);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);transition:background .4s,box-shadow .4s}
+.acc div b{font:700 13px var(--f-n);letter-spacing:.16em;color:var(--muted)}
+.acc div h4{font-size:17px;margin:4px 0 0;letter-spacing:.04em}
+.acc div .more{max-height:0;overflow:hidden;transition:max-height .5s ease}
+.acc div .more p{font-size:13.5px;color:rgba(255,255,255,.78);padding-top:8px}
+.acc div .more small{display:block;margin-top:6px;font:600 11px var(--f-d);letter-spacing:.1em;text-transform:uppercase;color:#ffb07a}
+.acc div.on{background:rgba(215,0,15,.22);box-shadow:inset 3px 0 0 #FF7A1A}
+.acc div.on b{color:#FFB347}
+.acc div.on .more{max-height:220px}
+@media (max-width:900px){.acc div:not(.on){display:none}.acopy h2{font-size:32px;margin:6px 0 10px}.acc div.on .more{max-height:260px}.acopy{width:auto;right:var(--gut);top:auto;bottom:4vh;translate:none}.apin::after{background:linear-gradient(0deg,rgba(7,9,12,.95) 40%,transparent 80%)}}
+/* 6 data */
+.data{background:#fff;color:var(--black);padding:80px 0}
+.flow{display:grid;grid-template-columns:minmax(0,1.1fr) 80px repeat(3,minmax(0,1fr));gap:16px;align-items:center;margin-top:34px}
+.flow figure{margin:0;text-align:center}
+.flow img{width:100%;max-width:240px;margin:0 auto;aspect-ratio:1;object-fit:cover;border-radius:20px}
+.flow figcaption{margin-top:10px;font:600 15px var(--f-d);text-transform:uppercase;letter-spacing:.06em}
+.flow figcaption span{display:block;font:400 13px var(--f-b);text-transform:none;letter-spacing:0;color:#5b636c;margin-top:4px}
+.flow .arr{font:700 54px var(--f-n);color:var(--red);text-align:center}
+@media (max-width:900px){.flow{grid-template-columns:repeat(2,minmax(0,1fr))}.flow .arr{display:none}}
+/* 7 cases */
+.cases{background:#0D131A;padding:80px 0;overflow:hidden}
+.ctrack{display:flex;gap:20px;padding:0 var(--gut);width:max-content}
+.case{width:min(620px,84vw);border-radius:20px;overflow:hidden;background:#121820;box-shadow:0 0 0 1px var(--line);display:grid;grid-template-rows:auto 1fr}
+.case .top img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.case .bd{padding:22px 24px;display:grid;gap:12px}
+.case .stats{display:flex;gap:26px;flex-wrap:wrap}
+.case .stats b{display:block;font:700 40px/1 var(--f-n);color:var(--amber)}
+.case .stats span{font-size:12.5px;color:var(--muted)}
+.case h4{font-size:22px}
+.quotes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding:40px var(--gut) 0;max-width:1400px;margin:0 auto}
+.qt{border-radius:18px;background:#fff;color:var(--black);padding:22px;display:grid;gap:12px;align-content:start}
+.qt .m{font:700 30px/1 var(--f-n);color:var(--red)}
+.qt .m small{display:block;font:600 11px var(--f-d);letter-spacing:.14em;text-transform:uppercase;color:#5b636c;margin-top:4px}
+.qt blockquote{margin:0;font-size:14px;line-height:1.55;color:#2b3138}
+.qt .lg{height:30px;object-fit:contain;object-position:left}
+@media (max-width:1000px){.quotes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cstack{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:0 var(--gut);max-width:1400px;margin:0 auto}
+.cstack .case{width:auto}
+@media (max-width:900px){.cstack{grid-template-columns:minmax(0,1fr)}}
+/* 8 team */
+.team{background:#fff;color:var(--black);padding:80px 0}
+.tphoto{margin-top:30px;border-radius:22px;overflow:hidden;position:relative}
+.tphoto img{width:100%;display:block}
+.tphoto figcaption{position:absolute;left:20px;bottom:18px;background:#fff;border-radius:999px;padding:9px 14px;font:600 11px var(--f-d);letter-spacing:.14em;text-transform:uppercase}
+/* 9 USP strip */
+.usps{background:var(--fire);padding:56px 0}
+.ugrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px}
+.ugrid div{background:rgba(13,19,26,.82);padding:26px}
+.ugrid div:first-child{border-radius:18px 0 0 18px}.ugrid div:last-child{border-radius:0 18px 18px 0}
+.ugrid b{display:block;font:700 26px/1 var(--f-d);text-transform:uppercase;margin-bottom:10px}
+.ugrid p{font-size:14.5px;color:rgba(255,255,255,.84)}
+@media (max-width:900px){.ugrid{grid-template-columns:minmax(0,1fr)}.ugrid div{border-radius:14px!important}}
+/* 10 choose your weapon: avatar on the left, the chooser on the right */
+.weapons{background:#07090c;padding:0}
+.wlay{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(340px,1fr);min-height:min(92vh,860px)}
+.arena{position:relative;overflow:hidden;min-height:520px}
+.arena img.av{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:52% 50%}
+.arena .over{position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,#07090c),linear-gradient(0deg,rgba(7,9,12,.75),transparent 35%);pointer-events:none}
+#wsp{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
+.wflash{position:absolute;inset:0;z-index:2;background:radial-gradient(35% 55% at 52% 50%,rgba(255,210,150,.85),rgba(255,74,18,.3) 40%,transparent 70%);opacity:0;pointer-events:none}
+.arena .equip{position:absolute;left:var(--gut);bottom:34px;z-index:4;max-width:420px}
+.arena .equip small{font:600 11px var(--f-d);letter-spacing:.22em;text-transform:uppercase;color:#FFB347}
+.arena .equip b{display:block;font:700 clamp(28px,3.2vw,46px)/1 var(--f-d);text-transform:uppercase;margin:6px 0}
+.arena .equip p{font-size:14px;color:rgba(255,255,255,.8)}
+.chooser{padding:clamp(40px,5vw,70px) var(--gut) 40px clamp(20px,2.5vw,36px);display:flex;flex-direction:column;justify-content:center;gap:14px}
+.chooser h2{font-size:clamp(36px,4vw,64px);margin:8px 0 10px}
+.chooser .sub{color:var(--muted);font-size:15px;margin-bottom:6px}
+.wp{border-radius:18px;background:#10151c;box-shadow:0 0 0 1px var(--line);padding:14px;cursor:pointer;transition:transform .35s,box-shadow .35s,background .35s;border:0;color:#fff;text-align:left;font:inherit;display:grid;grid-template-columns:86px minmax(0,1fr);gap:16px;align-items:center}
+.wp:hover{transform:translateX(-6px)}
+.wp.sel{transform:translateX(-10px);background:#1a1013;box-shadow:0 0 0 2px #FF7A1A,0 24px 50px -24px rgba(255,74,18,.8)}
+.wp img{width:86px;height:86px;object-fit:cover;border-radius:12px}
+.wp .k{font:600 10.5px var(--f-d);letter-spacing:.18em;text-transform:uppercase;color:var(--amber)}
+.wp h3{font-size:21px;margin:4px 0}
+.wp p{font-size:13px;color:var(--muted)}
+.wp .go{display:inline-block;margin-top:6px;font:600 11px var(--f-d);letter-spacing:.14em;text-transform:uppercase;color:#fff;border-bottom:1px solid #FF7A1A}
+#eqp .mb{display:none}
+@media (max-width:900px){
+  /* phones: the avatar on top, a swipeable weapon strip right under it, so every swap happens in view */
+  .wlay{grid-template-columns:minmax(0,1fr);min-height:0;display:flex;flex-direction:column}
+  .chooser{display:contents}.chooser .kick{order:0;padding:26px var(--gut) 0}.chooser h2{order:0;font-size:34px;margin:4px 0 14px;padding:0 var(--gut)}.chooser .sub{display:none}
+  .arena{order:1;min-height:0;height:56svh}
+  .arena .equip{bottom:16px}#eqp .dt{display:none}#eqp .mb{display:inline}
+  #wg{order:2;display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px!important;padding:14px var(--gut) 26px;scrollbar-width:none}
+  #wg::-webkit-scrollbar{display:none}
+  .wp{flex:none;width:76vw;scroll-snap-align:center;grid-template-columns:60px minmax(0,1fr);gap:12px;padding:12px}
+  .wp img{width:60px;height:60px}.wp h3{font-size:18px}.wp p,.wp .go{display:none}
+  .wp:hover,.wp.sel{transform:none}
+}
+/* 11 footer + lead magnet */
+.magnet{background:var(--fire);padding:60px 0}
+.magnet h3{font-size:clamp(30px,4vw,60px)}
+.mform{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:10px;margin-top:22px}
+.mform input,.mform select{border:0;border-radius:12px;padding:15px 16px;font:inherit;background:rgba(255,255,255,.95);color:#0D131A}
+@media (max-width:900px){.mform{grid-template-columns:minmax(0,1fr)}}
+.foot{background:#0D131A;padding:60px 0 40px}
+.fgrid{display:grid;grid-template-columns:1.2fr repeat(3,1fr) .8fr;gap:26px}
+.fgrid h5{margin:0 0 12px;font:600 12px var(--f-d);letter-spacing:.18em;text-transform:uppercase;color:#fff}
+.fgrid h5 i{font-style:normal;color:var(--red);margin-right:6px}
+.fgrid ul{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:13.5px;color:var(--muted)}
+.fgrid ul li.sub{padding-left:10px}
+.proven{margin-top:34px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13.5px;color:var(--muted)}
+.proven b{color:#fff;font:600 12px var(--f-d);letter-spacing:.14em;text-transform:uppercase;margin-right:10px}
+.flinks{display:flex;gap:22px;flex-wrap:wrap;margin-top:18px;font:600 12px var(--f-d);letter-spacing:.14em;text-transform:uppercase}
+.group{display:flex;gap:30px;align-items:center;margin-top:28px;padding:16px 22px;border-radius:14px;background:#fff;color:var(--black);flex-wrap:wrap}
+.group img{height:28px}
+@media (max-width:1000px){.fgrid{grid-template-columns:1fr 1fr}}
+.loader{position:fixed;inset:0;z-index:95;background:#07090c;display:none}
+.loader.on{display:block}
+.src{font-size:12.5px;color:var(--muted);margin-top:8px}
+</style></head>
+<body>
+<div class="wrap"><div class="ptitle"><div class="num">02</div><h1 data-split>Homepage</h1>
+  <p class="lead">Built from Sue's deck (slides 8–11), in her order and with her copy. Where the deck gives two options, the bar above that section switches between them. The avatar suits up in the growth stack and takes up a weapon at the end.</p>
+  <ul class="asked"><li>Hero + CTA, client logos, metric highlights, the marketing pain</li><li>Put on your battle armour: the growth stack, layers 1 to 4</li><li>Data made digestible, featured case studies and testimonials, meet your growth partners</li><li>Why clients love to work with us, Choose your weapon, footer lead magnet</li><li>Fast: light animation, an optional loader after a speed check</li></ul>
+  <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" id="showLoader" type="button">Preview the optional loader</button><span class="note fast">Homepage target: fast on mobile</span></div></div></div>
+<div class="loader" id="loader"><iframe src="about:blank" id="lfr" title="Loader" style="width:100%;height:100%;border:0"></iframe></div>
+
+<!-- 1 HERO -->
+<div class="sh"><div class="l"><b>02.1</b><span>Hero &amp; CTA</span><i>Deck slide 9: two headline options</i></div><div class="r"><div class="opts" data-group="hero"><button aria-pressed="true" data-v="a">Option 1 · Battleground</button><button aria-pressed="false" data-v="b">Option 2 · Direct</button></div><span class="note need">Ian to approve copy</span></div></div>
+<section class="demo hero" id="hero"><div class="grad" aria-hidden="true"></div><canvas id="hfl" aria-hidden="true"></canvas><canvas id="hsp" aria-hidden="true"></canvas>
+  <div class="wrap in">
+    <div class="hero-a"><div class="kick" style="color:#FFD7A8">Battle Mind Creative</div><h2>The business world might seem like <span class="g">a battleground.</span></h2>
+      <p>And you might find yourself surrounded by arch nemeses like</p>
+      <div class="foes" id="foes"><span>Doctor Ghost-Leads</span><span>Destroyer of Checkout Conversions</span><span>The Instant Exit Phantom</span></div>
+      <p>The good news is, it's not the end of your marketing world. All you need is the right sidekick: an empathetic, results-driven and data-intelligent marketing partner.</p>
+      <div class="row"><a class="btn" href="#" style="background:#fff;color:var(--red)">Start a marketing consultation now</a><a class="btn ghost" href="#weapons">Choose your weapon</a></div></div>
+    <div class="hero-b" style="display:none"><div class="kick" style="color:#FFD7A8">Data-intelligent digital marketing agency in Kuala Lumpur</div><h2>We turn search, social and AI into <span class="g">predictable leads and revenue.</span></h2>
+      <p>Human, empathetic, data-intelligent growth partners in KL. AI gave everyone marketing tools. We give your brand the strategy, empathy and revenue to actually win.</p>
+      <div class="row"><a class="btn" href="#" style="background:#fff;color:var(--red)">Start a marketing consultation now</a><a class="btn ghost" href="case-study.html">See case studies</a></div></div>
+  </div></section>
+
+<!-- 2 LOGOS -->
+<div class="sh"><div class="l"><b>02.2</b><span>Client logos</span><i>Many logos, clearer than the old orbit</i></div><div class="r"><div class="opts" data-group="logos"><button aria-pressed="true" data-v="a">A · Three-row marquee</button><button aria-pressed="false" data-v="b">B · Logo wall</button><button aria-pressed="false" data-v="c">C · Ember wall</button><button aria-pressed="false" data-v="d">D · Flip board</button><button aria-pressed="false" data-v="e">E · Speed band</button><button aria-pressed="false" data-v="f">F · Featured + rest</button></div><span class="note fast">Fast</span></div></div>
+<section class="demo logos" id="lsec"><div class="lh wrap"><div class="kick">Trusted by 160+ clients across 14+ industries</div><h3>Brands we've fired up</h3></div>
+  <div class="logos-a" id="la"></div><div class="logos-b" style="display:none"><div class="lwall" id="lw"></div></div>
+  <div class="logos-c" style="display:none;padding:0 var(--gut)"><div class="lember" id="le"><div class="spot"></div></div></div>
+  <div class="logos-d" style="display:none"><div class="lflip"><div><div class="big">160+</div><p>Clients across 14+ industries</p></div><div class="slots" id="ls"></div></div></div>
+  <div class="logos-e" style="display:none"><div class="lband" id="lb1"></div><div class="lband two" id="lb2"></div></div>
+  <div class="logos-f" style="display:none"><div class="lfeat" id="lf"></div><div class="lmini" id="lm"></div></div></section>
+
+<!-- 3 METRICS -->
+<div class="sh"><div class="l"><b>02.3</b><span>Metric highlights</span><i>Deck slide 9 numbers</i></div><div class="r"><div class="opts" data-group="proof"><button aria-pressed="true" data-v="a">A · Metric cards</button><button aria-pressed="false" data-v="b">B · Ticker ribbon</button></div><span class="note fast">Fast</span></div></div>
+<section class="demo proof"><div class="proof-a wrap"><div class="pcards" id="pcards"></div></div><div class="proof-b" style="display:none;overflow:hidden"><div class="tick" id="tick"></div></div></section>
+
+<!-- 4 BRIDGE -->
+<div class="sh"><div class="l"><b>02.4</b><span>The marketing battle bridge</span><i>Each pain burns out, the answer appears</i></div><div class="r"><span class="note fast">Fast · scroll reveal</span></div></div>
+<section class="demo bridge" id="bridge"><div class="wrap"><div class="kick">The marketing pain</div><h2 data-split style="font-size:clamp(36px,5vw,76px);margin-top:10px">Sound familiar?</h2>
+  <div class="b3" id="b3"></div></div></section>
+
+<!-- 5 ARMOUR -->
+<div class="sh"><div class="l"><b>02.5</b><span>Put on your battle armour</span><i>One person on a dark battlefield suits up, layer by layer</i></div><div class="r"><span class="note fast">Light · pinned scroll</span></div></div>
+<section class="demo armour" id="armour"><div class="apin" id="apin">
+  <img class="st s0" src="assets/img/av0.webp" alt=""><img class="st" src="assets/img/av1.webp" alt=""><img class="st" src="assets/img/av2.webp" alt=""><img class="st" src="assets/img/av3.webp" alt=""><img class="st" src="assets/img/av4.webp" alt="">
+  <div class="aflash" id="afl"></div><canvas id="asp" aria-hidden="true"></canvas>
+  <div class="acopy"><div class="kick">The marketing growth stack</div><h2>Put on your<br>battle armour.</h2><div class="acc" id="acc"></div></div></div></section>
+
+<!-- 6 DATA -->
+<div class="sh"><div class="l"><b>02.6</b><span>Data made digestible</span><i>A raw spreadsheet becomes a 3-step action plan</i></div><div class="r"><span class="note fast">Fast</span></div></div>
+<section class="demo data" id="data"><div class="wrap"><div class="kick">Data made digestible</div><h2 data-split style="font-size:clamp(34px,4.6vw,70px);margin-top:10px">From raw analytics<br>to a clear plan.</h2>
+  <div class="flow"><figure class="d0"><img src="assets/img/sd_sheet.webp" alt=""><figcaption>Raw analytics<span>The spreadsheet nobody reads</span></figcaption></figure><div class="arr">→</div>
+    <figure class="d1"><img src="assets/img/sd_web.webp" alt=""><figcaption>1 · Enhance web UX<span>Fix what stops people buying</span></figcaption></figure>
+    <figure class="d2"><img src="assets/img/sd_search.webp" alt=""><figcaption>2 · Strengthen SEM<span>Spend where the buyers search</span></figcaption></figure>
+    <figure class="d3"><img src="assets/img/sd_social.webp" alt=""><figcaption>3 · Trust-building social ads<span>Engage, then convert</span></figcaption></figure></div></div></section>
+
+<!-- 7 CASES -->
+<div class="sh"><div class="l"><b>02.7</b><span>Featured case studies &amp; testimony</span><i>Real results from the deck, with founder quotes</i></div><div class="r"><div class="opts" data-group="cases"><button aria-pressed="true" data-v="a">A · Scroll carousel</button><button aria-pressed="false" data-v="b">B · Three cards</button></div><span class="note need">Confirm cleared cases</span></div></div>
+<section class="demo cases" id="cases"><div class="wrap"><div class="kick">Proven results</div><h2 data-split style="font-size:clamp(34px,4.6vw,70px);margin:10px 0 34px">Battles we've won.</h2></div>
+  <div class="cases-a"><div class="ctrack" id="ct"></div></div><div class="cases-b" style="display:none"><div class="cstack" id="cs"></div></div>
+  <div class="quotes" id="qs"></div></section>
+
+<!-- 8 TEAM -->
+<div class="sh"><div class="l"><b>02.8</b><span>Meet your growth partners</span><i>The team in KL: fun, approachable, obsessed with your success</i></div><div class="r"><span class="note fast">Fast</span></div></div>
+<section class="demo team"><div class="wrap"><div class="kick">Meet your growth partners</div><h2 data-split style="font-size:clamp(34px,4.6vw,70px);margin-top:10px">Young. Hungry. On your side.</h2>
+  <div class="tstage" id="ts1" style="margin-top:30px"></div><p style="margin-top:12px;color:#5b636c;font-size:13px">The real team: the cut-outs from Battle's deck, arranged in depth and moved in code. Move your mouse over it. Nobody is edited or AI-generated; the fireball is a separate effect.</p></div></section>
+
+<!-- 9 USP STRIP -->
+<div class="sh"><div class="l"><b>02.9</b><span>Why clients love to work with us</span><i>The USP strip (5 points merged to 3, as Sue suggested)</i></div><div class="r"><span class="note fast">Fast</span></div></div>
+<section class="demo usps"><div class="wrap"><div class="ugrid">
+  <div data-rise><b>Human empathy</b><p>We understand your pain and your users' needs, and we help you craft a unique brand voice in a homogenous, AI-powered world.</p></div>
+  <div data-rise><b>Result-driven</b><p>We always start with the end goal, and we make complex data simple yet useful. No jargon, no vanity metrics.</p></div>
+  <div data-rise><b>Fun &amp; next-gen</b><p>Easy to work with, we celebrate your wins, and we use AI to amplify what you could never afford before.</p></div></div></div></section>
+
+<!-- 10 WEAPONS -->
+<div class="sh"><div class="l"><b>02.10</b><span>Choose your weapon</span><i>Pick a service: your avatar takes it up</i></div><div class="r"><span class="note fast">Fast</span><span class="note need">Weapon names: Ian</span></div></div>
+<section class="demo weapons" id="weapons"><div class="wlay">
+  <div class="arena" id="arena"><img class="av" id="avA" src="assets/img/av4.webp" alt="The avatar on the battlefield"><img class="av" id="avB" src="assets/img/av4.webp" alt="" style="opacity:0"><div class="wflash" id="wfl"></div><canvas id="wsp" aria-hidden="true"></canvas><div class="over"></div>
+    <div class="equip" id="eq"><small>Equipped</small><b id="eqn">Ready for battle</b><p id="eqp"><span class="dt">Choose a weapon on the right.</span><span class="mb">Swipe and tap a weapon below.</span></p></div></div>
+  <div class="chooser"><div class="kick">Choose your weapon</div><h2>Pick your fighter.</h2><p class="sub">Every weapon is a service. Equip one to see where it takes you.</p><div id="wg" style="display:grid;gap:12px"></div></div>
+</div></section>
+
+<!-- 11 FOOTER -->
+<div class="sh"><div class="l"><b>02.11</b><span>Footer lead magnet &amp; footer</span><i>Deck slides 8 and 11</i></div><div class="r"><span class="note fast">Fast</span></div></div>
+<section class="demo magnet"><div class="wrap"><div class="kick" style="color:#fff">Free marketing audit</div><h3 data-split>Got 15 minutes? Let's audit your marketing funnel over a virtual meet.</h3>
+  <div class="mform"><input placeholder="Name" aria-label="Name"><input placeholder="Email or WhatsApp" aria-label="Email or WhatsApp"><input placeholder="Website URL" aria-label="Website URL"><button class="btn" type="button" style="background:#0D131A">Book my audit</button></div></div></section>
+<footer class="demo foot"><div class="wrap"><div class="fgrid">
+  <div><img src="assets/brand/battle-white.webp" alt="Battle" style="width:120px"><p style="margin-top:12px;font-size:13.5px;color:var(--muted)">Battle Mind Creative · Data-intelligent digital marketing agency in Kuala Lumpur</p></div>
+  <div><h5><i>01</i>Performance marketing</h5><ul><li>Paid advertising</li><li class="sub">Google Ads</li><li class="sub">Meta Ads</li><li class="sub">TikTok &amp; XHS Ads</li><li class="sub">Marketplace Ads</li><li>SEO, SEM &amp; AI search</li><li>Lead generation</li><li>Tactical campaigns</li></ul></div>
+  <div><h5><i>02</i>Creative &amp; content</h5><ul><li>Social media management</li><li>Video production</li><li>KOL &amp; UGC marketing</li><li>Branding &amp; creative</li><li>AIGC</li></ul></div>
+  <div><h5><i>03</i>Web development &amp; digital experience</h5><ul><li>Website &amp; e-commerce</li><li>App development</li><li>Hosting &amp; maintenance</li><li>AI chatbot</li><li>Loyalty &amp; retention</li></ul></div>
+  <div><h5><i>04</i>Work</h5><h5><i>05</i>Resources</h5><h5><i>06</i>About</h5><h5><i>07</i>Contact</h5></div></div>
+  <div class="proven"><b>Proven results</b>BHPetrol · Lalaport · Care Concierge · Airport FastTrack · Naturel · Luxe Living · View all</div>
+  <div class="flinks"><span>About us</span><span>Growth hub</span><span>Service finder quiz</span><span style="color:#FFB347">Let's talk growth</span></div>
+  <div class="group"><b style="font:600 11px var(--f-d);letter-spacing:.2em;text-transform:uppercase">Group of companies</b><img src="assets/brand/bm-lockup.webp" alt="Battle Mind"><img src="assets/brand/bx-lockup.webp" alt="Battle X"></div></div></footer>
+
+<script>
+const { logos } = window.BM, R = matchMedia("(prefers-reduced-motion: reduce)").matches;
+gsap.registerPlugin(ScrollTrigger, Flip);
+const hooks = {};
+document.querySelectorAll(".opts").forEach((g) => g.addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return; const grp = g.dataset.group, v = b.dataset.v;
+  g.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+  document.querySelectorAll(`[class*="${grp}-"]`).forEach((el) => { const m = [...el.classList].find((c) => c.startsWith(grp + "-")); if (m) el.style.display = m === `${grp}-${v}` ? "" : "none"; });
+  hooks[grp] && hooks[grp](v); ScrollTrigger.refresh();
+}));
+// 1 hero
+FX.flame(document.getElementById("hfl"), { inten: 0.6, band: 0.2 }); const hsp = FX.embers(document.getElementById("hsp"), { gravity: -20 });
+setInterval(() => { const r = document.getElementById("hero").getBoundingClientRect(); if (r.bottom > 0 && r.top < innerHeight) hsp.rise(Math.random() * innerWidth, r.bottom - 30, 1); }, 160);
+function heroIn(v) { if (R) return; const root = document.querySelector(".hero-" + v); gsap.from(root.children, { y: 40, opacity: 0, duration: 0.8, stagger: 0.08, ease: "power3.out" });
+  if (v === "a") gsap.fromTo("#foes span", { "--x": 0 }, { "--x": 1, duration: 0.5, stagger: 0.3, delay: 1.2, ease: "power2.in" }); }
+hooks.hero = heroIn; heroIn("a");
+// 2 logos
+const chip = (l) => `<div class="lchip"><img src="assets/logos/${l}.webp" alt="${l.replace(/-logo.*|-v2/g, "").replace(/-/g, " ")}" loading="lazy"></div>`;
+const third = Math.ceil(logos.length / 3);
+la.innerHTML = [0, 1, 2].map((i) => { const r = logos.slice(i * third, (i + 1) * third); return `<div class="lrow">${[...r, ...r].map(chip).join("")}</div>`; }).join("");
+if (!R) document.querySelectorAll(".lrow").forEach((r, i) => gsap.fromTo(r, { xPercent: i % 2 ? -50 : 0 }, { xPercent: i % 2 ? 0 : -50, duration: 55 + i * 8, ease: "none", repeat: -1 }));
+lw.innerHTML = logos.slice(0, 23).map(chip).join("") + `<div class="more">+140</div>`;
+// 2C ember wall: white logos on dark, a fire spotlight follows the cursor and lights the tile under it (phones: tiles light in turn)
+const nm = (l) => l.replace(/-logo.*|-v2/g, "").replace(/-/g, " "), img = (l) => `<img src="assets/logos-clean/${l}.webp" alt="${nm(l)}" loading="lazy">`, mono = (l) => `<img src="assets/logos-mono/${l}.webp" alt="${nm(l)}" loading="lazy">`;
+le.insertAdjacentHTML("beforeend", logos.slice(0, 24).map((l) => `<div class="lt">${mono(l)}</div>`).join(""));
+const spot = le.querySelector(".spot"), lts = [...le.querySelectorAll(".lt")];
+le.addEventListener("pointermove", (e) => { const r = le.getBoundingClientRect(); spot.style.left = e.clientX - r.left + "px"; spot.style.top = e.clientY - r.top + "px"; });
+if (!R && matchMedia("(hover: none)").matches) { let k = 0; setInterval(() => { lts.forEach((t) => t.classList.remove("hot")); lts[(k = (k + 7) % lts.length)].classList.add("hot"); }, 900); }
+// 2D flip board: six slots flip to the next logo in turn
+const SL = 6; let nx = SL; ls.innerHTML = Array.from({ length: SL }, (_, i) => `<div class="slot"><div class="face a">${img(logos[i])}</div><div class="face b">${img(logos[i + SL])}</div></div>`).join("");
+const slots = [...ls.querySelectorAll(".slot")]; slots.forEach((s) => (s.dataset.r = 0));
+if (!R) { let si = 0; setInterval(() => { if (document.querySelector(".logos-d").style.display === "none" || document.hidden) return;
+  const s = slots[si = (si + 1) % SL], r = +s.dataset.r + 180, hidden = s.querySelector(r % 360 ? ".face.b" : ".face.a");
+  hidden.innerHTML = img(logos[nx = (nx + 1) % logos.length]); s.dataset.r = r; gsap.to(s, { rotationX: r, duration: 0.8, ease: "back.out(1.6)" }); }, 700); }
+// 2E speed band: white logos on brand red; scrolling speeds the band up and skews it
+lb1.innerHTML = [...logos.slice(0, 22), ...logos.slice(0, 22)].map(mono).join(""); lb2.innerHTML = [...logos.slice(22), ...logos.slice(22)].map(mono).join("");
+if (!R) { const t1 = gsap.to("#lb1", { xPercent: -50, duration: 60, ease: "none", repeat: -1 }), t2 = gsap.fromTo("#lb2", { xPercent: -50 }, { xPercent: 0, duration: 70, ease: "none", repeat: -1 });
+  const sk = gsap.quickTo(".lband", "skewX", { duration: 0.5, ease: "power3" });
+  ScrollTrigger.create({ trigger: "#lsec", start: "top bottom", end: "bottom top", onUpdate: (s) => { const v = s.getVelocity(), k = 1 + Math.min(8, Math.abs(v) / 300);
+    t1.timeScale(k); t2.timeScale(k); sk(Math.max(-12, Math.min(12, -v / 250))); gsap.delayedCall(0.3, () => { t1.timeScale(1); t2.timeScale(1); sk(0); }); } }); }
+// 2F featured + rest: four headline brands big, the rest as a quiet strip
+const FT = [["Liverpool-logo-v2", "Football club"], ["Good-Year-logo-v2", "Tyres & automotive"], ["BHP-Petrol-logo", "Fuel retail"], ["Maxis-Business-logo", "Telco"]];
+lf.innerHTML = FT.map(([l, t]) => `<div class="ft" data-rise>${img(l)}<span>${t}</span></div>`).join("");
+const rest = logos.filter((l) => !FT.some(([f]) => f === l)); lm.innerHTML = [...rest, ...rest].map(img).join("");
+if (!R) gsap.to("#lm", { xPercent: -50, duration: 80, ease: "none", repeat: -1 });
+// dark / red section backgrounds follow the chosen version
+hooks.logos = (v) => { lsec.classList.toggle("dk", v === "c"); lsec.classList.toggle("rd", v === "e"); };
+// 3 metrics (deck slide 9)
+const M = [["Trusted by", "160+", "clients across 14+ industries"], ["Up to", "500%", "client business growth in 3 years"], ["Up to", "3×", "annual sales for our client"], ["Up to", "67%", "decrease in cost per result"]];
+pcards.innerHTML = M.map(([s, b, t]) => `<div><small>${s}</small><b>${b}</b><span>${t}</span></div>`).join("");
+tick.innerHTML = [...M, ...M, ...M].map(([s, b, t]) => `<span>${b}<em>${t}</em></span>`).join("");
+if (!R) { gsap.to("#tick", { xPercent: -33.333, duration: 34, ease: "none", repeat: -1 }); gsap.from("#pcards div", { y: 40, opacity: 0, stagger: 0.1, duration: 0.7, ease: "power3.out", scrollTrigger: { trigger: "#pcards", start: "top 85%" } }); }
+// 4 bridge (deck slide 10)
+const P = [["Ad budgets burning with zero leads?", "We focus strictly on CPL and revenue math."], ["AI write-ups all sound the same?", "We bring authentic human positioning."], ["Confusing performance reports?", "We bring results-driven clarity."]];
+b3.innerHTML = P.map(([p, f]) => `<div class="bc"><div class="pain">${p}</div><div class="fix"><b>Battle's answer</b><span>${f}</span></div></div>`).join("");
+if (!R) { const tl = gsap.timeline({ scrollTrigger: { trigger: "#bridge", start: "top 60%", end: "bottom 75%", scrub: 0.5 } }); P.forEach((_, i) => tl.to(`.bc:nth-child(${i + 1}) .pain`, { "--x": 1, opacity: 0.55, duration: 0.5 }, i).to(`.bc:nth-child(${i + 1}) .fix`, { "--o": 1, duration: 0.5 }, i + 0.3)); }
+else document.querySelectorAll(".bc .fix").forEach((f) => f.style.setProperty("--o", 1));
+// 5 armour: the avatar suits up, one layer per scroll step (deck slide 10 copy)
+const L = [["Layer 1", "The high-velocity conversion foundation", "Most digital marketing fails long before an ad is clicked: it dies on slow, confusing websites. Layer 1 builds your digital headquarters on zero-bloat, mobile-first infrastructure engineered for fast local conversion.", "Web development · landing pages · CRO"],
+  ["Layer 2", "The high-intent paid traffic engine", "Traffic without purchase intent is just a utility bill. Performance-targeted paid media engineered around aggressive ROAS targets and strict CAC thresholds.", "Meta · Google SEM · TikTok Shop · Shopee & Lazada"],
+  ["Layer 3", "The scroll-stopping creative factory", "In saturated feeds, creative strategy is your targeting strategy. UGC storytelling, localised influencer trust and AI production for high-volume, scroll-stopping ads.", "Video · motion · KOL / UGC · AI-hybrid creative"],
+  ["Layer 4", "Organic authority & lifetime value", "Paid ads buy immediate revenue; Layer 4 builds long-term market dominance: organic search for your highest-margin lines, and automated nurturing for repeat purchases.", "SEO · backlinks · WhatsApp / CRM nurturing"]];
+acc.innerHTML = L.map(([n, t, p, s]) => `<div><b>${n.toUpperCase()}</b><h4>${t}</h4><div class="more"><p>${p}</p><small>${s}</small></div></div>`).join("");
+const stages = [...document.querySelectorAll(".apin .st")], items = [...document.querySelectorAll("#acc > div")], asp = FX.embers(document.getElementById("asp"));
+const setLayer = (k) => { items.forEach((d, i) => d.classList.toggle("on", i === k - 1)); };
+if (!R) {
+  const at = gsap.timeline({ scrollTrigger: { trigger: "#armour", start: "top top", end: "+=260%", pin: "#apin", scrub: 0.5,
+    onUpdate: (s) => { const k = Math.min(4, Math.floor(s.progress * 5)); if (k !== at._k) { if (at._k !== undefined && k > at._k) { asp.burst(innerWidth * 0.62, innerHeight * 0.55, 60, 1.1); gsap.fromTo("#afl", { opacity: 0.9 }, { opacity: 0, duration: 0.6 }); } at._k = k; setLayer(k); } } } });
+  stages.forEach((s, i) => { if (i) at.to(s, { opacity: 1, duration: 0.3 }, i - 0.15); });
+  at.to({}, { duration: 0.6 });
+} else { stages.forEach((s, i) => (s.style.opacity = i === 4 ? 1 : 0)); items.forEach((d) => d.classList.add("on")); }
+// 6 data
+if (!R) gsap.timeline({ scrollTrigger: { trigger: "#data .flow", start: "top 80%" } }).from(".flow .d0", { x: -60, opacity: 0, rotate: -8, duration: 0.8, ease: "power3.out" }).from(".flow .arr", { scale: 0, duration: 0.4 })
+  .from([".flow .d1", ".flow .d2", ".flow .d3"], { y: 60, opacity: 0, stagger: 0.15, duration: 0.7, ease: "back.out(1.6)" });
+// 7 cases: real case studies from Battle's deck (slides 20-28) and the four testimonials (slide 11)
+const CS = [["case_yakisoul", "Yaki Soul", "From zero to No.1 izakaya in KL", [["RM300K → RM1.8M+", "single-outlet monthly"], ["7,000+", "monthly customers"]]],
+  ["case_bhpetrol", "BHPetrol", "Nationwide campaign, Malaysia's subsidy rollout", [["7M+", "total organic reach"], ["3.7M", "TikTok reach"]]],
+  ["case_easyeurope", "Easy Europe", "Travel revival: from pandemic to peak performance", [["700+", "leads weekly"], ["65%", "lower cost per result"]]],
+  ["case_careconcierge", "Care Concierge", "Smarter acquisition, multi-state expansion", [["37%", "lower cost per acquisition"], ["RM2.25M+", "average monthly revenue"]]],
+  ["case_lalaport", "LaLaport", "Clear branding, more visitors", [["3×", "more vendor inclusions"]]],
+  ["case_goodyear", "Goodyear", "Making loyalty more fun: a gamified reward ecosystem", [["Multi", "campaign deployment"]]]];
+const caseHTML = ([img, n, t, st]) => `<article class="case"><div class="top"><img src="assets/sue/${img}.webp" alt="${n} case study" loading="lazy"></div><div class="bd"><div class="kick">${n}</div><h4>${t}</h4><div class="stats">${st.map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join("")}</div></div></article>`;
+ct.innerHTML = CS.map(caseHTML).join(""); cs.innerHTML = CS.slice(0, 3).map(caseHTML).join("");
+const Q = [["7M+", "organic campaign reach", "We had an amazing experience working with Battle Mind Creative! They managed to cater to all our requests within a short timeframe, without compromising on quality. The team is super fun to work with, yet very professional from start to end.", "BHPetrol"],
+  ["4×", "clients' KPI", "Taking meticulous care on what the organization provides and targeting the right audience has helped us to scale almost 4-fold in less than 2 years.", "Write-Edge"],
+  ["60% / 2×", "lower CPR · conversion rate", "Their creativity, professionalism, and dedication contributed significantly to the success of our campaigns. An unstoppable team that delivered outstanding results again and again.", ""],
+  ["RM0.002", "cost per result · 131,585 reach", "Had the chance to work with BMC for a couple of digital campaigns. Love how the team provides us with innovative strategy & solutions! Highly recommended!", "Naturel"]];
+qs.innerHTML = Q.map(([m, s, q, b]) => `<figure class="qt" data-rise><div class="m">${m}<small>${s}</small></div><blockquote>“${q}”</blockquote>${b ? `<span class="kick" style="color:#5b636c">${b}</span>` : ""}</figure>`).join("");
+let caseST = null;
+function caseScroll() { if (R || innerWidth < 760) return; caseST && caseST.kill(); const tr = document.getElementById("ct");
+  caseST = gsap.to(tr, { x: () => -(tr.scrollWidth - innerWidth + 60), ease: "none", scrollTrigger: { trigger: "#ct", start: "center 55%", end: () => "+=" + (tr.scrollWidth - innerWidth), pin: ".cases-a", scrub: 0.6, invalidateOnRefresh: true } }); }
+caseScroll(); hooks.cases = (v) => { if (v === "a") caseScroll(); else if (caseST) { caseST.scrollTrigger.kill(); caseST.kill(); caseST = null; gsap.set("#ct", { x: 0 }); } };
+// 10 choose your weapon: the avatar takes up the weapon you pick
+const W = [["sword", "The Conversion Blade", "Performance marketing", "Paid ads, SEO, SEM & AI search, lead generation, tactical campaigns.", "av_w_sword"],
+  ["brush", "The Pixel Brush", "Creative & content", "Social media, video production, KOL & UGC, branding, AIGC.", "av_w_brush"],
+  ["shield", "The Code Shield", "Web development · Battle X", "Website & e-commerce, apps, hosting, AI chatbot, loyalty & retention.", "av_w_shield"]];
+wg.innerHTML = W.map(([ic, n, k, d], i) => `<button class="wp" type="button" data-i="${i}"><img src="assets/img/icon_a_${ic}.webp" alt=""><div><div class="k">${k}</div><h3>${n}</h3><p>${d}</p><span class="go">Explore this service</span></div></button>`).join("");
+const wsp = FX.embers(document.getElementById("wsp")); let showA = true;
+wg.addEventListener("click", (e) => {
+  const b = e.target.closest(".wp"); if (!b) return; const w = W[+b.dataset.i];
+  wg.querySelectorAll(".wp").forEach((x) => x.classList.toggle("sel", x === b));
+  const next = showA ? avB : avA, cur = showA ? avA : avB; showA = !showA;
+  next.src = `assets/img/${w[4]}.webp`;
+  eqn.textContent = w[1]; eqp.textContent = w[2];
+  if (R) { next.style.opacity = 1; cur.style.opacity = 0; return; }
+  const ib = b.querySelector("img").getBoundingClientRect(), ar = document.getElementById("arena").getBoundingClientRect();
+  const fly = b.querySelector("img").cloneNode(); Object.assign(fly.style, { position: "fixed", left: ib.left + "px", top: ib.top + "px", width: ib.width + "px", height: ib.height + "px", borderRadius: "14px", zIndex: 60, pointerEvents: "none" }); document.body.appendChild(fly);
+  gsap.timeline().to(fly, { left: ar.left + ar.width * 0.52 - ib.width / 2, top: ar.top + ar.height * 0.5 - ib.height / 2, scale: 0.4, rotate: 180, duration: 0.6, ease: "power3.in" })
+    .call(() => { fly.remove(); wsp.burst(ar.width * 0.5, ar.height * 0.45 + ar.top - ar.top, 90, 1.3); })
+    .fromTo("#wfl", { opacity: 1 }, { opacity: 0, duration: 0.7 }, ">-0.05").to(next, { opacity: 1, duration: 0.5 }, "<").to(cur, { opacity: 0, duration: 0.5 }, "<")
+    .fromTo("#eq", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, "<");
+});
+// optional loader preview
+showLoader.onclick = () => { loader.classList.add("on"); lfr.src = "loader.html"; setTimeout(() => { loader.classList.remove("on"); lfr.src = "about:blank"; }, 5200); };
+</script>
+<script src="lib/team.js"></script><script>TEAM.mount(document.getElementById("ts1"));</script>
+<script src="lib/p.js"></script>
+</body></html>

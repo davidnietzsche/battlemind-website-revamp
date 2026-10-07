@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>15 Ember loader · Battle fire elements</title>
+<link rel="stylesheet" href="lib/core.css">
+<script src="lib/gsap.min.js"></script><script src="lib/SplitText.min.js"></script><script src="lib/fire.js"></script>
+<style>
+.stage{background:#07090c}
+.ring{position:relative;width:240px;height:240px}
+.ring i{position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px;border-radius:50%;background:#2a1a12}
+.num{position:absolute;inset:0;display:grid;place-items:center;font:700 64px/1 var(--f-n)}
+.after{position:absolute;inset:0;display:grid;place-content:center;text-align:center;opacity:0}
+.after img{width:min(420px,70vw);margin:0 auto}
+.after p{margin-top:22px;color:var(--muted);font:600 13px var(--f-d);letter-spacing:.3em;text-transform:uppercase}
+.flash{position:absolute;inset:0;background:radial-gradient(circle,rgba(255,200,120,.9),rgba(255,90,31,.5) 30%,transparent 70%);opacity:0;pointer-events:none}
+#sp{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+</style></head>
+<body>
+<section class="stage"><div class="ring" id="ring"><div class="num" id="num">00</div></div><div class="flash" id="fla"></div>
+  <div class="after" id="af"><img src="assets/brand/battle-white.webp" alt="Battle"><p>Built for growth</p></div><canvas id="sp" aria-hidden="true"></canvas></section>
+<script>
+// Preloader: 24 embers in a ring catch one by one as the count climbs to 100 (each flares on the heat ramp, then glows);
+// at 100 the ring collapses into a flash and the logo is revealed. One GSAP timeline.
+FX.frame({ n: "15", name: "Ember loader", kind: "Preloader · on load" });
+const ring = document.getElementById("ring"), N = 24, R = 104;
+for (let i = 0; i < N; i++) { const e = document.createElement("i"), a = (i / N) * Math.PI * 2 - Math.PI / 2; gsap.set(e, { x: Math.cos(a) * R, y: Math.sin(a) * R }); ring.appendChild(e); }
+const dots = [...ring.querySelectorAll("i")], sp = FX.embers(document.getElementById("sp"));
+let tl;
+window.EL = { play() {
+  if (tl) tl.kill(); gsap.set(dots, { background: "#2a1a12", boxShadow: "none", scale: 1 }); gsap.set(["#ring", "#num"], { opacity: 1, scale: 1 }); gsap.set("#af", { opacity: 0, scale: 0.9 });
+  const o = { v: 0 }; tl = gsap.timeline({ delay: 0.3 });
+  tl.to(o, { v: 100, duration: 2.6, ease: "power1.inOut", onUpdate: () => {
+    num.textContent = String(Math.round(o.v)).padStart(2, "0"); const lit = Math.floor((o.v / 100) * N);
+    dots.forEach((d, i) => { if (i < lit && !d._lit) { d._lit = 1; gsap.fromTo(d, { background: "#fff6e0", boxShadow: "0 0 18px 8px rgba(255,150,60,.95)", scale: 1.8 }, { background: "#ff5a1f", boxShadow: "0 0 10px 3px rgba(215,0,15,.8)", scale: 1, duration: 0.6, ease: "power2.out" });
+      const r = d.getBoundingClientRect(); sp.burst(r.left + 5, r.top + 5, 6, 0.5); } if (i >= lit) d._lit = 0; }); } })
+    .to(dots, { x: 0, y: 0, duration: 0.45, ease: "power3.in", stagger: { each: 0.008, from: "random" } }, "+=0.1")
+    .to("#num", { scale: 0, opacity: 0, duration: 0.3 }, "<")
+    .call(() => sp.burst(innerWidth / 2, innerHeight / 2, 140, 1.4))
+    .fromTo("#fla", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1.5, duration: 0.25, ease: "power2.out" })
+    .to("#fla", { opacity: 0, duration: 0.8 }).to("#ring", { opacity: 0, duration: 0.1 }, "<")
+    .to("#af", { opacity: 1, scale: 1, duration: 0.9, ease: "power3.out" }, "<");
+} };
+EL.play();
+</script>
+</body></html>

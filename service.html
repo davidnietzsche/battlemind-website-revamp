@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>05 Service page · Battle Website Proposal</title><meta name="robots" content="noindex"><link rel="icon" href="assets/brand/bm-mark.webp">
+<link rel="stylesheet" href="lib/p.css">
+<script src="lib/gsap.min.js"></script><script src="lib/ScrollTrigger.min.js"></script><script src="lib/SplitText.min.js"></script>
+<style>
+.switch{position:sticky;top:54px;z-index:40;background:#0b0e12;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px var(--gut);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.switch b{font:600 12px var(--f-d);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.lp{--bg:#0D131A;--fg:#fff;--mut:rgba(255,255,255,.66);--card:#121820;--acc:#D7000F;--r:18px;transition:background .6s}
+.lp section{padding:clamp(70px,9vw,120px) 0;position:relative;overflow:hidden}
+.lp h2{font-size:clamp(40px,6vw,96px)}
+.lp h3{font-size:clamp(28px,3.4vw,50px)}
+.s-hero{background:var(--hero);color:var(--hfg,#fff);min-height:86svh;display:grid;align-content:center}
+.s-hero .eyebrow{font:600 12px var(--f-d);letter-spacing:.24em;text-transform:uppercase;opacity:.85}
+.s-hero h2{margin:14px 0 18px;max-width:14ch}
+.s-hero p{max-width:46ch;font-size:clamp(16px,1.4vw,19px);opacity:.88}
+.s-hero .row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+.s-hero .viz{position:absolute;right:var(--gut);top:50%;translate:0 -50%;width:min(38vw,460px)}
+.counter{border-radius:var(--r);padding:26px;background:rgba(0,0,0,.35);box-shadow:inset 0 0 0 1px rgba(255,255,255,.15)}
+.counter small{font:600 11px var(--f-d);letter-spacing:.2em;text-transform:uppercase;opacity:.75}
+.counter b{display:block;font:700 clamp(54px,6vw,90px)/1 var(--f-n);margin:8px 0}
+.counter .bar{height:8px;border-radius:8px;background:rgba(255,255,255,.15);overflow:hidden}
+.counter .bar i{display:block;height:100%;width:0;background:var(--barc,#FFB347)}
+.counter p{font-size:13px;margin-top:10px;opacity:.85}
+@media (max-width:900px){.s-hero .viz{position:static;translate:none;width:auto;margin-top:30px}}
+.s-myth{background:var(--bg);color:var(--fg)}
+.myth{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:34px}
+.myth div{border-radius:var(--r);padding:24px;background:var(--card)}
+.myth s{display:block;font:600 18px var(--f-d);text-transform:uppercase;letter-spacing:.04em;color:var(--mut);text-decoration-color:var(--acc);text-decoration-thickness:3px}
+.myth b{display:block;font:700 22px/1.15 var(--f-d);text-transform:uppercase;margin-top:12px;color:var(--acc)}
+.myth p{font-size:14.5px;color:var(--mut);margin-top:8px}
+.s-get{background:var(--bg2);color:var(--fg2)}
+.get{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:30px}
+.get div{border-radius:var(--r);padding:22px;background:var(--card2);box-shadow:var(--sh2,none)}
+.get b{font:700 30px/1 var(--f-n);color:var(--acc)}
+.get h4{font-size:19px;margin:10px 0 6px}
+.get p{font-size:14px;color:var(--mut2)}
+.s-proof{background:var(--accbg);color:#fff}
+.proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:20px}
+.proof b{display:block;font:700 clamp(54px,6vw,96px)/1 var(--f-n)}
+.proof span{opacity:.85}
+.s-faq{background:var(--bg2);color:var(--fg2)}
+.faq{margin-top:30px;display:grid;gap:10px;max-width:880px}
+.faq details{border-radius:var(--r);padding:4px 22px;background:var(--card2);box-shadow:var(--sh2,none)}
+.faq summary{cursor:pointer;padding:16px 0;font-weight:600;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq p{padding:0 0 16px;color:var(--mut2)}
+.s-cta{background:var(--hero);color:var(--hfg,#fff)}
+.form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:10px;margin-top:26px;max-width:980px}
+.form input,.form select{border:0;border-radius:12px;padding:15px 16px;font:inherit;background:rgba(255,255,255,.92);color:#0D131A}
+@media (max-width:900px){.myth,.get,.proof,.form{grid-template-columns:minmax(0,1fr)}}
+/* moods */
+.lp.perf{--hero:radial-gradient(70% 90% at 85% 110%,#FFB347 0%,#FF4A12 16%,#D7000F 38%,#5A0006 62%,#0D131A 84%);--bg:#0D131A;--bg2:#fff;--fg2:#0D131A;--card2:#F1F2F2;--mut2:#3a4048;--accbg:#D7000F}
+.lp.crea{--hero:linear-gradient(135deg,#fff 0%,#fff 50%,#FFE2CC 100%);--hfg:#0D131A;--bg:#fff;--fg:#0D131A;--mut:#3a4048;--card:#F1F2F2;--acc:#D7000F;--bg2:#F1F2F2;--fg2:#0D131A;--card2:#fff;--mut2:#3a4048;--sh2:0 12px 30px -20px rgba(13,19,26,.4);--accbg:linear-gradient(115deg,#D7000F,#FF4A12,#FFB347);--r:28px}
+.lp.crea .s-hero::after{content:"";position:absolute;right:-8%;top:-10%;width:46vw;height:46vw;border-radius:42% 58% 63% 37%/45% 38% 62% 55%;background:var(--fire);opacity:.92;animation:morph 12s ease-in-out infinite alternate;z-index:0}
+.lp.crea .s-hero .wrap{position:relative;z-index:1}
+@keyframes morph{to{border-radius:58% 42% 40% 60%/55% 60% 40% 45%;transform:rotate(20deg)}}
+.lp.web{--hero:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px) 0 0/100% 40px,linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px) 0 0/40px 100%,#0B0F14;--bg:#0B0F14;--card:#121820;--bg2:#F7F8F8;--fg2:#0D131A;--card2:#fff;--mut2:#4a525b;--sh2:inset 0 0 0 1px #e1e4e7;--accbg:#0D131A;--r:4px;--barc:linear-gradient(90deg,#D7000F,#FF4A12)}
+.lp.web .s-proof{border-top:3px solid;border-image:linear-gradient(90deg,#D7000F,#FF4A12,transparent) 1}
+.lp.web .s-proof b{color:#fff}.lp.web .proof span{color:#ff8a8f}
+.lp.web .s-hero h2{font-weight:500;letter-spacing:.05em}
+.lp.web .counter{background:#0B0F14;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);font-family:ui-monospace,Menlo,monospace}
+</style></head>
+<body>
+<div class="wrap"><div class="ptitle"><div class="num">05</div><h1 data-split>Service landing page</h1>
+  <p class="lead">One template for every service page, treated as an ad landing page: a little storytelling in the first two sections, then fast, simple sections (text reveals and colour changes). The mood shifts per service group.</p>
+  <ul class="asked"><li>Service pages will run ads, so they must load fast: minimal animation</li><li>The first two sections explain what people misunderstand about the service</li><li>Simple transitions only: text appearing, colour changes between sections</li><li>Battle X (web) looks more professional and technical</li><li>FAQ content written for AI search</li></ul></div></div>
+<div class="switch"><b>Service group</b><div class="opts" id="cat"><button data-c="perf" aria-pressed="true">Performance marketing</button><button data-c="crea" aria-pressed="false">Creative &amp; content</button><button data-c="web" aria-pressed="false">Web development · Battle X</button></div><span class="note fast">Fast · ad landing page</span></div>
+<main class="lp perf" id="lp"></main>
+<script>
+const D = {
+  perf: { eye: "Performance marketing · Battle Mind", h: "Your ads are running. Are they winning?", p: "Most budgets leak before they ever reach a buyer. We set the sales goal first, then build the campaign backwards from it.",
+    cnt: ["Ad budget leaking this month", 4800, "RM ", "Typical leak from untargeted boosting and no tracking."],
+    mythT: "What most people get wrong", myth: [["Boosting posts", "Campaigns built on a goal", "A boost buys views. A campaign buys outcomes."], ["More budget", "Better targeting", "Spend follows buyers, not reach."], ["Likes = success", "Revenue = success", "We report sales, leads and cost per result."]],
+    getT: "What you get", get: [["Goal & tracking setup", "Pixel, events and a dashboard that shows sales."], ["Campaign strategy", "Audiences, offers and budget split."], ["Ad creative", "Scroll-stopping ads, tested weekly."], ["Digestible reports", "One page, three actions, monthly."]],
+    proof: [["3×", "sales for a client who aimed for 2×"], ["-38%", "cost per lead (placeholder)"], ["200+", "clients served"]] },
+  crea: { eye: "Creative & content · Battle Mind", h: "Content that stops the scroll.", p: "Design, video and AI production that look premium, and now cost a fraction of what they used to: mascots, jingles, 3D explainers.",
+    cnt: ["Seconds to stop a scroll", 1.7, "", "That's all the time your content gets in a feed."],
+    mythT: "What AI changed", myth: [["Cheap AI content", "AI-amplified originals", "Use AI to make what you couldn't afford before, not generic filler."], ["3D explainers are for big brands", "3D at SME budgets", "Show how your product works, beautifully."], ["Templates", "A brand voice", "Content that sounds like you, not like everyone."]],
+    getT: "What we make", get: [["Design", "Ads, social, brand assets."], ["Video", "Short-form, product, testimonials."], ["AI production", "Mascots, jingles, 3D diagrams."], ["KOL", "Creators whose audience is your customer."]],
+    proof: [["10M+", "views generated (placeholder)"], ["48h", "first concepts (placeholder)"], ["5.0", "Google rating"]] },
+  web: { eye: "Web development · Battle X", h: "Websites engineered to convert.", p: "Fast, secure and measurable websites and apps for businesses with serious technical needs, built by the team that also drives your traffic.",
+    cnt: ["Visitors lost per 1s of load time", 7, "", "% of conversions lost for every extra second (industry benchmark)."],
+    mythT: "Common misconceptions", myth: [["A pretty site", "A site that converts", "Design serves the funnel, not the other way round."], ["Launch and forget", "Measure and improve", "Tracking and CRO from day one."], ["Any developer", "Developers who market", "We build for the traffic we send."]],
+    getT: "What we build", get: [["Corporate websites", "CMS you control, fast and secure."], ["Landing pages", "One page, one goal, measured."], ["E-commerce", "Stores that sell."], ["Web apps", "Booking, portals, integrations."]],
+    proof: [["98", "performance score target"], ["0.8s", "first paint target"], ["AA", "accessibility"]] },
+};
+const FAQ = ["How long until we see results?", "How do you report results?", "What budget do I need to start?", "Do you work with businesses like mine?"];
+function render(c) {
+  const d = D[c]; lp.className = "lp " + c;
+  lp.innerHTML = `<section class="s-hero"><div class="wrap"><div class="eyebrow">${d.eye}</div><h2 class="sp">${d.h}</h2><p>${d.p}</p><div class="row"><a class="btn" href="#cta" style="${c === "crea" ? "" : "background:#fff;color:var(--red)"}">Get a free plan →</a><a class="btn ghost" href="#">See case studies</a></div></div>
+    <div class="viz"><div class="counter"><small>${d.cnt[0]}</small><b id="cn">${d.cnt[2]}0</b><div class="bar"><i id="cb"></i></div><p>${d.cnt[3]}</p></div></div></section>
+  <section class="s-myth"><div class="wrap"><div class="kick">${d.mythT}</div><h3 class="sp">Let's clear this up.</h3><div class="myth">${d.myth.map(([a, b, p]) => `<div class="rv"><s>${a}</s><b>${b}</b><p>${p}</p></div>`).join("")}</div></div></section>
+  <section class="s-get"><div class="wrap"><div class="kick">${d.getT}</div><h3 class="sp">Everything you need. Nothing you don't.</h3><div class="get">${d.get.map(([h, p], i) => `<div class="rv"><b>0${i + 1}</b><h4>${h}</h4><p>${p}</p></div>`).join("")}</div></div></section>
+  <section class="s-proof"><div class="wrap"><div class="kick" style="color:#fff;opacity:.8">Proof</div><div class="proof">${d.proof.map(([b, s]) => `<div class="rv"><b>${b}</b><span>${s}</span></div>`).join("")}</div></div></section>
+  <section class="s-faq"><div class="wrap"><div class="kick">FAQ · written for search and AI answers</div><h3 class="sp">Questions we get a lot.</h3><div class="faq">${FAQ.map((q, i) => `<details${i ? "" : " open"}><summary>${q}</summary><p>Answer written by Battle, specific to this service, with numbers where possible, so search engines and AI assistants can quote it.</p></details>`).join("")}</div></div></section>
+  <section class="s-cta" id="cta"><div class="wrap"><h2 class="sp">Let's plan your win.</h2><div class="form"><input placeholder="Name" aria-label="Name"><input placeholder="Company" aria-label="Company"><select aria-label="Goal"><option>I want more sales</option><option>More leads</option><option>More traffic</option><option>More bookings</option></select><button class="btn" type="button">Send →</button></div></div></section>`;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  ScrollTrigger.getAll().forEach((s) => s.vars.id === "lp" && s.kill());
+  lp.querySelectorAll(".sp").forEach((h) => { const s = new SplitText(h, { type: "lines,words" }); gsap.set(s.lines, { overflow: "hidden" }); gsap.from(s.words, { yPercent: 110, duration: 0.8, stagger: 0.035, ease: "power4.out", scrollTrigger: { id: "lp", trigger: h, start: "top 88%" } }); });
+  lp.querySelectorAll(".rv").forEach((el, i) => gsap.from(el, { y: 36, opacity: 0, duration: 0.7, delay: (i % 4) * 0.08, ease: "power3.out", scrollTrigger: { id: "lp", trigger: el, start: "top 92%" } }));
+  const o = { v: 0 }; gsap.to(o, { v: d.cnt[1], duration: 2.2, ease: "power2.out", delay: 0.4, onUpdate: () => { document.getElementById("cn").textContent = d.cnt[2] + (d.cnt[1] < 10 && d.cnt[1] % 1 ? o.v.toFixed(1) : Math.round(o.v).toLocaleString()); } });
+  gsap.to("#cb", { width: "78%", duration: 2.2, ease: "power2.out", delay: 0.4 });
+  ScrollTrigger.refresh();
+}
+const q = new URLSearchParams(location.search).get("c"); const start = D[q] ? q : "perf";
+document.querySelectorAll("#cat button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.c === start));
+render(start);
+cat.addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; cat.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); history.replaceState(null, "", "?c=" + b.dataset.c); render(b.dataset.c); scrollTo({ top: document.querySelector(".switch").offsetTop - 54 }); });
+</script>
+<script src="lib/p.js"></script>
+</body></html>

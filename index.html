@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Battle Website Proposal</title><meta name="robots" content="noindex"><link rel="icon" href="assets/brand/bm-mark.webp">
+<link rel="stylesheet" href="lib/p.css">
+<script src="lib/gsap.min.js"></script><script src="lib/ScrollTrigger.min.js"></script><script src="lib/SplitText.min.js"></script><script src="lib/fire.js"></script>
+<style>
+.cover{min-height:100svh;position:relative;overflow:hidden;display:grid;align-content:center;padding:120px 0 90px}
+#fl{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.cover .wrap{position:relative;z-index:2}
+.cover h1{font-size:clamp(70px,12vw,200px);line-height:.84}
+.cover h1 .g{background:var(--fire);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover p{margin-top:24px;max-width:56ch;font-size:clamp(16px,1.5vw,20px);color:rgba(255,255,255,.82)}
+.cover .meta{display:flex;gap:26px;flex-wrap:wrap;margin-top:30px;font:600 12px var(--f-d);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.cover .meta b{color:#fff}
+.heard{background:#fff;color:var(--black);padding:clamp(70px,9vw,120px) 0}
+.heard h2{font-size:clamp(40px,5.5vw,86px)}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:40px}
+.col{background:var(--light);border-radius:18px;padding:26px}
+.col h3{font-size:22px;margin-bottom:12px}
+.col ul{margin:0;padding-left:18px;display:grid;gap:7px;font-size:15px;color:#3a4048}
+.col .big{font:700 64px/1 var(--f-n);color:var(--red)}
+.usp{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;margin-top:20px}
+.usp div{background:var(--black);color:#fff;padding:24px;border-radius:0}
+.usp div:first-child{border-radius:18px 0 0 18px}.usp div:last-child{border-radius:0 18px 18px 0;background:var(--fire)}
+.usp b{display:block;font:700 26px/1 var(--f-d);text-transform:uppercase;margin-bottom:10px}
+.usp span{font-size:14px;opacity:.85}
+@media (max-width:900px){.cols,.usp{grid-template-columns:minmax(0,1fr)}.usp div{border-radius:14px!important}}
+.toc{padding:clamp(70px,9vw,120px) 0}
+.toc h2{font-size:clamp(40px,5.5vw,86px)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,370px),1fr));gap:18px;margin-top:40px}
+.pc{background:var(--char);border-radius:18px;padding:24px;text-decoration:none;display:grid;gap:10px;box-shadow:0 0 0 1px var(--line);transition:transform .4s,box-shadow .4s}
+.pc:hover{transform:translateY(-4px);box-shadow:0 0 0 1px rgba(255,122,26,.6),0 20px 50px -20px rgba(255,74,18,.4)}
+.pc .n{font:700 34px/1 var(--f-n);color:var(--red)}
+.pc h3{font-size:26px}
+.pc p{color:var(--muted);font-size:14.5px}
+.pc .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.deck{background:#0b0e12;padding:clamp(70px,9vw,120px) 0;border-top:1px solid var(--line)}
+.deck h2{font-size:clamp(40px,5.5vw,86px)}
+.deck .dl{margin-top:14px;color:var(--muted);max-width:60ch}
+.dgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;margin-top:34px}
+.dgrid h3{font-size:22px;margin-bottom:14px}
+.tree{background:var(--char);border-radius:18px;padding:24px;box-shadow:0 0 0 1px var(--line)}
+.tree ul{margin:0;padding-left:18px;display:grid;gap:8px;font-size:14.5px;color:rgba(255,255,255,.84)}
+.tree ul ul{margin-top:8px;color:var(--muted)}
+.tree b{color:#fff;font-family:var(--f-d);text-transform:uppercase;letter-spacing:.06em}
+.mood{columns:3 140px;column-gap:8px}
+.mood img{width:100%;margin-bottom:8px;border-radius:10px;break-inside:avoid}
+@media (max-width:900px){.dgrid{grid-template-columns:minmax(0,1fr)}}
+</style></head>
+<body>
+<section class="cover"><canvas id="fl" aria-hidden="true"></canvas>
+  <div class="wrap"><div class="kick">Battle Mind · Battle X · website proposal</div>
+    <h1 data-split>Built for <span class="g">growth.</span></h1>
+    <p>A page-by-page proposal built on Sue's deck and our 6 October session: the look and feel, every page in the sitemap with your copy, the modules to choose from, the icons, and what we need to hit V1 before the end of the year.</p>
+    <div class="meta"><span>Prepared for <b>Sue, Ben, Matthew &amp; Ian</b></span><span>By <b>David Ooi</b></span><span><b>7 Oct 2026</b> · draft 2</span></div></div>
+</section>
+
+<section class="heard"><div class="wrap">
+  <div class="kick">What we heard</div><h2 data-split>The brief, in one page.</h2>
+  <div class="cols">
+    <div class="col" data-rise><h3>Positioning</h3><ul><li>More corporate and professional, still human, cheeky and a little dramatic</li><li>A young team, shown in a way that earns respect</li><li>Result-driven and data-conscious, made digestible</li><li>Unique content on service pages for AI search</li></ul></div>
+    <div class="col" data-rise><h3>Look</h3><ul><li>The fiery amber gradient Ian likes, for brand moments</li><li>Information sections on clean black or white</li><li>Battle Mind = fun and on-trend · Battle X = expert and technical</li><li>Fire = passion + business is a battlefield</li></ul></div>
+    <div class="col" data-rise><div class="big">V1</div><h3>Before year end</h3><ul><li>Homepage, About and key service pages first</li><li>The rest listed as "coming soon"</li><li>Home and service pages fast; About can go cinematic</li></ul></div>
+  </div>
+  <div class="usp" data-rise>
+    <div><b>Human empathy</b><span>We're business owners too. We feel the pain and walk alongside you. (+ human-centric voice)</span></div>
+    <div><b>Result-driven</b><span>Goal first, then the plan. A client aimed for 2× and got 3×. (+ data made digestible)</span></div>
+    <div><b>Young &amp; AI-amplified</b><span>Next-gen production: mascots, jingles and 3D explainers at SME budgets.</span></div>
+  </div>
+</div></section>
+
+<section class="deck"><div class="wrap">
+  <div class="kick">From Sue's deck · 7 Oct</div><h2 data-split>Your sitemap &amp; references.</h2>
+  <p class="dl">This proposal is built on the deck you shared: its copy, its sitemap, its case studies and its moodboard. Every page below uses your words.</p>
+  <div class="dgrid">
+    <div class="tree" data-rise><h3>Revised sitemap</h3><ul>
+      <li><b>Home</b></li>
+      <li><b>Services</b> · which digital marketing service do I need?<ul>
+        <li>Performance marketing: paid advertising (Google, Meta, TikTok &amp; XHS, marketplace), AI SEO, lead generation, tactical campaigns</li>
+        <li>Creative &amp; content: social media management, video production, KOL &amp; UGC, branding &amp; creative, AIGC</li>
+        <li>Web development &amp; digital experience: website &amp; e-commerce, app development, hosting &amp; maintenance, AI chatbot, loyalty &amp; retention</li></ul></li>
+      <li><b>Work</b> · case studies: BHPetrol, Lalaport, Care Concierge, Airport FastTrack, Naturel, Luxe Living, Goodyear</li>
+      <li><b>Resources</b> · blog</li>
+      <li><b>About</b> · Battle Group, our team, careers</li>
+      <li><b>Contact</b></li></ul></div>
+    <div data-rise><h3>Your moodboard</h3><div class="mood" id="mood"></div></div>
+  </div></div></section>
+<section class="toc"><div class="wrap">
+  <div class="kick">The proposal</div><h2 data-split>Page by page.</h2>
+  <div class="legend"><span class="note fast">Fast · light animation</span><span class="note heavy">Cinematic · heavier</span><span class="note need">Needs input from Battle</span></div>
+  <div class="cards" id="cards"></div>
+</div></section>
+<script>
+const C = [
+  ["styles.html", "01", "Look & feel", "Two style options each for Battle Mind (creative/performance) and Battle X (web/tech), side by side, with palette and type rules.", ["fast"]],
+  ["home.html", "02", "Homepage", "All 11 sections from Sue's deck with her copy: the avatar suits up in the battle armour stack and takes up a weapon in Choose your weapon.", ["fast", "need"]],
+  ["about.html", "03", "About · the epic", "The Humans Behind The Data: the deck storyline as a cinematic scroll, from the downturn to the bromance to the heroes line-up, plus the three territories as live 3D icons.", ["heavy", "need"]],
+  ["services.html", "04", "Services navigator", "The deck's service finder: match your headache (A to E), get the category and priority services, the comparison table and a help form.", ["fast"]],
+  ["service.html", "05", "Service landing page", "One template, three moods: Performance Marketing, Creative & Content (Battle Mind) and Web Development (Battle X). Built for ad traffic.", ["fast"]],
+  ["case-study.html", "06", "Case study", "The real Yaki Soul case as an immersive parallax scene: mouse-reactive depth layers, four scroll-scrubbed chapters, numbers that climb as you scroll. Then the collaborations and the Work index.", ["heavy", "need"]],
+  ["team.html", "07", "Team · Guardians", "The heroes line-up: the deck's six superhero names as illustrated characters, the founders and the real team photo.", ["heavy", "need"]],
+  ["icons.html", "08", "Icons & weapons", "Three 3D icon styles (forged, glass, toy) and quirky weapon names for the services.", ["need"]],
+  ["next.html", "09", "Next steps", "What we need from Battle, by when, and the plan to V1 before the year ends.", ["need"]],
+];
+cards.innerHTML = C.map(([h, n, t, d, tags]) => `<a class="pc" href="${h}" data-rise><span class="n">${n}</span><h3>${t}</h3><p>${d}</p><div class="tags">${tags.map((x) => `<span class="note ${x}">${{ fast: "Fast", heavy: "Cinematic", need: "Needs input" }[x]}</span>`).join("")}</div></a>`).join("");
+mood.innerHTML = ["ref06_1", "ref06_3", "ref06_4", "ref06_5", "ref06_6", "ref06_7", "ref07_2", "ref07_3", "ref07_4", "ref07_5", "ref07_6"].map((r) => `<img src="assets/sue/${r}.webp" alt="" loading="lazy">`).join("");
+const fl = FX.flame(document.getElementById("fl"), { inten: 0.55, band: 0.22 });
+</script>
+<script src="lib/p.js"></script>
+</body></html>
