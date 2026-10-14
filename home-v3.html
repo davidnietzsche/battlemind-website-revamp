@@ -2,7 +2,8 @@
 <html lang="en"><head><meta charset="utf-8"><script src="lib/gate.js"></script><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Homepage v3 · Battle Website</title><meta name="robots" content="noindex"><link rel="icon" href="assets/brand/bm-mark.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
-<script src="lib/gsap.min.js"></script><script src="lib/ScrollTrigger.min.js"></script><script src="lib/SplitText.min.js"></script><script src="lib/look.js"></script>
+<script src="lib/gsap.min.js"></script><script src="lib/ScrollTrigger.min.js"></script><script src="lib/SplitText.min.js"></script><script src="lib/look.js"></script><script src="lib/lenis.min.js"></script><script src="lib/fire.js"></script>
+<script type="importmap">{"imports":{"three":"./lib/t166/three.module.min.js","three/addons/":"./lib/t166/addons/"}}</script>
 <style>
 /* Homepage v3, built section by section from the references in Sue's "Web Revamp" deck (slides 1-12).
    Type: Inter at light/regular weights in sentence case (Tradebox, NovaPay, Red Dot Miami), with Instrument Serif italics for accent words
@@ -42,9 +43,22 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 .hero{position:relative;min-height:100svh}
 .hero [data-o]{position:relative;min-height:100svh;overflow:hidden}
 /* A · silk video (NovaPay, Transform your data) */
-.hA video,.hA .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hA::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,11,.92) 0%,rgba(10,10,11,.55) 38%,transparent 70%),linear-gradient(0deg,var(--ink),transparent 30%)}
-.hA .in{position:relative;z-index:2;min-height:100svh;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);align-items:center;gap:30px;padding-top:90px;padding-bottom:60px}
+.pin3d{position:relative;height:100svh;overflow:hidden;background:#060203}
+.hA video,.hA .poster,.hA canvas.silk{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hA canvas.silk{display:none}.hA.gl canvas.silk{display:block}.hA.gl video,.hA.gl .poster{display:none}
+.hA .veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(6,2,3,.85) 0%,rgba(6,2,3,.4) 40%,transparent 70%),linear-gradient(0deg,rgba(10,10,11,.9),transparent 26%)}
+.beat{position:absolute;inset:0;z-index:2;display:flex;align-items:center;padding-top:60px}
+.beat .wrap{width:100%}
+.b1,.b2{opacity:0;visibility:hidden}
+.beat h2{font-size:clamp(46px,6vw,104px);line-height:.95}.beat h2 .it{color:#FFC2AE}
+.b1 .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:30px;align-items:center}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:34px;max-width:760px}
+.duo .glass{padding:22px;display:grid;gap:6px}.duo small{font:500 12px var(--f);letter-spacing:.16em;text-transform:uppercase;color:var(--amb)}.duo b{font:400 26px/1.1 var(--f);letter-spacing:-.02em}.duo span{font-size:14px;color:var(--mut)}
+.chap{position:absolute;left:var(--gut);bottom:30px;z-index:3;display:flex;gap:16px;align-items:center;font:500 12px var(--f);letter-spacing:.14em;color:var(--mut)}
+.chap i{display:block;width:140px;height:2px;background:rgba(255,255,255,.18)}.chap em{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--amb))}
+.hA .sc{left:auto;right:var(--gut)}
+
+
 .hA h1{font-size:clamp(54px,7.6vw,128px);line-height:.95}
 .hA h1 .it{display:block;color:#FFC2AE}
 .hh .w{display:inline-block;will-change:transform}
@@ -55,7 +69,7 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 .stat span{grid-column:1/-1;font-size:12.5px;color:var(--mut)}
 .stat i{width:42px;height:42px;border-radius:12px;background:radial-gradient(circle at 30% 30%,#FFB8A0,var(--red) 55%,var(--crim));box-shadow:0 0 24px rgba(255,74,18,.6)}
 .hA .sc{position:absolute;left:var(--gut);bottom:26px;z-index:3}
-@media (max-width:860px){.hA .in{grid-template-columns:minmax(0,1fr);align-content:end}.stat{margin-left:0;max-width:none}.hA .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.hA .cards .stat{margin:0;padding:12px}.stat b{font-size:28px}.stat i{display:none}}
+@media (max-width:860px){.beat{align-items:flex-end;padding-bottom:90px}.b1 .two{grid-template-columns:minmax(0,1fr)}.stat{margin-left:0;max-width:none}.hA .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.hA .cards .stat{margin:0;padding:12px}.stat b{font-size:28px}.stat i{display:none}.duo{grid-template-columns:minmax(0,1fr)}.hA .veil{background:linear-gradient(0deg,rgba(6,2,3,.92) 30%,rgba(6,2,3,.2) 75%)}}
 /* B · Moah blur (Moah, Temporal Sound) */
 .hB{background:radial-gradient(70% 90% at 50% 40%,#FF2A1A,var(--red) 35%,var(--crim) 75%,#1a0002)}
 .hB .giant{position:absolute;left:50%;top:44%;translate:-50% -50%;font:900 clamp(160px,30vw,520px)/.8 var(--f);letter-spacing:-.07em;color:#1a0003;filter:blur(18px);white-space:nowrap;opacity:.85;pointer-events:none}
@@ -168,7 +182,7 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 /* ===== 5 BATTLE ARMOUR · layers stack as you scroll ===== */
 .arm{position:relative;background:radial-gradient(50% 60% at 50% 55%,rgba(215,0,15,.32),transparent 70%),#050506}
 .arm .pin{height:100svh;position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr) minmax(0,.9fr);align-items:center;gap:20px;padding:80px var(--gut) 40px}
-.arm canvas{width:100%;aspect-ratio:900/676;height:auto}
+
 .arm h2{font-size:clamp(40px,4.6vw,76px)}
 .arm .intro p{color:var(--mut);max-width:30ch;margin-top:16px}
 .ly{display:grid;gap:10px}
@@ -178,7 +192,7 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 .ly div p{font-size:13px;color:var(--mut);margin:8px 0 0;max-height:0;overflow:hidden;transition:max-height .5s}
 .ly div.on{opacity:1;background:linear-gradient(120deg,rgba(215,0,15,.35),rgba(255,74,18,.12));box-shadow:inset 0 0 0 1px rgba(255,122,60,.5)}
 .ly div.on p{max-height:140px}
-@media (max-width:960px){.arm .pin{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto 1fr;align-content:start;gap:10px;padding-top:86px}.arm .intro p{display:none}.arm h2{font-size:34px}.arm canvas{max-height:34svh;width:auto;margin:0 auto}.ly div:not(.on){display:none}}
+@media (max-width:960px){.arm .pin{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto 1fr;align-content:start;gap:10px;padding-top:86px}.arm .intro p{display:none}.arm h2{font-size:34px}.gstage{height:48svh}.ly div:not(.on){display:none}}
 
 /* ===== 6 PICK YOUR WEAPON · choose your way ===== */
 .wp{background:#F6F2EC;color:#141417}
@@ -293,6 +307,42 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 .ask .chips{display:flex;gap:8px;flex-wrap:wrap}.ask .chips span{font:500 13px var(--f);padding:9px 14px;border-radius:999px;background:var(--red);color:#fff}
 .ask .chips span+span{background:#fff;color:var(--red);box-shadow:inset 0 0 0 1px rgba(215,0,15,.3)}
 .ask .send{all:unset;cursor:pointer;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 30% 30%,#FF6A4A,var(--red));color:#fff;font-size:22px;box-shadow:0 10px 24px -8px rgba(215,0,15,.8)}
+
+/* armour stage */
+.gstage{position:relative;height:min(82svh,760px);aspect-ratio:3/4;margin:0 auto;max-width:100%}
+.gstage canvas{position:absolute;inset:0;width:100%!important;height:100%!important}
+.ly div b i{font-style:normal;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;margin-right:8px;background:rgba(255,74,18,.18);color:#FF7A5A;font-size:12px}
+/* weapon orbit */
+.wo{background:#030304}
+.opin{position:relative;height:100svh;overflow:hidden}
+.opin canvas.orb{position:absolute;inset:0;width:100%;height:100%}
+.otitle{position:absolute;left:50%;top:50%;translate:-50% -50%;text-align:center;z-index:2;pointer-events:none;transition:opacity .5s,transform .6s}
+.otitle h2{font:700 clamp(46px,6.6vw,110px)/.92 var(--f);letter-spacing:-.05em}
+.otitle h2 .it{font-weight:400;color:#FF7A5A}
+.otitle p{color:var(--mut);margin-top:16px;font-size:15px}
+.spark{position:absolute;width:30px;height:30px;z-index:2;opacity:.7}.spark.s1{right:5%;top:12%}.spark.s2{left:5%;bottom:10%}
+.opin.zoomed .otitle{opacity:0;transform:scale(.9)}
+.odet{position:absolute;right:var(--gut);top:50%;translate:0 -50%;z-index:3;width:min(420px,88vw);padding:28px;border-radius:24px;background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(18px);box-shadow:inset 0 0 0 1px var(--edge);opacity:0;visibility:hidden;transform:translateX(40px);transition:opacity .5s,transform .6s cubic-bezier(.2,.7,.2,1),visibility .5s}
+.opin.zoomed .odet{opacity:1;visibility:visible;transform:none}
+.odet .back{all:unset;cursor:pointer;font-size:13px;color:var(--mut);margin-bottom:18px;display:inline-block}.odet .back:hover{color:#fff}
+.odet small{display:block;font:500 12px var(--f);letter-spacing:.16em;text-transform:uppercase;color:var(--amb)}
+.odet h3{font:400 clamp(34px,3.4vw,52px)/1 var(--f);letter-spacing:-.03em;margin:10px 0 12px}
+.odet p{color:rgba(255,255,255,.8);margin:0 0 14px}
+.odet ul{margin:0 0 22px;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}.odet li{font-size:13px;padding:6px 11px;border-radius:999px;background:rgba(255,255,255,.08)}
+.okeys{position:absolute;left:50%;bottom:28px;translate:-50% 0;z-index:3;display:flex;gap:8px}
+.okeys button{all:unset;cursor:pointer;font:500 13px var(--f);padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px var(--edge)}
+.okeys button:hover,.okeys button:focus-visible{background:var(--red)}
+.opin.nogl .okeys{position:static;translate:none;justify-content:center;flex-wrap:wrap;padding-top:66vh}
+.otitle h2,.otitle p,.otitle .lbl{text-shadow:0 2px 30px rgba(0,0,0,.85),0 0 60px rgba(0,0,0,.6)}
+@media (max-width:760px){.opin.zoomed .okeys{display:none}.odet{top:auto;bottom:24px;translate:none;right:6vw;padding:20px}.odet h3{font-size:30px}.opin.zoomed .otitle{opacity:0}.okeys{flex-wrap:wrap;justify-content:center;width:92vw}}
+/* connect, flammy */
+.cn{background:radial-gradient(70% 60% at 50% 110%,#FFB347,#FF4A12 35%,#D7000F 62%,#5A0006 90%) !important;color:#fff !important}
+.cn canvas#cfl{position:absolute;left:0;right:0;bottom:0;width:100%;height:55%;pointer-events:none}
+.cn h2{color:#fff}.cn h2 .it{color:#FFD7A8 !important}.cn .sub{color:rgba(255,255,255,.85) !important}
+.cn .ask{background:linear-gradient(160deg,rgba(255,255,255,.28),rgba(255,255,255,.1)) !important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.55),0 40px 80px -30px rgba(60,0,0,.7) !important}
+.cn .ask input{color:#fff !important;font-family:"Inter",monospace}.cn .ask input::placeholder{color:rgba(255,255,255,.85)}
+.cn .ask .chips span{background:linear-gradient(160deg,#FF6A4A,#D7000F) !important;color:#fff !important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35),0 6px 16px -6px rgba(90,0,0,.8)}
+.cn .ask .send{background:radial-gradient(circle at 30% 30%,#FFE0B0,#FF8A3A 45%,#D7000F) !important}
 .foot{background:#000;padding:60px 0 80px;color:var(--mut);font-size:14px}
 .foot .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
 .foot img{height:22px;width:auto}.foot ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
@@ -304,15 +354,19 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 
 <!-- 1 HERO -->
 <section class="hero" id="s1" data-sec="hero">
-  <div class="opt" role="group" aria-label="Hero options"><span>Hero</span><button data-v="a">A · Silk</button><button data-v="b">B · Blur</button><button data-v="c">C · Bold</button></div>
-  <div class="hA on" data-o="a" data-par>
-    <img class="poster" src="assets/img/c_k_hero.webp" alt=""><video id="hv" muted playsinline loop autoplay preload="auto" poster="assets/img/c_k_hero.webp"><source src="assets/video/hero_silk.mp4" type="video/mp4"><source src="assets/video/hero_silk.webm" type="video/webm"></video>
-    <div class="wrap in"><div><div class="lbl">Data-intelligent digital marketing · Kuala Lumpur</div>
+  <div class="opt" role="group" aria-label="Hero options"><span>Hero</span><button data-v="a">A · Silk 3D</button><button data-v="b">B · Blur</button><button data-v="c">C · Bold</button></div>
+  <div class="hA on" data-o="a"><div class="pin3d" id="h3d">
+    <img class="poster" src="assets/img/c_k_hero.webp" alt=""><video id="hv" muted playsinline loop autoplay preload="metadata" poster="assets/img/c_k_hero.webp"><source src="assets/video/hero_silk.mp4" type="video/mp4"><source src="assets/video/hero_silk.webm" type="video/webm"></video>
+    <canvas class="silk" aria-hidden="true"></canvas><div class="veil"></div>
+    <div class="beat b0"><div class="wrap"><div class="lbl">Data-intelligent digital marketing · Kuala Lumpur</div>
       <h1 class="hh">Win the right battles. <span class="it">Scale results.</span></h1>
       <p>AI gave everyone marketing tools. We give your brand the strategy, empathy and revenue to actually win.</p>
-      <div class="ctas"><a class="btn" href="#connect">Start a marketing consultation <span class="ar">↗</span></a><a class="btn gl" href="#cases">See case studies</a></div></div>
-      <div class="cards"><div class="glass stat" data-depth="1.2"><b>160<sup>+</sup></b><i></i><span>clients across 14+ industries</span></div><div class="glass stat" data-depth="1.8"><b>500<sup>%</sup></b><i></i><span>up to, client growth in 3 years</span></div><div class="glass stat" data-depth="2.4"><b>67<sup>%</sup></b><i></i><span>up to, lower cost per result</span></div></div></div>
-    <div class="lbl sc">Scroll</div></div>
+      <div class="ctas"><a class="btn" href="#connect">Start a marketing consultation <span class="ar">↗</span></a><a class="btn gl" href="#cases">See case studies</a></div></div></div>
+    <div class="beat b1"><div class="wrap two"><h2>160+ brands.<br><span class="it">14+ industries.</span></h2>
+      <div class="cards"><div class="glass stat" data-z="1"><b>160<sup>+</sup></b><i></i><span>clients across 14+ industries</span></div><div class="glass stat" data-z="2"><b>500<sup>%</sup></b><i></i><span>up to, client business growth in 3 years</span></div><div class="glass stat" data-z="3"><b>67<sup>%</sup></b><i></i><span>up to, lower cost per result</span></div></div></div></div>
+    <div class="beat b2"><div class="wrap"><h2>Two specialists. <span class="it">One battle plan.</span></h2>
+      <div class="duo"><div class="glass"><small>Battle Mind</small><b>Creative &amp; performance</b><span>Paid ads, content, KOL &amp; UGC, branding</span></div><div class="glass"><small>Battle X</small><b>Web &amp; tech</b><span>Websites, apps, AI chatbots, loyalty</span></div></div></div></div>
+    <div class="chap" aria-hidden="true"><span>01</span><span>02</span><span>03</span><i><em id="chb"></em></i></div></div></div>
   <div class="hB" data-o="b" data-par>
     <div class="giant" data-depth=".4">BATTLE</div><img class="obj" data-depth="1.6" src="assets/img/c_obj_g.webp" alt="">
     <div class="wrap in"><div class="row"><div><div class="lbl" style="color:rgba(255,255,255,.8)">Battle Mind · Battle X</div><h1 class="hh" style="margin-top:12px">Win the right battles.<br><span class="it">Scale results.</span></h1></div>
@@ -346,16 +400,19 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
   <div class="pC" data-o="c"><img class="bg" src="assets/img/c_k_hero.webp" alt=""><div class="wrap in"><div class="lbl">The marketing battle</div><h2 style="margin-top:12px">Sound familiar?<br><span class="it">Here's our answer.</span></h2><div class="g4" id="g4"></div></div></div>
 </section>
 
-<!-- 5 BATTLE ARMOUR -->
+<!-- 5 BATTLE ARMOUR · Iron-Man suit-up -->
 <section class="arm" id="s5"><div class="pin" id="apin">
-  <div class="intro"><div class="lbl">The marketing growth stack</div><h2 style="margin-top:12px">Put on your <span class="it">battle armour</span></h2><p>Every layer we add makes the next one hit harder. Scroll to suit up.</p></div>
-  <canvas id="acv" width="900" height="676" aria-label="Glowing glass layers stacking into one block"></canvas>
+  <div class="intro"><div class="lbl">The marketing growth stack</div><h2 style="margin-top:12px">Put on your <span class="it">battle armour</span></h2><p>Four layers. One suit. Scroll to suit up, scroll back to take it apart.</p></div>
+  <div class="gstage"><canvas id="gcv" aria-label="A hand reaching up while four glowing red armour plates lock onto it as a gauntlet"></canvas></div>
   <div class="ly" id="ly"></div></div></section>
 
-<!-- 6 PICK YOUR WEAPON -->
-<section class="sec wp" id="s6"><div class="wrap" id="wpw">
-  <div class="ringw" data-par><img class="ring" id="ring" data-depth=".8" src="assets/img/c_ring_g.webp" alt=""><div class="mid"><h2>Pick your<br><span class="it">weapon</span></h2></div></div>
-  <div class="wsel" role="tablist" id="wsel"></div><div class="wdet" id="wdet"></div></div></section>
+<!-- 6 PICK YOUR WEAPON · WebGL orbit -->
+<section class="wo" id="s6"><div class="opin" id="opin">
+  <canvas class="orb" aria-hidden="true"></canvas>
+  <svg class="spark s1" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 0v40M0 20h40M6 6l28 28M34 6L6 34" stroke="#fff" stroke-width="1.6"/></svg><svg class="spark s2" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 0v40M0 20h40M6 6l28 28M34 6L6 34" stroke="#fff" stroke-width="1.6"/></svg>
+  <div class="otitle"><div class="lbl">Every weapon is a service</div><h2>Choose your <span class="it">weapon</span></h2><p>Scroll to turn the circle. Click a weapon to look closer.</p></div>
+  <aside class="odet" id="odet" aria-live="polite"><button class="back" type="button">← Back to all weapons</button><small id="ok"></small><h3 id="on"></h3><p id="od"></p><ul id="ol"></ul><a class="btn" href="#">Explore this service <span class="ar">↗</span></a></aside>
+  <div class="okeys" id="okeys" role="group" aria-label="Weapons"></div></div></section>
 
 <!-- CASES -->
 <section class="sec cases" id="cases"><div class="wrap"><div class="lbl">Proven results</div><h2 style="margin-top:12px">Battles <span class="it">we've won</span></h2><div class="cg" id="cg"></div></div></section>
@@ -377,10 +434,10 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
   <div class="tC" data-o="c"><div class="cur" id="cur"><div class="names">Ian · Matthew · Ben</div><div class="ti">Battle</div></div></div>
 </section>
 
-<!-- 9 LET'S CONNECT -->
-<section class="sec cn" id="connect" data-par><img class="objs" data-depth="1.2" src="assets/img/c_connect_g.webp" alt="">
+<!-- 9 LET'S CONNECT · flammy -->
+<section class="sec cn" id="connect" data-par><canvas id="cfl" aria-hidden="true"></canvas><img class="objs" data-depth="1.2" src="assets/img/f_connect_g.webp" alt="">
   <div class="box"><h2>Got 15 minutes? <span class="it">Let's connect.</span></h2><p class="sub">We'll audit your marketing funnel over a virtual meet, for free.</p>
-    <form class="ask" onsubmit="return false"><input aria-label="Your marketing battle" placeholder="What's your marketing battle?"><div class="row"><div class="chips"><span>More leads</span><span>Better ads</span><span>New website</span></div><button class="send" type="submit" aria-label="Send">↑</button></div></form></div></section>
+    <form class="ask" onsubmit="return false"><input aria-label="Your marketing battle" placeholder="What's your marketing battle?"><div class="row"><div class="chips"><span>⚑ Free audit</span><span>◎ Ads</span><span>▢ Website</span></div><button class="send" type="submit" aria-label="Send">↑</button></div></form></div></section>
 
 <footer class="foot"><div class="wrap"><img src="assets/brand/battle-white.webp" alt="Battle"><ul><li>Services</li><li>Work</li><li>About</li><li>Careers</li><li>Resources</li></ul><span>Battle Mind Creative · Battle X · Kuala Lumpur</span></div></footer>
 <div class="reffoot">Draft for review. Each section with options follows a specific reference from Battle's Web Revamp deck; switch options with the pills at the top right of the section.</div>
@@ -402,10 +459,8 @@ bars.innerHTML = metrics.map(([b, s, u], i) => `<div class="bar"><small>${u ? "U
 c3.innerHTML = bridge.map(([q, a], i) => `<div class="c3${i ? "" : " on"}"><span class="n">0${i + 1}</span><div><div class="q">${q}</div><h3>${a}</h3></div></div>`).join("");
 nl.innerHTML = bridge.map(([q, a], i) => `<div class="r"><b>0${i + 1}</b><div><small>${q}</small><span>${a}</span></div></div>`).join("");
 g4.innerHTML = bridge.map(([q, a], i) => `<div class="glass${i === 1 ? " hl" : ""}"><div class="q">0${i + 1} · ${q}</div><h3>${a}</h3></div>`).join("");
-ly.innerHTML = layers.map(([t, p, s], i) => `<div><b>Layer 0${i + 1}</b><h4>${t}</h4><p>${p}</p></div>`).join("");
-wsel.innerHTML = weapons.map(([k, n, c], i) => `<button role="tab" data-t="${i}"><img src="assets/img/lb_w_${k}_g.webp" alt=""><div><small>${c}</small><b>${n}</b></div></button>`).join("");
-wdet.innerHTML = weapons.map(([k, n, c, d], i) => `<div data-p="${i}" role="tabpanel"><p>${d}</p><a class="btn" href="#">Explore this service <span class="ar">↗</span></a></div>`).join("");
-LK.tabs(wpw);
+const LIC = ["▢", "◎", "▶", "♛"];
+ly.innerHTML = layers.map(([t, p, s], i) => `<div><b><i>${LIC[i]}</i>Layer 0${i + 1}</b><h4>${t}</h4><p>${p}</p></div>`).join("");
 cg.innerHTML = cases.map(([img, n, t, b, s]) => `<a class="cc" href="case-study.html"><img src="assets/sue/${img}.webp" alt="" loading="lazy"><div class="in"><b>${b}</b><small>${s}</small><h4>${t}</h4><span>${n}</span></div></a>`).join("");
 rrow.innerHTML = reviews.map(([w, r, img, q]) => `<div class="rp"><img src="assets/img/${img}.webp" alt="" loading="lazy"><b>${w}</b><small>${r}</small><p>${q}</p></div>`).join("");
 let ri = 0; const step = () => { const per = innerWidth < 860 ? 1 : 2, max = reviews.length - per; ri = Math.max(0, Math.min(ri, max)); const w = rrow.children[0].getBoundingClientRect().width + 24; rrow.style.transform = `translateX(${-ri * w}px)`; };
@@ -419,6 +474,8 @@ st.innerHTML = [...bosses, ...LK.squad.slice(0, 6).map((id) => [id, ""])].map(([
 cur.insertAdjacentHTML("afterbegin", [LK.squad[2], LK.squad[0], bosses[0][0], bosses[1][0], bosses[2][0], LK.squad[1], LK.squad[3]].map((id) => `<img src="assets/team/${id}.webp" alt="" loading="lazy">`).join(""));
 
 // ---------- motion ----------
+if (!R && window.Lenis) { const lenis = new Lenis({ lerp: 0.09, smoothWheel: true }); window.__lenis = lenis; lenis.on("scroll", ScrollTrigger.update); gsap.ticker.add((t) => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0); }
+if (window.FX && !R) FX.flame(document.getElementById("cfl"), { inten: 0.75, band: 0.5 });
 LK.motion();
 addEventListener("scroll", () => nav.classList.toggle("sc", scrollY > 40), { passive: true });
 if (!R) {
@@ -432,11 +489,7 @@ if (!R) {
     heroIn(document.querySelector("#s1 [data-o].on"));
     document.getElementById("s1").addEventListener("opt", (e) => heroIn(document.querySelector(`#s1 [data-o="${e.detail}"]`)));
   });
-  gsap.from(".hA .stat", { x: 80, opacity: 0, duration: 1.1, stagger: 0.14, ease: "power3.out", delay: 0.6 });
-  gsap.from(".hA video,.hA .poster", { scale: 1.25, opacity: 0, duration: 2.2, ease: "power2.out" });
   // hero scroll depth: background zooms and dims, copy lifts away
-  gsap.to(".hA video,.hA .poster", { scale: 1.18, yPercent: 8, ease: "none", scrollTrigger: { trigger: "#s1", start: "top top", end: "bottom top", scrub: true } });
-  gsap.to(".hA .in", { yPercent: -18, opacity: 0.15, ease: "none", scrollTrigger: { trigger: "#s1", start: "top top", end: "bottom top", scrub: true } });
   // B: the giant blurred word slowly sharpens, the object spins as you scroll
   gsap.fromTo(".hB .giant", { filter: "blur(40px)", scale: 1.15 }, { filter: "blur(16px)", scale: 1, duration: 2, ease: "power2.out" });
   gsap.to(".hB .obj", { rotation: 40, scale: 1.2, ease: "none", scrollTrigger: { trigger: "#s1", start: "top top", end: "bottom top", scrub: true } });
@@ -451,20 +504,72 @@ if (!R) {
   const c3s = [...c3.children];
   ScrollTrigger.create({ trigger: "#s4", start: "top 60%", end: "bottom 40%", onUpdate: (s) => { const k = Math.min(2, Math.floor(s.progress * 3)); c3s.forEach((c, i) => c.classList.toggle("on", i === k)); } });
   // weapon ring turns slowly with the scroll
-  gsap.fromTo("#ring", { rotation: -10 }, { rotation: 10, ease: "none", scrollTrigger: { trigger: "#s6", start: "top bottom", end: "bottom top", scrub: true } });
   // team strips rise in
   ["#mm > div", "#st > div", "#cur img"].forEach((q) => ScrollTrigger.create({ trigger: "#s8", start: "top 70%", onEnter: () => gsap.from(q, { yPercent: 30, opacity: 0, duration: 1, stagger: 0.07, ease: "power3.out" }) }));
 }
-// battle armour: the Jimeng stacking clip, drawn frame by frame as you scroll (frames in assets/armour/)
-(() => {
-  const cv = document.getElementById("acv"), cx = cv.getContext("2d"), N = 96, fr = [], lys = [...ly.children];
-  const src = (i) => `assets/armour/f${String(i).padStart(3, "0")}.webp`;
-  let cur = -1; const draw = (i) => { const im = fr[i]; if (!im || !im.complete || !im.naturalWidth) return; if (i === cur) return; cur = i; cx.clearRect(0, 0, cv.width, cv.height); cx.drawImage(im, 0, 0, cv.width, cv.height); };
-  for (let i = 0; i < N; i++) { const im = new Image(); im.src = src(i + 1); if (i === 0) im.onload = () => draw(0); fr.push(im); }
-  const setLayer = (p) => { const k = Math.min(3, Math.floor(p * 4.4)); lys.forEach((d, i) => d.classList.toggle("on", i === k)); };
-  setLayer(0);
-  if (R) { fr[N - 1].onload = () => draw(N - 1); lys.forEach((d) => d.classList.add("on")); return; }
-  ScrollTrigger.create({ trigger: "#s5", start: "top top", end: "+=260%", pin: "#apin", scrub: 0.4, onUpdate: (s) => { draw(Math.min(N - 1, Math.round(s.progress * (N - 1)))); setLayer(s.progress); } });
-})();
+
+</script>
+<script type="module">
+import { mountSilk } from "./lib/silk.js";
+import { mountGauntlet } from "./lib/gauntlet.js";
+import { mountOrbit } from "./lib/orbit.js";
+const hA = document.querySelector(".hA"), pin = document.getElementById("h3d"), R = LK.R;
+const gl = (() => { try { const c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); } catch (e) { return false; } })();
+let silk = null, st = null, tl = null;
+function up() {
+  if (R || !gl || silk) return;
+  silk = mountSilk(pin); if (!silk) return; hA.classList.add("gl");
+  // three story beats, crossfaded by the same scroll that flies the camera
+  tl = gsap.timeline({ paused: true })
+    .to(".b0", { autoAlpha: 0, y: -60, filter: "blur(10px)", duration: 0.12 }, 0.2)
+    .fromTo(".b1", { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.12 }, 0.28)
+    .fromTo(".b1 .stat", { z: 0, x: (i) => 120 + i * 80, opacity: 0 }, { x: 0, opacity: 1, stagger: 0.04, duration: 0.14 }, 0.3)
+    .to(".b1", { autoAlpha: 0, y: -60, filter: "blur(10px)", duration: 0.12 }, 0.58)
+    .fromTo(".b2", { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.12 }, 0.66)
+    .from(".duo .glass", { y: 80, opacity: 0, stagger: 0.05, duration: 0.14 }, 0.68)
+    .to({}, { duration: 0.1 }, 0.9);
+  st = ScrollTrigger.create({ trigger: pin, start: "top top", end: "+=320%", pin: true, scrub: 0.6, refreshPriority: 1,
+    onUpdate: (s) => { silk.progress = s.progress; silk.velocity = s.getVelocity(); tl.progress(s.progress); document.getElementById("chb").style.width = s.progress * 100 + "%"; } });
+  ScrollTrigger.sort(); ScrollTrigger.refresh();
+}
+function down() { if (st) { st.kill(true); st = null; } if (tl) { tl.progress(0).kill(); tl = null; } if (silk) { silk.destroy(); silk = null; } hA.classList.remove("gl"); ScrollTrigger.refresh(); }
+up();
+document.getElementById("s1").addEventListener("opt", (e) => (e.detail === "a" ? requestAnimationFrame(up) : down()));
+
+// ---- Battle Armour: suit-up clip scrubbed by scroll + WebGL energy ring ----
+{
+  const NF = 96, src = Array.from({ length: NF }, (_, i) => `assets/gauntlet/f${String(i + 1).padStart(3, "0")}.webp`);
+  const lys = [...document.querySelectorAll("#ly > div")], setL = (p) => { const k = Math.min(3, Math.floor(p * 4.4)); lys.forEach((d, i) => d.classList.toggle("on", i === k)); };
+  setL(0);
+  const g = (!R && gl) ? mountGauntlet(document.getElementById("gcv"), src, { aspect: 0.75, wrist: [0, 0.19] }) : null;
+  if (!g) { // no WebGL: plain 2D scrub
+    const cv = document.getElementById("gcv"), cx = cv.getContext("2d"), fr = src.map((s) => { const im = new Image(); im.src = s; return im; });
+    const draw = (i) => { const im = fr[i]; if (!im.complete) return; cv.width = im.naturalWidth; cv.height = im.naturalHeight; cx.drawImage(im, 0, 0); };
+    fr[R ? NF - 1 : 0].onload = () => draw(R ? NF - 1 : 0);
+    if (R) lys.forEach((d) => d.classList.add("on"));
+    else ScrollTrigger.create({ trigger: "#s5", start: "top top", end: "+=260%", pin: "#apin", scrub: 0.4, onUpdate: (s) => { draw(Math.round(s.progress * (NF - 1))); setL(s.progress); } });
+  } else ScrollTrigger.create({ trigger: "#s5", start: "top top", end: "+=260%", pin: "#apin", scrub: 0.4, onUpdate: (s) => { g.progress = s.progress; setL(s.progress); } });
+}
+
+// ---- Pick your weapon: WebGL orbit, click to zoom ----
+{
+  const pin = document.getElementById("opin"), det = { k: document.getElementById("ok"), n: document.getElementById("on"), d: document.getElementById("od"), l: document.getElementById("ol") };
+  const SERV = [["Paid ads", "SEO & SEM", "AI search", "Lead generation", "Tactical campaigns"], ["Social media", "Video production", "KOL & UGC", "Branding", "AIGC"], ["Website & e-commerce", "Apps", "Hosting", "AI chatbot", "Loyalty"]];
+  const W = LK.weapons, img = (n) => `assets/img/${n}.webp`;
+  const items = [["w_sword", 0], ["w_d1"], ["w_d2"], ["w_brush", 1], ["w_d3"], ["w_d4"], ["w_shield", 2], ["w_d5"], ["w_d6"]].map(([n, wi]) => ({ src: img(n), weapon: wi !== undefined, wi }));
+  const fill = (wi) => { const [k, n, c, d] = W[wi]; det.k.textContent = c; det.n.textContent = n; det.d.textContent = d; det.l.innerHTML = SERV[wi].map((x) => `<li>${x}</li>`).join(""); };
+  const keys = document.getElementById("okeys"); keys.innerHTML = W.map(([k, n], i) => `<button type="button" data-i="${i}">${n}</button>`).join("");
+  const o = (!R && gl) ? mountOrbit(pin, items, { onPick: (u) => fill(u.wi) }) : null;
+  if (o) {
+    keys.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) o.pickIndex(+b.dataset.i); });
+    pin.querySelector(".back").addEventListener("click", () => o.close());
+    ScrollTrigger.create({ trigger: "#s6", start: "top top", end: "+=160%", pin: "#opin", scrub: 0.5, onUpdate: (s) => { o.progress = s.progress; } });
+  } else {
+    pin.classList.add("nogl");
+    keys.addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; fill(+b.dataset.i); pin.classList.add("zoomed"); });
+    pin.querySelector(".back").addEventListener("click", () => pin.classList.remove("zoomed"));
+  }
+}
+ScrollTrigger.sort(); ScrollTrigger.refresh();
 </script>
 </body></html>
