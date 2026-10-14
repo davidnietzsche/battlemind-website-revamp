@@ -472,7 +472,7 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 @media (max-width:760px){.bz{grid-template-columns:minmax(0,1fr);grid-template-rows:38% 1fr;inset:0 8px}.bzr{padding:20px;gap:10px}.bzslide{display:none}}
 
 /* the pain · silk cards v2 */
-.g4 .glass.pc{position:relative;min-height:400px;padding:28px;display:flex;flex-direction:column;justify-content:flex-end;gap:16px;overflow:hidden;border-radius:26px}
+.g4 .glass.pc{position:relative;min-height:300px;padding:28px;display:flex;flex-direction:column;justify-content:flex-end;gap:16px;overflow:hidden;border-radius:26px}
 .pc .pn{position:absolute;right:18px;top:6px;font:800 clamp(90px,9vw,150px)/1 var(--f);letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.22);transition:-webkit-text-stroke-color .5s}
 .pc .po{position:absolute;left:22px;top:22px;width:clamp(96px,9vw,138px);transform:translateZ(40px) rotate(-8deg);filter:drop-shadow(0 20px 30px rgba(0,0,0,.5));transition:transform .8s cubic-bezier(.2,.8,.2,1)}
 .pc .po.scr{mix-blend-mode:screen}
@@ -602,7 +602,7 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 </section>
 
 <!-- 4 THE MARKETING PAIN -->
-<section id="s4" data-sec="pain" data-def="d" style="position:relative">
+<section id="s4" data-sec="pain" data-def="c" style="position:relative">
   <div class="opt" role="group" aria-label="Pain section options"><span>The pain</span><button data-v="a">A · Cards</button><button data-v="b">B · List</button><button data-v="c">C · Silk</button><button data-v="d">D · Story</button></div>
   <div class="pD" data-o="d"><div class="pst" id="pst">
     <img class="pbg" id="psad" src="assets/img/ps_sad.webp" alt="A business owner at dusk, frustrated, head in hand over his laptop">
@@ -726,7 +726,7 @@ bars.innerHTML = metrics.map(([b, s, u], i) => `<div class="bar" tabindex="0" da
 c3.innerHTML = bridge.map(([q, a], i) => `<div class="c3${i ? "" : " on"}"><span class="n">0${i + 1}</span><div><div class="q">${q}</div><h3>${a}</h3></div></div>`).join("");
 nl.innerHTML = bridge.map(([q, a], i) => `<div class="r"><b>0${i + 1}</b><div><small>${q}</small><span>${a}</span></div></div>`).join("");
 const PIC = [["pi_burn_g", ""], ["pi_same_g", ""], ["pi_clear_g", ""]];
-g4.innerHTML = bridge.map(([q, a], i) => `<div class="glass pc"><span class="pn">0${i + 1}</span><img class="po ${PIC[i][1]}" src="assets/img/${PIC[i][0]}.webp" alt=""><i class="gl"></i><div class="pq"><span>${q}</span></div><div class="pa"><b>→</b><h3>${a}</h3></div></div>`).join("");
+g4.innerHTML = bridge.map(([q, a], i) => `<div class="glass pc"><span class="pn">0${i + 1}</span><i class="gl"></i><div class="pq"><span>${q}</span></div><div class="pa"><b>→</b><h3>${a}</h3></div></div>`).join("");
 const LIC = ["▢", "◎", "▶", "♛"];
 ly.innerHTML = layers.map(([t, p, s], i) => `<div><b><i>${LIC[i]}</i>Layer 0${i + 1}</b><h4>${t}</h4><p>${p}</p></div>`).join("");
 cg.innerHTML = cases.map(([img, n, t, b, s]) => `<a class="cc" href="case-study.html"><img src="assets/sue/${img}.webp" alt="" loading="lazy"><div class="in"><b>${b}</b><small>${s}</small><h4>${t}</h4><span>${n}</span></div></a>`).join("");
