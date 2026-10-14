@@ -538,7 +538,7 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 .tbx{position:relative;height:100svh;min-height:720px;overflow:hidden;background:radial-gradient(70% 90% at 70% 40%,#E3252B,#D7000F 45%,#9a000b 100%);color:#fff}
 .tbbar{position:absolute;left:var(--gut);right:var(--gut);top:90px;z-index:4;display:grid;grid-template-columns:1fr 1fr 1fr auto;font:400 13px var(--f);color:rgba(255,255,255,.85)}
 .tbbar b{font:600 22px var(--f);letter-spacing:-.02em;color:#fff}
-.tbface{position:absolute;left:36%;translate:-50% 0;bottom:0;height:100%;width:auto;max-width:none;z-index:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 18%,#000 80%,transparent),linear-gradient(0deg,transparent,#000 10%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 18%,#000 80%,transparent),linear-gradient(0deg,transparent,#000 10%);mask-composite:intersect;will-change:transform}
+.tbface{position:absolute;left:30%;translate:-50% 0;bottom:0;height:92%;width:auto;max-width:none;z-index:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 18%,#000 80%,transparent),linear-gradient(0deg,transparent,#000 10%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 18%,#000 80%,transparent),linear-gradient(0deg,transparent,#000 10%);mask-composite:intersect;will-change:transform}
 .tbx::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(40,0,4,.55),transparent 45%);pointer-events:none;z-index:2}
 .tbl{position:absolute;left:var(--gut);bottom:8%;z-index:4}
 .tbk{font:400 15px var(--f);margin-bottom:14px}
@@ -584,6 +584,7 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 .ocfade{position:absolute;inset:auto 0 0 0;height:34%;background:linear-gradient(0deg,#050000 25%,transparent);z-index:3;pointer-events:none}
 .octitle{position:absolute;left:0;right:0;bottom:6%;z-index:4;display:flex;justify-content:center;gap:clamp(26px,6.5vw,120px);font:500 clamp(54px,8.4vw,150px)/1 "Oswald",sans-serif}
 .octitle span{display:inline-block;background:linear-gradient(180deg,#fff 55%,#9a9a9a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ocn{position:absolute;left:20px;bottom:30%;z-index:3;font:700 clamp(30px,3.4vw,60px)/1 "Oswald";text-transform:uppercase;color:#fff;opacity:0;transform:translateY(20px);transition:opacity .5s .2s,transform .6s .2s}.ocol.on .ocn{opacity:1;transform:none}
 .ochint{position:absolute;left:var(--gut);top:96px;z-index:4;color:rgba(255,255,255,.75)}
 @media (max-width:760px){.ocrow{overflow-x:auto}.ocol{flex:none;width:30vw}.ocol.on{width:70vw}.octitle{gap:4vw}}
 .foot{background:#000;padding:60px 0 80px;color:var(--mut);font-size:14px}
@@ -666,7 +667,7 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
   <div class="opt" role="group" aria-label="Review options"><span>Reviews</span><button data-v="a">A · Loved</button><button data-v="b">B · Bubbles</button><button data-v="c">C · Fly-through</button><button data-v="d">D · Confidence</button></div>
   <div class="rT" data-o="d"><div class="tbx" id="tbx">
     <div class="tbbar"><b>Battle</b><span>Reviews</span><span>Since 2020</span><span id="tbn">01</span></div>
-    <img class="tbface" src="assets/img/v4_matthew.webp" alt="Matthew, Business Director at Battle">
+    <img class="tbface" src="assets/img/v4_matthew2.webp" alt="Matthew, Business Director at Battle">
     <div class="tbl"><div class="tbk">[What clients say]</div><h2>The face of <br>confidence.</h2></div>
     <div class="tbr" id="tbr"></div>
     <div class="tbnav"><button id="tbp" aria-label="Previous reviews">←</button><button id="tbx2" aria-label="Next reviews">→</button></div></div></div>
@@ -843,7 +844,7 @@ if (!R) { const ks = [...document.querySelectorAll("#kst .ko")], kst = document.
     gsap.fromTo(".tbface", { scale: 1.12 }, { scale: 1, ease: "none", scrollTrigger: { trigger: tb, start: "top bottom", end: "bottom top", scrub: true } });
     gsap.from(".tbl h2", { y: 80, opacity: 0, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: tb, start: "top 60%" } }); } }
 // team D · Ocean's poster: walkers half-hidden behind red panels, tallest first; hover/tap one for their pose
-{ const N = 7, cols = Array.from({ length: N }, (_, i) => `<div class="ocol" tabindex="0" role="button" aria-label="Battle Guardian ${i + 1}"><img class="walk" src="assets/img/oc${i + 1}_g.webp" alt="" style="--h:${88 - i * 6}%"><img class="pose" src="assets/img/oc${i + 1}p_g.webp" alt="" style="--h:${84 - i * 2}%"></div>`);
+{ const NM = ["Matthew", "Ian", "Ben"], N = 7, cols = Array.from({ length: N }, (_, i) => `<div class="ocol" tabindex="0" role="button" aria-label="${NM[i] || "Battle Guardian"}"><img class="walk" src="assets/img/rc${i + 1}_g.webp" alt="" style="--h:${88 - i * 6}%"><img class="pose" src="assets/img/rc${i + 1}p_g.webp" alt="" style="--h:${84 - i * 2}%">${NM[i] ? `<b class="ocn">${NM[i]}</b>` : ""}</div>`);
   ocrow.innerHTML = cols.join(""); const cs = [...ocrow.children];
   // place each walker by its face (profile heads sit ~58% across the image), so the face lands just right of the panel edge
   const fit = () => cs.forEach((c) => { const w = c.querySelector(".walk"); if (!w.naturalWidth) return; const iw = w.getBoundingClientRect().height * (w.naturalWidth / w.naturalHeight);
