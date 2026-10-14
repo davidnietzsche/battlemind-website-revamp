@@ -496,8 +496,8 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 .rvveil{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(5,2,3,.55),rgba(5,2,3,.92) 75%);pointer-events:none}
 .rvhead{position:absolute;left:var(--gut);right:var(--gut);top:96px;z-index:3;display:flex;justify-content:space-between;align-items:center}
 .rvc{font:300 16px var(--f);color:var(--mut)}.rvc b{font-weight:400;color:#fff}
-.rvspace{position:absolute;inset:0;perspective:900px;perspective-origin:50% 45%;z-index:2}
-.rvq{position:absolute;left:50%;top:50%;width:min(1000px,86vw);translate:-50% -50%;text-align:center;will-change:transform,opacity,filter}
+.rvspace{position:absolute;inset:0;perspective:900px;perspective-origin:50% 50%;z-index:2}
+.rvq{position:absolute;left:0;right:0;margin:0 auto;top:50%;width:min(1000px,86vw);translate:0 -50%;text-align:center;will-change:transform,opacity,filter}
 .rvq .qm{font:400 clamp(110px,12vw,190px)/.5 var(--s);color:var(--red);height:.42em;display:block;text-shadow:0 0 40px rgba(215,0,15,.6)}
 .rvq p{margin:0;font:300 clamp(30px,4.2vw,66px)/1.12 var(--f);letter-spacing:-.03em}
 .rvq .who{display:inline-flex;align-items:center;gap:14px;margin-top:34px;text-align:left}
@@ -505,6 +505,52 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 .rvq .who b{display:block;font:500 17px var(--f)}.rvq .who span{font-size:14px;color:var(--mut)}
 .rvbar{position:absolute;left:var(--gut);right:var(--gut);bottom:34px;z-index:3;height:2px;background:rgba(255,255,255,.12)}.rvbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--amb))}
 @media (max-width:760px){.rvq p{font-size:28px}.rvq .who{margin-top:22px}.rvhead{top:86px}}
+
+/* reviews A · "Loved." (Intelsy feel in Battle red) */
+.ist{position:relative;height:100svh;min-height:720px;overflow:hidden;background:radial-gradient(60% 70% at 70% 30%,#FFE1DC,transparent 70%),radial-gradient(50% 60% at 15% 85%,#FFD6CF,transparent 70%),#F7EEEC;color:#151517;touch-action:pan-y}
+.io{position:absolute;pointer-events:none;will-change:transform;filter:drop-shadow(0 40px 60px rgba(160,20,30,.18))}
+.iword{position:absolute;left:50%;top:50%;translate:-50% -54%;z-index:2;text-align:center;pointer-events:none;will-change:transform}
+.iword .lbl{color:#8a6e6a;display:block;margin-bottom:10px}
+.iword h2{font:800 clamp(130px,21vw,360px)/.8 var(--f);letter-spacing:-.07em;color:#151517}
+.iword h2 em{font-style:normal;color:var(--red)}
+.ic{position:absolute;z-index:5;border-radius:26px;background:rgba(255,255,255,.82);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 30px 60px -30px rgba(120,20,30,.35),inset 0 0 0 1px rgba(255,255,255,.9);cursor:grab;user-select:none;will-change:transform;transition:box-shadow .4s}
+.ic:active{cursor:grabbing}
+.ic:hover{box-shadow:0 40px 80px -30px rgba(160,20,30,.5),inset 0 0 0 1px #fff}
+.ic-stat{width:min(290px,70vw);padding:22px 24px}
+.ic-stat .faces{display:flex;justify-content:flex-end;margin-bottom:6px}.ic-stat .faces img{width:44px;height:44px;border-radius:50%;object-fit:cover;margin-left:-12px;border:3px solid #fff}
+.ic-stat b{display:block;font:500 64px/1 var(--f);letter-spacing:-.05em}
+.ic-stat span{font-size:13.5px;color:#5f5552}
+.ic-pill{display:flex;gap:12px;align-items:center;padding:16px 22px;border-radius:20px}
+.ic-pill i{font-style:normal;font-size:22px;color:var(--red)}.ic-pill span{font:500 16px/1.25 var(--f)}
+.ic-rev{width:min(400px,84vw);padding:22px 24px;background:linear-gradient(160deg,rgba(255,255,255,.75),rgba(255,214,207,.65))}
+.ic-rev.sm{width:min(300px,70vw)}
+.ic-rev .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.ic-rev .chip{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;padding:6px 12px 6px 6px;border-radius:999px;background:#fff}
+.ic-rev .chip img{width:26px;height:26px;border-radius:50%;object-fit:cover}
+.ic-rev .btns{display:flex;gap:6px}.ic-rev .btns i{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-style:normal;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}.ic-rev .btns i+i{background:#151517;color:#fff}
+.ic-rev h4{font:500 22px/1.15 var(--f);letter-spacing:-.02em;margin:0 0 8px}
+.ic-rev p{margin:0;font-size:14px;color:#4a4140;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;transition:all .4s}
+.ic-rev:hover p{-webkit-line-clamp:8}
+.ihint{position:absolute;left:var(--gut);top:96px;z-index:7;color:#8a6e6a}
+@media (max-width:760px){.ihint{display:none}.ist{min-height:860px}.iword h2{font-size:30vw}.ic-pill{display:none}.ic-rev.sm{display:none}.ic-stat{top:12%!important;left:4%!important;width:62vw}.ic-stat b{font-size:44px}.ic-rev{left:4%!important;bottom:8%!important}}
+
+/* the pain D · story: pain tiles shatter, the owner smiles, camera pushes in */
+.pst{position:relative;height:100svh;min-height:680px;overflow:hidden;background:#1a0503}
+.pbg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform,opacity}
+#psad,#phap{transform-origin:49% 44%}
+.pvig{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 40%,rgba(20,3,3,.55)),linear-gradient(0deg,rgba(10,2,2,.85),transparent 40%);pointer-events:none}
+.ptiles{position:absolute;inset:0;pointer-events:none}
+.ptile{position:absolute;width:clamp(150px,13vw,210px);aspect-ratio:1;border-radius:34px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;text-align:center;
+  background:linear-gradient(160deg,rgba(255,255,255,.34),rgba(255,180,160,.12));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.55),inset 0 -14px 30px rgba(255,255,255,.12),0 30px 60px -20px rgba(60,0,0,.6);will-change:transform}
+.ptile img{width:58%;filter:drop-shadow(0 10px 18px rgba(60,0,0,.45))}
+.ptile span{font:500 12.5px/1.25 var(--f);color:#fff;text-shadow:0 1px 8px rgba(60,0,0,.6)}
+.ptile.shard{background:linear-gradient(160deg,rgba(255,255,255,.4),rgba(255,180,160,.16))}
+.pcopy{position:absolute;left:0;right:0;bottom:7%;z-index:3;text-align:center;padding:0 var(--gut)}
+.pcopy h2{font:400 clamp(44px,5.6vw,96px)/1 var(--f);letter-spacing:-.04em;text-shadow:0 4px 40px rgba(40,0,0,.6)}
+.pcopy h2 .it{color:#FFD7B8}
+.pans{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:22px;min-height:46px}
+.pans span{padding:11px 18px;border-radius:999px;font:500 14.5px var(--f);background:rgba(255,255,255,.16);backdrop-filter:blur(12px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.45);opacity:0}
+@media (max-width:760px){.ptile{width:118px;border-radius:26px}.ptile span{font-size:11px}.pans span{font-size:12.5px;padding:9px 14px}}
 .foot{background:#000;padding:60px 0 80px;color:var(--mut);font-size:14px}
 .foot .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
 .foot img{height:22px;width:auto}.foot ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
@@ -556,8 +602,16 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 </section>
 
 <!-- 4 THE MARKETING PAIN -->
-<section id="s4" data-sec="pain" data-def="c" style="position:relative">
-  <div class="opt" role="group" aria-label="Pain section options"><span>The pain</span><button data-v="a">A · Cards</button><button data-v="b">B · List</button><button data-v="c">C · Silk</button></div>
+<section id="s4" data-sec="pain" data-def="d" style="position:relative">
+  <div class="opt" role="group" aria-label="Pain section options"><span>The pain</span><button data-v="a">A · Cards</button><button data-v="b">B · List</button><button data-v="c">C · Silk</button><button data-v="d">D · Story</button></div>
+  <div class="pD" data-o="d"><div class="pst" id="pst">
+    <img class="pbg" id="psad" src="assets/img/ps_sad.webp" alt="A business owner at dusk, frustrated, head in hand over his laptop">
+    <img class="pbg" id="phap" src="assets/img/ps_happy.webp" alt="The same owner celebrating, arms raised" style="opacity:0">
+    <img class="pbg" id="pfac" src="assets/img/ps_face.webp" alt="Close-up of his happy smile" style="opacity:0">
+    <div class="pvig"></div>
+    <div class="ptiles" id="ptiles"></div>
+    <div class="pcopy"><div class="lbl" id="plbl">The marketing battle</div><h2 id="ph">Sound <span class="it">familiar?</span></h2><div class="pans" id="pans"></div></div>
+  </div></div>
   <div class="pA" data-o="a"><div class="wrap in"><div class="lbl">The marketing battle</div><h2 style="margin-top:12px">From pain <span class="it">to profit</span></h2><div class="cards3" id="c3"></div></div></div>
   <div class="pB sec" data-o="b"><div class="blob"></div><div class="wrap in"><div><div class="lbl">The marketing battle</div><h2 style="margin-top:12px">( Sound familiar? )<br><span class="it">We've got you.</span></h2></div><div class="nl" id="nl"></div></div></div>
   <div class="pC on" data-o="c" id="pc3"><img class="bg" src="assets/img/c_k_hero.webp" alt=""><canvas class="silk" aria-hidden="true"></canvas><div class="wrap in"><div class="lbl">The marketing battle</div><h2 style="margin-top:12px">Sound familiar?<br><span class="it">Here's our answer.</span></h2><div class="g4" id="g4"></div></div></div>
@@ -582,8 +636,20 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 
 <!-- 7 REVIEWS -->
 <section id="s7" data-sec="rev" style="position:relative">
-  <div class="opt" role="group" aria-label="Review options"><span>Reviews</span><button data-v="a">A · Crystal</button><button data-v="b">B · Bubbles</button></div>
-  <div class="rA on" data-o="a"><div class="rv3" id="rv3">
+  <div class="opt" role="group" aria-label="Review options"><span>Reviews</span><button data-v="a">A · Loved</button><button data-v="b">B · Bubbles</button><button data-v="c">C · Fly-through</button></div>
+  <div class="rI on" data-o="a"><div class="ist" id="ist">
+    <img class="io" data-d="0.35" style="right:-6%;top:6%;width:min(40vw,620px);z-index:0" src="assets/img/iv_sphere_g.webp" alt="">
+    <img class="io" data-d="0.6" style="left:12%;top:4%;width:min(22vw,330px);z-index:1" src="assets/img/iv_flower_g.webp" alt="">
+    <div class="iword" data-d="0.25"><small class="lbl">Reviews from our clients</small><h2>Loved<em>.</em></h2></div>
+    <img class="io" data-d="1.0" style="right:18%;bottom:-16%;width:min(34vw,520px);z-index:3" src="assets/img/iv_half_g.webp" alt="">
+    <img class="io" data-d="1.6" style="right:33%;bottom:8%;width:min(10vw,150px);z-index:6" src="assets/img/iv_cursor_g.webp" alt="">
+    <div class="ic ic-stat" data-d="1.2" style="left:6%;top:20%"><div class="faces" id="ifaces"></div><b>160+</b><span>brands across 14+ industries trust Battle since 2020</span></div>
+    <div class="ic ic-pill" data-d="1.3" style="right:10%;top:22%"><i>✦</i><span>Result-driven.<br>Data-conscious.</span></div>
+    <div class="ic ic-rev" data-d="1.1" style="left:7%;bottom:9%" data-k="0"></div>
+    <div class="ic ic-rev sm" data-d="1.45" style="right:5%;bottom:30%" data-k="1"></div>
+    <div class="ihint lbl">Drag the cards · click a review for the next</div>
+  </div></div>
+  <div class="rA" data-o="c"><div class="rv3" id="rv3">
     <canvas class="silk" aria-hidden="true"></canvas><div class="rvveil"></div>
     <div class="rvhead"><div class="lbl">Reviews from our clients</div><div class="rvc"><b id="rvn">01</b> / <span id="rvt">05</span></div></div>
     <div class="rvspace" id="rvspace"></div>
@@ -669,6 +735,30 @@ const RV = reviews.filter((x) => x[0] !== "Cheanu Chew");
 rvt.textContent = String(RV.length).padStart(2, "0");
 rvspace.innerHTML = RV.map(([w, r, img, q]) => `<figure class="rvq"><span class="qm" aria-hidden="true">“</span><p>${q}</p><figcaption class="who"><img src="assets/img/${img}.webp" alt=""><div><b>${w}</b><span>${r}</span></div></figcaption></figure>`).join("");
 window.__rvq = [...rvspace.children];
+// reviews A · "Loved.": draggable floating cards, depth parallax, click a review card for the next client
+{ const ist = document.getElementById("ist"), revs = [...ist.querySelectorAll(".ic-rev")]; let next = 2;
+  ifaces.innerHTML = RV.slice(0, 3).map(([w, r, img]) => `<img src="assets/img/${img}.webp" alt="">`).join("");
+  const fill = (c, k) => { const [w, r, img, q] = RV[k % RV.length]; c.dataset.k = k % RV.length;
+    c.innerHTML = `<div class="top"><span class="chip"><img src="assets/img/${img}.webp" alt="">${w}</span><span class="btns"><i>◎</i><i>✦</i></span></div><h4>${r}</h4><p>“${q}”</p>`; };
+  revs.forEach((c, i) => fill(c, i));
+  const layers = [...ist.querySelectorAll("[data-d]")];
+  const mv = layers.map((el) => ({ el, d: +el.dataset.d, x: gsap.quickTo(el, "x", { duration: 1, ease: "power3" }), y: gsap.quickTo(el, "y", { duration: 1, ease: "power3" }), ox: 0, oy: 0 }));
+  if (!R) {
+    ist.addEventListener("pointermove", (e) => { const b = ist.getBoundingClientRect(), kx = (e.clientX - b.left) / b.width - 0.5, ky = (e.clientY - b.top) / b.height - 0.5;
+      mv.forEach((m) => { m.x(-kx * 70 * m.d); m.y(-ky * 50 * m.d); }); });
+    mv.filter((m) => m.el.matches(".io")).forEach((m, i) => gsap.to(m.el, { rotation: i % 2 ? 8 : -8, duration: 5 + i, repeat: -1, yoyo: true, ease: "sine.inOut" }));
+    gsap.from(layers, { y: 120, opacity: 0, scale: 0.85, duration: 1.2, stagger: 0.08, ease: "power3.out", scrollTrigger: { trigger: ist, start: "top 70%" } });
+    gsap.to(".iword", { yPercent: -10, ease: "none", scrollTrigger: { trigger: ist, start: "top bottom", end: "bottom top", scrub: true } });
+  }
+  // drag: cards keep where you drop them; a click without movement on a review card flips in the next client
+  mv.filter((m) => m.el.matches(".ic")).forEach((m) => { let sx, sy, bx, by, moved;
+    // the drag offset lives in the CSS "translate" property, separate from the parallax transform, so the two never fight
+    let tx = 0, ty = 0;
+    m.el.addEventListener("pointerdown", (e) => { m.drag = true; moved = false; sx = e.clientX; sy = e.clientY; bx = tx; by = ty; m.el.setPointerCapture(e.pointerId); m.el.style.zIndex = 8; gsap.to(m.el, { scale: 1.05, rotation: (Math.random() - 0.5) * 6, duration: 0.3 }); });
+    m.el.addEventListener("pointermove", (e) => { if (!m.drag) return; const dx = e.clientX - sx, dy = e.clientY - sy; if (Math.abs(dx) + Math.abs(dy) > 5) moved = true; tx = bx + dx; ty = by + dy; m.el.style.translate = `${tx}px ${ty}px`; });
+    const up = () => { if (!m.drag) return; m.drag = false; m.el.style.zIndex = ""; gsap.to(m.el, { scale: 1, rotation: 0, duration: 0.6, ease: "elastic.out(1,.5)" });
+      if (!moved && m.el.matches(".ic-rev")) gsap.timeline().to(m.el, { rotationY: 90, duration: 0.25, ease: "power2.in" }).add(() => fill(m.el, next++)).to(m.el, { rotationY: 0, duration: 0.45, ease: "back.out(1.6)" }); };
+    m.el.addEventListener("pointerup", up); m.el.addEventListener("pointercancel", up); }); }
 rqs.innerHTML = reviews.slice(0, 3).map(([w, r, img, q]) => `<figure><img src="assets/img/${img}.webp" alt="" loading="lazy"><div><p>“${q}”</p><b>${w}</b> · <span style="font-size:13px;color:#777">${r}</span></div></figure>`).join("");
 // team
 const T = [...bosses, ...LK.squad.slice(0, 3).map((id) => [id, ""])];
@@ -700,6 +790,40 @@ if (!R) { const ks = [...document.querySelectorAll("#kst .ko")], kst = document.
   gsap.from(".kbar", { y: 60, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: kst, start: "top 65%" } });
   gsap.to(".kbg", { yPercent: 8, ease: "none", scrollTrigger: { trigger: kst, start: "top bottom", end: "bottom top", scrub: true } });
   gsap.to(".kbar .rip", { rotation: 360, duration: 30, repeat: -1, ease: "none" }); }
+
+// the pain D · story (pinned): each pain tile cracks into shards as you scroll and its answer appears; then he smiles and the camera pushes in
+{ const PT = [["pi_burn_g", "Ad budgets burning with zero leads?", [20, 22]], ["pi_same_g", "AI write-ups all sound the same?", [74, 16]], ["pi_clear_g", "Confusing performance reports?", [68, 52]]];
+  const small = innerWidth < 760, POS = small ? [[6, 14], [62, 22], [8, 46]] : PT.map((x) => x[2]);
+  const SH = ["0 0,55% 0,35% 45%,0 60%", "55% 0,100% 0,100% 38%,35% 45%", "0 60%,35% 45%,48% 100%,0 100%", "35% 45%,100% 38%,100% 70%,62% 62%", "35% 45%,62% 62%,48% 100%", "62% 62%,100% 70%,100% 100%,48% 100%"];
+  const inner = ([img, q]) => `<img src="assets/img/${img}.webp" alt=""><span>${q}</span>`;
+  ptiles.innerHTML = PT.map((t, i) => `<div class="ptile" data-i="${i}" style="left:${POS[i][0]}%;top:${POS[i][1]}%">${inner(t)}</div>` + SH.map((c) => `<div class="ptile shard" data-of="${i}" style="left:${POS[i][0]}%;top:${POS[i][1]}%;clip-path:polygon(${c});opacity:0">${inner(t)}</div>`).join("")).join("");
+  pans.innerHTML = bridge.map(([q, a]) => `<span>${a}</span>`).join("");
+  const tiles = [...ptiles.querySelectorAll(".ptile:not(.shard)")], ans = [...pans.children];
+  if (R) { tiles.forEach((t) => (t.style.display = "none")); ans.forEach((a) => (a.style.opacity = 1)); psad.style.opacity = 0; phap.style.opacity = 1; ph.innerHTML = 'Here\'s our <span class="it">answer.</span>'; }
+  else {
+    tiles.forEach((t, i) => gsap.to(t, { y: -16, rotation: i % 2 ? 4 : -4, duration: 2.6 + i * 0.4, repeat: -1, yoyo: true, ease: "sine.inOut" }));
+    const tl = gsap.timeline({ defaults: { ease: "none" } });
+    tiles.forEach((t, i) => { const at = 0.08 + i * 0.13, sh = [...ptiles.querySelectorAll(`.shard[data-of="${i}"]`)];
+      tl.to(t, { scale: 1.08, rotation: 0, duration: 0.03 }, at)
+        .to(t, { opacity: 0, duration: 0.01 }, at + 0.03).set(sh, { opacity: 1 }, at + 0.03)
+        .to(sh, { x: (k) => (k % 2 ? 1 : -1) * (80 + k * 30), y: (k) => -60 + k * 40, rotation: (k) => (k % 2 ? 1 : -1) * (40 + k * 15), scale: 0.6, opacity: 0, duration: 0.09, ease: "power2.out" }, at + 0.03)
+        .to(ans[i], { opacity: 1, y: 0, duration: 0.05 }, at + 0.04); });
+    tl.to("#plbl", { opacity: 0, duration: 0.03 }, 0.47)
+      .to("#psad", { opacity: 0, duration: 0.1 }, 0.48).to("#phap", { opacity: 1, duration: 0.1 }, 0.48)
+      .add(() => {}, 0.5).call(() => (ph.innerHTML = 'Here\'s our <span class="it">answer.</span>'), null, 0.5)
+      .to(["#psad", "#phap"], { scale: 2.8, duration: 0.32, ease: "power1.in" }, 0.6)
+      .to("#phap", { opacity: 0, duration: 0.1 }, 0.82).fromTo("#pfac", { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.14, ease: "power2.out" }, 0.82)
+      .to(".pans", { opacity: 0, duration: 0.05 }, 0.86)
+      .call(() => (ph.innerHTML = 'Happy clients. <span class="it">Real growth.</span>'), null, 0.9)
+      .to({}, { duration: 0.05 }, 0.95);
+    gsap.set(ans, { y: 20 });
+    // the headline swaps must also reverse when scrolling back up
+    let state = 0; const setH = (p) => { const n = p < 0.5 ? 0 : p < 0.9 ? 1 : 2; if (n === state) return; state = n;
+      ph.innerHTML = ["Sound <span class=\"it\">familiar?</span>", "Here's our <span class=\"it\">answer.</span>", "Happy clients. <span class=\"it\">Real growth.</span>"][n]; };
+    let st = null; const up = () => { if (st || !document.querySelector(".pD").classList.contains("on")) return; st = ScrollTrigger.create({ trigger: "#pst", start: "top top", end: "+=360%", pin: true, scrub: 0.6, animation: tl, onUpdate: (s) => setH(s.progress) }); ScrollTrigger.refresh(); };
+    const down = () => { if (st) { st.kill(true); st = null; tl.progress(0); setH(0); } };
+    up(); document.getElementById("s4").addEventListener("opt", (e) => (e.detail === "d" ? requestAnimationFrame(up) : down()));
+  } }
 LK.motion();
 addEventListener("scroll", () => nav.classList.toggle("sc", scrollY > 40), { passive: true });
 if (!R) {
@@ -753,13 +877,13 @@ const gl = (() => { try { const c = document.createElement("canvas"); return !!(
 // hero A: smooth scroll-out. transforms only (no blur, no pin) so it stays at 60fps
 import { mountSilkV } from "./lib/silkv.js";
 let silk3 = null;
-function silkUp() { if (R || !gl || silk3) return; silk3 = mountSilkV(document.getElementById("h3d"), document.getElementById("hv"), "assets/img/c_k_hero.webp"); if (!silk3) return; document.querySelector(".hA").classList.add("gl3"); }
+function silkUp() { if (R || !gl || silk3 || !document.querySelector(".hA").classList.contains("on")) return; silk3 = mountSilkV(document.getElementById("h3d"), document.getElementById("hv"), "assets/img/c_k_hero.webp"); if (!silk3) return; document.querySelector(".hA").classList.add("gl3"); }
 function silkDown() { if (silk3) { silk3.destroy(); silk3 = null; } document.querySelector(".hA").classList.remove("gl3"); }
 silkUp();
 document.getElementById("s1").addEventListener("opt", (e) => (e.detail === "a" ? requestAnimationFrame(silkUp) : silkDown()));
 // the pain · silk option: same 3D silk surface, camera moves through it across the section; cards swing in at different depths
 let silkP = null; const pc = document.getElementById("pc3");
-function painUp() { if (R || !gl || silkP) return; silkP = mountSilkV(pc, document.getElementById("hv"), "assets/img/c_k_hero.webp"); if (silkP) pc.classList.add("gl3"); }
+function painUp() { if (R || !gl || silkP || !pc.classList.contains("on")) return; silkP = mountSilkV(pc, document.getElementById("hv"), "assets/img/c_k_hero.webp"); if (silkP) pc.classList.add("gl3"); }
 function painDown() { if (silkP) { silkP.destroy(); silkP = null; } pc.classList.remove("gl3"); }
 painUp();
 document.getElementById("s4").addEventListener("opt", (e) => (e.detail === "c" ? requestAnimationFrame(painUp) : painDown()));
@@ -824,14 +948,17 @@ if (!R) {
     const f = p * (N - 1) + 0.0;
     qs.forEach((q, i) => { const d0 = i - f, d = Math.sign(d0) * Math.max(0, Math.abs(d0) - 0.22) / 0.78;   // each quote rests crisp for a moment
       const op = d < 0 ? Math.max(0, 1 + d * 4.5) : Math.max(0, 1 - d * 2.2), bl = Math.min(12, Math.abs(d) * 14);
-      gsap.set(q, { z: d < 0 ? -d * 1100 : -d * GAP, y: d * 60, opacity: op, filter: bl < 0.3 ? "none" : `blur(${bl}px)`, visibility: op < 0.02 ? "hidden" : "visible" }); });
+      gsap.set(q, { z: d < 0 ? -d * 1100 : -d * GAP, opacity: op, filter: bl < 0.3 ? "none" : `blur(${bl}px)`, visibility: op < 0.02 ? "hidden" : "visible" }); });
     const k = Math.min(N - 1, Math.max(0, Math.round(f))); document.getElementById("rvn").textContent = String(k + 1).padStart(2, "0"); document.getElementById("rvb").style.width = p * 100 + "%"; };
   if (R) { qs.forEach((q, i) => (q.style.display = i ? "none" : "")); }
   else {
     place(0);
-    let silkR = gl ? mountSilkV(st, document.getElementById("hv"), "assets/img/c_k_hero.webp") : null;
-    ScrollTrigger.create({ trigger: st, start: "top top", end: `+=${N * 85}%`, pin: true, scrub: 0.7, onUpdate: (s) => { place(s.progress); if (silkR) silkR.progress = s.progress * 0.6; } });
-    document.getElementById("s7").addEventListener("opt", (e) => { if (e.detail !== "a" && silkR) { silkR.destroy(); silkR = null; } else if (e.detail === "a" && !silkR && gl) silkR = mountSilkV(st, document.getElementById("hv"), "assets/img/c_k_hero.webp"); });
+    let silkR = null, flyST = null;
+    const flyUp = () => { if (flyST) return; if (gl && !silkR) silkR = mountSilkV(st, document.getElementById("hv"), "assets/img/c_k_hero.webp");
+      flyST = ScrollTrigger.create({ trigger: st, start: "top top", end: `+=${N * 85}%`, pin: true, scrub: 0.7, snap: { snapTo: 1 / (N - 1), duration: { min: 0.3, max: 0.8 }, delay: 0.08, ease: "power2.inOut" }, onUpdate: (s) => { place(s.progress); if (silkR) silkR.progress = s.progress * 0.6; } });
+      ScrollTrigger.refresh(); };
+    const flyDown = () => { if (flyST) { flyST.kill(true); flyST = null; } if (silkR) { silkR.destroy(); silkR = null; } place(0); };
+    document.getElementById("s7").addEventListener("opt", (e) => (e.detail === "c" ? requestAnimationFrame(flyUp) : flyDown()));
   } }
 ScrollTrigger.sort(); ScrollTrigger.refresh();
 </script>
