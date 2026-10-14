@@ -46,6 +46,8 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 .vstage{position:relative;height:100svh;min-height:640px;overflow:hidden;background:#060203}
 .vbg{position:absolute;inset:-4%;will-change:transform}
 .vbg video,.vbg .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vstage canvas.silk{position:absolute;inset:0;width:100%;height:100%;display:none}
+.hA.gl3 .vstage canvas.silk{display:block}.hA.gl3 .vbg{opacity:0}
 .hin{position:relative;z-index:2;height:100%;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);align-items:center;gap:30px;padding-top:80px}
 .hcopy,.cards .stat{will-change:transform}
 .hA h1{font-size:clamp(54px,7.6vw,128px);line-height:.95}.hA h1 .it{display:block;color:#FFC2AE}
@@ -443,7 +445,7 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
   <div class="opt" role="group" aria-label="Hero options"><span>Hero</span><button data-v="a">A · Silk</button><button data-v="b">B · Blur</button><button data-v="c">C · Bold</button></div>
   <div class="hA on" data-o="a"><div class="vstage" id="h3d">
     <div class="vbg"><img class="poster" src="assets/img/c_k_hero.webp" alt=""><video id="hv" muted playsinline loop autoplay preload="auto" poster="assets/img/c_k_hero.webp"><source src="assets/video/hero_silk.mp4" type="video/mp4"><source src="assets/video/hero_silk.webm" type="video/webm"></video></div>
-    <div class="veil"></div>
+    <canvas class="silk" aria-hidden="true"></canvas><div class="veil"></div>
     <div class="wrap hin"><div class="hcopy"><div class="lbl">Data-intelligent digital marketing · Kuala Lumpur</div>
       <h1 class="hh">Win the right battles. <span class="it">Scale results.</span></h1>
       <p>AI gave everyone marketing tools. We give your brand the strategy, empathy and revenue to actually win.</p>
@@ -580,7 +582,7 @@ cg.innerHTML = cases.map(([img, n, t, b, s]) => `<a class="cc" href="case-study.
       .to([imgEl, q, ".rwho"], { opacity: 0, y: -14, duration: 0.3, ease: "power2.in" })
       .add(() => { imgEl.src = `assets/img/${img}.webp`; q.innerHTML = words(text); nm.textContent = w; rl.textContent = r; })
       .fromTo(imgEl, { opacity: 0, scale: 1.18, y: 0 }, { opacity: 1, scale: 1.04, duration: 1.1, ease: "power3.out" })
-      .fromTo(() => q.querySelectorAll(".w"), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.03, ease: "power3.out" }, "<0.1")
+      .add(() => gsap.fromTo(q.querySelectorAll(".w"), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.03, ease: "power3.out" }), "<0.1")
       .set(q, { opacity: 1, y: 0 }, "<")
       .fromTo(".rwho", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5 }, "<0.3");
     gsap.fromTo(".rcry", { scale: 0.85 }, { scale: 1, duration: 1.2, ease: "elastic.out(1,.5)" });
@@ -673,8 +675,15 @@ import { mountOrbit } from "./lib/orbit.js";
 const R = LK.R;
 const gl = (() => { try { const c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); } catch (e) { return false; } })();
 // hero A: smooth scroll-out. transforms only (no blur, no pin) so it stays at 60fps
+import { mountSilkV } from "./lib/silkv.js";
+let silk3 = null;
+function silkUp() { if (R || !gl || silk3) return; silk3 = mountSilkV(document.getElementById("h3d"), document.getElementById("hv"), "assets/img/c_k_hero.webp"); if (!silk3) return; document.querySelector(".hA").classList.add("gl3"); }
+function silkDown() { if (silk3) { silk3.destroy(); silk3 = null; } document.querySelector(".hA").classList.remove("gl3"); }
+silkUp();
+document.getElementById("s1").addEventListener("opt", (e) => (e.detail === "a" ? requestAnimationFrame(silkUp) : silkDown()));
 if (!R) {
   const T = { trigger: "#h3d", start: "top top", end: "bottom top", scrub: 0.6 };
+  ScrollTrigger.create({ trigger: "#h3d", start: "top top", end: "bottom top", onUpdate: (s) => { if (silk3) silk3.progress = s.progress; } });
   gsap.to(".hA .vbg", { yPercent: 14, scale: 1.08, ease: "none", scrollTrigger: T });
   gsap.to(".hA .hcopy", { yPercent: -22, opacity: 0.2, ease: "none", scrollTrigger: T });
   document.querySelectorAll(".hA .stat").forEach((c) => gsap.to(c, { y: () => -innerHeight * 0.32 * +c.dataset.sp, ease: "none", scrollTrigger: T }));
