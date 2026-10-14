@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><script src="lib/gate.js"></script><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Look B · Playful 3D · Battle Website</title><meta name="robots" content="noindex"><link rel="icon" href="assets/brand/bm-mark.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800;900&display=swap" rel="stylesheet">
+<script src="lib/gsap.min.js"></script><script src="lib/ScrollTrigger.min.js"></script><script src="lib/look.js"></script>
+<style>
+/* Direction B · Playful 3D: warm light canvas, rounded bento cards, glossy toy-like 3D objects, red still leads */
+:root{--red:#D7000F;--ink:#141417;--paper:#F6F2EC;--card:#fff;--pink:#FBD9E1;--blue:#D6E6FF;--cream:#FFEBC7;--grey:#6b6f76;--f-h:"Inter Tight","Inter",system-ui,sans-serif;--f-b:"Inter",system-ui,sans-serif;--gut:clamp(16px,4vw,56px);--rad:32px}
+*{box-sizing:border-box}html,body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--f-b);-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%}a{color:inherit}
+h1,h2,h3,h4{font-family:var(--f-h);font-weight:800;letter-spacing:-.035em;line-height:.95;margin:0}
+.wrap{max-width:1280px;margin:0 auto;padding:0 var(--gut)}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:#fff;font:600 13px var(--f-b);box-shadow:0 6px 20px -10px rgba(20,20,23,.25)}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--red)}
+.btn{display:inline-flex;align-items:center;gap:.5em;padding:16px 26px;border-radius:999px;background:var(--red);color:#fff;font:700 15px/1 var(--f-h);text-decoration:none;border:0;cursor:pointer;transition:transform .3s,box-shadow .3s}
+.btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 16px 36px -14px rgba(215,0,15,.7)}
+.btn.ghost{background:#fff;color:var(--ink)}
+.sec{padding:clamp(70px,9vw,130px) 0}
+.h2{font-size:clamp(40px,5.6vw,84px)}
+.h2 em{font-style:normal;color:var(--red)}
+.lead{color:var(--grey);font-size:clamp(16px,1.3vw,19px);max-width:46ch;margin:16px 0 0}
+.sw{position:fixed;right:14px;bottom:14px;z-index:60;display:flex;gap:4px;padding:4px;border-radius:999px;background:rgba(20,20,22,.88);backdrop-filter:blur(10px);box-shadow:0 10px 30px -10px rgba(0,0,0,.5)}
+.sw a{font:700 12px/1 var(--f-h);text-decoration:none;color:#ccc;padding:10px 14px;border-radius:999px}
+.sw a.on{background:var(--red);color:#fff}
+/* nav */
+.nav{position:absolute;top:16px;left:0;right:0;z-index:10}
+.nav .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-radius:999px;padding:10px 10px 10px 24px;box-shadow:0 10px 30px -18px rgba(20,20,23,.35)}
+.nav img{height:22px;width:auto}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font:600 14px var(--f-b)}
+@media (max-width:860px){.nav ul{display:none}}
+/* hero */
+.hero{position:relative;overflow:hidden;padding:150px 0 40px;text-align:center;background:radial-gradient(40% 50% at 10% 20%,var(--pink),transparent 70%),radial-gradient(40% 50% at 92% 30%,var(--blue),transparent 70%),var(--paper)}
+.hero h1{font-size:clamp(56px,9vw,150px);margin:22px auto 0;max-width:12ch}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero .lead{margin:22px auto 30px}
+.hero .ctas{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.hstage{position:relative;max-width:900px;margin:40px auto 0}
+.hstage>img{width:min(100%,640px);margin:0 auto;filter:drop-shadow(0 40px 50px rgba(215,0,15,.22))}
+.hstage .chip{position:absolute;font-size:14px;padding:12px 18px}
+.hstage .chip b{font:800 22px/1 var(--f-h);color:var(--red)}
+.hstage .c1{left:2%;top:22%}.hstage .c2{right:0;top:12%}.hstage .c3{right:6%;bottom:16%}.hstage .c4{left:6%;bottom:10%}
+@media (max-width:760px){.hstage .chip{position:static;margin:6px}.hstage .chips{display:flex;flex-wrap:wrap;justify-content:center}}
+/* logos: ember wall in a red panel, bigger logos */
+.ember{background:linear-gradient(160deg,#5A0006,#2A0306 60%,#14080A);border-radius:var(--rad);padding:clamp(30px,4vw,56px);color:#fff}
+.ember .hd{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:30px}
+.ember h2{font-size:clamp(32px,4vw,58px)}
+.ember .hd p{margin:0;color:rgba(255,255,255,.65)}
+.eg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.eg .t{position:relative;aspect-ratio:16/10;border-radius:20px;background:rgba(255,255,255,.05);display:grid;place-items:center;padding:14px 20px;overflow:hidden}
+.eg .t::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 120%,#FFB347,#FF4A12 30%,#D7000F 55%,transparent 80%);opacity:0;transition:opacity .45s}
+.eg .t img{position:relative;max-height:116px;max-width:86%;object-fit:contain;opacity:.88;transition:transform .4s,opacity .4s}
+.eg .t:hover::before{opacity:1}.eg .t:hover img{opacity:1;transform:scale(1.1) rotate(-2deg)}
+@media (max-width:760px){.eg{grid-template-columns:repeat(2,minmax(0,1fr))}.eg .t img{max-height:66px}}
+/* metrics bento */
+.bento{display:grid;grid-template-columns:1.2fr 1fr 1fr;grid-template-rows:auto auto;gap:14px;margin-top:40px}
+.bento .m{border-radius:var(--rad);background:#fff;padding:30px;display:flex;flex-direction:column;justify-content:space-between;min-height:200px}
+.bento .m b{font:900 clamp(56px,6.4vw,104px)/.9 var(--f-h);letter-spacing:-.05em}
+.bento .m span{color:var(--grey);font-size:15px}
+.bento .m:first-child{grid-row:span 2;background:var(--red);color:#fff}.bento .m:first-child b{font-size:clamp(90px,11vw,180px)}.bento .m:first-child span{color:rgba(255,255,255,.8)}
+.bento .m:nth-child(3){background:var(--cream)}.bento .m:nth-child(4){background:var(--blue);grid-column:span 2}
+@media (max-width:860px){.bento{grid-template-columns:1fr 1fr}.bento .m:first-child{grid-column:span 2;grid-row:auto}}
+/* bridge as a chat */
+.chat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:40px}
+.cv{border-radius:var(--rad);background:#fff;padding:24px;display:grid;gap:12px;align-content:start}
+.cv .q{justify-self:start;max-width:90%;padding:14px 18px;border-radius:22px 22px 22px 6px;background:#EFEDEA;font-weight:600}
+.cv .a{justify-self:end;max-width:90%;padding:14px 18px;border-radius:22px 22px 6px 22px;background:var(--red);color:#fff;font-weight:600}
+.cv small{justify-self:end;font-size:12px;color:var(--grey)}
+@media (max-width:860px){.chat{grid-template-columns:minmax(0,1fr)}}
+/* armour bento */
+.ab{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:40px}
+.ac{position:relative;border-radius:var(--rad);background:#fff;padding:30px;display:grid;grid-template-columns:minmax(0,1fr) 42%;gap:16px;align-items:center;overflow:hidden;min-height:300px;transition:transform .4s,box-shadow .4s}
+.ac:hover{transform:translateY(-6px);box-shadow:0 30px 50px -30px rgba(20,20,23,.35)}
+.ac:nth-child(1){background:var(--pink)}.ac:nth-child(4){background:var(--blue)}
+.ac .n{display:inline-block;font:800 13px var(--f-h);padding:6px 12px;border-radius:999px;background:var(--red);color:#fff;margin-bottom:14px}
+.ac h3{font-size:clamp(22px,2.2vw,32px)}
+.ac p{margin:12px 0 14px;font-size:14.5px;color:#3c3f45}
+.ac .tags{display:flex;flex-wrap:wrap;gap:6px}.ac .tags span{font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.7)}
+.ac img{width:100%;filter:drop-shadow(0 24px 30px rgba(20,20,23,.18))}
+@media (max-width:900px){.ab{grid-template-columns:minmax(0,1fr)}.ac{grid-template-columns:minmax(0,1fr) 36%;padding:22px}}
+/* weapons: pick one */
+.wsel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:40px}
+.wsel button{all:unset;cursor:pointer;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;position:relative;transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s}
+.wsel button:nth-child(1){background:var(--pink)}.wsel button:nth-child(2){background:var(--cream)}.wsel button:nth-child(3){background:var(--blue)}
+.wsel button img{width:74%;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.wsel button:hover img{transform:scale(1.06) rotate(-6deg)}
+.wsel button[aria-selected=true]{box-shadow:0 0 0 6px var(--paper),0 0 0 10px var(--red);transform:scale(1.03)}
+.wsel button:focus-visible{outline:3px solid var(--red);outline-offset:6px}
+.wdet{position:relative;min-height:170px;margin-top:30px}
+.wdet [data-p]{position:absolute;inset:0;border-radius:var(--rad);background:#fff;padding:28px 32px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .4s,transform .4s,visibility .4s}
+.wdet [data-p].on{opacity:1;visibility:visible;transform:none}
+.wdet small{font:700 12px var(--f-h);letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
+.wdet h3{font-size:clamp(28px,3vw,44px);margin:6px 0}
+.wdet p{margin:0;color:var(--grey)}
+@media (max-width:760px){.wsel{gap:10px}.wdet{min-height:250px}.wdet [data-p]{grid-template-columns:minmax(0,1fr)}}
+/* cases: swipe row */
+.crow{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(300px,38%);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:40px var(--gut) 20px;margin:0 calc(var(--gut)*-1);scrollbar-width:none}
+.crow::-webkit-scrollbar{display:none}
+.cc{scroll-snap-align:start;border-radius:var(--rad);background:#fff;padding:12px;text-decoration:none;display:grid;gap:14px;transition:transform .4s}
+.cc:hover{transform:translateY(-6px)}
+.cc img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:22px}
+.cc .in{padding:4px 10px 12px}
+.cc .st{display:inline-flex;gap:8px;align-items:baseline;padding:8px 14px;border-radius:999px;background:var(--red);color:#fff}
+.cc .st b{font:900 22px/1 var(--f-h)}.cc .st span{font-size:12px;opacity:.9}
+.cc h4{font-size:22px;margin:14px 0 4px;letter-spacing:-.02em}
+.cc .who{color:var(--grey);font-size:14px}
+@media (max-width:760px){.crow{grid-auto-columns:84%}}
+/* reviews: masonry */
+.rm{columns:3 280px;column-gap:14px;margin-top:40px}
+.rc{break-inside:avoid;margin:0 0 14px;border-radius:26px;background:#fff;padding:26px}
+.rc p{margin:0 0 18px;font:600 18px/1.45 var(--f-h);letter-spacing:-.01em}
+.rc .who{display:flex;gap:12px;align-items:center}
+.rc .who img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+.rc .who b{display:block;font-size:14px}.rc .who span{font-size:13px;color:var(--grey)}
+.rc.r1{background:var(--red);color:#fff}.rc.r1 .who span{color:rgba(255,255,255,.8)}.rc.r3{background:var(--pink)}.rc.r5{background:var(--cream)}
+/* team: colourful cast strips */
+.cast{display:flex;gap:8px;margin-top:40px;height:min(64vh,560px)}
+.cast .s{position:relative;flex:1;border-radius:26px;overflow:hidden;min-width:0}
+.cast .s.big{flex:1.8}
+.cast .s img{position:absolute;left:50%;bottom:0;height:84%;width:auto;max-width:none;translate:-50% 0;filter:grayscale(1) contrast(1.05)}
+.cast .s .nm{position:absolute;top:16px;left:0;right:0;text-align:center;font:900 clamp(20px,2.1vw,34px)/.9 var(--f-h);letter-spacing:-.04em;color:#fff}
+.cast .s:nth-child(5n+1){background:var(--red)}.cast .s:nth-child(5n+2){background:#F59AAE}.cast .s:nth-child(5n+3){background:#FFB347}.cast .s:nth-child(5n+4){background:#8DB7FF}.cast .s:nth-child(5n+5){background:#141417}
+@media (max-width:860px){.cast{overflow-x:auto;scroll-snap-type:x mandatory;height:430px;scrollbar-width:none}.cast .s{flex:none;width:34vw;scroll-snap-align:start}.cast .s.big{flex:none;width:58vw}}
+/* connect */
+.cn{position:relative;border-radius:40px;overflow:hidden;padding:clamp(36px,5vw,70px);background:radial-gradient(50% 70% at 0% 0%,var(--pink),transparent 70%),radial-gradient(50% 70% at 100% 100%,var(--blue),transparent 70%),#fff;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:30px;align-items:center}
+.ask{margin-top:26px;border-radius:26px;background:rgba(255,255,255,.75);backdrop-filter:blur(10px);box-shadow:0 20px 40px -24px rgba(20,20,23,.35),inset 0 0 0 1px rgba(20,20,23,.06);padding:18px}
+.ask input{width:100%;border:0;outline:none;background:none;font:500 18px var(--f-b);padding:6px 4px 16px}
+.ask .row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.ask .tags{display:flex;gap:6px;flex-wrap:wrap}.ask .tags span{font-size:12.5px;font-weight:600;padding:7px 12px;border-radius:999px;background:#F1EEEA}
+.cn img{width:min(100%,420px);margin:0 auto}
+@media (max-width:860px){.cn{grid-template-columns:minmax(0,1fr)}.cn img{width:56%;order:-1}}
+.foot{padding:50px 0 90px;color:var(--grey);font-size:14px}
+.foot .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+.foot img{height:22px;width:auto}
+.foot ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.bento .u{display:block;font:700 13px var(--f-h);letter-spacing:.04em;text-transform:uppercase;opacity:.7;margin-bottom:4px}
+</style></head>
+<body>
+<nav class="sw" aria-label="Look and feel direction"><a href="look-a.html">A · Red Glass</a><a class="on" href="look-b.html">B · Playful 3D</a></nav>
+
+<header class="nav"><div class="wrap"><div class="bar"><img src="assets/brand/battle-red.webp" alt="Battle"><ul><li>Services</li><li>Work</li><li>About</li><li>Resources</li></ul><a class="btn" href="#connect">Let's talk</a></div></div></header>
+
+<section class="hero" data-par><div class="wrap">
+  <span class="chip"><i></i>Data-intelligent digital marketing · Kuala Lumpur</span>
+  <h1>Win the right <em>battles.</em> Scale results.</h1>
+  <p class="lead">AI gave everyone marketing tools. We give your brand the strategy, empathy and revenue to actually win.</p>
+  <div class="ctas"><a class="btn" href="#connect">Start a marketing consultation</a><a class="btn ghost" href="#cases">See case studies</a></div>
+  <div class="hstage"><img data-float data-depth="1" src="assets/img/lb_hero_g.webp" alt="A burst of glossy 3D marketing toys: rocket, megaphone, heart, chart and shield">
+    <div class="chips"><span class="chip c1" data-depth="2"><b>160+</b>clients</span><span class="chip c2" data-depth="1.6"><b>14+</b>industries</span><span class="chip c3" data-depth="2.2">up to <b>3×</b>annual sales</span><span class="chip c4" data-depth="1.4">up to <b>-67%</b>cost per result</span></div></div>
+</div></section>
+
+<section class="sec" style="padding-top:40px"><div class="wrap"><div class="ember"><div class="hd"><div><span class="chip" style="background:rgba(255,255,255,.1);color:#fff;box-shadow:none"><i></i>Trusted by 160+ clients across 14+ industries</span><h2 style="margin-top:14px">Brands we've fired up</h2></div><p>Hover a tile.</p></div><div class="eg" id="eg"></div></div></div></section>
+
+<section class="sec" style="padding-top:0"><div class="wrap"><h2 class="h2">The numbers <em>we're proud of.</em></h2><div class="bento" id="bento"></div></div></section>
+
+<section class="sec" style="padding-top:0"><div class="wrap"><h2 class="h2">Sound <em>familiar?</em></h2><p class="lead">The marketing battles we hear every week, and how we answer them.</p><div class="chat" id="chat"></div></div></section>
+
+<section class="sec" style="padding-top:0" id="armour"><div class="wrap"><h2 class="h2">Put on your <em>battle armour.</em></h2><p class="lead">The marketing growth stack: four layers, built in order.</p><div class="ab" id="ab"></div></div></section>
+
+<section class="sec" style="padding-top:0"><div class="wrap" id="wp"><h2 class="h2">Pick your <em>weapon.</em></h2><p class="lead">Every weapon is a service. Tap one to see what it does.</p>
+  <div class="wsel" role="tablist" id="wsel"></div><div class="wdet" id="wdet"></div></div></section>
+
+<section class="sec" style="padding-top:0" id="cases"><div class="wrap"><h2 class="h2">Battles <em>we've won.</em></h2><div class="crow" id="crow"></div></div></section>
+
+<section class="sec" style="padding-top:0"><div class="wrap"><h2 class="h2">Reviews from <em>our clients.</em></h2><div class="rm" id="rm"></div></div></section>
+
+<section class="sec" style="padding-top:0"><div class="wrap"><h2 class="h2">Meet the <em>cast.</em></h2><p class="lead">Real people, not stock photos: the three in charge up front, and the squad behind every campaign.</p><div class="cast" id="cast"></div></div></section>
+
+<section class="sec" style="padding-top:0" id="connect"><div class="wrap"><div class="cn" data-par><div><h2 class="h2">Got 15 minutes? <em>Let's connect.</em></h2><p class="lead">We'll audit your marketing funnel over a virtual meet, for free.</p>
+  <form class="ask" onsubmit="return false"><input aria-label="Your marketing battle" placeholder="What can we help you win?"><div class="row"><div class="tags"><span>More leads</span><span>Better ads</span><span>New website</span></div><button class="btn" type="submit">Book my audit</button></div></form></div>
+  <img data-float data-depth="1" src="assets/img/lb_chat_g.webp" alt=""></div></div></section>
+
+<footer class="foot"><div class="wrap"><img src="assets/brand/battle-red.webp" alt="Battle"><ul><li>Services</li><li>Work</li><li>About</li><li>Careers</li><li>Resources</li></ul><span>Battle Mind Creative · Battle X · Kuala Lumpur</span></div></footer>
+
+<script>
+const { logos, metrics, bridge, layers, weapons, cases, reviews, bosses, nm } = LK;
+eg.innerHTML = logos.map((l) => `<div class="t"><img src="assets/logos-mono/${l}.webp" alt="${nm(l)}" loading="lazy"></div>`).join("");
+bento.innerHTML = metrics.map(([b, s, u]) => `<div class="m" data-rise>${u ? '<i class="u" style="font-style:normal">Up to</i>' : ""}<b>${b}</b><span>${s}</span></div>`).join("");
+chat.innerHTML = bridge.map(([q, a]) => `<div class="cv" data-rise><div class="q">${q}</div><div class="a">${a}</div><small>Battle · just now</small></div>`).join("");
+const tags = (s) => s.split(" · ").map((t) => `<span>${t}</span>`).join("");
+ab.innerHTML = layers.map(([t, p, s], i) => `<div class="ac" data-rise><div><span class="n">Layer 0${i + 1}</span><h3>${t}</h3><p>${p}</p><div class="tags">${tags(s)}</div></div><img data-float src="assets/img/lb_l${i + 1}_g.webp" alt=""></div>`).join("");
+wsel.innerHTML = weapons.map(([k, n], i) => `<button role="tab" data-t="${i}" aria-label="${n}"><img src="assets/img/lb_w_${k}_g.webp" alt=""></button>`).join("");
+wdet.innerHTML = weapons.map(([k, n, c, d], i) => `<div data-p="${i}" role="tabpanel"><div><small>${c}</small><h3>${n}</h3><p>${d}</p></div><a class="btn" href="#">Explore this service</a></div>`).join("");
+LK.tabs(document.getElementById("wp"));
+crow.innerHTML = cases.map(([img, n, t, b, s]) => `<a class="cc" href="case-study.html"><img src="assets/sue/${img}.webp" alt="" loading="lazy"><div class="in"><span class="st"><b>${b}</b><span>${s}</span></span><h4>${t}</h4><div class="who">${n}</div></div></a>`).join("");
+rm.innerHTML = reviews.map(([w, r, img, q], i) => `<figure class="rc r${i}" data-rise><p>“${q}”</p><figcaption class="who"><img src="assets/img/${img}.webp" alt="" loading="lazy"><div><b>${w}</b><span>${r}</span></div></figcaption></figure>`).join("");
+cast.innerHTML = bosses.map(([id, n]) => `<div class="s big"><div class="nm">${n}</div><img src="assets/team/${id}.webp" alt="${n}" loading="lazy"></div>`).join("")
+  + LK.squad.slice(0, 6).map((id) => `<div class="s"><img src="assets/team/${id}.webp" alt="" loading="lazy"></div>`).join("");
+LK.motion();
+</script>
+</body></html>
