@@ -192,6 +192,10 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 @media (max-width:860px){.pB .in{grid-template-columns:minmax(0,1fr)}.nl .r{grid-template-columns:60px minmax(0,1fr)}.nl .r b{font-size:40px}}
 /* C · glass cards over silk */
 .pC .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.1)}
+.pC canvas.silk{position:absolute;inset:0;width:100%;height:100%;display:none}.pC.gl3 canvas.silk{display:block}.pC.gl3 .bg{opacity:0}
+.g4{perspective:1200px}.g4 .glass{transform-style:preserve-3d;will-change:transform;transition:background .5s,box-shadow .5s}
+.g4 .glass.hl{background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.03));box-shadow:inset 0 0 0 1px var(--edge),0 30px 60px -30px rgba(0,0,0,.6)}
+.g4 .glass.lit{background:linear-gradient(160deg,#FF2A1A,var(--red));box-shadow:0 30px 60px -20px rgba(215,0,15,.7)}
 .pC::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--ink) 0%,rgba(10,10,11,.3) 30%,rgba(10,10,11,.4) 70%,var(--ink))}
 .pC .in{position:relative;z-index:2;padding-top:clamp(90px,10vw,150px);padding-bottom:clamp(90px,10vw,150px);text-align:center}
 .pC h2{font-size:clamp(44px,5.6vw,94px)}
@@ -478,11 +482,11 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 </section>
 
 <!-- 4 THE MARKETING PAIN -->
-<section id="s4" data-sec="pain" style="position:relative">
+<section id="s4" data-sec="pain" data-def="c" style="position:relative">
   <div class="opt" role="group" aria-label="Pain section options"><span>The pain</span><button data-v="a">A · Cards</button><button data-v="b">B · List</button><button data-v="c">C · Silk</button></div>
-  <div class="pA on" data-o="a"><div class="wrap in"><div class="lbl">The marketing battle</div><h2 style="margin-top:12px">From pain <span class="it">to profit</span></h2><div class="cards3" id="c3"></div></div></div>
+  <div class="pA" data-o="a"><div class="wrap in"><div class="lbl">The marketing battle</div><h2 style="margin-top:12px">From pain <span class="it">to profit</span></h2><div class="cards3" id="c3"></div></div></div>
   <div class="pB sec" data-o="b"><div class="blob"></div><div class="wrap in"><div><div class="lbl">The marketing battle</div><h2 style="margin-top:12px">( Sound familiar? )<br><span class="it">We've got you.</span></h2></div><div class="nl" id="nl"></div></div></div>
-  <div class="pC" data-o="c"><img class="bg" src="assets/img/c_k_hero.webp" alt=""><div class="wrap in"><div class="lbl">The marketing battle</div><h2 style="margin-top:12px">Sound familiar?<br><span class="it">Here's our answer.</span></h2><div class="g4" id="g4"></div></div></div>
+  <div class="pC on" data-o="c" id="pc3"><img class="bg" src="assets/img/c_k_hero.webp" alt=""><canvas class="silk" aria-hidden="true"></canvas><div class="wrap in"><div class="lbl">The marketing battle</div><h2 style="margin-top:12px">Sound familiar?<br><span class="it">Here's our answer.</span></h2><div class="g4" id="g4"></div></div></div>
 </section>
 
 <!-- 5 BATTLE ARMOUR · Iron-Man suit-up -->
@@ -565,7 +569,7 @@ const H = [0.55, 1, 0.75, 0.85];
 bars.innerHTML = metrics.map(([b, s, u], i) => `<div class="bar" tabindex="0" data-i="${i}"><small>${u ? "Up to" : "Today"}</small><b>${b}</b><div class="g" style="--h:${Math.round(H[i] * 200)}px"></div><span>${s}</span></div>`).join("");
 c3.innerHTML = bridge.map(([q, a], i) => `<div class="c3${i ? "" : " on"}"><span class="n">0${i + 1}</span><div><div class="q">${q}</div><h3>${a}</h3></div></div>`).join("");
 nl.innerHTML = bridge.map(([q, a], i) => `<div class="r"><b>0${i + 1}</b><div><small>${q}</small><span>${a}</span></div></div>`).join("");
-g4.innerHTML = bridge.map(([q, a], i) => `<div class="glass${i === 1 ? " hl" : ""}"><div class="q">0${i + 1} · ${q}</div><h3>${a}</h3></div>`).join("");
+g4.innerHTML = bridge.map(([q, a], i) => `<div class="glass"><div class="q">0${i + 1} · ${q}</div><h3>${a}</h3></div>`).join("");
 const LIC = ["▢", "◎", "▶", "♛"];
 ly.innerHTML = layers.map(([t, p, s], i) => `<div><b><i>${LIC[i]}</i>Layer 0${i + 1}</b><h4>${t}</h4><p>${p}</p></div>`).join("");
 cg.innerHTML = cases.map(([img, n, t, b, s]) => `<a class="cc" href="case-study.html"><img src="assets/sue/${img}.webp" alt="" loading="lazy"><div class="in"><b>${b}</b><small>${s}</small><h4>${t}</h4><span>${n}</span></div></a>`).join("");
@@ -681,6 +685,20 @@ function silkUp() { if (R || !gl || silk3) return; silk3 = mountSilkV(document.g
 function silkDown() { if (silk3) { silk3.destroy(); silk3 = null; } document.querySelector(".hA").classList.remove("gl3"); }
 silkUp();
 document.getElementById("s1").addEventListener("opt", (e) => (e.detail === "a" ? requestAnimationFrame(silkUp) : silkDown()));
+// the pain · silk option: same 3D silk surface, camera moves through it across the section; cards swing in at different depths
+let silkP = null; const pc = document.getElementById("pc3");
+function painUp() { if (R || !gl || silkP) return; silkP = mountSilkV(pc, document.getElementById("hv"), "assets/img/c_k_hero.webp"); if (silkP) pc.classList.add("gl3"); }
+function painDown() { if (silkP) { silkP.destroy(); silkP = null; } pc.classList.remove("gl3"); }
+painUp();
+document.getElementById("s4").addEventListener("opt", (e) => (e.detail === "c" ? requestAnimationFrame(painUp) : painDown()));
+if (!R) {
+  const cards = [...document.querySelectorAll("#g4 .glass")];
+  ScrollTrigger.create({ trigger: "#s4", start: "top bottom", end: "bottom top", onUpdate: (s) => { if (silkP) silkP.progress = s.progress * 0.8; } });
+  cards.forEach((c, i) => gsap.fromTo(c, { rotateX: 38, rotateY: (i - 1) * -22, z: -260, y: 140, opacity: 0 }, { rotateX: 0, rotateY: 0, z: 0, y: 0, opacity: 1, ease: "power2.out",
+    scrollTrigger: { trigger: "#g4", start: "top 95%", end: "top 45%", scrub: 0.8 } }));
+  cards.forEach((c, i) => gsap.to(c, { y: -60 * (i % 2 ? 1.4 : 0.8), ease: "none", scrollTrigger: { trigger: "#s4", start: "top top", end: "bottom top", scrub: 0.8 } }));
+  ScrollTrigger.create({ trigger: "#g4", start: "top 60%", end: "bottom 20%", onUpdate: (s) => { const k = Math.min(2, Math.floor(s.progress * 3)); cards.forEach((c, i) => c.classList.toggle("lit", i === k)); } });
+} else document.querySelectorAll("#g4 .glass")[1]?.classList.add("lit");
 if (!R) {
   const T = { trigger: "#h3d", start: "top top", end: "bottom top", scrub: 0.6 };
   ScrollTrigger.create({ trigger: "#h3d", start: "top top", end: "bottom top", onUpdate: (s) => { if (silk3) silk3.progress = s.progress; } });
