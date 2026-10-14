@@ -127,7 +127,7 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 .mA .who{position:absolute;right:6%;bottom:22px;z-index:3;text-align:right;font-size:13px;color:rgba(255,255,255,.8)}
 @media (max-width:860px){.mA .person{height:52%;right:-6%;opacity:.95}.mA{min-height:860px}.mA .in{min-height:860px}}
 /* B · Metrics of Cool (statue + glass bars) */
-.mB{min-height:760px;background:#1a0703}
+.mB{min-height:760px;background:#1a0703;overflow:hidden}
 .mB .bg{position:absolute;inset:-5%;width:110%;height:110%;max-width:none;object-fit:cover;object-position:20% 30%;opacity:.9}
 .mB::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(26,7,3,.2),rgba(26,7,3,.75) 60%)}
 .mB .in{position:relative;z-index:2;padding-top:clamp(80px,9vw,120px);padding-bottom:60px}
@@ -206,7 +206,8 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 @media (max-width:860px){.g4{grid-template-columns:minmax(0,1fr)}.g4 .glass{min-height:170px}}
 
 /* ===== 5 BATTLE ARMOUR · layers stack as you scroll ===== */
-.arm{position:relative;background:radial-gradient(50% 60% at 50% 55%,rgba(215,0,15,.32),transparent 70%),#050506}
+.arm{position:relative;background:#050506}
+.arm .pin{background:radial-gradient(42% 60% at 50% 55%,rgba(215,0,15,.28),transparent 72%),#050506}
 .arm .pin{height:100svh;position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr) minmax(0,.9fr);align-items:center;gap:20px;padding:80px var(--gut) 40px}
 
 .arm h2{font-size:clamp(40px,4.6vw,76px)}
@@ -352,7 +353,7 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 
 /* armour stage */
 .gstage{position:relative;height:min(82svh,760px);aspect-ratio:3/4;margin:0 auto;max-width:100%}
-.gstage canvas{position:absolute;inset:0;width:100%!important;height:100%!important}
+.gstage canvas{position:absolute;inset:0;width:100%!important;height:100%!important;mix-blend-mode:screen;-webkit-mask-image:radial-gradient(ellipse 62% 66% at 50% 50%,#000 62%,transparent 100%);mask-image:radial-gradient(ellipse 62% 66% at 50% 50%,#000 62%,transparent 100%)}
 .ly div b i{font-style:normal;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;margin-right:8px;background:rgba(255,74,18,.18);color:#FF7A5A;font-size:12px}
 /* weapon orbit */
 .wo{background:#030304}
@@ -449,6 +450,45 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 .rcry{animation:none !important;left:-18% !important;top:-14% !important;width:62% !important;will-change:transform}
 .rcry-sheen{position:absolute;inset:0;pointer-events:none}
 .rbadge{right:-4% !important;bottom:4% !important}
+
+/* logo wall · click to zoom */
+.ember .t{cursor:pointer}
+.bz{position:absolute;inset:0 var(--gut);z-index:10;border-radius:26px;overflow:hidden;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);background:linear-gradient(140deg,#1a0406,#0c0c0e 60%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1),0 60px 120px -40px rgba(215,0,15,.6)}
+.bz[hidden]{display:none}
+.bzl{position:relative;display:grid;place-items:center;background:radial-gradient(circle at 50% 120%,#FFB347,#FF4A12 28%,#D7000F 55%,#3a0004 90%)}
+.bzl img{width:62%;max-height:58%;object-fit:contain;filter:drop-shadow(0 20px 40px rgba(60,0,0,.5))}
+.bzr{position:relative;z-index:2;padding:clamp(26px,3.6vw,54px);display:flex;flex-direction:column;justify-content:center;gap:14px}
+.bzr small{font:500 12px var(--f);letter-spacing:.18em;text-transform:uppercase;color:var(--amb)}
+.bzr h3{font:300 clamp(30px,3.2vw,52px)/1.05 var(--f);letter-spacing:-.03em}
+.bzm{font:300 clamp(40px,4.6vw,72px)/1 var(--f);letter-spacing:-.05em;background:linear-gradient(90deg,#fff,#FFB8A0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.bzm span{display:block;font-size:14px;letter-spacing:0;color:var(--mut);-webkit-text-fill-color:var(--mut)}
+.bzr ul{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.bzr li{font-size:13.5px;padding:8px 13px;border-radius:999px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.bzr p{margin:0;color:var(--mut);font-size:14px}
+.bzr .btn{align-self:flex-start}
+.bzslide{position:absolute;right:-6%;bottom:-14%;width:42%;border-radius:14px;opacity:.22;transform:rotate(-8deg);pointer-events:none}
+.bzx{all:unset;cursor:pointer;position:absolute;right:18px;top:18px;z-index:3;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+.bzx:hover,.bzx:focus-visible{background:var(--red)}
+@media (max-width:760px){.bz{grid-template-columns:minmax(0,1fr);grid-template-rows:38% 1fr;inset:0 8px}.bzr{padding:20px;gap:10px}.bzslide{display:none}}
+
+/* the pain · silk cards v2 */
+.g4 .glass.pc{position:relative;min-height:400px;padding:28px;display:flex;flex-direction:column;justify-content:flex-end;gap:16px;overflow:hidden;border-radius:26px}
+.pc .pn{position:absolute;right:18px;top:6px;font:800 clamp(90px,9vw,150px)/1 var(--f);letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.22);transition:-webkit-text-stroke-color .5s}
+.pc .po{position:absolute;left:22px;top:22px;width:clamp(96px,9vw,138px);transform:translateZ(40px) rotate(-8deg);filter:drop-shadow(0 20px 30px rgba(0,0,0,.5));transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.pc .po.scr{mix-blend-mode:screen}
+.pc .pq span{position:relative;font-size:15px;color:rgba(255,255,255,.72)}
+.pc .pq span::after{content:"";position:absolute;left:0;right:0;top:55%;height:2px;background:#FF4A12;transform:scaleX(0);transform-origin:left;transition:transform .7s .15s cubic-bezier(.2,.8,.2,1)}
+.pc .pa{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+.pc .pa b{font:300 28px/1 var(--f);color:var(--amb);transform:translateX(-8px);opacity:.5;transition:transform .6s,opacity .6s}
+.pc .pa h3{font:400 clamp(22px,2vw,30px)/1.15 var(--f);letter-spacing:-.02em;text-align:left}
+.pc .gl{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.18),transparent 45%);opacity:0;transition:opacity .4s}
+.pc:hover .gl{opacity:1}
+.g4 .glass.pc.lit .pn{-webkit-text-stroke-color:rgba(255,255,255,.55)}
+.g4 .glass.pc.lit .po{transform:translateZ(80px) rotate(4deg) scale(1.18)}
+.g4 .glass.pc.lit .pq span::after{transform:scaleX(1)}
+.g4 .glass.pc.lit .pq span{color:rgba(255,255,255,.85)}
+.g4 .glass.pc.lit .pa b{transform:none;opacity:1;color:#fff}
+@media (max-width:860px){.g4 .glass.pc{min-height:300px}.pc .po{width:88px}}
 .foot{background:#000;padding:60px 0 80px;color:var(--mut);font-size:14px}
 .foot .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
 .foot img{height:22px;width:auto}.foot ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
@@ -483,7 +523,11 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 </section>
 
 <!-- 2 LOGOS -->
-<section class="sec logos" id="s2"><div class="wrap"><div class="hd"><div><div class="lbl">Trusted by 160+ clients across 14+ industries</div><h2 style="margin-top:12px">Brands we've <span class="it">fired up</span></h2></div><p class="lbl" style="margin:0">Hover a tile</p></div><div class="ember" id="ember"></div></div></section>
+<section class="sec logos" id="s2"><div class="wrap" style="position:relative"><div class="hd"><div><div class="lbl">Trusted by 160+ clients across 14+ industries</div><h2 style="margin-top:12px">Brands we've <span class="it">fired up</span></h2></div><p class="lbl" style="margin:0">Click a brand</p></div><div class="ember" id="ember"></div>
+  <div class="bz" id="bz" role="dialog" aria-modal="true" aria-labelledby="bzh" hidden><button class="bzx" type="button" aria-label="Close">✕</button>
+    <div class="bzl"><img id="bzlogo" alt=""></div>
+    <div class="bzr"><small id="bzk"></small><h3 id="bzh"></h3><div class="bzm" id="bzm"></div><ul id="bzs"></ul><p id="bzn"></p><a class="btn" id="bzc" href="case-study.html">View case study <span class="ar">↗</span></a></div>
+    <img class="bzslide" id="bzslide" alt=""></div></div></section>
 
 <!-- 3 METRICS -->
 <section class="m3" id="s3" data-sec="m3" data-def="b" style="position:relative">
@@ -576,14 +620,39 @@ document.querySelectorAll("[data-sec]").forEach((sec) => {
   bs.forEach((b) => b.addEventListener("click", () => set(b.dataset.v))); set(sec.dataset.def || bs[0].dataset.v);
 });
 const mono = (l) => `<img src="assets/logos-mono/${l}.webp" alt="${nm(l)}" loading="lazy">`;
-ember.innerHTML = logos.map((l) => `<div class="t">${mono(l)}</div>`).join("");
+ember.innerHTML = logos.map((l, i) => `<div class="t" role="button" tabindex="0" data-i="${i}" aria-label="${nm(l)}: see what we did">${mono(l)}</div>`).join("");
+// what we did for each brand: only cases documented in Battle's deck; others say so plainly
+const WORK = {
+  "Yaki-Soul-logo-v2": ["F&B · Kuala Lumpur", "From zero to No.1 izakaya in KL", ["RM1.8M+", "single-outlet monthly ROI, from RM300K"], ["Seasonal & thematic campaigns", "On-ground activations", "Creator content", "Affiliate marketing", "Community partnerships"], "case_yakisoul"],
+  "BHP-Petrol-logo": ["Fuel retail · nationwide", "Turning Malaysia's subsidy rollout into brand visibility", ["7M+", "total organic reach"], ["KV development", "KOL deployment", "Social campaign videos", "Video retainer", "Strategic storytelling"], "case_bhpetrol"],
+  "Easy-Europe-logo-v2": ["Travel", "From pandemic to peak performance", ["700+", "leads generated weekly · 65% lower cost per result"], ["High-intent audience targeting", "Lead-gen funnel redesign", "Campaign messaging", "Lead qualification"], "case_easyeurope"],
+  "Good-Year-logo-v2": ["Automotive", "Making loyalty more fun", ["Multi", "nationwide campaigns: Raya, Chinese New Year & more"], ["Microsite", "Gamification development", "Receipt-validated loyalty platform"], "case_goodyear"] };
+{ const bz = document.getElementById("bz"), $ = (id) => document.getElementById(id); let from = null;
+  function open(t) { const l = logos[+t.dataset.i], w = WORK[l]; from = t;
+    $("bzlogo").src = `assets/logos-mono/${l}.webp`; $("bzlogo").alt = nm(l);
+    if (w) { $("bzk").textContent = w[0]; $("bzh").textContent = w[1]; $("bzm").innerHTML = `${w[2][0]}<span>${w[2][1]}</span>`; $("bzs").innerHTML = w[3].map((x) => `<li>${x}</li>`).join(""); $("bzn").textContent = ""; $("bzslide").src = `assets/sue/${w[4]}.webp`; $("bzslide").hidden = false; $("bzc").hidden = false; }
+    else { $("bzk").textContent = "Client"; $("bzh").textContent = nm(l); $("bzm").innerHTML = ""; $("bzs").innerHTML = ""; $("bzn").textContent = "Case story to come: Battle to add the services delivered for this brand."; $("bzslide").hidden = true; $("bzc").hidden = true; }
+    bz.hidden = false;
+    if (!R) { const a = t.getBoundingClientRect(), b = bz.getBoundingClientRect();
+      gsap.fromTo(bz, { x: a.left - b.left, y: a.top - b.top, scaleX: a.width / b.width, scaleY: a.height / b.height, transformOrigin: "0 0", borderRadius: 20 }, { x: 0, y: 0, scaleX: 1, scaleY: 1, duration: 0.75, ease: "expo.out" });
+      gsap.fromTo("#bzlogo", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.9, delay: 0.15, ease: "back.out(1.6)" });
+      gsap.fromTo(".bzr > *", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.06, delay: 0.25, ease: "power3.out" }); }
+    bz.querySelector(".bzx").focus(); }
+  function close() { if (bz.hidden) return; const done = () => { bz.hidden = true; from && from.focus(); };
+    if (R || !from) return done(); const a = from.getBoundingClientRect(), b = bz.getBoundingClientRect();
+    gsap.to(bz, { x: a.left - b.left, y: a.top - b.top, scaleX: a.width / b.width, scaleY: a.height / b.height, opacity: 0.3, duration: 0.45, ease: "power3.in", onComplete: () => { gsap.set(bz, { clearProps: "all" }); done(); } }); }
+  ember.addEventListener("click", (e) => { const t = e.target.closest(".t"); if (t) open(t); });
+  ember.addEventListener("keydown", (e) => { const t = e.target.closest(".t"); if (t && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); open(t); } });
+  bz.querySelector(".bzx").addEventListener("click", close); addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+  document.addEventListener("pointerdown", (e) => { if (!bz.hidden && !bz.contains(e.target) && !e.target.closest(".ember .t")) close(); }); }
 const up = (u) => (u ? "up to, " : "");
 mAn.innerHTML = metrics.map(([b, s, u]) => `<div><b>${b}</b><span>${up(u)}${s}</span></div>`).join("");
 const H = [0.55, 1, 0.75, 0.85];
 bars.innerHTML = metrics.map(([b, s, u], i) => `<div class="bar" tabindex="0" data-i="${i}"><small>${u ? "Up to" : "Today"}</small><b>${b}</b><div class="g" style="--h:${Math.round(H[i] * 200)}px"></div><span>${s}</span></div>`).join("");
 c3.innerHTML = bridge.map(([q, a], i) => `<div class="c3${i ? "" : " on"}"><span class="n">0${i + 1}</span><div><div class="q">${q}</div><h3>${a}</h3></div></div>`).join("");
 nl.innerHTML = bridge.map(([q, a], i) => `<div class="r"><b>0${i + 1}</b><div><small>${q}</small><span>${a}</span></div></div>`).join("");
-g4.innerHTML = bridge.map(([q, a], i) => `<div class="glass"><div class="q">0${i + 1} · ${q}</div><h3>${a}</h3></div>`).join("");
+const PIC = [["k_flame_g", ""], ["k_chat_g", ""], ["w_d6", "scr"]];
+g4.innerHTML = bridge.map(([q, a], i) => `<div class="glass pc"><span class="pn">0${i + 1}</span><img class="po ${PIC[i][1]}" src="assets/img/${PIC[i][0]}.webp" alt=""><i class="gl"></i><div class="pq"><span>${q}</span></div><div class="pa"><b>→</b><h3>${a}</h3></div></div>`).join("");
 const LIC = ["▢", "◎", "▶", "♛"];
 ly.innerHTML = layers.map(([t, p, s], i) => `<div><b><i>${LIC[i]}</i>Layer 0${i + 1}</b><h4>${t}</h4><p>${p}</p></div>`).join("");
 cg.innerHTML = cases.map(([img, n, t, b, s]) => `<a class="cc" href="case-study.html"><img src="assets/sue/${img}.webp" alt="" loading="lazy"><div class="in"><b>${b}</b><small>${s}</small><h4>${t}</h4><span>${n}</span></div></a>`).join("");
@@ -675,7 +744,7 @@ if (!R) {
   // statue numbers: count up on enter; hover/focus a column to replay its count, fire-fill its bar and lean the statue toward it
   { const NUM = [[160, "", "+"], [500, "", "%"], [3, "", "×"], [67, "", "%"]], bs = [...bars.children], wrapB = bars;
     const count = (el, [n, pre, suf], d = 1.2) => { const o = { v: 0 }; gsap.to(o, { v: n, duration: d, ease: "power3.out", onUpdate: () => (el.textContent = pre + Math.round(o.v) + suf) }); };
-    const bx = gsap.quickTo(".mB .bg", "x", { duration: 1.2, ease: "power3" }), bsc = gsap.quickTo(".mB .bg", "scale", { duration: 1.2, ease: "power3" });
+    const bx = gsap.quickTo(".mB .bg", "x", { duration: 1.2, ease: "power3" }), bsc = (v) => gsap.to(".mB .bg", { scale: v, duration: 1.2, ease: "power3", overwrite: "auto" });
     ScrollTrigger.create({ trigger: "#s3", start: "top 70%", once: true, onEnter: () => { gsap.from(".bar .g", { scaleY: 0, duration: 1.4, stagger: 0.12, ease: "power3.out" }); bs.forEach((b, i) => count(b.querySelector("b"), NUM[i], 1.6)); } });
     const on = (b) => { bs.forEach((x) => x.classList.toggle("on", x === b)); wrapB.classList.toggle("act", !!b);
       if (!b) { bx(0); bsc(1); return; } const i = +b.dataset.i;
@@ -719,6 +788,9 @@ if (!R) {
     scrollTrigger: { trigger: "#g4", start: "top 95%", end: "top 45%", scrub: 0.8 } }));
   cards.forEach((c, i) => gsap.to(c, { y: -60 * (i % 2 ? 1.4 : 0.8), ease: "none", scrollTrigger: { trigger: "#s4", start: "top top", end: "bottom top", scrub: 0.8 } }));
   ScrollTrigger.create({ trigger: "#g4", start: "top 60%", end: "bottom 20%", onUpdate: (s) => { const k = Math.min(2, Math.floor(s.progress * 3)); cards.forEach((c, i) => c.classList.toggle("lit", i === k)); } });
+  cards.forEach((c) => { const rx = gsap.quickTo(c, "rotationX", { duration: 0.6 }), ry = gsap.quickTo(c, "rotationY", { duration: 0.6 });
+    c.addEventListener("pointermove", (e) => { const b = c.getBoundingClientRect(), kx = (e.clientX - b.left) / b.width, ky = (e.clientY - b.top) / b.height; ry((kx - 0.5) * 14); rx((0.5 - ky) * 10); c.style.setProperty("--gx", kx * 100 + "%"); c.style.setProperty("--gy", ky * 100 + "%"); });
+    c.addEventListener("pointerleave", () => { rx(0); ry(0); }); });
 } else document.querySelectorAll("#g4 .glass")[1]?.classList.add("lit");
 if (!R) {
   const T = { trigger: "#h3d", start: "top top", end: "bottom top", scrub: 0.6 };
