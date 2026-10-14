@@ -435,6 +435,20 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 .rarr button:hover,.rarr button:focus-visible{background:var(--red)}
 .rprog{margin-top:22px;height:2px;background:rgba(255,255,255,.12);border-radius:2px;overflow:hidden}.rprog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--amb))}
 @media (max-width:860px){.rin{grid-template-columns:minmax(0,1fr)}.rstage{max-width:300px}.rbadge{right:-4%}.rtext blockquote{font-size:26px;min-height:4.8em}.rq{font-size:100px;height:40px}}
+
+/* reviews A · v2: waves, moving crystal, round frame */
+.rwaves{position:absolute;inset:0;pointer-events:none;overflow:hidden;filter:blur(60px)}
+.rwaves i{position:absolute;border-radius:50%;mix-blend-mode:screen;opacity:.75}
+.rwaves i:nth-child(1){width:46vw;height:46vw;left:-10vw;top:-6vw;background:radial-gradient(closest-side,#D7000F,transparent)}
+.rwaves i:nth-child(2){width:38vw;height:38vw;left:10vw;top:14vw;background:radial-gradient(closest-side,#FF4A12,transparent);opacity:.55}
+.rwaves i:nth-child(3){width:30vw;height:30vw;left:-4vw;top:22vw;background:radial-gradient(closest-side,#7A0030,transparent);opacity:.7}
+.rstage{aspect-ratio:1/1 !important}
+.rframe{border-radius:50% !important;inset:6% !important}
+.rframe img{border-radius:50%}
+.rring{position:absolute;inset:3%;border-radius:50%;z-index:1;background:conic-gradient(from 0deg,#D7000F,#FFB347,transparent 30%,#FF4A12 55%,transparent 75%,#D7000F);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));filter:drop-shadow(0 0 12px rgba(255,74,18,.9));animation:rspin 9s linear infinite}
+.rcry{animation:none !important;left:-18% !important;top:-14% !important;width:62% !important;will-change:transform}
+.rcry-sheen{position:absolute;inset:0;pointer-events:none}
+.rbadge{right:-4% !important;bottom:4% !important}
 .foot{background:#000;padding:60px 0 80px;color:var(--mut);font-size:14px}
 .foot .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
 .foot img{height:22px;width:auto}.foot ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
@@ -510,10 +524,10 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 <section id="s7" data-sec="rev" style="position:relative">
   <div class="opt" role="group" aria-label="Review options"><span>Reviews</span><button data-v="a">A · Crystal</button><button data-v="b">B · Bubbles</button></div>
   <div class="rA on" data-o="a"><div class="rsp">
-    <div class="rglow" aria-hidden="true"></div>
+    <div class="rwaves" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="wrap rin">
       <div class="rstage"><img class="rcry" src="assets/img/c_crystal_g.webp" alt="" aria-hidden="true">
-        <div class="rframe"><img id="rimg" src="assets/img/Poi-Ching.webp" alt=""><div class="rtone"></div></div>
+        <div class="rring" aria-hidden="true"></div><div class="rframe"><img id="rimg" src="assets/img/Poi-Ching.webp" alt=""><div class="rtone"></div></div>
         <div class="rbadge glass"><b>160+</b><span>brands since 2020</span></div></div>
       <div class="rtext"><div class="lbl">Reviews from our clients</div>
         <div class="rq" aria-hidden="true">“</div>
@@ -575,11 +589,12 @@ ly.innerHTML = layers.map(([t, p, s], i) => `<div><b><i>${LIC[i]}</i>Layer 0${i 
 cg.innerHTML = cases.map(([img, n, t, b, s]) => `<a class="cc" href="case-study.html"><img src="assets/sue/${img}.webp" alt="" loading="lazy"><div class="in"><b>${b}</b><small>${s}</small><h4>${t}</h4><span>${n}</span></div></a>`).join("");
 // reviews A: one client in the spotlight; auto-advances, pauses on hover, avatars + arrows to jump
 { const imgEl = document.getElementById("rimg"), q = document.getElementById("rquote"), nm = document.getElementById("rname"), rl = document.getElementById("rrole"), bar = document.getElementById("rbar"), sp = document.querySelector(".rsp");
-  rav.innerHTML = reviews.map(([w, r, img], i) => `<button aria-label="Review from ${w}"><img src="assets/img/${img}.webp" alt="" loading="lazy"></button>`).join("");
+  const RV = reviews.filter((x) => x[0] !== "Cheanu Chew");
+  rav.innerHTML = RV.map(([w, r, img], i) => `<button aria-label="Review from ${w}"><img src="assets/img/${img}.webp" alt="" loading="lazy"></button>`).join("");
   const av = [...rav.children]; let cur = -1, prog = null, hold = false;
   const words = (t) => t.split(" ").map((x) => `<span class="w">${x}</span>`).join(" ");
   function show(i) {
-    i = (i + reviews.length) % reviews.length; if (i === cur) return; cur = i; const [w, r, img, text] = reviews[i];
+    i = (i + RV.length) % RV.length; if (i === cur) return; cur = i; const [w, r, img, text] = RV[i];
     av.forEach((b, k) => b.setAttribute("aria-current", k === i));
     if (R) { imgEl.src = `assets/img/${img}.webp`; q.textContent = `${text}`; nm.textContent = w; rl.textContent = r; return; }
     gsap.timeline()
@@ -589,13 +604,19 @@ cg.innerHTML = cases.map(([img, n, t, b, s]) => `<a class="cc" href="case-study.
       .add(() => gsap.fromTo(q.querySelectorAll(".w"), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.03, ease: "power3.out" }), "<0.1")
       .set(q, { opacity: 1, y: 0 }, "<")
       .fromTo(".rwho", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5 }, "<0.3");
-    gsap.fromTo(".rcry", { scale: 0.85 }, { scale: 1, duration: 1.2, ease: "elastic.out(1,.5)" });
+    if (!R) gsap.fromTo(".rcry", { scale: 0.8 }, { scale: 1, duration: 1.4, ease: "elastic.out(1,.5)" });
     if (prog) prog.kill(); prog = gsap.fromTo(bar, { width: "0%" }, { width: "100%", duration: 7, ease: "none", paused: hold, onComplete: () => show(cur + 1) });
   }
   av.forEach((b, k) => b.addEventListener("click", () => show(k)));
   rnx.onclick = () => show(cur + 1); rpv.onclick = () => show(cur - 1);
   sp.addEventListener("pointerenter", () => { hold = true; prog && prog.pause(); }); sp.addEventListener("pointerleave", () => { hold = false; prog && prog.resume(); });
   show(0);
+  if (!R) { // crystal: continuous spin + float + hue shimmer; wave blobs drift in slow figure-eights
+    gsap.to(".rcry", { rotation: 360, duration: 22, repeat: -1, ease: "none" });
+    gsap.to(".rcry", { y: -22, x: 10, duration: 3.2, repeat: -1, yoyo: true, ease: "sine.inOut" });
+    gsap.to(".rcry", { filter: "drop-shadow(0 0 60px rgba(255,120,40,.9)) hue-rotate(-18deg) brightness(1.15)", duration: 2.4, repeat: -1, yoyo: true, ease: "sine.inOut" });
+    [...document.querySelectorAll(".rwaves i")].forEach((b, i) => { const a = 6 + i * 3;
+      gsap.to(b, { keyframes: { x: [0, a + "vw", -a / 2 + "vw", 0], y: [0, -a / 2 + "vw", a + "vw", 0], scale: [1, 1.25, 0.9, 1] }, duration: 14 + i * 4, repeat: -1, ease: "sine.inOut" }); }); }
   if (!R) gsap.to(".rstage", { y: -40, ease: "none", scrollTrigger: { trigger: sp, start: "top bottom", end: "bottom top", scrub: true } }); }
 rqs.innerHTML = reviews.slice(0, 3).map(([w, r, img, q]) => `<figure><img src="assets/img/${img}.webp" alt="" loading="lazy"><div><p>“${q}”</p><b>${w}</b> · <span style="font-size:13px;color:#777">${r}</span></div></figure>`).join("");
 // team
