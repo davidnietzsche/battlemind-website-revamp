@@ -43,7 +43,15 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 .hero{position:relative;min-height:100svh}
 .hero [data-o]{position:relative;min-height:100svh;overflow:hidden}
 /* A · silk video (NovaPay, Transform your data) */
-.pin3d{position:relative;height:100svh;overflow:hidden;background:#060203}
+.vstage{position:relative;height:100svh;min-height:640px;overflow:hidden;background:#060203}
+.vbg{position:absolute;inset:-4%;will-change:transform}
+.vbg video,.vbg .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hin{position:relative;z-index:2;height:100%;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);align-items:center;gap:30px;padding-top:80px}
+.hcopy,.cards .stat{will-change:transform}
+.hA h1{font-size:clamp(54px,7.6vw,128px);line-height:.95}.hA h1 .it{display:block;color:#FFC2AE}
+.hA p{max-width:44ch;color:rgba(255,255,255,.78);font-size:clamp(16px,1.3vw,19px);margin:26px 0 32px}
+.hA .ctas{display:flex;gap:10px;flex-wrap:wrap}
+@media (max-width:860px){.hin{grid-template-columns:minmax(0,1fr);align-content:end;padding-bottom:80px}.hA .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.hA .cards .stat{margin:0;padding:12px}.hA .stat b{font-size:28px}.hA .stat i{display:none}}
 .hA video,.hA .poster,.hA canvas.silk{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hA canvas.silk{display:none}.hA.gl canvas.silk{display:block}.hA.gl video,.hA.gl .poster{display:none}
 .hA .veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(6,2,3,.85) 0%,rgba(6,2,3,.4) 40%,transparent 70%),linear-gradient(0deg,rgba(10,10,11,.9),transparent 26%)}
@@ -272,11 +280,27 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 .tA .ti{font:700 clamp(56px,7vw,120px)/.82 "Oswald",sans-serif;text-transform:uppercase;letter-spacing:-.01em}
 .tA .ti small{display:block;font:700 18px "Oswald";letter-spacing:.3em;margin-bottom:10px}
 .tA .date{font:700 28px "Oswald";color:#141414;margin-top:16px;letter-spacing:.04em}
-.mm{display:flex;gap:6px;height:min(70vh,600px)}
-.mm div{position:relative;flex:1;background:#B4121B;overflow:hidden;min-width:0}
-.mm div img{position:absolute;right:0;bottom:0;height:86%;width:auto;max-width:none;translate:18% 0;filter:grayscale(1) contrast(1.06)}
-.mm div span{position:absolute;left:4px;bottom:8px;writing-mode:vertical-rl;transform:rotate(180deg);font:700 clamp(30px,3.6vw,64px)/1 "Oswald";text-transform:uppercase;color:#F1E9DA;letter-spacing:.01em;z-index:2}
-@media (max-width:860px){.tA .in{grid-template-columns:minmax(0,1fr)}.mm{height:430px;overflow-x:auto}.mm div{flex:none;width:42vw}}
+.mm{display:flex;gap:6px;height:min(72vh,620px)}
+.mm .m{position:relative;flex:1 1 0;min-width:0;background:#B4121B;overflow:hidden;cursor:pointer;outline:none;
+  transition:flex-grow .8s cubic-bezier(.2,.8,.2,1),filter .6s}
+.mm .m::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 55% at 50% 72%,#FFB347,#FF4A12 30%,#D7000F 58%,#5A0006 100%);opacity:0;transition:opacity .7s}
+.mm .m::after{content:"";position:absolute;inset:-20% auto -20% -60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-18deg);opacity:0;pointer-events:none}
+.mm .m img{position:absolute;left:50%;bottom:0;height:88%;width:auto;max-width:none;translate:-50% 0;transform-origin:50% 100%;
+  filter:grayscale(1) contrast(1.08) brightness(.95);transition:filter .7s,transform .9s cubic-bezier(.2,.8,.2,1);z-index:1}
+.mm .m span{position:absolute;left:4px;bottom:8px;writing-mode:vertical-rl;transform:rotate(180deg);font:700 clamp(30px,3.6vw,64px)/1 "Oswald";text-transform:uppercase;color:#F1E9DA;z-index:2;transition:opacity .4s}
+.mm .m em{position:absolute;left:18px;right:18px;bottom:18px;z-index:3;font:700 clamp(34px,3.3vw,62px)/.85 "Oswald";font-style:normal;text-transform:uppercase;color:#fff;letter-spacing:-.01em;
+  opacity:0;transform:translateY(30px);transition:opacity .5s .15s,transform .7s .15s cubic-bezier(.2,.8,.2,1);text-shadow:0 6px 30px rgba(60,0,0,.6)}
+.mm .m em small{display:block;font:600 12px var(--f);letter-spacing:.24em;color:#FFE1C2;margin-bottom:8px}
+.mm.act .m{filter:saturate(.6) brightness(.6)}
+.mm .m.on{flex-grow:3.4;filter:none}
+.mm .m.on::before{opacity:1}
+.mm .m.on::after{animation:sheen 1.1s .1s ease-out}
+@keyframes sheen{0%{left:-60%;opacity:1}100%{left:130%;opacity:0}}
+.mm .m.on img{filter:none;transform:scale(1.12)}
+.mm .m.on span{opacity:0}
+.mm .m.on em{opacity:1;transform:none}
+.mm .m:focus-visible{box-shadow:inset 0 0 0 3px #FFB347}
+@media (max-width:860px){.tA .in{grid-template-columns:minmax(0,1fr)}.mm{height:440px}.mm .m em{font-size:34px;left:10px;bottom:12px}.mm .m span{font-size:26px}}
 /* B · staggered colour strips */
 .tB{background:#EFEADF}
 .tB .in{padding-top:clamp(70px,8vw,120px);padding-bottom:clamp(70px,8vw,120px)}
@@ -343,6 +367,26 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 .cn .ask input{color:#fff !important;font-family:"Inter",monospace}.cn .ask input::placeholder{color:rgba(255,255,255,.85)}
 .cn .ask .chips span{background:linear-gradient(160deg,#FF6A4A,#D7000F) !important;color:#fff !important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35),0 6px 16px -6px rgba(90,0,0,.8)}
 .cn .ask .send{background:radial-gradient(circle at 30% 30%,#FFE0B0,#FF8A3A 45%,#D7000F) !important}
+
+/* let's connect · layered parallax */
+.kc{position:relative;background:#14060a}
+.kst{position:relative;height:min(100svh,900px);min-height:640px;overflow:hidden;display:grid;place-items:center}
+.kbg{position:absolute;inset:-10%;background:radial-gradient(45% 55% at 18% 20%,#FF8A5B,transparent 70%),radial-gradient(50% 60% at 85% 85%,#FF5A7A,transparent 70%),radial-gradient(60% 60% at 60% 30%,#FFB38A,transparent 70%),linear-gradient(160deg,#E2301F,#D7000F 45%,#B3002A);will-change:transform}
+.kbg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(255,255,255,.18),transparent 60%)}
+.ko{position:absolute;z-index:3;will-change:transform;pointer-events:none}
+.ko.back{z-index:1;filter:blur(2px) saturate(.9);opacity:.92}
+.ko img{width:100%;filter:drop-shadow(0 30px 40px rgba(90,0,20,.35))}
+.kbox{position:relative;z-index:2;width:min(860px,90vw);text-align:center;color:#fff}
+.kbox h2{font:800 clamp(44px,5.6vw,96px)/.95 var(--f);letter-spacing:-.05em}.kbox h2 .it{font-weight:400;color:#FFE3C8}
+.kbox>p{margin:14px 0 30px;color:rgba(255,255,255,.9)}
+.kbar{position:relative;overflow:hidden;text-align:left;border-radius:30px;padding:26px 26px 20px;background:linear-gradient(160deg,rgba(255,255,255,.55),rgba(255,255,255,.22));backdrop-filter:blur(26px) saturate(1.3);-webkit-backdrop-filter:blur(26px) saturate(1.3);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.75),inset 0 -20px 40px rgba(255,255,255,.12),0 50px 90px -40px rgba(90,0,10,.75)}
+.kbar .rip{position:absolute;right:-60px;top:50%;width:300px;height:300px;translate:0 -50%;border-radius:50%;background:repeating-radial-gradient(circle,rgba(255,255,255,.0) 0 14px,rgba(255,255,255,.28) 15px 17px);opacity:.7;pointer-events:none}
+.kbar input{position:relative;width:100%;border:0;outline:none;background:none;font:400 clamp(20px,2vw,28px) "Inter",monospace;letter-spacing:-.01em;color:#3a0610;padding:4px 4px 22px}
+.kbar input::placeholder{color:#5a1a22}
+.kbar .row{position:relative;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.kbar .chips{display:flex;gap:8px;flex-wrap:wrap}.kbar .chips span{font:600 14px var(--f);padding:10px 16px;border-radius:999px;color:#fff;background:linear-gradient(180deg,#FF5A3A,#D7000F);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 6px 0 #8a0008,0 10px 20px -6px rgba(90,0,0,.6)}
+.kbar .send{all:unset;cursor:pointer;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-size:24px;color:#fff;background:radial-gradient(circle at 30% 30%,#FFD2B8,#FF6A3A 50%,#D7000F);box-shadow:0 10px 24px -8px rgba(120,0,0,.8)}
+@media (max-width:760px){.ko{width:72px!important}.ko[style*='left:87%']{left:78%!important;top:28%!important}.ko.back{display:none}.kbar{padding:18px}.kbar .send{width:48px;height:48px}}
 .foot{background:#000;padding:60px 0 80px;color:var(--mut);font-size:14px}
 .foot .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
 .foot img{height:22px;width:auto}.foot ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
@@ -354,19 +398,16 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 
 <!-- 1 HERO -->
 <section class="hero" id="s1" data-sec="hero">
-  <div class="opt" role="group" aria-label="Hero options"><span>Hero</span><button data-v="a">A · Silk 3D</button><button data-v="b">B · Blur</button><button data-v="c">C · Bold</button></div>
-  <div class="hA on" data-o="a"><div class="pin3d" id="h3d">
-    <img class="poster" src="assets/img/c_k_hero.webp" alt=""><video id="hv" muted playsinline loop autoplay preload="metadata" poster="assets/img/c_k_hero.webp"><source src="assets/video/hero_silk.mp4" type="video/mp4"><source src="assets/video/hero_silk.webm" type="video/webm"></video>
-    <canvas class="silk" aria-hidden="true"></canvas><div class="veil"></div>
-    <div class="beat b0"><div class="wrap"><div class="lbl">Data-intelligent digital marketing · Kuala Lumpur</div>
+  <div class="opt" role="group" aria-label="Hero options"><span>Hero</span><button data-v="a">A · Silk</button><button data-v="b">B · Blur</button><button data-v="c">C · Bold</button></div>
+  <div class="hA on" data-o="a"><div class="vstage" id="h3d">
+    <div class="vbg"><img class="poster" src="assets/img/c_k_hero.webp" alt=""><video id="hv" muted playsinline loop autoplay preload="auto" poster="assets/img/c_k_hero.webp"><source src="assets/video/hero_silk.mp4" type="video/mp4"><source src="assets/video/hero_silk.webm" type="video/webm"></video></div>
+    <div class="veil"></div>
+    <div class="wrap hin"><div class="hcopy"><div class="lbl">Data-intelligent digital marketing · Kuala Lumpur</div>
       <h1 class="hh">Win the right battles. <span class="it">Scale results.</span></h1>
       <p>AI gave everyone marketing tools. We give your brand the strategy, empathy and revenue to actually win.</p>
-      <div class="ctas"><a class="btn" href="#connect">Start a marketing consultation <span class="ar">↗</span></a><a class="btn gl" href="#cases">See case studies</a></div></div></div>
-    <div class="beat b1"><div class="wrap two"><h2>160+ brands.<br><span class="it">14+ industries.</span></h2>
-      <div class="cards"><div class="glass stat" data-z="1"><b>160<sup>+</sup></b><i></i><span>clients across 14+ industries</span></div><div class="glass stat" data-z="2"><b>500<sup>%</sup></b><i></i><span>up to, client business growth in 3 years</span></div><div class="glass stat" data-z="3"><b>67<sup>%</sup></b><i></i><span>up to, lower cost per result</span></div></div></div></div>
-    <div class="beat b2"><div class="wrap"><h2>Two specialists. <span class="it">One battle plan.</span></h2>
-      <div class="duo"><div class="glass"><small>Battle Mind</small><b>Creative &amp; performance</b><span>Paid ads, content, KOL &amp; UGC, branding</span></div><div class="glass"><small>Battle X</small><b>Web &amp; tech</b><span>Websites, apps, AI chatbots, loyalty</span></div></div></div></div>
-    <div class="chap" aria-hidden="true"><span>01</span><span>02</span><span>03</span><i><em id="chb"></em></i></div></div></div>
+      <div class="ctas"><a class="btn" href="#connect">Start a marketing consultation <span class="ar">↗</span></a><a class="btn gl" href="#cases">See case studies</a></div></div>
+      <div class="cards"><div class="glass stat" data-sp="0.5"><b>160<sup>+</sup></b><i></i><span>clients across 14+ industries</span></div><div class="glass stat" data-sp="0.8"><b>500<sup>%</sup></b><i></i><span>up to, client growth in 3 years</span></div><div class="glass stat" data-sp="1.1"><b>67<sup>%</sup></b><i></i><span>up to, lower cost per result</span></div></div></div>
+    <div class="lbl sc">Scroll</div></div></div>
   <div class="hB" data-o="b" data-par>
     <div class="giant" data-depth=".4">BATTLE</div><img class="obj" data-depth="1.6" src="assets/img/c_obj_g.webp" alt="">
     <div class="wrap in"><div class="row"><div><div class="lbl" style="color:rgba(255,255,255,.8)">Battle Mind · Battle X</div><h1 class="hh" style="margin-top:12px">Win the right battles.<br><span class="it">Scale results.</span></h1></div>
@@ -434,10 +475,21 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
   <div class="tC" data-o="c"><div class="cur" id="cur"><div class="names">Ian · Matthew · Ben</div><div class="ti">Battle</div></div></div>
 </section>
 
-<!-- 9 LET'S CONNECT · flammy -->
-<section class="sec cn" id="connect" data-par><canvas id="cfl" aria-hidden="true"></canvas><img class="objs" data-depth="1.2" src="assets/img/f_connect_g.webp" alt="">
-  <div class="box"><h2>Got 15 minutes? <span class="it">Let's connect.</span></h2><p class="sub">We'll audit your marketing funnel over a virtual meet, for free.</p>
-    <form class="ask" onsubmit="return false"><input aria-label="Your marketing battle" placeholder="What's your marketing battle?"><div class="row"><div class="chips"><span>⚑ Free audit</span><span>◎ Ads</span><span>▢ Website</span></div><button class="send" type="submit" aria-label="Send">↑</button></div></form></div></section>
+<!-- 9 LET'S CONNECT · layered parallax (ref: glass prompt bar with 3D objects) -->
+<section class="kc" id="connect"><div class="kst" id="kst">
+  <div class="kbg"></div>
+  <div class="ko back" data-d="0.35" style="left:38%;top:7%;width:clamp(110px,11vw,170px)"><img src="assets/img/k_cards_g.webp" alt=""></div>
+  <div class="ko back" data-d="0.5" style="left:3%;top:56%;width:clamp(150px,16vw,240px)"><img src="assets/img/k_blob_g.webp" alt=""></div>
+  <div class="ko back" data-d="0.6" style="left:80%;top:8%;width:clamp(90px,9vw,140px)"><img src="assets/img/k_star_g.webp" alt=""></div>
+  <div class="kbox"><h2>Got 15 minutes? <span class="it">Let's connect.</span></h2><p>We'll audit your marketing funnel over a virtual meet, for free.</p>
+    <form class="kbar" onsubmit="return false"><div class="rip" aria-hidden="true"></div><input aria-label="Your marketing battle" placeholder="What's your marketing battle?">
+      <div class="row"><div class="chips"><span>Free audit</span><span>Ads</span><span>Website</span></div><button class="send" type="submit" aria-label="Send">↑</button></div></form></div>
+  <div class="ko" data-d="1.3" style="left:12%;top:16%;width:clamp(100px,10vw,150px)"><img src="assets/img/k_smile_g.webp" alt=""></div>
+  <div class="ko" data-d="1.0" style="left:20%;top:72%;width:clamp(90px,9vw,130px)"><img src="assets/img/k_clap_g.webp" alt=""></div>
+  <div class="ko" data-d="1.7" style="left:57%;top:62%;width:clamp(150px,15vw,230px)"><img src="assets/img/k_chat_g.webp" alt=""></div>
+  <div class="ko" data-d="1.4" style="left:87%;top:46%;width:clamp(90px,9vw,140px)"><img src="assets/img/k_flame_g.webp" alt=""></div>
+  <div class="ko" data-d="1.1" style="left:74%;top:74%;width:clamp(100px,10vw,150px)"><img src="assets/img/k_plane_g.webp" alt=""></div>
+</div></section>
 
 <footer class="foot"><div class="wrap"><img src="assets/brand/battle-white.webp" alt="Battle"><ul><li>Services</li><li>Work</li><li>About</li><li>Careers</li><li>Resources</li></ul><span>Battle Mind Creative · Battle X · Kuala Lumpur</span></div></footer>
 <div class="reffoot">Draft for review. Each section with options follows a specific reference from Battle's Web Revamp deck; switch options with the pills at the top right of the section.</div>
@@ -468,14 +520,34 @@ rnx.onclick = () => { ri++; step(); }; rpv.onclick = () => { ri--; step(); }; ad
 rqs.innerHTML = reviews.slice(0, 3).map(([w, r, img, q]) => `<figure><img src="assets/img/${img}.webp" alt="" loading="lazy"><div><p>“${q}”</p><b>${w}</b> · <span style="font-size:13px;color:#777">${r}</span></div></figure>`).join("");
 // team
 const T = [...bosses, ...LK.squad.slice(0, 3).map((id) => [id, ""])];
-mm.innerHTML = T.map(([id, n]) => `<div><img src="assets/team/${id}.webp" alt="${n}" loading="lazy">${n ? `<span>${n}</span>` : ""}</div>`).join("");
+// colour cut-outs from the 2025 team photo: grey at rest, full colour on hover/tap
+const MM = [["c02", "Ian"], ["c04", "Matthew"], ["c03", "Ben"], ["c00", ""], ["c05", ""], ["c06", ""], ["c07", ""], ["c08", ""], ["c09", ""]];
+mm.innerHTML = MM.map(([id, n]) => `<div class="m" tabindex="0" role="button" aria-label="${n || "Battle team member"}"><img src="assets/teamc/${id}.webp" alt="${n}" loading="lazy">${n ? `<span>${n}</span>` : ""}<em>${n ? `<small>The Battle cast</small>${n}` : `<small>Battle</small>The squad`}</em></div>`).join("");
+{ const ms = [...mm.children]; let auto = null, k = 0;
+  const on = (m) => { ms.forEach((x) => x.classList.toggle("on", x === m)); mm.classList.toggle("act", !!m); };
+  ms.forEach((m) => { m.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") { stop(); on(m); } }); m.addEventListener("click", () => { stop(); on(m.classList.contains("on") && !matchMedia("(hover:hover)").matches ? null : m); }); m.addEventListener("focus", () => { stop(); on(m); }); });
+  mm.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") on(null); });
+  const stop = () => { clearInterval(auto); auto = null; };
+  // touch screens: the cast lights up one by one until someone taps
+  if (!R && !matchMedia("(hover:hover)").matches) new IntersectionObserver(([e]) => { if (e.isIntersecting && !auto && !mm.dataset.t) { mm.dataset.t = 1; auto = setInterval(() => on(ms[k++ % ms.length]), 1800); } }).observe(mm); }
 const COL = ["#E8A23A", "#173B3A", "#3E6B3A", "#B4121B", "#E06A2A", "#1D2B3A", "#C7A27A", "#5A6E2E", "#D4552A"], TOP = [10, 2, 14, 0, 8, 4, 12, 6, 16];
 st.innerHTML = [...bosses, ...LK.squad.slice(0, 6).map((id) => [id, ""])].map(([id], i) => `<div style="--c:${COL[i]};--t:${TOP[i] * 4}px;--b:${(16 - TOP[i]) * 3}px"><img src="assets/team/${id}.webp" alt="" loading="lazy"></div>`).join("");
 cur.insertAdjacentHTML("afterbegin", [LK.squad[2], LK.squad[0], bosses[0][0], bosses[1][0], bosses[2][0], LK.squad[1], LK.squad[3]].map((id) => `<img src="assets/team/${id}.webp" alt="" loading="lazy">`).join(""));
 
 // ---------- motion ----------
 if (!R && window.Lenis) { const lenis = new Lenis({ lerp: 0.09, smoothWheel: true }); window.__lenis = lenis; lenis.on("scroll", ScrollTrigger.update); gsap.ticker.add((t) => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0); }
-if (window.FX && !R) FX.flame(document.getElementById("cfl"), { inten: 0.75, band: 0.5 });
+// connect: every object on its own depth (mouse + scroll), fly-in on enter, gentle float
+if (!R) { const ks = [...document.querySelectorAll("#kst .ko")], kst = document.getElementById("kst");
+  const mv = ks.map((el) => ({ d: +el.dataset.d, x: gsap.quickTo(el, "x", { duration: 1.1, ease: "power3" }), y: gsap.quickTo(el, "y", { duration: 1.1, ease: "power3" }) }));
+  kst.addEventListener("pointermove", (e) => { const r = kst.getBoundingClientRect(), kx = (e.clientX - r.left) / r.width - 0.5, ky = (e.clientY - r.top) / r.height - 0.5; mv.forEach((m) => { m.x(-kx * 90 * m.d); m.y(-ky * 60 * m.d); }); });
+  kst.addEventListener("pointerleave", () => mv.forEach((m) => { m.x(0); m.y(0); }));
+  ks.forEach((el, i) => { const img = el.querySelector("img"), d = +el.dataset.d;
+    gsap.fromTo(img, { yPercent: 70 * d }, { yPercent: -70 * d, ease: "none", scrollTrigger: { trigger: kst, start: "top bottom", end: "bottom top", scrub: 0.8 } });
+    gsap.to(el, { rotation: i % 2 ? 6 : -6, duration: 3 + (i % 3), repeat: -1, yoyo: true, ease: "sine.inOut" }); });
+  gsap.from(ks, { scale: 0.3, opacity: 0, duration: 1.2, stagger: 0.07, ease: "back.out(1.6)", scrollTrigger: { trigger: kst, start: "top 70%" } });
+  gsap.from(".kbar", { y: 60, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: kst, start: "top 65%" } });
+  gsap.to(".kbg", { yPercent: 8, ease: "none", scrollTrigger: { trigger: kst, start: "top bottom", end: "bottom top", scrub: true } });
+  gsap.to(".kbar .rip", { rotation: 360, duration: 30, repeat: -1, ease: "none" }); }
 LK.motion();
 addEventListener("scroll", () => nav.classList.toggle("sc", scrollY > 40), { passive: true });
 if (!R) {
@@ -485,7 +557,7 @@ if (!R) {
     document.querySelectorAll(".hh").forEach((h) => { const walk = (n) => [...n.childNodes].forEach((c) => {
         if (c.nodeType === 3) { const f = document.createDocumentFragment(); c.textContent.split(/(\s+)/).forEach((t) => { if (!t) return; if (/^\s+$/.test(t)) f.append(t); else { const sp = document.createElement("span"); sp.className = "w"; sp.textContent = t; f.append(sp); } }); c.replaceWith(f); }
         else if (c.nodeType === 1 && c.tagName !== "BR") walk(c); }); walk(h); });
-    const heroIn = (root) => gsap.fromTo(root.querySelectorAll(".hh .w"), { y: 60, opacity: 0, filter: "blur(14px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 1.2, stagger: 0.06, ease: "power3.out", delay: 0.15 });
+    const heroIn = (root) => gsap.fromTo(root.querySelectorAll(".hh .w"), { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, stagger: 0.06, ease: "power3.out", delay: 0.15 });
     heroIn(document.querySelector("#s1 [data-o].on"));
     document.getElementById("s1").addEventListener("opt", (e) => heroIn(document.querySelector(`#s1 [data-o="${e.detail}"]`)));
   });
@@ -510,31 +582,20 @@ if (!R) {
 
 </script>
 <script type="module">
-import { mountSilk } from "./lib/silk.js";
+
 import { mountGauntlet } from "./lib/gauntlet.js";
 import { mountOrbit } from "./lib/orbit.js";
-const hA = document.querySelector(".hA"), pin = document.getElementById("h3d"), R = LK.R;
+const R = LK.R;
 const gl = (() => { try { const c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); } catch (e) { return false; } })();
-let silk = null, st = null, tl = null;
-function up() {
-  if (R || !gl || silk) return;
-  silk = mountSilk(pin); if (!silk) return; hA.classList.add("gl");
-  // three story beats, crossfaded by the same scroll that flies the camera
-  tl = gsap.timeline({ paused: true })
-    .to(".b0", { autoAlpha: 0, y: -60, filter: "blur(10px)", duration: 0.12 }, 0.2)
-    .fromTo(".b1", { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.12 }, 0.28)
-    .fromTo(".b1 .stat", { z: 0, x: (i) => 120 + i * 80, opacity: 0 }, { x: 0, opacity: 1, stagger: 0.04, duration: 0.14 }, 0.3)
-    .to(".b1", { autoAlpha: 0, y: -60, filter: "blur(10px)", duration: 0.12 }, 0.58)
-    .fromTo(".b2", { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.12 }, 0.66)
-    .from(".duo .glass", { y: 80, opacity: 0, stagger: 0.05, duration: 0.14 }, 0.68)
-    .to({}, { duration: 0.1 }, 0.9);
-  st = ScrollTrigger.create({ trigger: pin, start: "top top", end: "+=320%", pin: true, scrub: 0.6, refreshPriority: 1,
-    onUpdate: (s) => { silk.progress = s.progress; silk.velocity = s.getVelocity(); tl.progress(s.progress); document.getElementById("chb").style.width = s.progress * 100 + "%"; } });
-  ScrollTrigger.sort(); ScrollTrigger.refresh();
+// hero A: smooth scroll-out. transforms only (no blur, no pin) so it stays at 60fps
+if (!R) {
+  const T = { trigger: "#h3d", start: "top top", end: "bottom top", scrub: 0.6 };
+  gsap.to(".hA .vbg", { yPercent: 14, scale: 1.08, ease: "none", scrollTrigger: T });
+  gsap.to(".hA .hcopy", { yPercent: -22, opacity: 0.2, ease: "none", scrollTrigger: T });
+  document.querySelectorAll(".hA .stat").forEach((c) => gsap.to(c, { y: () => -innerHeight * 0.32 * +c.dataset.sp, ease: "none", scrollTrigger: T }));
+  gsap.from(".hA .stat", { x: 60, opacity: 0, duration: 1.1, stagger: 0.12, ease: "power3.out", delay: 0.5 });
+  gsap.from(".hA .vbg", { scale: 1.15, opacity: 0, duration: 1.8, ease: "power2.out" });
 }
-function down() { if (st) { st.kill(true); st = null; } if (tl) { tl.progress(0).kill(); tl = null; } if (silk) { silk.destroy(); silk = null; } hA.classList.remove("gl"); ScrollTrigger.refresh(); }
-up();
-document.getElementById("s1").addEventListener("opt", (e) => (e.detail === "a" ? requestAnimationFrame(up) : down()));
 
 // ---- Battle Armour: suit-up clip scrubbed by scroll + WebGL energy ring ----
 {
