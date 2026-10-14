@@ -489,6 +489,22 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 .g4 .glass.pc.lit .pq span{color:rgba(255,255,255,.85)}
 .g4 .glass.pc.lit .pa b{transform:none;opacity:1;color:#fff}
 @media (max-width:860px){.g4 .glass.pc{min-height:300px}.pc .po{width:88px}}
+
+/* reviews A · 3D fly-through */
+.rv3{position:relative;height:100svh;min-height:640px;overflow:hidden;background:#050203}
+.rv3 canvas.silk{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
+.rvveil{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(5,2,3,.55),rgba(5,2,3,.92) 75%);pointer-events:none}
+.rvhead{position:absolute;left:var(--gut);right:var(--gut);top:96px;z-index:3;display:flex;justify-content:space-between;align-items:center}
+.rvc{font:300 16px var(--f);color:var(--mut)}.rvc b{font-weight:400;color:#fff}
+.rvspace{position:absolute;inset:0;perspective:900px;perspective-origin:50% 45%;z-index:2}
+.rvq{position:absolute;left:50%;top:50%;width:min(1000px,86vw);translate:-50% -50%;text-align:center;will-change:transform,opacity,filter}
+.rvq .qm{font:400 clamp(110px,12vw,190px)/.5 var(--s);color:var(--red);height:.42em;display:block;text-shadow:0 0 40px rgba(215,0,15,.6)}
+.rvq p{margin:0;font:300 clamp(30px,4.2vw,66px)/1.12 var(--f);letter-spacing:-.03em}
+.rvq .who{display:inline-flex;align-items:center;gap:14px;margin-top:34px;text-align:left}
+.rvq .who img{width:64px;height:64px;border-radius:50%;object-fit:cover;filter:grayscale(1) contrast(1.1);box-shadow:0 0 0 2px #050203,0 0 0 4px #FF4A12,0 0 30px rgba(255,74,18,.6)}
+.rvq .who b{display:block;font:500 17px var(--f)}.rvq .who span{font-size:14px;color:var(--mut)}
+.rvbar{position:absolute;left:var(--gut);right:var(--gut);bottom:34px;z-index:3;height:2px;background:rgba(255,255,255,.12)}.rvbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--amb))}
+@media (max-width:760px){.rvq p{font-size:28px}.rvq .who{margin-top:22px}.rvhead{top:86px}}
 .foot{background:#000;padding:60px 0 80px;color:var(--mut);font-size:14px}
 .foot .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
 .foot img{height:22px;width:auto}.foot ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
@@ -567,19 +583,11 @@ h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.035em;line-hei
 <!-- 7 REVIEWS -->
 <section id="s7" data-sec="rev" style="position:relative">
   <div class="opt" role="group" aria-label="Review options"><span>Reviews</span><button data-v="a">A · Crystal</button><button data-v="b">B · Bubbles</button></div>
-  <div class="rA on" data-o="a"><div class="rsp">
-    <div class="rwaves" aria-hidden="true"><i></i><i></i><i></i></div>
-    <div class="wrap rin">
-      <div class="rstage"><img class="rcry" src="assets/img/c_crystal_g.webp" alt="" aria-hidden="true">
-        <div class="rring" aria-hidden="true"></div><div class="rframe"><img id="rimg" src="assets/img/Poi-Ching.webp" alt=""><div class="rtone"></div></div>
-        <div class="rbadge glass"><b>160+</b><span>brands since 2020</span></div></div>
-      <div class="rtext"><div class="lbl">Reviews from our clients</div>
-        <div class="rq" aria-hidden="true">“</div>
-        <blockquote id="rquote" aria-live="polite"></blockquote>
-        <div class="rwho"><b id="rname"></b><span id="rrole"></span></div>
-        <div class="rctl"><div class="rav" id="rav"></div><div class="rarr"><button id="rpv" aria-label="Previous review">←</button><button id="rnx" aria-label="Next review">→</button></div></div>
-        <div class="rprog"><i id="rbar"></i></div></div>
-    </div></div></div>
+  <div class="rA on" data-o="a"><div class="rv3" id="rv3">
+    <canvas class="silk" aria-hidden="true"></canvas><div class="rvveil"></div>
+    <div class="rvhead"><div class="lbl">Reviews from our clients</div><div class="rvc"><b id="rvn">01</b> / <span id="rvt">05</span></div></div>
+    <div class="rvspace" id="rvspace"></div>
+    <div class="rvbar"><i id="rvb"></i></div></div></div>
   <div class="rB" data-o="b"><div class="wrap in"><div><div class="lbl" style="color:#776">Why brands stay</div><h2 style="margin-top:12px">Clients who <span class="it" style="font-weight:400;color:var(--red)">keep coming back</span></h2><div class="rqs" id="rqs"></div></div>
     <div class="bub"><div class="b1">160+<small>clients served</small></div><div class="b2">14+<small>industries</small></div><div class="b3">500%<small>up to, growth</small></div><div class="b4">67%<small>up to, lower CPR</small></div></div></div></div>
 </section>
@@ -651,42 +659,16 @@ const H = [0.55, 1, 0.75, 0.85];
 bars.innerHTML = metrics.map(([b, s, u], i) => `<div class="bar" tabindex="0" data-i="${i}"><small>${u ? "Up to" : "Today"}</small><b>${b}</b><div class="g" style="--h:${Math.round(H[i] * 200)}px"></div><span>${s}</span></div>`).join("");
 c3.innerHTML = bridge.map(([q, a], i) => `<div class="c3${i ? "" : " on"}"><span class="n">0${i + 1}</span><div><div class="q">${q}</div><h3>${a}</h3></div></div>`).join("");
 nl.innerHTML = bridge.map(([q, a], i) => `<div class="r"><b>0${i + 1}</b><div><small>${q}</small><span>${a}</span></div></div>`).join("");
-const PIC = [["k_flame_g", ""], ["k_chat_g", ""], ["w_d6", "scr"]];
+const PIC = [["pi_burn_g", ""], ["pi_same_g", ""], ["pi_clear_g", ""]];
 g4.innerHTML = bridge.map(([q, a], i) => `<div class="glass pc"><span class="pn">0${i + 1}</span><img class="po ${PIC[i][1]}" src="assets/img/${PIC[i][0]}.webp" alt=""><i class="gl"></i><div class="pq"><span>${q}</span></div><div class="pa"><b>→</b><h3>${a}</h3></div></div>`).join("");
 const LIC = ["▢", "◎", "▶", "♛"];
 ly.innerHTML = layers.map(([t, p, s], i) => `<div><b><i>${LIC[i]}</i>Layer 0${i + 1}</b><h4>${t}</h4><p>${p}</p></div>`).join("");
 cg.innerHTML = cases.map(([img, n, t, b, s]) => `<a class="cc" href="case-study.html"><img src="assets/sue/${img}.webp" alt="" loading="lazy"><div class="in"><b>${b}</b><small>${s}</small><h4>${t}</h4><span>${n}</span></div></a>`).join("");
-// reviews A: one client in the spotlight; auto-advances, pauses on hover, avatars + arrows to jump
-{ const imgEl = document.getElementById("rimg"), q = document.getElementById("rquote"), nm = document.getElementById("rname"), rl = document.getElementById("rrole"), bar = document.getElementById("rbar"), sp = document.querySelector(".rsp");
-  const RV = reviews.filter((x) => x[0] !== "Cheanu Chew");
-  rav.innerHTML = RV.map(([w, r, img], i) => `<button aria-label="Review from ${w}"><img src="assets/img/${img}.webp" alt="" loading="lazy"></button>`).join("");
-  const av = [...rav.children]; let cur = -1, prog = null, hold = false;
-  const words = (t) => t.split(" ").map((x) => `<span class="w">${x}</span>`).join(" ");
-  function show(i) {
-    i = (i + RV.length) % RV.length; if (i === cur) return; cur = i; const [w, r, img, text] = RV[i];
-    av.forEach((b, k) => b.setAttribute("aria-current", k === i));
-    if (R) { imgEl.src = `assets/img/${img}.webp`; q.textContent = `${text}`; nm.textContent = w; rl.textContent = r; return; }
-    gsap.timeline()
-      .to([imgEl, q, ".rwho"], { opacity: 0, y: -14, duration: 0.3, ease: "power2.in" })
-      .add(() => { imgEl.src = `assets/img/${img}.webp`; q.innerHTML = words(text); nm.textContent = w; rl.textContent = r; })
-      .fromTo(imgEl, { opacity: 0, scale: 1.18, y: 0 }, { opacity: 1, scale: 1.04, duration: 1.1, ease: "power3.out" })
-      .add(() => gsap.fromTo(q.querySelectorAll(".w"), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.03, ease: "power3.out" }), "<0.1")
-      .set(q, { opacity: 1, y: 0 }, "<")
-      .fromTo(".rwho", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5 }, "<0.3");
-    if (!R) gsap.fromTo(".rcry", { scale: 0.8 }, { scale: 1, duration: 1.4, ease: "elastic.out(1,.5)" });
-    if (prog) prog.kill(); prog = gsap.fromTo(bar, { width: "0%" }, { width: "100%", duration: 7, ease: "none", paused: hold, onComplete: () => show(cur + 1) });
-  }
-  av.forEach((b, k) => b.addEventListener("click", () => show(k)));
-  rnx.onclick = () => show(cur + 1); rpv.onclick = () => show(cur - 1);
-  sp.addEventListener("pointerenter", () => { hold = true; prog && prog.pause(); }); sp.addEventListener("pointerleave", () => { hold = false; prog && prog.resume(); });
-  show(0);
-  if (!R) { // crystal: continuous spin + float + hue shimmer; wave blobs drift in slow figure-eights
-    gsap.to(".rcry", { rotation: 360, duration: 22, repeat: -1, ease: "none" });
-    gsap.to(".rcry", { y: -22, x: 10, duration: 3.2, repeat: -1, yoyo: true, ease: "sine.inOut" });
-    gsap.to(".rcry", { filter: "drop-shadow(0 0 60px rgba(255,120,40,.9)) hue-rotate(-18deg) brightness(1.15)", duration: 2.4, repeat: -1, yoyo: true, ease: "sine.inOut" });
-    [...document.querySelectorAll(".rwaves i")].forEach((b, i) => { const a = 6 + i * 3;
-      gsap.to(b, { keyframes: { x: [0, a + "vw", -a / 2 + "vw", 0], y: [0, -a / 2 + "vw", a + "vw", 0], scale: [1, 1.25, 0.9, 1] }, duration: 14 + i * 4, repeat: -1, ease: "sine.inOut" }); }); }
-  if (!R) gsap.to(".rstage", { y: -40, ease: "none", scrollTrigger: { trigger: sp, start: "top bottom", end: "bottom top", scrub: true } }); }
+// reviews A: quotes float in 3D depth; scrolling flies the camera through them one by one (pinned)
+const RV = reviews.filter((x) => x[0] !== "Cheanu Chew");
+rvt.textContent = String(RV.length).padStart(2, "0");
+rvspace.innerHTML = RV.map(([w, r, img, q]) => `<figure class="rvq"><span class="qm" aria-hidden="true">“</span><p>${q}</p><figcaption class="who"><img src="assets/img/${img}.webp" alt=""><div><b>${w}</b><span>${r}</span></div></figcaption></figure>`).join("");
+window.__rvq = [...rvspace.children];
 rqs.innerHTML = reviews.slice(0, 3).map(([w, r, img, q]) => `<figure><img src="assets/img/${img}.webp" alt="" loading="lazy"><div><p>“${q}”</p><b>${w}</b> · <span style="font-size:13px;color:#777">${r}</span></div></figure>`).join("");
 // team
 const T = [...bosses, ...LK.squad.slice(0, 3).map((id) => [id, ""])];
@@ -836,6 +818,21 @@ if (!R) {
     pin.querySelector(".back").addEventListener("click", () => pin.classList.remove("zoomed"));
   }
 }
+// ---- reviews A: 3D fly-through ----
+{ const qs = window.__rvq, N = qs.length, GAP = 1400, st = document.getElementById("rv3");
+  const place = (p) => { // p: 0..1 across all quotes
+    const f = p * (N - 1) + 0.0;
+    qs.forEach((q, i) => { const d0 = i - f, d = Math.sign(d0) * Math.max(0, Math.abs(d0) - 0.22) / 0.78;   // each quote rests crisp for a moment
+      const op = d < 0 ? Math.max(0, 1 + d * 4.5) : Math.max(0, 1 - d * 2.2), bl = Math.min(12, Math.abs(d) * 14);
+      gsap.set(q, { z: d < 0 ? -d * 1100 : -d * GAP, y: d * 60, opacity: op, filter: bl < 0.3 ? "none" : `blur(${bl}px)`, visibility: op < 0.02 ? "hidden" : "visible" }); });
+    const k = Math.min(N - 1, Math.max(0, Math.round(f))); document.getElementById("rvn").textContent = String(k + 1).padStart(2, "0"); document.getElementById("rvb").style.width = p * 100 + "%"; };
+  if (R) { qs.forEach((q, i) => (q.style.display = i ? "none" : "")); }
+  else {
+    place(0);
+    let silkR = gl ? mountSilkV(st, document.getElementById("hv"), "assets/img/c_k_hero.webp") : null;
+    ScrollTrigger.create({ trigger: st, start: "top top", end: `+=${N * 85}%`, pin: true, scrub: 0.7, onUpdate: (s) => { place(s.progress); if (silkR) silkR.progress = s.progress * 0.6; } });
+    document.getElementById("s7").addEventListener("opt", (e) => { if (e.detail !== "a" && silkR) { silkR.destroy(); silkR = null; } else if (e.detail === "a" && !silkR && gl) silkR = mountSilkV(st, document.getElementById("hv"), "assets/img/c_k_hero.webp"); });
+  } }
 ScrollTrigger.sort(); ScrollTrigger.refresh();
 </script>
 </body></html>
