@@ -4,122 +4,110 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <script src="lib/gsap.min.js"></script><script src="lib/ScrollTrigger.min.js"></script><script src="lib/lenis.min.js"></script>
 <style>
-/* About · the founder story, told as a scroll of old-master paintings (ref: Browser History "Good Move").
-   Each chapter: a full-screen painting with a split title (serif light + sans bold), then the story rising out of painted clouds. */
+/* About · our story, as ONE pinned film: scroll drives the camera through six old-master paintings.
+   Techniques: pinned scrollytelling, scroll-scrubbed camera (push-in per scene, reverses on scroll up),
+   two-layer parallax cloud wipes between scenes, reveals, Lenis smooth scroll. */
 :root{--red:#D7000F;--umber:#2a0f08;--cream:#F5E9DA;--f:"Inter",system-ui,sans-serif;--s:"Instrument Serif",Georgia,serif;--gut:clamp(16px,4vw,56px)}
 *{box-sizing:border-box}html,body{margin:0;background:var(--umber);color:var(--cream);font:16px/1.6 var(--f);-webkit-font-smoothing:antialiased;overflow-x:clip}
 img{display:block;max-width:100%}a{color:inherit}
-.top{position:fixed;left:0;right:0;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:18px var(--gut);mix-blend-mode:difference;color:#fff}
+.top{position:fixed;left:0;right:0;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:18px var(--gut);color:#fff;pointer-events:none}
+.top>*{pointer-events:auto}
 .top b{font:800 20px var(--f);letter-spacing:-.02em}.top b small{display:block;font:400 11px var(--f);letter-spacing:.14em;text-transform:uppercase;opacity:.8}
 .top a{font:500 12px var(--f);letter-spacing:.16em;text-transform:uppercase;text-decoration:none}
-.prog{position:fixed;right:var(--gut);top:50%;translate:0 -50%;z-index:20;display:grid;gap:4px;text-align:center;font:400 15px var(--s);color:#fff;mix-blend-mode:difference}
-.prog i{display:block;width:1px;height:26px;margin:0 auto;background:currentColor;opacity:.6}
-/* intro */
-.intro{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;padding:120px var(--gut);background:radial-gradient(70% 60% at 50% 40%,#5a1608,var(--umber) 70%);overflow:hidden}
-.intro .kick{font:500 12px var(--f);letter-spacing:.3em;text-transform:uppercase;opacity:.75}
-.intro h1{margin:18px 0 0;line-height:.9}
-.intro h1 .s{display:block;font:400 clamp(54px,8vw,130px)/.9 var(--s)}
-.intro h1 .b{display:block;font:800 clamp(64px,10vw,170px)/.86 var(--f);letter-spacing:-.05em;text-transform:uppercase}
-.intro p{max-width:46ch;margin:30px auto 0;font:400 clamp(20px,2vw,28px)/1.3 var(--s);opacity:.9}
-.intro .down{margin-top:44px;font-size:22px;animation:bob 2s ease-in-out infinite}
-@keyframes bob{50%{transform:translateY(8px)}}
-/* chapter */
-.ch{position:relative}
-.pane{position:relative;height:100svh;min-height:600px;overflow:hidden}
-.pane img.paint{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform}
-.pane::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,6,3,.45),transparent 35%,transparent 60%,rgba(42,15,8,.85));pointer-events:none}
-.title{position:absolute;left:0;right:0;top:15%;z-index:2;text-align:center;color:#fff;text-shadow:0 4px 40px rgba(40,10,0,.55);will-change:transform}
-.title .n{font:400 15px var(--s);letter-spacing:.06em;margin-bottom:6px}
-.title .n i{display:block;width:16px;height:1px;background:#fff;margin:4px auto;opacity:.7}
-.title .s{display:block;font:400 clamp(60px,9vw,150px)/.85 var(--s);letter-spacing:-.01em;text-transform:uppercase}
-.title .b{display:block;font:800 clamp(60px,9vw,150px)/.85 var(--f);letter-spacing:-.05em;text-transform:uppercase}
-.title .arr{display:block;margin:18px auto 0;width:1px;height:60px;background:#fff;position:relative}
-.title .arr::after{content:"";position:absolute;left:-5px;bottom:0;width:9px;height:9px;border-right:1px solid #fff;border-bottom:1px solid #fff;transform:rotate(45deg)}
-.tell{position:relative;z-index:3;margin-top:-28vh;padding:0 var(--gut) clamp(100px,14vw,200px);text-align:center;background:linear-gradient(180deg,transparent,var(--umber) 26vh)}
-.tell .cloud{position:relative;width:130%;margin-left:-15%;max-width:none;pointer-events:none;will-change:transform;filter:brightness(.62) saturate(.85) sepia(.25);-webkit-mask-image:linear-gradient(180deg,#000 40%,transparent 78%);mask-image:linear-gradient(180deg,#000 40%,transparent 78%)}
-.tell .cloud.b{position:absolute;left:-30%;top:4vh;width:80%;opacity:.6}
-.tell .tx{position:relative;max-width:820px;margin:-6vh auto 0;text-shadow:0 2px 24px rgba(30,8,3,.9)}
-.tell h2{font:800 clamp(30px,3.6vw,52px)/1 var(--f);letter-spacing:-.03em;margin:0 0 18px}
-.tell p{margin:0 auto;font:400 clamp(26px,3.2vw,48px)/1.12 var(--s)}
-.tell p em{font-style:italic;color:#FFB59A}
-.tell .aside{display:inline-block;margin-top:28px;padding:12px 22px;border-radius:999px;box-shadow:inset 0 0 0 1px rgba(245,233,218,.55);font:500 12px var(--f);letter-spacing:.16em;text-transform:uppercase}
-/* how we work + open door */
-.how{position:relative;padding:clamp(100px,12vw,180px) var(--gut);background:var(--umber);text-align:center}
-.how h2{font:400 clamp(48px,6vw,96px)/.95 var(--s);margin:0}.how h2 b{font:800 1em var(--f);letter-spacing:-.05em;text-transform:uppercase}
-.vals{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;max-width:1240px;margin:56px auto 0;text-align:left}
-.vals div{padding:28px 24px;border-radius:24px;background:linear-gradient(160deg,rgba(245,233,218,.09),rgba(245,233,218,.03));box-shadow:inset 0 0 0 1px rgba(245,233,218,.14)}
-.vals b{display:block;font:400 26px/1.1 var(--s);margin-bottom:10px;color:#FFB59A}
-.vals span{font-size:15px;opacity:.85}
-.door{position:relative;min-height:90svh;display:grid;place-items:center;text-align:center;padding:120px var(--gut);overflow:hidden;background:#000}
-.door img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
-.door .tx{position:relative;max-width:860px}
-.door h2{margin:0;font:400 clamp(44px,6vw,100px)/.95 var(--s)}.door h2 b{font:800 1em var(--f);letter-spacing:-.05em;text-transform:uppercase}
-.door p{font:400 clamp(20px,2vw,28px)/1.3 var(--s);margin:24px auto 34px;max-width:40ch}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:18px 34px;border-radius:50%/50%;min-width:240px;box-shadow:inset 0 0 0 1px #fff;font:600 12px var(--f);letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:background .3s,color .3s}
+.film{position:relative;height:100svh;overflow:hidden;background:var(--umber)}
+.scene{position:absolute;inset:0;opacity:0;visibility:hidden}
+.scene.on{opacity:1;visibility:visible}
+.scene .paint{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform}
+.scene::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,6,3,.5),transparent 30%,transparent 52%,rgba(30,10,5,.92) 88%);pointer-events:none}
+.scene.intro{background:radial-gradient(70% 60% at 50% 40%,#5a1608,var(--umber) 70%)}
+.scene.intro::after{display:none}
+.ttl{position:absolute;left:0;right:0;top:13%;z-index:3;text-align:center;color:#fff;text-shadow:0 4px 40px rgba(40,10,0,.55)}
+.ttl .k{font:500 12px var(--f);letter-spacing:.3em;text-transform:uppercase;opacity:.8;margin-bottom:12px}
+.ttl .s{display:block;font:400 clamp(56px,8.6vw,146px)/.85 var(--s);text-transform:uppercase}
+.ttl .b{display:block;font:800 clamp(56px,8.6vw,146px)/.85 var(--f);letter-spacing:-.05em;text-transform:uppercase}
+.intro .ttl{top:50%;translate:0 -60%}
+.intro .ttl .s{text-transform:none}
+.story{position:absolute;left:0;right:0;bottom:7%;z-index:3;text-align:center;padding:0 var(--gut)}
+.story h2{font:800 clamp(20px,1.8vw,26px)/1 var(--f);letter-spacing:-.02em;margin:0 0 12px;color:#FFB59A}
+.story p{max-width:900px;margin:0 auto;font:400 clamp(24px,2.7vw,42px)/1.14 var(--s);text-shadow:0 2px 24px rgba(30,8,3,.9)}
+.story p em{color:#FFB59A}
+.story .as{display:inline-block;margin-top:18px;padding:10px 20px;border-radius:999px;box-shadow:inset 0 0 0 1px rgba(245,233,218,.55);font:500 11px var(--f);letter-spacing:.16em;text-transform:uppercase}
+.vals{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;max-width:1100px;margin:22px auto 0;text-align:left}
+.vals div{padding:16px 18px;border-radius:18px;background:rgba(30,10,5,.55);backdrop-filter:blur(10px);box-shadow:inset 0 0 0 1px rgba(245,233,218,.18)}
+.vals b{display:block;font:400 21px/1.1 var(--s);color:#FFB59A;margin-bottom:4px}.vals span{font-size:13.5px;opacity:.9}
+.btn{display:inline-flex;align-items:center;justify-content:center;margin-top:20px;padding:16px 34px;border-radius:50%/50%;min-width:220px;box-shadow:inset 0 0 0 1px #fff;font:600 12px var(--f);letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:#fff;transition:background .3s,color .3s}
 .btn:hover{background:#fff;color:var(--red)}
-@media (max-width:860px){.vals{grid-template-columns:minmax(0,1fr)}.prog{display:none}.title{top:12%}.tell{margin-top:-18vh}.tell .tx{margin-top:-6vh}}
+/* cloud wipe: a band of painted clouds with solid umber below it, swept up across the frame between scenes */
+.wipe{position:absolute;left:-15%;right:-15%;top:0;z-index:10;pointer-events:none;will-change:transform}
+.wipe img{width:100%;max-width:none;filter:brightness(.7) saturate(.9) sepia(.2)}
+.wipe i{display:block;height:140vh;margin-top:-2px;background:var(--umber)}
+.wipe.far{z-index:9;left:-35%;right:-5%;opacity:.8}
+.wipe.far i{display:none}
+.rail{position:absolute;right:var(--gut);top:50%;translate:0 -50%;z-index:20;display:grid;gap:10px;justify-items:end}
+.rail span{display:flex;align-items:center;gap:10px;font:400 14px var(--s);color:rgba(255,255,255,.45);transition:color .4s}
+.rail span i{display:block;width:16px;height:1px;background:currentColor;transition:width .4s}
+.rail span.on{color:#fff}.rail span.on i{width:40px}
+.bar{position:absolute;left:0;bottom:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#D7000F,#FFB59A);z-index:20}
+.hint{position:absolute;left:50%;bottom:22px;translate:-50% 0;z-index:20;font:500 11px var(--f);letter-spacing:.26em;text-transform:uppercase;opacity:.7}
+@media (max-width:860px){.rail{display:none}.vals{grid-template-columns:1fr 1fr}.vals span{display:none}.ttl{top:11%}.story{bottom:5%}}
 </style></head>
 <body>
 <header class="top"><b>Battle<small>Our story · since 2020</small></b><a href="home-v3.html">Home</a></header>
-<div class="prog" aria-hidden="true"><span id="pn">1</span><i></i><span id="pt">6</span></div>
-
-<section class="intro">
-  <div><div class="kick">About Battle Group · The humans behind the data</div>
-    <h1><span class="s">Meet the AI humans</span><span class="b">Behind the data</span></h1>
-    <p>AI ain't got a hold on us, because we're fun, we're cute, and we're nerdily passionate about your growth. We cry when you scold us, but we also celebrate with you when you win.</p>
-    <div class="down" aria-hidden="true">↓</div></div>
+<section class="film" id="film" aria-label="Our story, told in scenes as you scroll">
+  <div id="scenes"></div>
+  <div class="wipe far" id="wf"><img src="assets/img/st_cloud_g.webp" alt=""></div>
+  <div class="wipe" id="wn"><img src="assets/img/st_cloud_g.webp" alt=""><i></i></div>
+  <nav class="rail" id="rail" aria-hidden="true"></nav>
+  <div class="hint" id="hint">Scroll to begin</div>
+  <div class="bar" id="bar"></div>
 </section>
-
-<div id="chapters"></div>
-
-<section class="how"><h2>How we <b>work</b></h2>
-  <div class="vals">
-    <div><b>Empathy first</b><span>Your budget is treated like our own money.</span></div>
-    <div><b>Plain language, always</b><span>If we can't explain it simply, we haven't done it right.</span></div>
-    <div><b>Data + heart</b><span>Cold hard numbers, guided by human understanding.</span></div>
-    <div><b>Fast, friendly replies</b><span>Never wait three days for a reply.</span></div></div></section>
-
-<section class="door"><img src="assets/img/st6.webp" alt="" aria-hidden="true">
-  <div class="tx"><h2>The door is <b>open</b></h2>
-    <p>Whether you need a Guardian for your Brand Galaxy or a Super Leads Gen Man, pop by our KL office or drop us a WhatsApp. Let's fight off your business's biggest nemesis together.</p>
-    <a class="btn" href="#">Let's talk</a></div></section>
-
 <script>
-// story beats from Battle's deck (slide 5), one painting each
-const CH = [
-  ["st1", "The", "Storm", "Origin", "Battle Group was born in the downturn of the pandemic, when our founder's <em>events business came to a halt.</em>", "Dramatic. Dark. Epic."],
-  ["st2", "The", "Light", "Epiphany", "In the darkness came the epiphany: going digital was <em>no longer optional</em> for businesses. It was essential.", "Seeing the light"],
-  ["st3", "The love", "Child", "Bromance", "And so Battle Group was born: <em>a love child</em> between our founder and his long-time bromance partner, cum ex-superior.", "A reunion for the ages"],
-  ["st4", "The", "Rescue", "Our first mission", "We started as a Meta advertising specialist focused on lead generation, because our founder wanted to help fellow SME owners <em>find quality customers.</em>", "Heroes, assemble"],
-  ["st5", "The", "Heartbreak", "Why we care", "He knew the painstaking heartbreak of trying to reach the right clients. <em>We still feel it with every brand we take on.</em>", "An emotional monologue"],
-  ["st6", "The", "Guardians", "Today", "Proven battle by battle, we grew into a full digital marketing group, web development included, serving <em>SMEs and corporates</em> across every industry.", "Spider Web Man · Super Leads Gen Man · Lord Meteoric ROAS Man"],
+// [painting, focal x%, focal y%, title-serif, title-bold, story heading, story, aside] — story text from Battle's deck
+const SC = [
+  [null, 50, 50, "Meet the AI humans", "Behind the data", "", "AI ain't got a hold on us, because we're fun, we're cute, and we're <em>nerdily passionate</em> about your growth. We cry when you scold us, but we also celebrate with you when you win.", ""],
+  ["st1", 30, 34, "The", "Storm", "Origin", "Battle Group was born in the downturn of the pandemic, when our founder's <em>events business came to a halt.</em>", "Dramatic. Dark. Epic."],
+  ["st2", 46, 55, "The", "Light", "Epiphany", "In the darkness came the epiphany: going digital was <em>no longer optional</em> for businesses. It was essential.", "Seeing the light"],
+  ["st3", 50, 46, "The love", "Child", "Bromance", "And so Battle Group was born: <em>a love child</em> between our founder and his long-time bromance partner, cum ex-superior.", "A reunion for the ages"],
+  ["st4", 24, 42, "The", "Rescue", "Our first mission", "We started as a Meta ads specialist focused on lead generation, to help fellow SME owners <em>find quality customers.</em>", "Heroes, assemble"],
+  ["st5", 46, 52, "The", "Heartbreak", "Why we care", "He knew the painstaking heartbreak of trying to reach the right clients. <em>We still feel it with every brand we take on.</em>", "An emotional monologue"],
+  ["st6", 52, 44, "The", "Guardians", "Today", "Battle by battle we grew into a full digital marketing group, web included, serving <em>SMEs and corporates</em> across every industry.", "Spider Web Man · Super Leads Gen Man · Lord Meteoric ROAS Man"],
+  ["st6", 50, 40, "The door is", "Open", "", "Need a Guardian for your Brand Galaxy, or a Super Leads Gen Man? Pop by our KL office or WhatsApp us. <em>Let's fight your biggest nemesis together.</em>", "fin"],
 ];
-chapters.innerHTML = CH.map(([img, s, b, h, p, aside], i) => `
-<section class="ch" data-i="${i}">
-  <div class="pane"><img class="paint" src="assets/img/${img}.webp" alt="">
-    <div class="title"><div class="n">${i + 1}<i></i>${CH.length}</div><span class="s">${s}</span><span class="b">${b}</span><span class="arr"></span></div></div>
-  <div class="tell"><img class="cloud" src="assets/img/st_cloud_g.webp" alt="" aria-hidden="true"><img class="cloud b" src="assets/img/st_cloud_g.webp" alt="" aria-hidden="true">
-    <div class="tx"><h2>${h}</h2><p>${p}</p><span class="aside">${aside}</span></div></div>
-</section>`).join("");
-const R = matchMedia("(prefers-reduced-motion: reduce)").matches;
-if (!R) {
+const NAMES = ["Intro", "Storm", "Light", "Love", "Rescue", "Heartbreak", "Guardians", "Open door"];
+scenes.innerHTML = SC.map(([img, fx, fy, s, b, h, p, as], i) => `<div class="scene${img ? "" : " intro"}${i ? "" : " on"}" data-i="${i}">
+  ${img ? `<img class="paint" src="assets/img/${img}.webp" alt="" style="transform-origin:${fx}% ${fy}%">` : ""}
+  <div class="ttl">${i && i < 7 ? `<div class="k">Chapter ${i}</div>` : `<div class="k">${i ? "Let's talk" : "About Battle Group"}</div>`}<span class="s">${s}</span><span class="b">${b}</span></div>
+  <div class="story">${h ? `<h2>${h}</h2>` : ""}<p>${p}</p>${as === "fin" ? `<div class="vals"><div><b>Empathy first</b><span>Your budget is treated like our own money.</span></div><div><b>Plain language</b><span>If we can't explain it simply, we haven't done it right.</span></div><div><b>Data + heart</b><span>Cold numbers, human understanding.</span></div><div><b>Fast replies</b><span>Never wait three days for a reply.</span></div></div><a class="btn" href="#">Let's talk</a>` : as ? `<span class="as">${as}</span>` : ""}</div></div>`).join("");
+rail.innerHTML = NAMES.map((n, i) => `<span${i ? "" : ' class="on"'}>${n}<i></i></span>`).join("");
+const S = [...document.querySelectorAll(".scene")], RL = [...rail.children], N = S.length, R = matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (R) { // no motion: show the scenes as a plain stacked page
+  film.style.height = "auto"; S.forEach((s) => { s.style.position = "relative"; s.style.height = "100svh"; s.classList.add("on"); }); wn.remove(); wf.remove(); hint.remove(); }
+else {
   gsap.registerPlugin(ScrollTrigger);
-  const lenis = new Lenis({ lerp: 0.085 }); lenis.on("scroll", ScrollTrigger.update); gsap.ticker.add((t) => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
-  gsap.from(".intro h1 span, .intro p", { y: 60, opacity: 0, duration: 1.3, stagger: 0.15, ease: "power3.out" });
-  document.querySelectorAll(".ch").forEach((ch) => {
-    const T = { trigger: ch.querySelector(".pane"), start: "top bottom", end: "bottom top", scrub: true };
-    gsap.fromTo(ch.querySelector(".paint"), { scale: 1.22, yPercent: -6 }, { scale: 1, yPercent: 6, ease: "none", scrollTrigger: T });
-    gsap.fromTo(ch.querySelector(".title"), { yPercent: 40 }, { yPercent: -60, ease: "none", scrollTrigger: T });
-    gsap.from(ch.querySelectorAll(".title .s, .title .b"), { y: 80, opacity: 0, duration: 1.1, stagger: 0.12, ease: "power3.out", scrollTrigger: { trigger: ch.querySelector(".pane"), start: "top 55%" } });
-    const tell = ch.querySelector(".tell");
-    gsap.fromTo(tell.querySelector(".cloud"), { yPercent: 30 }, { yPercent: -18, ease: "none", scrollTrigger: { trigger: tell, start: "top bottom", end: "bottom top", scrub: true } });
-    gsap.fromTo(tell.querySelector(".cloud.b"), { xPercent: -10, yPercent: 40 }, { xPercent: 20, yPercent: -30, ease: "none", scrollTrigger: { trigger: tell, start: "top bottom", end: "bottom top", scrub: true } });
-    gsap.from(tell.querySelectorAll(".tx > *"), { y: 50, opacity: 0, duration: 1, stagger: 0.12, ease: "power3.out", scrollTrigger: { trigger: tell.querySelector(".tx"), start: "top 80%" } });
-    ScrollTrigger.create({ trigger: ch, start: "top 50%", end: "bottom 50%", onToggle: (s) => s.isActive && (pn.textContent = +ch.dataset.i + 1) });
+  const lenis = new Lenis({ lerp: 0.08 }); lenis.on("scroll", ScrollTrigger.update); gsap.ticker.add((t) => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
+  const tl = gsap.timeline({ defaults: { ease: "none" } }), SEG = 1;      // one unit of timeline per scene
+  gsap.set([wn, wf], { yPercent: 0, y: () => innerHeight * 1.05 });
+  S.forEach((sc, i) => {
+    const t0 = i * SEG, paint = sc.querySelector(".paint"), tt = sc.querySelectorAll(".ttl > *"), st = sc.querySelectorAll(".story > *");
+    if (i > 0) { // cloud wipe in: covers the frame, swap scenes under it, then clears upward
+      tl.fromTo(wn, { y: () => innerHeight * 1.05 }, { y: () => -wn.querySelector("img").offsetHeight * 0.55, duration: 0.22, ease: "power1.in" }, t0 - 0.16)
+        .fromTo(wf, { y: () => innerHeight * 0.9 }, { y: () => -wf.offsetHeight - 40, duration: 0.34 }, t0 - 0.18)
+        .set(S[i - 1], { className: "scene" + (S[i - 1].classList.contains("intro") ? " intro" : "") }, t0 + 0.06)
+        .set(sc, { className: "scene on" + (sc.classList.contains("intro") ? " intro" : "") }, t0 + 0.06)
+        .to(wn, { y: () => -(wn.offsetHeight + 40), duration: 0.24, ease: "power1.out" }, t0 + 0.06);
+    }
+    if (paint) tl.fromTo(paint, { scale: 1.32 }, { scale: 1.02, duration: SEG + 0.1, ease: "power1.out" }, t0);   // the push-in camera
+    if (i) tl.fromTo(tt, { y: 70, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.04, duration: 0.18, ease: "power3.out" }, t0 + 0.12)
+      .fromTo(st, { y: 50, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.05, duration: 0.2, ease: "power3.out" }, t0 + 0.3);
+    else { /* intro is already on screen at the top */ }
+    if (i < N - 1) tl.to([...tt, ...st], { y: -40, opacity: 0, duration: 0.12, ease: "power2.in" }, t0 + SEG - 0.22);
   });
-  gsap.from(".vals div", { y: 60, opacity: 0, duration: 0.9, stagger: 0.1, ease: "power3.out", scrollTrigger: { trigger: ".vals", start: "top 80%" } });
-  gsap.fromTo(".door img", { scale: 1.2 }, { scale: 1, ease: "none", scrollTrigger: { trigger: ".door", start: "top bottom", end: "bottom top", scrub: true } });
+  tl.to({}, { duration: 0.25 });
+  let cur = 0;
+  ScrollTrigger.create({ trigger: film, start: "top top", end: () => "+=" + innerHeight * N * 1.25, pin: true, scrub: 0.8, animation: tl,
+    onUpdate: (s) => { gsap.set(bar, { scaleX: s.progress }); hint.style.opacity = s.progress < 0.02 ? 0.7 : 0;
+      const k = Math.min(N - 1, Math.floor(tl.time() / SEG + 0.06)); if (k !== cur) { cur = k; RL.forEach((r, i) => r.classList.toggle("on", i === k)); } } });
+  gsap.from(S[0].querySelectorAll(".ttl > *, .story > *"), { y: 60, opacity: 0, duration: 1.3, stagger: 0.12, ease: "power3.out" });
 }
-pt.textContent = CH.length;
 </script>
 </body></html>
