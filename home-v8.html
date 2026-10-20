@@ -71,7 +71,6 @@ b.x{font-weight:800}
 .ph{position:absolute;left:var(--pl);top:var(--pt);width:var(--pw);height:var(--ph);max-width:none;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 16%),linear-gradient(180deg,transparent,#000 var(--tf,4%),#000 92%,transparent);-webkit-mask-composite:source-in;
   mask-image:linear-gradient(90deg,transparent,#000 16%),linear-gradient(180deg,transparent,#000 var(--tf,4%),#000 92%,transparent);mask-composite:intersect}
-.ph.sh{opacity:1}                                           /* the all-sharp copy: on at load, fades as the focus pulls to the hand */
 .pglow{position:absolute;left:var(--gx);top:var(--gy);width:var(--gs,300px);height:calc(var(--gs,300px) * .55);translate:-50% -50%;pointer-events:none}
 .pglow i{position:absolute;inset:0;border-radius:50%;background:radial-gradient(closest-side,rgba(255,24,40,.55),transparent);mix-blend-mode:screen;filter:blur(14px);opacity:.5}
 /* the glass cube is a light source: its red glow on the backdrop and on Ian (the render lights his face from the cube's side) */
@@ -82,14 +81,14 @@ b.x{font-weight:800}
 .cubehit{position:absolute;z-index:4;left:calc(var(--cx) - var(--cs) * .6);top:calc(var(--cy) - var(--cs) * .6);width:calc(var(--cs) * 1.2);height:calc(var(--cs) * 1.2);
   border-radius:50%;cursor:grab;touch-action:pan-y;-webkit-tap-highlight-color:transparent}
 .cubehit:active{cursor:grabbing}
-.hero .in{position:relative;z-index:3;height:100%;display:flex;align-items:center;padding-top:76px;pointer-events:none}
-.hero .copy{width:min(540px,35vw);pointer-events:auto}
+.hero .in{position:relative;z-index:3;height:100%;display:flex;align-items:flex-start;padding-top:76px;pointer-events:none}
+.hero .copy{width:min(540px,35vw);margin-block:auto;pointer-events:auto}   /* auto margins: centred, but never above the nav */
 .eyebrow{display:flex;align-items:center;gap:10px;font:500 12px/1.3 var(--f);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.62)}
 .eyebrow i{flex:none;width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 12px var(--red)}
 .hero h1{font-size:clamp(44px,4.5vw,76px);line-height:.96;letter-spacing:-.045em;margin-top:22px;font-weight:500}   /* firmer than the 300 elsewhere: the hero speaks with authority */
 .hero h1 b{font-weight:800}
 .hero .lead{max-width:40ch;color:rgba(255,255,255,.78);font-size:clamp(16px,1.15vw,18px);line-height:1.55;margin:22px 0 30px;text-wrap:pretty}
-.hero .ctas{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
 /* track record under the lead: authority from the deck's own numbers, plain text (not buttons) */
 .trk{display:flex;flex-wrap:wrap;gap:10px 0;margin:-6px 0 30px;padding:0;list-style:none;font-size:13.5px;color:rgba(255,255,255,.58)}
 .trk li{display:flex;align-items:baseline;gap:7px;padding:0 18px;border-left:1px solid rgba(255,255,255,.16)}.trk li:first-child{padding-left:0;border-left:0}
@@ -115,7 +114,7 @@ b.x{font-weight:800}
 .resw{position:absolute;z-index:5;left:0;top:0}
 .res{perspective:1100px;opacity:0;transform:translateY(16px);transition:opacity .5s,transform .8s var(--ease)}
 .res.on{opacity:1;transform:none}
-.slab{position:relative;aspect-ratio:1.38;transform-style:preserve-3d;container-type:inline-size}
+.slab{position:relative;aspect-ratio:var(--ar,1.38);transform-style:preserve-3d;container-type:inline-size}
 .flip{position:absolute;inset:0;transform-style:preserve-3d}
 .flip .ed{position:absolute;inset:0;border-radius:7.5cqw;transform:translateZ(calc(var(--i) * -1.15px));
   background:linear-gradient(125deg,#f2f4f8 0%,#8a9099 18%,#2b2e35 40%,#14161a 55%,#6d727b 78%,#e9edf3 100%)}
@@ -266,7 +265,7 @@ b.x{font-weight:800}
 .scr.tiling > .app{visibility:hidden}.scr.tiling{background:#050506}.tiles.pre{opacity:0}.tiles.gone{display:none}   /* opacity, not visibility: no restyle of a thousand children on reveal */
 @media (prefers-reduced-motion:reduce){.sk i{animation:none}}
 .resw.cmp .slab{max-width:440px;aspect-ratio:2.5}
-.resw.cmp .app{height:calc(100cqw / 1.38)}   /* the screen keeps its full layout; the short slab shows its top */
+.resw.cmp .app,.resw.short .app{height:calc(100cqw / 1.38)}   /* the screen keeps its full layout; the short slab shows its top */
 @media (min-width:861px) and (max-width:1100px){.hero .copy{width:min(440px,43vw)}.seg .k{display:none}.seg{overflow-x:auto;scrollbar-width:none}.seg::-webkit-scrollbar{display:none}}
 .resw.intext{position:relative;left:auto;top:auto;margin-top:18px}
 @media (max-width:860px){
@@ -280,7 +279,6 @@ b.x{font-weight:800}
   .eyebrow{display:none}
   .hero h1{order:4;margin:26px var(--gut) 0;font-size:44px}
   .hero .lead{order:5;margin:16px var(--gut) 24px}
-  .hero .ctas{order:7;padding:0 var(--gut)}
   .cubehit{touch-action:pan-y}
 }
 
@@ -584,8 +582,8 @@ b.x{font-weight:800}
 <!-- 1 HERO -->
 <section class="hero" id="s1">
   <div class="hstage" id="hst">
-    <div class="phw" id="phw"><img class="ph" id="phD" src="assets/img/v8_ian2.webp" alt="Ian from Battle holds out the Battle cube and studies it; his hand in focus, his face soft behind" fetchpriority="high">
-      <img class="ph sh" id="phS" src="assets/img/v8_ian2_sharp.webp" alt="" aria-hidden="true"><div class="pglow" aria-hidden="true"><i id="pglow"></i></div></div>
+    <div class="phw" id="phw"><img class="ph" id="phD" src="assets/img/v8_ian3.webp" alt="Ian from Battle holds out the Battle cube and studies it; only his hand is in focus" fetchpriority="high">
+      <div class="pglow" aria-hidden="true"><i id="pglow"></i></div></div>
     <div class="cglow" aria-hidden="true"></div><canvas class="cube" id="cube" aria-hidden="true"></canvas><img class="cubefb" id="cubefb" src="assets/img/v8_cube.webp" alt="" hidden>
     <div class="cubehit" id="cubehit" aria-hidden="true"></div></div>
   <div class="wrap in"><div class="copy" id="copy">
@@ -593,7 +591,6 @@ b.x{font-weight:800}
     <h1 id="h1">Win the right battles.<br><b>Scale results.</b></h1>
     <p class="lead">We turn search, social feeds and AI recommendations into predictable leads and revenue for Malaysian and regional brands.</p>
     <ul class="trk" aria-label="Track record"><li><b>160+</b>clients</li><li><b>14+</b>industries</li><li><b>Up to 500%</b>client growth in 3 years</li></ul>
-    <div class="ctas"><a class="cta" href="#connect" data-mag>Start a consultation<span class="ar" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>
   </div></div>
   <div class="resw" id="resw"><aside class="res" id="res" aria-live="polite"><div class="want"><div class="seg" id="seg" role="tablist" aria-label="What do you want to win?"><i class="ind" id="segi" aria-hidden="true"></i></div></div><p class="vh" id="rtx"></p>
     <div class="slab" id="slab" aria-hidden="true"><div class="flip" id="flip"><i class="ed sh" style="--i:12"></i><i class="ed" style="--i:11"></i><i class="ed" style="--i:10"></i><i class="ed" style="--i:9"></i><i class="ed" style="--i:8"></i><i class="ed" style="--i:7"></i><i class="ed" style="--i:6"></i><i class="ed" style="--i:5"></i><i class="ed" style="--i:4"></i><i class="ed" style="--i:3"></i><i class="ed" style="--i:2"></i><i class="ed" style="--i:1"></i>
@@ -709,10 +706,11 @@ const HERO = (() => {
   // landmarks on v8_ian (fractions of 1536 x 1024): the cube's column (over his palm, a touch toward the thumb), the top of
   // the palm, the palm centre, the FACE box (hair edge to hair edge, hair top to chin: the cube never enters it), hair top,
   // fingertips, and the right edge that stays on screen. He reaches toward you and to his side (v7's angle, his hand moved left), so the cube floats beside his face.
-  // Render i (20 Oct night): the same photo with his head turned into the cube (arm and palm unchanged, IoU 0.96); the turn
-  // moves his hair edge left (0.615) and the tipped chin down (0.30), so the cube's column moves left by the same 0.012 to
-  // keep its clearance.
-  const L = { w: 1536, h: 1024, cx: 0.433, palmTop: 0.605, palm: [0.49, 0.67], face: [0.610, 0.048, 0.754, 0.302], hair: 0.052, tips: 0.8, faceR: 0.76 };   // v8_ian2 (render i)
+  // Render j (21 Oct): his head tipped down and turned into the cube (render i looked past it); arm and palm unchanged (IoU
+  // 0.97). The hair on the cube side reaches 0.598 near the top of his head, where the cube's outline already slants in (the
+  // presented cube is at full width only below 0.2 of its height from the top), so the box takes 0.600; the cube's column
+  // moves left to 0.425 to keep its size. Chin 0.31. Only the hand is sharp: a heavy bokeh (disk radius 13) on the rest.
+  const L = { w: 1536, h: 1024, cx: 0.425, palmTop: 0.605, palm: [0.49, 0.67], face: [0.600, 0.062, 0.737, 0.312], hair: 0.065, tips: 0.8, faceR: 0.75 };   // v8_ian3 (render j)
   const M = 0.05;       // air between the cube and his face, as a share of the cube (covers its drift toward the cursor, 2.4%)
   const MM = 0.12;      // phones: more air, so a turning cube (up to ~8% wider part-way) rarely has to glide, and never off the left edge
   const o = { box: null, cmp: false, L, M }, set = (el, v) => Object.entries(v).forEach(([k, x]) => el.style.setProperty(k, x));
@@ -724,18 +722,23 @@ const HERO = (() => {
   function card() {                       // bottom right over his shirt when there is room; tablets: a compact slab in the copy; phones: under the photo
     const b = o.box; if (!b) return;
     const home = (inCopy) => { if (inCopy && resw.parentNode !== copy) copy.appendChild(resw); if (!inCopy && resw.parentNode !== hero) hero.appendChild(resw); };
-    if (innerWidth <= 860) { home(false); resw.classList.remove("cmp", "intext"); resw.removeAttribute("style"); o.cmp = false; return; }
+    if (innerWidth <= 860) { home(false); resw.classList.remove("cmp", "intext", "short"); resw.removeAttribute("style"); o.cmp = false; return; }
     // right of where the cube's outline curves in (its lower fifth), clear of the hand and the face
     const left = Math.round(b.x + b.size * 0.4 + 20), PR = proofH(Math.round(Math.min(440, b.W - 36 - left))) + 44;   // room for the result line and the tabs
-    let cw = Math.round(Math.min(440, b.W - 36 - left)), ch = cw / 1.38 + PR;
+    const room = Math.round(Math.min(440, b.W - 36 - left)); let cw = room, ch = cw / 1.38 + PR, ar = 1.38;
     const top = Math.round(Math.max(b.y + b.size * 0.334, b.face.y1 + 28, Math.min(b.H - 30 - ch, b.y + b.size * 0.2)));
-    cw = Math.floor(Math.min(cw, (b.H - 14 - top - PR) * 1.38)); ch = cw / 1.38 + PR;      // a little narrower rather than off the bottom
-    if (cw >= CARD_MIN && top + ch <= b.H - 14) { home(false); resw.classList.remove("cmp", "intext"); Object.assign(resw.style, { width: cw + "px", left: left + "px", top: top + "px" }); o.cmp = false; return; }
-    home(true); resw.classList.add("cmp", "intext"); resw.removeAttribute("style"); o.cmp = true;
+    const hAv = b.H - 14 - top - PR;                                   // height left for the slab itself
+    cw = Math.floor(Math.min(cw, hAv * 1.38)); ch = cw / 1.38 + PR;      // a little narrower rather than off the bottom
+    if (cw < CARD_MIN && room >= CARD_MIN && hAv > 0) {                  // short window: keep the width, shorten the slab (it shows the top of the screen)
+      cw = Math.min(room, 400); ar = Math.max(1.38, cw / hAv); if (ar <= 2.5) ch = cw / ar + PR; else cw = 0; }   // 2.5 = the compact slab
+    if (cw >= CARD_MIN && top + ch <= b.H - 14) { home(false); resw.classList.remove("cmp", "intext"); resw.classList.toggle("short", ar > 1.39);
+      Object.assign(resw.style, { width: cw + "px", left: left + "px", top: top + "px" }); resw.style.setProperty("--ar", ar.toFixed(3)); o.cmp = false; return; }
+    home(true); resw.classList.add("cmp", "intext"); resw.classList.remove("short"); resw.removeAttribute("style"); o.cmp = true;
   }
   // one photo scale and position: the biggest cube that stays clear of his face, the copy and the nav, with his face and
-  // hand on screen. When a cube of 30%+ still leaves the bottom-right corner free for the slab, that layout wins (the cube
-  // hugs the copy so the slab gets its room); otherwise the biggest cube, and the slab goes compact. Bigger photos give a
+  // hand on screen. When a cube of 30%+ (or, on windows too short for 30%, within 3% of the biggest) still leaves the
+  // bottom-right corner free for the slab, that layout wins (the cube hugs the copy so the slab gets its room); otherwise the
+  // biggest cube, and the slab goes compact. Bigger photos give a
   // bigger gap between hand and face but cost sharpness, so the smallest photo within 2% of the best cube is used.
   function solve(W, H, mob) {
     const F = L.face, cr = mob ? 0 : copy.getBoundingClientRect().right - hero.getBoundingClientRect().left, out = [];
@@ -748,13 +751,16 @@ const HERO = (() => {
       const bottom = pt + L.palmTop * ph - (mob ? 6 : 0.012 * H);
       const sMax = Math.min(((F[0] - L.cx) * pw - (mob ? 6 : 10)) / (0.5 + (mob ? MM : M)), bottom - navB, (mob ? 0.8 : 0.36) * W);
       for (const wantCard of mob ? [false] : [true, false]) {
-        let S = wantCard ? Math.min(sMax, sCard) : sMax; if (wantCard && S < 0.3 * W) continue;
+        let S = wantCard ? Math.min(sMax, sCard) : sMax;
         const plHi = W - edge - L.faceR * pw; let plLo = gapL + S / 2 - L.cx * pw;
-        if (plLo > plHi) { S -= 2 * (plLo - plHi); plLo = plHi; if (wantCard && S < 0.3 * W) continue; }
+        if (plLo > plHi) { S -= 2 * (plLo - plHi); plLo = plHi; }
         if (S > 40) out.push({ z, ph, pw, pt, S, card: wantCard, pl: wantCard ? plLo : plHi - (plHi - plLo) * 0.4, bottom });
       }
     }
-    const pool = out.some((c) => c.card) ? out.filter((c) => c.card) : out, top = Math.max(...pool.map((c) => c.S));
+    // the card beside him wins when its cube is 30%+ of the width or, on windows too short for 30%, within 3% of the biggest
+    // cube possible (short laptop windows used to lose the card to the text column, which then ran up under the nav)
+    const best = Math.max(...out.map((c) => c.S)), floor = Math.min(0.3 * W, best * 0.97), cards = out.filter((c) => c.card && c.S >= floor);
+    const pool = cards.length ? cards : out.filter((c) => !c.card), top = Math.max(...pool.map((c) => c.S));
     const need = top >= 0.3 * W ? Math.max(0.3 * W, top * 0.98) : top * 0.98;      // never trade the 30% away for sharpness
     return pool.find((c) => c.S >= need - 0.01);
   }
@@ -770,35 +776,35 @@ const HERO = (() => {
   new ResizeObserver(run).observe(hst); if (document.fonts) document.fonts.ready.then(run); run();
   return o;
 })();
-// ---- hero motion: focus pulls from his face to his hand as the cube lands; cursor parallax; scroll bursts the cube ----
+// ---- hero motion: the cube's light comes on as it lands; cursor parallax; scroll bursts the cube ----
 const SLAB = { rx: 8, ry: -16, rz: -3 }; gsap.set("#slab", { rotationX: SLAB.rx, rotationY: SLAB.ry, rotationZ: SLAB.rz, transformPerspective: 0 });
 if (!R) gsap.to("#slab", { y: -8, duration: 2.6, ease: "sine.inOut", yoyo: true, repeat: -1 });
-const HX = (window.HX = { ex: 0, lf: 0, foc: 0, intro: R ? 0 : 1, glow: 1 }), phS = document.getElementById("phS"), cgl = document.querySelector(".cglow");
+// v8, 21 Oct (David): only the hand is ever sharp, a heavy bokeh on everything else, at load and while scrolling (the old
+// focus pulls to a sharp copy of the photo are gone)
+const HX = (window.HX = { ex: 0, lf: 0, glow: 1 }), cgl = document.querySelector(".cglow");
 // the cube's glow: on once it has landed (HX.glow), gone as it bursts apart on scroll (desktop pin and phone scroll alike)
-const heroFocus = (window.heroFocus = () => { phS.style.opacity = Math.max(HX.intro, HX.foc * 0.85).toFixed(3); cgl.style.opacity = (HX.glow * Math.max(0, 1 - HX.ex * 1.6)).toFixed(3); });
+const heroFocus = (window.heroFocus = () => { cgl.style.opacity = (HX.glow * Math.max(0, 1 - HX.ex * 1.6)).toFixed(3); });
 heroFocus();
-const unblur = () => { if (HX.intro === 1) gsap.to(HX, { intro: 0, duration: 1.2, onUpdate: heroFocus }); };      // never leave the face sharp:
-setTimeout(() => { if (!window.__c7) unblur(); }, 4000); setTimeout(unblur, 12000);   // no cube by 4 s, or a very slow one
 if (!R) {
   document.fonts.ready.then(() => { const st = SplitText.create("#h1", { type: "lines", mask: "lines", linesClass: "ln" });
     gsap.from(st.lines, { yPercent: 110, duration: 1.1, ease: "power4.out", stagger: 0.09, delay: 0.15 }); });
-  gsap.from(["#copy .eyebrow", "#copy .lead", "#copy .trk", "#copy .ctas"], { y: 26, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.08, delay: 0.45 });
+  gsap.from(["#copy .eyebrow", "#copy .lead", "#copy .trk"], { y: 26, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.08, delay: 0.45 });
   gsap.from("#phw", { opacity: 0, duration: 1.6, ease: "power2.out" });
   // the photo drifts against the pointer and the cube (its own canvas) moves with it, so they separate in depth; the card tilts
   if (fine) { const px = gsap.quickTo("#phw", "x", { duration: 1.2, ease: "power3" }), py = gsap.quickTo("#phw", "y", { duration: 1.2, ease: "power3" });
     const rx = gsap.quickTo("#slab", "rotationY", { duration: 0.8, ease: "power3" }), ry = gsap.quickTo("#slab", "rotationX", { duration: 0.8, ease: "power3" });
     document.getElementById("s1").addEventListener("pointermove", (e) => { const kx = e.clientX / innerWidth - 0.5, ky = e.clientY / innerHeight - 0.5; px(-kx * 22); py(-ky * 12); rx(SLAB.ry + kx * 16); ry(SLAB.rx - ky * 12); document.getElementById("scr").style.setProperty("--glx", 62 - kx * 50 + "%"); }); }
-  // scroll: the cube lifts off the palm and bursts into its 26 pieces while the focus pulls back to Ian (pinned on laptops).
+  // scroll: the cube lifts off the palm and bursts into its 26 pieces, Ian stays soft behind it (pinned on laptops).
   // matchMedia rebuilds this when the window crosses the phone breakpoint, so a resized window never keeps the wrong one
   const upd = () => { const c = window.__c7; if (c) { c.explode = HX.ex; c.lift = HX.lf; } heroFocus(); };
   gsap.matchMedia().add({ desk: "(min-width: 861px)", mob: "(max-width: 860px)" }, (ctx) => {
     if (ctx.conditions.desk) gsap.timeline({ onUpdate: upd, scrollTrigger: { trigger: "#s1", start: "top top", end: "+=85%", pin: true, scrub: 0.7, anticipatePin: 1 } })
-      .to(HX, { lf: 1, duration: 0.6, ease: "power1.inOut" }, 0).to(HX, { ex: 1, duration: 0.8, ease: "power2.in" }, 0.2).to(HX, { foc: 1, duration: 0.5 }, 0.45)
+      .to(HX, { lf: 1, duration: 0.6, ease: "power1.inOut" }, 0).to(HX, { ex: 1, duration: 0.8, ease: "power2.in" }, 0.2)
       .to("#phw", { scale: 1.12, duration: 1, ease: "none" }, 0).to("#copy", { y: -60, opacity: 0, duration: 0.4, ease: "power1.in" }, 0.05)
       .to(["#resw", ".pglow"], { opacity: 0, duration: 0.2 }, 0);
     else gsap.timeline({ onUpdate: upd, scrollTrigger: { trigger: "#s1", start: "top top", end: "bottom top", scrub: 0.5 } })
       .to(HX, { lf: 1, duration: 0.5 }, 0).to(HX, { ex: 0.85, duration: 0.8, ease: "power2.in" }, 0.15);
-    return () => { HX.ex = HX.lf = HX.foc = 0; upd(); };
+    return () => { HX.ex = HX.lf = 0; upd(); };
   });
 }
 ember.innerHTML = logos.map((l) => `<div class="t"><img src="assets/logos-mono/${l}.webp" alt="${nm(l)}" loading="lazy"></div>`).join("");
@@ -1142,12 +1148,12 @@ if (cube) {
   seg.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) cube.pick(+b.dataset.i); });
   const hold = (v) => { cube.paused = v; hero.classList.toggle("hold", v); };
   [hitEl, E("resw")].forEach((el) => { el.addEventListener("pointerenter", (e) => e.pointerType === "mouse" && hold(true)); el.addEventListener("pointerleave", () => hold(false)); });
-  // the cube drops into his palm; as it lands, the focus pulls from his face to his hand
+  // the cube drops into his palm
   if (!R && !Q.has("beat")) { HX.glow = 0; heroFocus();                     // the cube's light comes on as it lands
-    cube.intro().then(() => { gsap.to(HX, { intro: 0, duration: 1.4, ease: "power2.inOut", onUpdate: heroFocus }); gsap.to(HX, { glow: 1, duration: 1.2, ease: "power2.out", onUpdate: heroFocus }); pulse(); }); }
-  else { HX.intro = 0; heroFocus(); }
+    cube.intro().then(() => { gsap.to(HX, { glow: 1, duration: 1.2, ease: "power2.out", onUpdate: heroFocus }); pulse(); }); }
+  else heroFocus();
 } else {                                                     // no WebGL: a still of the cube, the results still cycle
-  canvas.hidden = true; E("cubefb").hidden = false; hitEl.hidden = true; HX.intro = 0; heroFocus(); let k = 0; show(0, "solved");
+  canvas.hidden = true; E("cubefb").hidden = false; hitEl.hidden = true; heroFocus(); let k = 0; show(0, "solved");
   seg.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) show((k = +b.dataset.i), "solved"); });
   if (!R) setInterval(() => show((k = (k + 1) % RES.length), "solved"), (HOLD + 1) * 1000);
 }
