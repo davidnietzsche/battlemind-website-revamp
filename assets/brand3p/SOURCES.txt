@@ -1,0 +1,9 @@
+Platform logos used inside the hero's result screens (home-v8). Official artwork from Wikimedia Commons, cropped or recoloured
+only (no redrawing); trademarks belong to their owners and are shown only to name the platform each screen depicts.
+- meta_mark.svg      <- Meta_Platforms_Inc._logo.svg (infinity mark only: viewBox crop)
+- gads_mark.svg      <- Google_Ads_logo.svg (the "A" only: wordmark paths dropped, viewBox crop)
+- ga_mark.png        <- Logo_Google_Analytics.svg (bars only: rendered and cropped at the gap before the wordmark)
+- salesforce.svg     <- Salesforce.com_logo.svg (as is)
+- shopify_bag.svg    <- Shopify_logo_2018.svg (bag only: viewBox crop)
+- shopify_white.svg  <- Shopify_logo_2018.svg (wordmark filled white for the dark admin bar)
+Fetched 2026-10-20 via https://commons.wikimedia.org/wiki/Special:FilePath/<file>

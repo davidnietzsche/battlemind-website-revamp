@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><script src="lib/gate.js"></script><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Homepage v6 · Battle Website</title><meta name="robots" content="noindex"><link rel="icon" href="assets/brand/bm-mark.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;700;800&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
+<script src="lib/gsap.min.js"></script><script src="lib/ScrollTrigger.min.js"></script><script src="lib/look.js"></script><script src="lib/lenis.min.js"></script>
+<script type="importmap">{"imports":{"three":"./lib/t166/three.module.min.js","three/addons/":"./lib/t166/addons/"}}</script>
+<style>
+/* Homepage v6 · v5's standard (Archivo + Oswald, the deck's red, white cards for reading sections) with:
+   - the hero Sue asked for: Ian holds out a red, white and black Rubik's cube that twists, solves and turns one result
+     to you at a time (followers, ROI, traffic, leads, sales, cost), each a real number from the deck, autoplaying like a clip;
+   - the brief's full home order: hero, proof, the battle, armour, data made digestible, cases + reviews, team, why clients
+     love us, weapons, the free audit;
+   - mostly dark with red light; the deck gradient kept for the key moments only (numbers, reviews, the final call). */
+:root{--red:#D7000F;--hot:#E22402;--crim:#7A0000;--deep:#2A0000;--ink:#0A0A0B;--paper:#fff;--grey:#5f6368;--line:rgba(255,255,255,.1);
+  --f:"Archivo",system-ui,sans-serif;--o:"Oswald",sans-serif;--gut:clamp(16px,4vw,64px);--rad:22px}
+*{box-sizing:border-box}html,body{margin:0;background:var(--ink);color:#fff;font:16px/1.6 var(--f);-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%}a{color:inherit}[hidden]{display:none!important}
+h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.03em;line-height:1;margin:0}
+b.x{font-weight:800}
+.wrap{max-width:1320px;margin:0 auto;padding:0 var(--gut)}
+.lbl{font:600 12px var(--o);letter-spacing:.22em;text-transform:uppercase;color:var(--hot)}
+.sec{position:relative;padding:clamp(90px,11vw,160px) 0;overflow:hidden}
+.h2{font-size:clamp(40px,5.2vw,84px)}
+.white{background:var(--paper);color:#111}
+.white .lbl{color:var(--red)}
+.btn{display:inline-flex;align-items:center;gap:.6em;padding:16px 26px;border-radius:999px;background:var(--red);color:#fff;font:600 14px/1 var(--f);text-decoration:none;border:0;cursor:pointer;transition:transform .3s,box-shadow .3s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px -14px rgba(226,36,2,.9)}
+.btn.ln{background:transparent;box-shadow:inset 0 0 0 1px rgba(255,255,255,.4)}
+.white .btn.ln{box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)}
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;transition:background .4s,backdrop-filter .4s}
+.nav.sc{background:rgba(10,10,11,.6);backdrop-filter:blur(16px)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+.nav img{height:22px;width:auto}
+.nav ul{display:flex;gap:30px;list-style:none;margin:0;padding:0;font:500 14px var(--f);color:rgba(255,255,255,.9)}
+.nav .btn{padding:11px 18px;font-size:13px}
+@media (max-width:860px){.nav ul{display:none}}
+
+/* 1 HERO · Ian holds out the Battle cube (ref: "holding the panel" trend + Wprime's pixel Rubik's cube) */
+.hero{position:relative;min-height:100svh;overflow:hidden;background:radial-gradient(48% 62% at 74% 46%,rgba(150,0,10,.32),transparent 72%),var(--ink)}
+.hero .in{position:relative;z-index:2;min-height:100svh;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:20px;align-items:end;padding-top:96px}
+.hero h1{font-size:clamp(52px,6.6vw,112px);line-height:.92;margin-top:14px}
+.hero p{max-width:44ch;color:rgba(255,255,255,.82);font-size:clamp(16px,1.3vw,19px);margin:24px 0 28px}
+.hero .copy{padding-bottom:8vh}
+.hero .ctas{display:flex;gap:10px;flex-wrap:wrap}
+.want{margin-top:36px}
+.want small{display:block;font:600 11px var(--o);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{all:unset;cursor:pointer;position:relative;overflow:hidden;font:500 13px/1 var(--f);padding:10px 15px;border-radius:999px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px var(--line);transition:background .35s,box-shadow .35s}
+.chips button:hover{background:rgba(255,255,255,.12)}
+.chips button[aria-selected="true"]{background:var(--red);box-shadow:none}
+.chips button i{position:absolute;inset:0 auto 0 0;width:0;background:rgba(255,255,255,.22);pointer-events:none}
+.chips button.run i{animation:fill var(--hold,3.6s) linear forwards}
+.hero.hold .chips button.run i{animation-play-state:paused}
+.chips button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@keyframes fill{to{width:100%}}
+.hstage{position:relative;height:min(90svh,860px);min-height:520px;--ix:0px;--iy:0px;--iw:573px;--ih:860px}
+.hstage .ian{position:absolute;left:44%;bottom:0;height:100%;width:auto;max-width:none;translate:-50% 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 13%,#000 87%,transparent),linear-gradient(0deg,transparent,#000 11%);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent,#000 13%,#000 87%,transparent),linear-gradient(0deg,transparent,#000 11%);mask-composite:intersect}
+/* the cube sits over his palm: anchored in image fractions, so it follows the photo at any size */
+.cube,.cubefb{position:absolute;left:calc(var(--ix) + var(--iw) * .51);top:calc(var(--iy) + var(--ih) * .43);width:calc(var(--iw) * .6);height:calc(var(--iw) * .6);translate:-50% -50%;z-index:3}
+.cube{touch-action:pan-y;cursor:grab}.cube:active{cursor:grabbing}
+.cglow{position:absolute;left:calc(var(--ix) + var(--iw) * .51);top:calc(var(--iy) + var(--ih) * .44);width:calc(var(--iw) * .72);height:calc(var(--iw) * .72);translate:-50% -50%;border-radius:50%;background:radial-gradient(closest-side,rgba(226,36,2,.42),rgba(215,0,15,.12) 55%,transparent);filter:blur(18px);z-index:2;pointer-events:none}
+.pglow{position:absolute;left:calc(var(--ix) + var(--iw) * .43);top:calc(var(--iy) + var(--ih) * .63);width:calc(var(--iw) * .46);height:calc(var(--iw) * .13);translate:-50% -50%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,40,20,.55),transparent);mix-blend-mode:screen;filter:blur(10px);z-index:2;pointer-events:none}
+/* the result card (HTML over the canvas, read out to screen readers) */
+.res{position:absolute;left:calc(var(--ix) + var(--iw) * .74);top:calc(var(--iy) + var(--ih) * .3);width:clamp(230px,19vw,286px);z-index:4;padding:18px 20px 16px;border-radius:20px;
+  background:linear-gradient(160deg,rgba(30,30,32,.84),rgba(12,12,14,.8));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),0 30px 60px -30px rgba(0,0,0,.9);
+  opacity:0;transform:translateY(16px) scale(.96);transition:opacity .45s,transform .6s cubic-bezier(.2,.8,.2,1)}
+.res.on{opacity:1;transform:none}
+.res .k{display:flex;justify-content:space-between;gap:10px;font:600 11px var(--o);letter-spacing:.2em;text-transform:uppercase;color:var(--hot)}
+.res .k em{font-style:normal;color:rgba(255,255,255,.45)}
+.res .n{display:block;font:300 clamp(44px,3.9vw,60px)/1 var(--f);letter-spacing:-.04em;margin:10px 0 6px}
+.res .n small:empty{display:none}
+.res .n small{display:block;font:600 10px var(--o);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:4px}
+.res p{margin:0;font-size:13.5px;line-height:1.4;color:rgba(255,255,255,.88)}
+.res .who{font-size:12px;color:rgba(255,255,255,.55);margin-top:6px}
+.res .cb{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.12)}
+.res .cb small{display:block;font:600 10px var(--o);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px}
+.res .cb span{display:inline-block;font-size:11.5px;line-height:1.2;padding:5px 9px;border-radius:999px;background:rgba(255,255,255,.08);margin:0 4px 4px 0}
+.res .cb q{display:block;font-size:12.5px;color:rgba(255,255,255,.8)}.res .cb q::before,.res .cb q::after{content:none}
+@media (max-width:1100px){
+  .res{left:auto;right:0;top:auto;bottom:3%;width:min(92%,340px);padding:12px 14px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 14px;align-items:center}
+  .res .k{grid-column:1/-1}.res .n{grid-row:2;margin:4px 0 0;font-size:40px}.res .n small{font-size:9px}.res p{grid-row:2;font-size:12.5px}.res .who{grid-column:1/-1;margin-top:2px;font-size:11px}.res .cb{display:none}
+}
+@media (max-width:860px){
+  .hero .in{grid-template-columns:minmax(0,1fr);align-items:start;padding-top:80px;gap:0}
+  .hero .copy{display:contents}
+  .hstage{order:0;height:60svh;min-height:440px}
+  .want{order:1;margin:14px 0 26px}.want small{display:none}
+  .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 calc(var(--gut) * -1);padding:2px var(--gut)}.chips::-webkit-scrollbar{display:none}
+  .chips button{flex:none}
+  .hero .lbl{order:2}.hero h1{order:3;font-size:46px}.hero p{order:4}.hero .ctas{order:5;padding-bottom:56px}
+  .hstage .ian{left:50%}
+  .res{left:50%;right:auto;bottom:0;translate:-50% 0;width:min(92%,360px)}
+}
+
+/* 2 LOGOS · ember wall (logos bigger, per the brief) */
+.ember{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:34px}
+.ember .t{position:relative;aspect-ratio:16/10;border-radius:18px;display:grid;place-items:center;padding:14px 18px;overflow:hidden;background:#121213;box-shadow:inset 0 0 0 1px var(--line);cursor:pointer}
+.ember .t::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 125%,var(--hot),var(--red) 40%,transparent 80%);opacity:0;transition:opacity .45s}
+.ember .t img{position:relative;max-height:128px;max-width:88%;object-fit:contain;opacity:.92;transition:transform .45s}
+.ember .t:hover::before{opacity:1}.ember .t:hover img{transform:scale(1.1)}
+@media (max-width:760px){.ember{grid-template-columns:repeat(2,minmax(0,1fr))}.ember .t img{max-height:70px}}
+
+/* 3 NUMBERS · deck-style white cards, red figures */
+.bento{display:grid;grid-template-columns:1.2fr 1fr 1fr;grid-template-rows:auto auto;gap:12px;margin-top:40px}
+.bento .m{border-radius:var(--rad);background:#fff;color:#111;padding:28px;display:flex;flex-direction:column;justify-content:space-between;min-height:200px}
+.bento .m small{font:600 11px var(--o);letter-spacing:.2em;text-transform:uppercase;color:var(--red)}
+.bento .m b{font:300 clamp(56px,6.4vw,104px)/.9 var(--f);letter-spacing:-.05em;color:var(--red)}
+.bento .m span{font-size:15px;color:#444}
+.bento .m.big{grid-row:span 2;background:url(assets/img/deck_grad.webp) center/cover;color:#fff}.bento .m.big b{color:#fff;font-size:clamp(90px,11vw,180px)}.bento .m.big span,.bento .m.big small{color:rgba(255,255,255,.85)}
+.bento .m.big img{width:46%;align-self:flex-end;margin-top:-10%}
+@media (max-width:860px){.bento{grid-template-columns:1fr 1fr}.bento .m.big{grid-column:span 2;grid-row:auto}}
+
+/* 4 THE MARKETING BATTLE · numbered list, reading section on white */
+.nl{margin-top:40px;border-top:2px solid #111}
+.nl .r{display:grid;grid-template-columns:90px minmax(0,1fr) 60px minmax(0,1fr);gap:20px;align-items:center;padding:30px 0;border-bottom:1px solid #e3e3e3}
+.nl .n{font:300 46px/1 var(--f);color:var(--red)}
+.nl .q{font:400 clamp(18px,1.8vw,26px)/1.2 var(--f);color:#8a8a8a;text-decoration:line-through;text-decoration-color:var(--red)}
+.nl .ar{width:44px;height:2px;background:var(--red);position:relative}.nl .ar::after{content:"";position:absolute;right:-8px;top:-5px;border:6px solid transparent;border-left:10px solid var(--red)}
+.nl .a{font:700 clamp(22px,2.2vw,32px)/1.15 var(--f);letter-spacing:-.02em}
+@media (max-width:860px){.nl .r{grid-template-columns:56px minmax(0,1fr);gap:8px 14px}.nl .ar{display:none}.nl .a{grid-column:2}.nl .n{font-size:34px}}
+
+/* 5 ARMOUR (unchanged mechanics) */
+.arm{position:relative;background:#050506}
+.arm .pin{height:100svh;position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr) minmax(0,.9fr);align-items:center;gap:20px;padding:80px var(--gut) 40px;background:radial-gradient(42% 60% at 50% 55%,rgba(226,36,2,.28),transparent 72%),#050506}
+.gstage{position:relative;height:min(82svh,760px);aspect-ratio:3/4;margin:0 auto;max-width:100%}
+.gstage canvas{position:absolute;inset:0;width:100%!important;height:100%!important;mix-blend-mode:screen;-webkit-mask-image:radial-gradient(ellipse 62% 66% at 50% 50%,#000 62%,transparent 100%);mask-image:radial-gradient(ellipse 62% 66% at 50% 50%,#000 62%,transparent 100%)}
+.ly{display:grid;gap:10px}
+.ly div{padding:16px 18px;border-radius:16px;background:rgba(255,255,255,.03);box-shadow:inset 0 0 0 1px var(--line);transition:background .5s,box-shadow .5s,opacity .5s;opacity:.45}
+.ly div b{font:600 11px var(--o);letter-spacing:.2em;text-transform:uppercase;color:var(--hot)}
+.ly div h4{font:500 18px/1.2 var(--f);letter-spacing:-.01em;margin-top:6px}
+.ly div p{font-size:13px;color:rgba(255,255,255,.7);margin:8px 0 0;max-height:0;overflow:hidden;transition:max-height .5s}
+.ly div.on{opacity:1;background:linear-gradient(120deg,rgba(215,0,15,.35),rgba(226,36,2,.1));box-shadow:inset 0 0 0 1px rgba(226,36,2,.6)}
+.ly div.on p{max-height:140px}
+@media (max-width:960px){.arm .pin{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto 1fr;align-content:start;gap:10px;padding-top:86px}.arm .intro p{display:none}.arm h2{font-size:34px}.gstage{height:48svh}.ly div:not(.on){display:none}}
+
+/* 6 DATA MADE DIGESTIBLE · a raw export becomes a three-step plan */
+.dsec{background:radial-gradient(50% 70% at 20% 60%,rgba(150,0,10,.22),transparent 70%),#08080A}
+.dd{display:grid;grid-template-columns:minmax(0,1.15fr) auto minmax(0,1fr);gap:clamp(18px,3vw,40px);align-items:center;margin-top:48px}
+.sheet{position:relative;border-radius:var(--rad);background:#fff;color:#111;padding:18px 18px 12px;rotate:-2deg;box-shadow:0 40px 80px -40px rgba(0,0,0,.9);overflow:hidden}
+.sheet .top{display:flex;justify-content:space-between;align-items:center;font:600 10px var(--o);letter-spacing:.2em;text-transform:uppercase;color:#9a9a9a}
+.sheet .top i{font-style:normal;color:var(--red)}
+.sheet table{width:100%;border-collapse:collapse;font:11px/2 ui-monospace,SFMono-Regular,Menlo,monospace;color:#8a8a8a;margin-top:8px}
+.sheet th{font-weight:600;color:#444;text-align:left;border-bottom:1px solid #ddd;padding-right:8px}
+.sheet td{border-bottom:1px solid #f1f1f1;white-space:nowrap;padding-right:8px}
+.sheet td.hl{color:var(--red);font-weight:700}
+.sheet td.hl span{position:relative;box-shadow:0 0 0 1.5px var(--red);border-radius:3px;padding:1px 3px}
+.sheet td.hl sup{position:absolute;right:-9px;top:-9px;width:15px;height:15px;border-radius:50%;background:var(--red);color:#fff;font:700 9px/15px var(--f);text-align:center}
+.sheet .scan{position:absolute;left:0;right:0;height:90px;top:-100px;background:linear-gradient(180deg,transparent,rgba(215,0,15,.16),transparent);pointer-events:none}
+.dd .arr{font:300 clamp(46px,5vw,72px)/1 var(--f);color:var(--hot)}
+.plan{display:grid;gap:12px}
+.plan .s{display:grid;grid-template-columns:52px minmax(0,1fr);gap:14px;align-items:center;padding:18px 20px;border-radius:18px;background:#fff;color:#111}
+.plan .s b{font:300 40px/1 var(--f);color:var(--red)}
+.plan .s h4{font:700 clamp(17px,1.5vw,20px)/1.2 var(--f);letter-spacing:-.01em}
+.plan .s p{margin:4px 0 0;font-size:13.5px;line-height:1.45;color:#555}
+@media (max-width:900px){.dd{grid-template-columns:minmax(0,1fr)}.dd .arr{rotate:90deg;justify-self:center}.sheet{rotate:-1deg}.sheet table{font-size:9.5px}.sheet .xm{display:none}}
+
+/* 7 CASES · white reading section, so proven results don't get scrolled past */
+.cg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:44px}
+.cc{border-radius:var(--rad);overflow:hidden;background:#fff;box-shadow:0 20px 50px -30px rgba(0,0,0,.35);text-decoration:none;color:#111;display:grid;transition:transform .4s,box-shadow .4s}
+.cc:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(215,0,15,.45)}
+.cc img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.cc .in{padding:22px 24px 26px}
+.cc b{display:block;font:300 clamp(44px,4.4vw,70px)/1 var(--f);letter-spacing:-.05em;color:var(--red)}
+.cc small{font:600 11px var(--o);letter-spacing:.18em;text-transform:uppercase;color:#777}
+.cc h4{font:500 19px/1.25 var(--f);margin-top:12px}
+.cc span{font-size:13px;color:#777}
+@media (max-width:900px){.cg{grid-template-columns:minmax(0,1fr)}}
+
+/* 8 REVIEWS · Tradebox, on the deck gradient */
+.tbx{position:relative;height:100svh;min-height:720px;overflow:hidden;color:#fff;background:url(assets/img/deck_grad.webp) center/cover}
+.tbbar{position:absolute;left:var(--gut);right:var(--gut);top:90px;z-index:4;display:grid;grid-template-columns:1fr 1fr 1fr auto;font:400 13px var(--f);color:rgba(255,255,255,.85)}
+.tbbar b{font:700 20px var(--f)}
+.tbface{position:absolute;left:30%;translate:-50% 0;bottom:0;height:92%;width:auto;max-width:none;z-index:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 18%,#000 80%,transparent),linear-gradient(0deg,transparent,#000 10%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 18%,#000 80%,transparent),linear-gradient(0deg,transparent,#000 10%);mask-composite:intersect;will-change:transform}
+.tbx::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,0,0,.6),transparent 45%);pointer-events:none;z-index:2}
+.tbl{position:absolute;left:var(--gut);bottom:8%;z-index:4}
+.tbk{font:600 12px var(--o);letter-spacing:.22em;text-transform:uppercase;margin-bottom:14px}
+.tbl h2{font-size:clamp(56px,7.4vw,128px);line-height:.92}
+.tbr{position:absolute;right:var(--gut);top:22%;width:min(640px,52vw);z-index:4;display:grid;gap:22px}
+.tbi{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:stretch}
+.tbi .no{display:grid;place-items:center;padding:0 22px;font:300 clamp(30px,2.8vw,44px)/1 var(--f);background:rgba(20,0,0,.55);backdrop-filter:blur(8px);border-radius:6px}
+.tbi .tx{padding:22px 24px;border-radius:6px;background:rgba(20,0,0,.6);backdrop-filter:blur(8px)}
+.tbi .tx p{margin:0 0 14px;font:400 16px/1.45 var(--f)}
+.tbi .tx .who{display:flex;gap:10px;align-items:center;font-size:13px;color:rgba(255,255,255,.75)}
+.tbi .tx .who img{width:30px;height:30px;border-radius:50%;object-fit:cover;filter:grayscale(1)}
+.tbi .tx .who b{color:#fff;font-weight:500}
+.tbnav{position:absolute;right:var(--gut);bottom:8%;z-index:4;display:flex;gap:8px}
+.tbnav button{all:unset;cursor:pointer;width:50px;height:50px;border-radius:50%;display:grid;place-items:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5)}
+.tbnav button:hover,.tbnav button:focus-visible{background:#fff;color:var(--red)}
+@media (max-width:860px){.tbbar{grid-template-columns:1fr auto}.tbbar span:nth-child(2),.tbbar span:nth-child(3){display:none}.tbface{height:58%;left:50%;opacity:.9}.tbr{left:var(--gut);right:var(--gut);width:auto;top:auto;bottom:24%}.tbr .tbi:nth-child(2){display:none}.tbl{bottom:auto;top:140px}.tbl h2{font-size:48px}.tbnav{bottom:4%}}
+
+/* 9 TEAM · the Battle cast, now dark with red light from below (the gradient stays for reviews and the final call) */
+.oc{position:relative;height:min(100svh,940px);min-height:700px;overflow:hidden;background:radial-gradient(70% 55% at 50% 108%,rgba(215,0,15,.55),rgba(120,0,8,.2) 55%,transparent 80%),#070708}
+.ocrow{position:absolute;inset:0;display:flex}
+.ocol{position:relative;flex:1 1 0;min-width:0;overflow:hidden;cursor:pointer;transition:flex-grow .8s cubic-bezier(.2,.8,.2,1),filter .6s}
+.ocol::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,7,8,.55) 22%,rgba(7,7,8,.1) 25%,transparent 29%);pointer-events:none;z-index:2;transition:opacity .6s}
+.ocol img{position:absolute;bottom:0;right:-8%;height:var(--h);width:auto;max-width:none;transition:opacity .6s,transform .8s cubic-bezier(.2,.8,.2,1);z-index:1;filter:grayscale(1) contrast(1.1)}
+.ocol img.pose{opacity:0;right:auto;left:50%;translate:-50% 0;transform:scale(.96);filter:none}
+.ocol.on{flex-grow:3.2}.ocol.on::after{opacity:0}
+.ocol.on img.walk{opacity:0;transform:translateX(-30px)}.ocol.on img.pose{opacity:1;transform:scale(1)}
+.ocrow.act .ocol:not(.on){filter:brightness(.5)}
+.ocn{position:absolute;left:20px;bottom:30%;z-index:3;font:600 clamp(26px,3vw,52px)/1 var(--o);text-transform:uppercase;color:#fff;opacity:0;transform:translateY(20px);transition:opacity .5s .2s,transform .6s .2s}.ocol.on .ocn{opacity:1;transform:none}
+.ocfade{position:absolute;inset:auto 0 0 0;height:34%;background:linear-gradient(0deg,#070708 20%,transparent);z-index:3;pointer-events:none}
+.octitle{position:absolute;left:0;right:0;bottom:7%;z-index:4;text-align:center}
+.octitle b{display:block;font:800 clamp(44px,7vw,120px)/1 var(--f);letter-spacing:-.04em;text-transform:uppercase}
+.octitle span{display:block;margin-top:8px;font:600 12px var(--o);letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+@media (max-width:760px){.ocrow{overflow-x:auto}.ocol{flex:none;width:30vw}.ocol.on{width:70vw}}
+
+/* 10 WHY CLIENTS LOVE TO WORK WITH US · the USP strip (the deck's six points merged to three) */
+.usp{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:40px}
+.usp > div{padding:28px 26px 30px;border-radius:var(--rad);background:rgba(255,255,255,.035);box-shadow:inset 0 0 0 1px var(--line);transition:background .4s,box-shadow .4s}
+.usp > div:hover{background:linear-gradient(150deg,rgba(215,0,15,.22),rgba(255,255,255,.03));box-shadow:inset 0 0 0 1px rgba(226,36,2,.5)}
+.usp b{display:block;font:300 46px/1 var(--f);color:var(--hot)}
+.usp h4{font:700 23px/1.15 var(--f);letter-spacing:-.02em;margin-top:22px}
+.usp p{margin:10px 0 0;color:rgba(255,255,255,.72);font-size:15px}
+@media (max-width:860px){.usp{grid-template-columns:minmax(0,1fr)}}
+
+/* 11 WEAPONS orbit (red set) */
+.wo{background:#030304}
+.opin{position:relative;height:100svh;overflow:hidden}
+.opin canvas.orb{position:absolute;inset:0;width:100%;height:100%}
+.otitle{position:absolute;left:50%;top:50%;translate:-50% -50%;text-align:center;z-index:2;pointer-events:none;transition:opacity .5s,transform .6s;text-shadow:0 2px 30px rgba(0,0,0,.85)}
+.otitle h2{font-size:clamp(46px,6.6vw,110px);line-height:.92}
+.otitle p{color:rgba(255,255,255,.7);margin-top:16px;font-size:15px}
+.opin.zoomed .otitle{opacity:0;transform:scale(.9)}
+.odet{position:absolute;right:var(--gut);top:50%;translate:0 -50%;z-index:3;width:min(420px,88vw);padding:28px;border-radius:24px;background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(18px);box-shadow:inset 0 0 0 1px var(--line);opacity:0;visibility:hidden;transform:translateX(40px);transition:opacity .5s,transform .6s cubic-bezier(.2,.7,.2,1),visibility .5s}
+.opin.zoomed .odet{opacity:1;visibility:visible;transform:none}
+.odet .back{all:unset;cursor:pointer;font-size:13px;color:rgba(255,255,255,.7);margin-bottom:18px;display:inline-block}.odet .back:hover{color:#fff}
+.odet h3{font:300 clamp(34px,3.4vw,52px)/1;margin:10px 0 12px}
+.odet p{color:rgba(255,255,255,.8);margin:0 0 14px}
+.odet ul{margin:0 0 22px;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}.odet li{font-size:13px;padding:6px 11px;border-radius:999px;background:rgba(255,255,255,.08)}
+.okeys{position:absolute;left:50%;bottom:28px;translate:-50% 0;z-index:3;display:flex;gap:8px}
+.okeys button{all:unset;cursor:pointer;font:500 13px var(--f);padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px var(--line)}
+.okeys button:hover,.okeys button:focus-visible{background:var(--red)}
+@media (max-width:760px){.opin.zoomed .okeys{display:none}.odet{top:auto;bottom:24px;translate:none;right:6vw;padding:20px}.odet h3{font-size:30px}.okeys{flex-wrap:wrap;justify-content:center;width:92vw}}
+
+/* 12 CONNECT · the free audit, on the deck gradient, the deck's own icons floating */
+.cn{position:relative;min-height:90svh;display:grid;place-items:center;overflow:hidden;background:url(assets/img/deck_grad.webp) 50% 20%/cover;padding:120px var(--gut)}
+.cn .ko{position:absolute;z-index:1;will-change:transform;pointer-events:none;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6))}
+.cn .box{position:relative;z-index:2;width:min(820px,92vw);text-align:center}
+.cn h2{font-size:clamp(44px,5.6vw,96px)}
+.cn p{margin:16px 0 30px;color:rgba(255,255,255,.85)}
+.ask{text-align:left;border-radius:28px;padding:22px 22px 18px;background:linear-gradient(160deg,rgba(255,255,255,.22),rgba(255,255,255,.08));backdrop-filter:blur(26px);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.55),0 50px 90px -40px rgba(0,0,0,.8)}
+.ask input{width:100%;border:0;outline:none;background:none;font:400 clamp(20px,2vw,26px) var(--f);color:#fff;padding:4px 4px 20px}.ask input::placeholder{color:rgba(255,255,255,.8)}
+.ask .row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.ask .chips2{display:flex;gap:8px;flex-wrap:wrap}.ask .chips2 span{font:600 13px var(--f);padding:9px 14px;border-radius:999px;background:#fff;color:var(--red)}
+.ask .send{all:unset;cursor:pointer;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--red);color:#fff;font-size:22px}
+.foot{background:#000;padding:60px 0 80px;color:#888;font-size:14px}
+.foot .wrap{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:30px}
+.foot .lk{display:flex;gap:18px;align-items:center;margin-bottom:14px}.foot .lk img{height:30px;width:auto}
+.foot b{display:block;color:#fff;font:600 12px var(--o);letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+@media (max-width:760px){.foot .wrap{grid-template-columns:1fr 1fr}}
+.note{background:#000;border-top:1px solid #222;padding:18px var(--gut);font-size:12.5px;color:#777;text-align:center}
+</style></head>
+<body>
+<header class="nav" id="nav"><div class="wrap"><img src="assets/brand/battle-white.webp" alt="Battle"><ul><li>Services</li><li>Work</li><li>About</li><li>Resources</li></ul><a class="btn" href="#connect">Let's talk</a></div></header>
+
+<!-- 1 HERO -->
+<section class="hero" id="s1">
+  <div class="wrap in">
+    <div class="copy"><div class="lbl">Data-intelligent digital marketing · Kuala Lumpur</div>
+      <h1>Win the right battles.<br><b class="x">Scale results.</b></h1>
+      <p>AI gave everyone marketing tools. We give your brand the strategy, empathy and revenue to actually win.</p>
+      <div class="ctas"><a class="btn" href="#connect">Start a marketing consultation</a><a class="btn ln" href="#cases">See case studies</a></div>
+      <div class="want"><small>It's all in your hands. What do you want to win?</small><div class="chips" id="chips" role="tablist" aria-label="Results"></div></div></div>
+    <div class="hstage" id="hst"><img class="ian" id="ian" src="assets/img/v6_ian.webp" alt="Ian from Battle holding out the Battle cube">
+      <div class="cglow" id="cglow" aria-hidden="true"></div><div class="pglow" id="pglow" aria-hidden="true"></div>
+      <canvas class="cube" id="cube" aria-hidden="true"></canvas><img class="cubefb" id="cubefb" src="assets/img/v6_cube.webp" alt="" hidden>
+      <aside class="res" id="res" aria-live="polite"><div class="k"><span id="rk"></span><em id="ri"></em></div><span class="n"><small id="rq"></small><span id="rn"></span></span><p id="rd"></p><div class="who" id="rw"></div><div class="cb" id="rc"></div></aside></div>
+  </div></section>
+
+<!-- 2 PROOF · logos -->
+<section class="sec" id="s2"><div class="wrap"><div class="lbl">Trusted by 160+ clients across 14+ industries</div><h2 class="h2" style="margin-top:12px">Brands we've <b class="x">fired up</b></h2><div class="ember" id="ember"></div></div></section>
+
+<!-- 2 PROOF · numbers -->
+<section class="sec" id="s3" style="padding-top:0"><div class="wrap"><div class="lbl">Proven impact</div><h2 class="h2" style="margin-top:12px">Numbers we put our <b class="x">name on</b></h2>
+  <div class="bento"><div class="m big"><div><small>Since 2020</small><b>160+</b><span>clients across 14+ industries</span></div><img src="assets/img/dk_knight.webp" alt=""></div>
+    <div class="m"><small>Up to</small><b>500%</b><span>client business growth in 3 years</span></div><div class="m"><small>Up to</small><b>3×</b><span>annual sales for our client</span></div>
+    <div class="m" style="grid-column:span 2"><small>Up to</small><b>67%</b><span>decrease in cost per result</span></div></div></div></section>
+
+<!-- 3 THE MARKETING BATTLE -->
+<section class="sec white" id="s4"><div class="wrap"><div class="lbl">The marketing battle</div><h2 class="h2" style="margin-top:12px">Sound familiar? <b class="x">Here's our answer.</b></h2><div class="nl" id="nl"></div></div></section>
+
+<!-- 4 ARMOUR -->
+<section class="arm" id="s5"><div class="pin" id="apin">
+  <div class="intro"><div class="lbl">The marketing growth stack</div><h2 class="h2" style="margin-top:12px">Put on your <b class="x">battle armour</b></h2><p style="color:rgba(255,255,255,.7);max-width:30ch;margin-top:16px">Four layers. One suit. Scroll to suit up, scroll back to take it apart.</p></div>
+  <div class="gstage"><canvas id="gcv"></canvas></div><div class="ly" id="ly"></div></div></section>
+
+<!-- 5 DATA MADE DIGESTIBLE -->
+<section class="sec dsec" id="data"><div class="wrap"><div class="lbl">Data made digestible</div><h2 class="h2" style="margin-top:12px">From raw analytics <b class="x">to a clear plan.</b></h2>
+  <p style="max-width:52ch;color:rgba(255,255,255,.75);margin:20px 0 0">No overload of jargon or vanity metrics. We get to the root of what's holding your sales back, and hand you the next three moves.</p>
+  <div class="dd"><div class="sheet" id="sheet"><div class="top"><span>Sample · raw analytics export</span><i>3 findings</i></div><table id="tab"></table><div class="scan" id="scan"></div></div>
+    <div class="arr" aria-hidden="true">→</div>
+    <div class="plan" id="plan">
+      <div class="s"><b>01</b><div><h4>Enhance web UX</h4><p>Fix the leaky bucket: remove what stops visitors buying, before you spend another ringgit on ads.</p></div></div>
+      <div class="s"><b>02</b><div><h4>Strengthen SEM</h4><p>Show up where buyers are already searching, on Google and in AI answers.</p></div></div>
+      <div class="s"><b>03</b><div><h4>Engaging, trust-building social ads</h4><p>Stop the scroll, earn trust, then convert.</p></div></div></div></div></div></section>
+
+<!-- 6 CASES -->
+<section class="sec white" id="cases"><div class="wrap"><div class="lbl">Proven results</div><h2 class="h2" style="margin-top:12px">Battles <b class="x">we've won</b></h2><div class="cg" id="cg"></div>
+  <div style="margin-top:30px"><a class="btn" href="case-study.html">All case studies</a></div></div></section>
+
+<!-- 6 REVIEWS -->
+<section id="s7"><div class="tbx" id="tbx"><div class="tbbar"><b>Battle</b><span>Reviews</span><span>Since 2020</span><span id="tbn">01</span></div>
+  <img class="tbface" src="assets/img/v4_matthew2.webp" alt="Matthew, Business Director at Battle">
+  <div class="tbl"><div class="tbk">[What clients say]</div><h2>The face of<br><b class="x">confidence.</b></h2></div>
+  <div class="tbr" id="tbr"></div><div class="tbnav"><button id="tbp" aria-label="Previous reviews">←</button><button id="tbx2" aria-label="Next reviews">→</button></div></div></section>
+
+<!-- 7 TEAM -->
+<section id="s8"><div class="oc" id="oc"><div class="ocrow" id="ocrow"></div><div class="ocfade"></div>
+  <div class="octitle"><b>The Battle cast</b><span>Meet your growth partners · hover a Guardian</span></div></div></section>
+
+<!-- 7 WHY CLIENTS LOVE US -->
+<section class="sec" id="usp"><div class="wrap"><div class="lbl">Why clients love to work with us</div><h2 class="h2" style="margin-top:12px">Human first. <b class="x">Results always.</b></h2>
+  <div class="usp">
+    <div data-rise><b>01</b><h4>Human empathy</h4><p>We know what it's like to miss your leads and conversion targets. We understand your pain and your users' needs, and help you craft a voice of your own in a world of AI sameness.</p></div>
+    <div data-rise><b>02</b><h4>Result-driven, made digestible</h4><p>We start with the end goal. Nothing is made just for looks or virality, and complex data comes back simple: the root of the problem and how to sell more.</p></div>
+    <div data-rise><b>03</b><h4>Fun &amp; next-gen</h4><p>Easy to work with, and we celebrate your wins with you. Young and AI-amplified, we turn information into content people actually enjoy.</p></div></div></div></section>
+
+<!-- 8 WEAPONS -->
+<section class="wo" id="s6"><div class="opin" id="opin"><canvas class="orb" aria-hidden="true"></canvas>
+  <div class="otitle"><div class="lbl">Every weapon is a service</div><h2>Choose your <b class="x">weapon</b></h2><p>Scroll to turn the circle. Click a weapon to look closer.</p></div>
+  <aside class="odet" id="odet" aria-live="polite"><button class="back" type="button">← Back to all weapons</button><small class="lbl" id="ok"></small><h3 id="on"></h3><p id="od"></p><ul id="ol"></ul><a class="btn" href="#">Explore this service</a></aside>
+  <div class="okeys" id="okeys" role="group" aria-label="Weapons"></div></div></section>
+
+<!-- 9 CONNECT -->
+<section class="cn" id="connect" data-par>
+  <img class="ko" data-d="1.2" style="left:8%;top:14%;width:clamp(90px,10vw,160px)" src="assets/img/dk_bulb.webp" alt="">
+  <img class="ko" data-d=".7" style="right:10%;top:12%;width:clamp(100px,11vw,170px)" src="assets/img/dk_target.webp" alt="">
+  <img class="ko" data-d="1.5" style="left:14%;bottom:12%;width:clamp(100px,12vw,180px)" src="assets/img/dk_layers.webp" alt="">
+  <img class="ko" data-d="1" style="right:12%;bottom:10%;width:clamp(100px,11vw,170px)" src="assets/img/dk_knight.webp" alt="">
+  <div class="box"><div class="lbl" style="color:#fff">Free marketing audit</div><h2 style="margin-top:12px">Got 15 minutes? <b class="x">Let's talk.</b></h2><p>We'll audit your marketing funnel over a virtual meet, for free.</p>
+    <form class="ask" onsubmit="return false"><input aria-label="Your marketing battle" placeholder="What's your marketing battle?"><div class="row"><div class="chips2"><span>Free audit</span><span>Ads</span><span>Website</span></div><button class="send" type="submit" aria-label="Send">↑</button></div></form></div></section>
+
+<footer class="foot"><div class="wrap"><div><div class="lk"><img src="assets/brand/bm-lockup.webp" alt="Battle Mind"><img src="assets/brand/bx-lockup.webp" alt="Battle X"></div><p>Battle Mind Creative · Battle X<br>Data-intelligent digital marketing in Kuala Lumpur.</p></div>
+  <div><b>Services</b><ul><li>Performance marketing</li><li>Creative &amp; content</li><li>Web development</li></ul></div><div><b>Company</b><ul><li>Work</li><li>About</li><li>Careers</li></ul></div><div><b>Talk</b><ul><li>Book an audit</li><li>Service finder</li><li>Resources</li></ul></div></div></footer>
+<div class="note">v6 · v5's standard with the Rubik's cube hero (every result is a real number from Battle's deck), the brief's full section order, and red kept for the key moments.</div>
+
+<script>
+const { logos, bridge, layers, cases, reviews, nm, R } = LK;
+addEventListener("scroll", () => nav.classList.toggle("sc", scrollY > 40), { passive: true });
+// hero: everything over the photo is placed in fractions of the photo itself, wherever it lands
+{ const place = () => { const h = hst.getBoundingClientRect(), r = ian.getBoundingClientRect();
+    hst.style.setProperty("--ix", r.left - h.left + "px"); hst.style.setProperty("--iy", r.top - h.top + "px"); hst.style.setProperty("--iw", r.width + "px"); hst.style.setProperty("--ih", r.height + "px"); };
+  ian.complete ? place() : ian.addEventListener("load", place); new ResizeObserver(place).observe(hst);
+  if (!R) { gsap.from("#ian", { opacity: 0, duration: 1.4, ease: "power2.out" }); gsap.from(".hero .copy > *", { y: 40, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out", delay: 0.2 });
+    gsap.from("#cube", { scale: 0.6, opacity: 0, duration: 1.3, delay: 0.35, ease: "back.out(1.4)" }); } }
+ember.innerHTML = logos.map((l) => `<div class="t"><img src="assets/logos-mono/${l}.webp" alt="${nm(l)}" loading="lazy"></div>`).join("");
+nl.innerHTML = bridge.map(([q, a], i) => `<div class="r" data-rise><span class="n">0${i + 1}</span><span class="q">${q}</span><span class="ar"></span><span class="a">${a}</span></div>`).join("");
+ly.innerHTML = layers.map(([t, p], i) => `<div><b>Layer 0${i + 1}</b><h4>${t}</h4><p>${p}</p></div>`).join("");
+cg.innerHTML = cases.map(([img, n, t, b, s]) => `<a class="cc" href="case-study.html" data-rise><img src="assets/sue/${img}.webp" alt="" loading="lazy"><div class="in"><b>${b}</b><small>${s}</small><h4>${t}</h4><span>${n}</span></div></a>`).join("");
+// data made digestible: a sample raw export (illustrative numbers, labelled as a sample); three cells become the plan
+{ const H = ["Week", "Channel", "Sessions", "Bounce", "CPC", "CTR", "Leads", "CPL"], rows = [
+    ["W1", "Meta", "12,408", "71%", "0.42", "0.9%", "38", "RM48"], ["W1", "Google", "3,114", "44%", "1.85", "4.1%", "51", "RM31"], ["W1", "Organic", "5,882", "68%", "-", "-", "9", "-"],
+    ["W2", "Meta", "13,020", "73%", "0.44", "0.8%", "35", "RM55"], ["W2", "Google", "2,960", "41%", "1.92", "4.4%", "54", "RM29"], ["W2", "Organic", "6,104", "66%", "-", "-", "11", "-"],
+    ["W3", "Meta", "12,771", "74%", "0.47", "0.8%", "31", "RM63"], ["W3", "Google", "3,402", "43%", "1.88", "4.2%", "57", "RM30"], ["W3", "Organic", "5,950", "69%", "-", "-", "8", "-"]];
+  const HL = { "6,3": 1, "7,7": 2, "3,5": 3 }, XM = [4];      // each finding is numbered like the step it leads to
+  tab.innerHTML = `<tr>${H.map((h, i) => `<th${XM.includes(i) ? ' class="xm"' : ""}>${h}</th>`).join("")}</tr>` + rows.map((r, y) => `<tr>${r.map((c, x) => `<td class="${HL[y + "," + x] ? "hl " : ""}${XM.includes(x) ? "xm" : ""}">${HL[y + "," + x] ? `<span>${c}<sup>${HL[y + "," + x]}</sup></span>` : c}</td>`).join("")}</tr>`).join("");
+  if (!R) gsap.timeline({ scrollTrigger: { trigger: "#data .dd", start: "top 75%" } })
+    .from("#sheet", { x: -60, opacity: 0, rotate: -6, duration: 0.7, ease: "power3.out" })
+    .fromTo("#scan", { top: -100 }, { top: "110%", duration: 0.9, ease: "power1.inOut" }, "-=0.3")
+    .from("#sheet td.hl span", { scale: 0, duration: 0.3, stagger: 0.1, ease: "back.out(2)" }, "-=0.5")
+    .from("#data .arr", { scale: 0, duration: 0.3 }, "-=0.1")
+    .from("#plan .s", { x: 50, opacity: 0, duration: 0.55, stagger: 0.12, ease: "power3.out" }, "-=0.1"); }
+// reviews (Tradebox): two numbered panels, arrows step through
+{ const out = document.getElementById("tbr"), RV = reviews.filter((x) => x[0] !== "Cheanu Chew"); let at = 0;
+  const draw = (dir) => { const pair = [RV[at % RV.length], RV[(at + 1) % RV.length]];
+    out.innerHTML = pair.map(([w, r, img, q], i) => `<div class="tbi"><span class="no">[${String(((at + i) % RV.length) + 1).padStart(2, "0")}]</span><div class="tx"><p>${q}</p><div class="who"><img src="assets/img/${img}.webp" alt=""><span><b>${w}</b> · ${r}</span></div></div></div>`).join("");
+    tbn.textContent = String((at % RV.length) + 1).padStart(2, "0"); if (!R) gsap.from(out.children, { x: 60 * (dir || 1), opacity: 0, duration: 0.7, stagger: 0.1, ease: "power3.out" }); };
+  draw(0); tbx2.onclick = () => { at = (at + 2) % RV.length; draw(1); }; tbp.onclick = () => { at = (at - 2 + RV.length * 2) % RV.length; draw(-1); };
+  if (!R) { const fx = gsap.quickTo(".tbface", "x", { duration: 1.2, ease: "power3" }); tbx.addEventListener("pointermove", (e) => { const b = tbx.getBoundingClientRect(); fx(-((e.clientX - b.left) / b.width - 0.5) * 40); }); } }
+// team: real cut-outs, names on hover
+{ const NM = ["Matthew", "Ian", "Ben"];
+  ocrow.innerHTML = Array.from({ length: 7 }, (_, i) => `<div class="ocol" tabindex="0" role="button" aria-label="${NM[i] || "Battle Guardian"}"><img class="walk" src="assets/img/rc${i + 1}_g.webp" alt="" style="--h:${88 - i * 6}%"><img class="pose" src="assets/img/rc${i + 1}p_g.webp" alt="" style="--h:${84 - i * 2}%">${NM[i] ? `<b class="ocn">${NM[i]}</b>` : ""}</div>`).join("");
+  const cs = [...ocrow.children], on = (c) => { cs.forEach((x) => x.classList.toggle("on", x === c)); ocrow.classList.toggle("act", !!c); };
+  cs.forEach((c) => { c.addEventListener("pointerenter", (e) => e.pointerType === "mouse" && on(c)); c.addEventListener("focus", () => on(c)); c.addEventListener("click", () => on(c.classList.contains("on") ? null : c)); });
+  ocrow.addEventListener("pointerleave", (e) => e.pointerType === "mouse" && on(null));
+  const fit = () => cs.forEach((c) => { const w = c.querySelector(".walk"); if (!w.naturalWidth) return; const iw = w.getBoundingClientRect().height * (w.naturalWidth / w.naturalHeight); w.style.right = "auto"; w.style.left = Math.round(c.clientWidth * 0.62 - iw * 0.58) + "px"; });
+  cs.forEach((c) => c.querySelector(".walk").addEventListener("load", fit)); addEventListener("resize", fit); fit();
+  if (!R) gsap.from("#ocrow .ocol", { yPercent: 18, opacity: 0, duration: 1.1, stagger: 0.09, ease: "power3.out", scrollTrigger: { trigger: "#oc", start: "top 65%" } }); }
+if (!R) document.querySelectorAll("#connect .ko").forEach((el) => gsap.to(el, { y: () => -80 * +el.dataset.d, ease: "none", scrollTrigger: { trigger: "#connect", start: "top bottom", end: "bottom top", scrub: true } }));
+if (!R && window.Lenis) { const lenis = new Lenis({ lerp: 0.09 }); lenis.on("scroll", ScrollTrigger.update); gsap.ticker.add((t) => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0); }
+LK.motion();
+</script>
+<script type="module">
+import { mountCube } from "./lib/cube.js";
+import { mountGauntlet } from "./lib/gauntlet.js";
+import { mountOrbit } from "./lib/orbit.js";
+const R = LK.R, gl = (() => { try { const c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); } catch (e) { return false; } })();
+// ---- hero cube: six faces, one result each. Pixel icons are 21x21 (7 per sticker); '#' ink, 'o' second colour ----
+const PX = {
+  heart: [".....................",".....................",".....................",".....................","....####.....####....","...#######.#######...","...#######.#######...","..#################..","..#################..","..#################..","...###############...","....#############....","....#############....","......#########......",".......#######.......","........#####........",".........###.........","..........#..........",".....................",".....................","....................."],
+  roi: [".....................",".....................",".....................",".....................",".....................",".####....###...#####.",".#####..#####..#####.",".##.##..##.##...###..",".##.##..##.##...###..",".##.##..##.##...###..",".#####..##.##...###..",".####...##.##...###..",".##.##..##.##...###..",".##.##..##.##...###..",".##.##..#####..#####.",".##.##...###...#####.",".....................",".....................",".....................",".....................","....................."],
+  cursor: [".....................",".....o...............",".....oo..............",".....o#o.............",".....o##o............",".....o###o...........",".....o####o..........",".....o#####o.........",".....o######o........",".....o#######o.......",".....o########o......",".....o#########o.....",".....o######ooooo....",".....o###o##o........",".....o##oo##o........",".....o#o..o##o.......",".....oo...o##o.......",".....o.....o##o......","...........o##o......","............oo.......","....................."],
+  magnet: [".....................",".....................",".........###.........","......#########......",".....###########.....","....#############....","....#############....","...#####.....#####...","...####.......####...","...####.......####...","...####.......####...","...####.......####...","...####.......####...","...####.......####...","...####.......####...","...####.......####...","...oooo.......oooo...","...oooo.......oooo...","...oooo.......oooo...",".....................","....................."],
+  bars: [".....................",".....................",".....................",".....................","................###..","................###..","................###..","................###..","................###..",".........###....###..",".........###....###..",".........###....###..",".........###....###..","..###....###....###..","..###....###....###..","..###....###....###..","..###....###....###..","..###....###....###..",".#####..#####..#####.",".###################.","....................."],
+  percent: [".....................",".....................",".....................","....####.......###...","...######.....###....","...##..##....###.....","...##..##...###......","...######...##.......","....####...##........","..........###........",".........###.........","........###..........","........##...####....",".......##...######...","......###...##..##...",".....###....##..##...","....###.....######...","...###.......####....",".....................",".....................","....................."],
+};
+const RED = "#D7000F", WHITE = "#F4F1EC", BLACK = "#111316", HOT = "#E3101B";
+// face order = the cube's frames: front, right, top, back, left, bottom (neighbours in the cycle are adjacent faces)
+const FACES = [
+  { px: PX.heart, base: RED, ink: "#FFFFFF", alt: BLACK }, { px: PX.roi, base: WHITE, ink: RED, alt: BLACK }, { px: PX.cursor, base: BLACK, ink: HOT, alt: "#FFFFFF" },
+  { px: PX.magnet, base: RED, ink: "#FFFFFF", alt: BLACK }, { px: PX.bars, base: WHITE, ink: RED, alt: BLACK }, { px: PX.percent, base: BLACK, ink: HOT, alt: "#FFFFFF" }];
+// every number is from Battle's deck (case slides 32-38 and the home proof strip); "up to" kept where the deck says it.
+// k = the chip (what you want to win), ck = the card label when the proof measures something else (the deck has reach, not followers)
+const RES = [
+  { k: "Followers", ck: "Organic reach", n: "7M+", d: "total organic reach for a nationwide campaign", w: "BHPetrol · Malaysia's subsidy rollout", c: ["KV development", "KOL deployment", "Video retainer"] },
+  { k: "ROI", n: "22 ROAS", d: "against an industry benchmark of 8 to 12", w: "Luxe Living · year-round seasonal campaigns", c: ["Meta ads with CPAS", "Marketplace ads", "Seasonal campaigns"] },
+  { k: "Traffic", n: "7,000+", d: "customers a month, at an outlet off the main street", w: "Yaki Soul · KL", c: ["Seasonal campaigns", "Digital storytelling", "On-ground activations"] },
+  { k: "Leads", n: "700+", d: "leads generated weekly, at under RM15 average cost per lead", w: "Easy Europe · travel revival", c: ["High-intent targeting", "Lead funnel redesign", "Lead qualification"] },
+  { k: "Sales", n: "+23%", d: "monthly sales, at RM2.25M+ average monthly revenue", w: "Care Concierge · senior care", c: ["Paid ads", "Meta retargeting", "Social media retainer"] },
+  { k: "Lower cost", q: "Up to", n: "67%", d: "decrease in cost per result", w: "Across our clients", line: "We focus strictly on CPL and revenue math." }];
+const HOLD = 3.6, hero = document.getElementById("s1"), chips = document.getElementById("chips"), res = document.getElementById("res");
+hero.style.setProperty("--hold", HOLD + "s");
+chips.innerHTML = RES.map((r, i) => `<button type="button" role="tab" aria-selected="false" data-i="${i}"><i></i>${r.k}</button>`).join("");
+const bs = [...chips.children];
+const count = (el, txt) => { const m = txt.match(/^([^\d]*)([\d,]+)(.*)$/); if (!m || R) { el.textContent = txt; return; }
+  const [, pre, num, suf] = m, end = +num.replace(/,/g, ""), comma = num.includes(","), o = { v: 0 };
+  gsap.to(o, { v: end, duration: 1, ease: "power2.out", onUpdate: () => { const v = Math.round(o.v); el.textContent = pre + (comma ? v.toLocaleString("en-US") : v) + suf; } }); };
+let show = function (k, st) {
+  bs.forEach((b, i) => { b.setAttribute("aria-selected", String(i === k)); b.classList.remove("run"); });
+  if (st === "start") { res.classList.remove("on"); return; }
+  const r = RES[k]; rk.textContent = r.ck || r.k; ri.textContent = String(k + 1).padStart(2, "0") + " / 06"; rq.textContent = r.q || ""; rq.hidden = !r.q;
+  count(rn, r.n); rd.textContent = r.d; rw.textContent = r.w;
+  rc.innerHTML = r.line ? `<small>Our rule</small><q>${r.line}</q>` : `<small>The winning combination</small>${r.c.map((x) => `<span>${x}</span>`).join("")}`;
+  void bs[k].offsetWidth; bs[k].classList.add("run"); res.classList.add("on");
+  if (!R) { gsap.fromTo("#cglow", { opacity: 0.55, scale: 0.92 }, { opacity: 1, scale: 1.06, duration: 0.45, yoyo: true, repeat: 1, ease: "sine.inOut" }); gsap.fromTo("#pglow", { opacity: 0.6 }, { opacity: 1, duration: 0.45, yoyo: true, repeat: 1 }); }
+}
+const Q = new URLSearchParams(location.search), canvas = document.getElementById("cube");
+const cube = gl ? mountCube(canvas, FACES, { onBeat: (k, st) => show(k, st), hold: HOLD, still: R }) : null;
+if (cube) {
+  if (Q.has("beat")) cube.freeze(+Q.get("beat"), Q.has("mid"));
+  if (Q.has("test")) { window.__cube = cube; window.__solved = []; const sh = show; show = (k, st) => { if (st === "solved") window.__solved.push([k, +cube.homeErr().toFixed(6)]); sh(k, st); }; }
+  chips.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) cube.pick(+b.dataset.i); });
+  const hst = document.getElementById("hst"), hold = (v) => { cube.paused = v; hero.classList.toggle("hold", v); };
+  hst.addEventListener("pointerenter", (e) => e.pointerType === "mouse" && hold(true)); hst.addEventListener("pointerleave", () => hold(false));
+} else {                                                     // no WebGL: a still of the cube, the results still cycle
+  canvas.hidden = true; document.getElementById("cubefb").hidden = false; let k = 0; show(0, "solved");
+  chips.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) show((k = +b.dataset.i), "solved"); });
+  if (!R) setInterval(() => show((k = (k + 1) % RES.length), "solved"), (HOLD + 1) * 1000);
+}
+// ---- armour + weapons (as v5) ----
+{ const NF = 96, src = Array.from({ length: NF }, (_, i) => `assets/gauntlet/f${String(i + 1).padStart(3, "0")}.webp`);
+  const lys = [...document.querySelectorAll("#ly > div")], setL = (p) => { const k = Math.min(3, Math.floor(p * 4.4)); lys.forEach((d, i) => d.classList.toggle("on", i === k)); }; setL(0);
+  const g = (!R && gl) ? mountGauntlet(document.getElementById("gcv"), src, { aspect: 0.75, wrist: [0, 0.19] }) : null;
+  if (g) ScrollTrigger.create({ trigger: "#s5", start: "top top", end: "+=260%", pin: "#apin", scrub: 0.4, onUpdate: (s) => { g.progress = s.progress; setL(s.progress); } });
+  else lys.forEach((d) => d.classList.add("on")); }
+{ const pin = document.getElementById("opin"), det = { k: document.getElementById("ok"), n: document.getElementById("on"), d: document.getElementById("od"), l: document.getElementById("ol") };
+  const SERV = [["Paid ads", "SEO & SEM", "AI search", "Lead generation", "Tactical campaigns"], ["Social media", "Video production", "KOL & UGC", "Branding", "AIGC"], ["Website & e-commerce", "Apps", "Hosting", "AI chatbot", "Loyalty"]];
+  const W = LK.weapons, img = (n) => `assets/img/${n}.webp`;
+  const items = [["v5_w_sword", 0], ["v5_d1"], ["v5_d2"], ["v5_w_brush", 1], ["v5_d3"], ["v5_d4"], ["v5_w_shield", 2], ["v5_d5"], ["v5_d6"]].map(([n, wi]) => ({ src: img(n), weapon: wi !== undefined, wi }));
+  const fill = (wi) => { const [k, n, c, d] = W[wi]; det.k.textContent = c; det.n.textContent = n; det.d.textContent = d; det.l.innerHTML = SERV[wi].map((x) => `<li>${x}</li>`).join(""); };
+  okeys.innerHTML = W.map(([k, n], i) => `<button type="button" data-i="${i}">${n}</button>`).join("");
+  const o = (!R && gl) ? mountOrbit(pin, items, { onPick: (u) => fill(u.wi) }) : null;
+  if (o) { okeys.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) o.pickIndex(+b.dataset.i); }); pin.querySelector(".back").addEventListener("click", () => o.close());
+    ScrollTrigger.create({ trigger: "#s6", start: "top top", end: "+=160%", pin: "#opin", scrub: 0.5, onUpdate: (s) => { o.progress = s.progress; } }); }
+  else { okeys.addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; fill(+b.dataset.i); pin.classList.add("zoomed"); }); pin.querySelector(".back").addEventListener("click", () => pin.classList.remove("zoomed")); } }
+ScrollTrigger.sort(); ScrollTrigger.refresh();
+</script>
+</body></html>
