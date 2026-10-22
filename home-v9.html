@@ -1,0 +1,1271 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><script src="lib/gate.js"></script><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Homepage v9 · Battle Website</title><meta name="robots" content="noindex"><link rel="icon" href="assets/brand/bm-mark.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;700;800&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
+<script src="lib/gsap.min.js"></script><script src="lib/ScrollTrigger.min.js"></script><script src="lib/SplitText.min.js"></script><script src="lib/look.js"></script><script src="lib/lenis.min.js"></script>
+<script type="importmap">{"imports":{"three":"./lib/t166/three.module.min.js","three/addons/":"./lib/t166/addons/"}}</script>
+<style>
+/* Homepage v9 · v8 after Sue's round-1 notes (22 Oct), section by section (v8 stays as the version mgmt reviewed):
+   - 01 hero: the result card is gone (cube + card was too much); the cube's keys carry 13 platform marks in three families
+     (social, web & e-commerce, AI & search); the track record runs as a red ribbon;
+   - 02: header "Trusted by 160+ clients across 14+ industries"; pieces of the burst cube land around it;
+   - 03: header "Proven business impact"; two red-gradient cards and two dark ones with a glass object cropped at the corner;
+   - 04: no "Sound familiar?" header; a crisp modern cut instead of the glowing sword stroke;
+   - 05: the four layers as a scroll-driven accordion beside the armour film;
+   - 06: the export in dark mode; the three moves on glass with icons instead of numbers;
+   - 07: case cards (work photo, client logo, key result, client quote), four layouts to compare (David, 22 Oct), each from
+     one of her slide-12 references: A a cover-flow arc, B a concave curve with the client's name set large, C tilted tiles
+     with the result as stickers, D red-duotone slices that open one at a time (her slide 18 style); ?cases=b|c|d;
+   - 08 (reviews) removed; 09 + 10: photo ribbons of the team with clients around the why-us message;
+   - 11: one weapon always the main one, scrolling steps to the next, the service named plainly with a clear button;
+   - 12 + footer: refined; brand red with the team graded black on red (her slide 18).
+   v8's notes still hold: the cube never covers Ian's face; one material (red and smoked glass, chrome, red neon); brand red,
+   not orange; only Ian's hand is sharp. */
+:root{--red:#D7000F;--hot:#FF2B30;--crim:#7A0000;--deep:#2A0000;--ink:#0A0A0B;--paper:#fff;--grey:#5f6368;--line:rgba(255,255,255,.1);
+  --f:"Archivo",system-ui,sans-serif;--o:"Oswald",sans-serif;--gut:clamp(16px,4vw,64px);--rad:22px;--ease:cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--ink);color:#fff;font:16px/1.6 var(--f);-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%}a{color:inherit}[hidden]{display:none!important}
+h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.03em;line-height:1;margin:0}
+b.x{font-weight:800}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.wrap{max-width:1320px;margin:0 auto;padding:0 var(--gut)}
+.lbl{font:600 12px var(--o);letter-spacing:.22em;text-transform:uppercase;color:var(--hot)}
+.sec{position:relative;padding:clamp(90px,11vw,160px) 0;overflow:hidden}
+.h2{font-size:clamp(40px,5.2vw,84px)}
+.white{background:var(--paper);color:#111}
+.white .lbl{color:var(--red)}
+.ln{padding-bottom:.06em}                                   /* SplitText line masks: room for descenders */
+
+/* buttons (ref: v3 Hero C, "clean af"): a pill with a circle arrow; glass pills for the quiet ones; dark pills on light */
+.cta{position:relative;display:inline-flex;align-items:center;gap:16px;height:58px;padding:0 7px 0 26px;border-radius:999px;background:#fff;color:#0B0B0D;
+  font:500 15.5px/1 var(--f);letter-spacing:-.01em;text-decoration:none;border:0;cursor:pointer;white-space:nowrap;transition:background .35s,color .35s,box-shadow .35s}
+.cta .ar{position:relative;flex:none;width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;overflow:hidden}
+.cta .ar svg{grid-area:1/1;width:16px;height:16px;transition:transform .5s cubic-bezier(.7,0,.2,1)}
+.cta .ar svg+svg{transform:translate(-170%,170%)}
+.cta:hover .ar svg:first-child{transform:translate(170%,-170%)}.cta:hover .ar svg+svg{transform:none}
+.cta:hover{box-shadow:0 18px 44px -20px rgba(255,255,255,.55)}
+.cta.gl{padding:0 26px;background:rgba(255,255,255,.07);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.cta.gl:hover{background:rgba(255,255,255,.13);box-shadow:inset 0 0 0 1px rgba(255,255,255,.3)}
+.cta.dk{background:#0B0B0D;color:#fff}.cta.dk:hover{box-shadow:0 18px 44px -20px rgba(0,0,0,.55)}
+.cta.sm{height:44px;padding:0 5px 0 18px;gap:12px;font-size:14px}.cta.sm .ar{width:34px;height:34px}.cta.gl.sm{padding:0 20px}
+.cta:focus-visible{outline:2px solid #fff;outline-offset:3px}.white .cta:focus-visible{outline-color:#111}
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;transition:background .4s,backdrop-filter .4s}
+.nav.sc{background:rgba(10,10,11,.6);backdrop-filter:blur(16px)}
+.nav{transition:background .4s,backdrop-filter .4s,opacity .5s,translate .5s var(--ease)}.nav.film{opacity:0;translate:0 -100%;pointer-events:none}   /* the armour film runs full frame */
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+.nav img{height:22px;width:auto}.nav .home{display:block;border-radius:6px}.nav .home:focus-visible{outline:2px solid #fff;outline-offset:6px}
+.nav ul{display:flex;gap:30px;list-style:none;margin:0;padding:0;font:500 14px var(--f);color:rgba(255,255,255,.9)}
+@media (max-width:860px){.nav ul{display:none}.nav .wrap{height:64px}}
+
+/* cursor label: a small pill that follows the pointer over things you can drag or open */
+.cur{position:fixed;left:0;top:0;z-index:90;pointer-events:none;opacity:0;transition:opacity .25s}
+.cur span{display:block;padding:9px 14px;border-radius:999px;background:#fff;color:#0B0B0D;font:500 12.5px/1 var(--f);white-space:nowrap;box-shadow:0 12px 30px -12px rgba(0,0,0,.7);transform:translate(16px,16px) scale(.85);transition:transform .35s var(--ease)}
+.cur.on{opacity:1}.cur.on span{transform:translate(16px,16px) scale(1)}
+@media (hover:none),(pointer:coarse){.cur{display:none}}
+/* cards that tilt toward the pointer, with a soft sheen where it is */
+[data-tilt]{position:relative;transform-style:preserve-3d}
+[data-tilt]::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.16),transparent 45%)}
+[data-tilt]:hover::after{opacity:1}
+.white [data-tilt]::after{background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(215,0,15,.08),transparent 45%)}
+
+/* 1 HERO · Ian holds out the Battle cube; one wide photo, a hero-sized cube canvas, everything placed from photo landmarks */
+.hero{position:relative;height:100svh;min-height:660px;overflow:hidden;background:#040404}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:110px;background:linear-gradient(0deg,var(--ink),transparent);z-index:2;pointer-events:none}
+.hstage{position:absolute;inset:0;z-index:0;--pl:0px;--pt:0px;--pw:150svh;--ph:100svh;--cx:60%;--cy:45%;--cs:400px}
+.phw{position:absolute;inset:0;transform-origin:var(--gx,60%) var(--gy,70%);will-change:transform}
+.ph{position:absolute;left:var(--pl);top:var(--pt);width:var(--pw);height:var(--ph);max-width:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 16%),linear-gradient(180deg,transparent,#000 var(--tf,4%),#000 92%,transparent);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent,#000 16%),linear-gradient(180deg,transparent,#000 var(--tf,4%),#000 92%,transparent);mask-composite:intersect}
+.pglow{position:absolute;left:var(--gx);top:var(--gy);width:var(--gs,300px);height:calc(var(--gs,300px) * .55);translate:-50% -50%;pointer-events:none}
+.pglow i{position:absolute;inset:0;border-radius:50%;background:radial-gradient(closest-side,rgba(255,24,40,.55),transparent);mix-blend-mode:screen;filter:blur(14px);opacity:.5}
+/* the glass cube is a light source: its red glow on the backdrop and on Ian (the render lights his face from the cube's side) */
+.cglow{position:absolute;z-index:1;left:var(--cx);top:var(--cy);width:calc(var(--cs) * 1.75);height:calc(var(--cs) * 1.5);translate:-50% -50%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(225,0,20,.36),rgba(215,0,15,.13) 52%,transparent);mix-blend-mode:screen}
+.cube{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.cubefb{position:absolute;z-index:1;left:var(--cx);top:var(--cy);width:calc(var(--cs) / .79);height:auto;translate:-50% -50%;pointer-events:none}
+.cubehit{position:absolute;z-index:4;left:calc(var(--cx) - var(--cs) * .6);top:calc(var(--cy) - var(--cs) * .6);width:calc(var(--cs) * 1.2);height:calc(var(--cs) * 1.2);
+  border-radius:50%;cursor:grab;touch-action:pan-y;-webkit-tap-highlight-color:transparent}
+.cubehit:active{cursor:grabbing}
+.hero .in{position:relative;z-index:3;height:100%;display:flex;align-items:flex-start;padding-top:76px;pointer-events:none}
+.hero .copy{width:min(540px,35vw);margin-block:auto;pointer-events:auto}   /* auto margins: centred, but never above the nav */
+.eyebrow{display:flex;align-items:center;gap:10px;font:500 12px/1.3 var(--f);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+.eyebrow i{flex:none;width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 12px var(--red)}
+.hero h1{font-size:clamp(44px,4.5vw,76px);line-height:.96;letter-spacing:-.045em;margin-top:22px;font-weight:500}   /* firmer than the 300 elsewhere: the hero speaks with authority */
+.hero h1 b{font-weight:800}
+.hero .lead{max-width:40ch;color:rgba(255,255,255,.78);font-size:clamp(16px,1.15vw,18px);line-height:1.55;margin:22px 0 30px;text-wrap:pretty}
+
+/* 01 · the track record as a moving ribbon across the foot of the hero (Sue: stand out from the body copy). Brand red,
+   the deck's condensed caps, the numbers heavier; scroll speeds it up for a moment (velocity), hover holds it */
+.rib{position:absolute;z-index:4;left:-3%;right:-3%;bottom:12px;rotate:1.1deg;overflow:hidden;background:var(--red);color:#fff;
+  box-shadow:0 18px 40px -18px rgba(215,0,15,.9),inset 0 1px 0 rgba(255,255,255,.18);pointer-events:auto}
+.rib .trk2{display:flex;width:max-content;will-change:transform}
+.rib .set{display:flex;align-items:center;flex:none}
+.rib .it{display:flex;align-items:baseline;gap:12px;padding:11px 0;font:500 clamp(15px,1.15vw,19px)/1 var(--o);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+.rib .it b{font:700 clamp(24px,1.9vw,32px)/1 var(--o);letter-spacing:.02em}
+.rib .sp{flex:none;width:16px;height:16px;margin:0 clamp(26px,2.6vw,44px);background:#fff;opacity:.9;
+  clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+@media (prefers-reduced-motion:reduce){.rib .trk2{transform:none!important}}
+@media (min-width:861px) and (max-width:1100px){.hero .copy{width:min(440px,43vw)}}
+@media (max-width:860px){
+  .hero{height:auto;min-height:0;display:flex;flex-direction:column;padding:64px 0 54px;overflow:hidden}
+  .hero::after{display:none}
+  .hstage{position:relative;inset:auto;order:0;flex:none;height:max(430px,54svh)}
+  .hero .in,.hero .copy{display:contents}
+  .rib{position:relative;order:6;left:auto;right:auto;bottom:auto;margin:6px -3% 0;rotate:-1.5deg}
+  .eyebrow{display:none}
+  .hero h1{order:4;margin:26px var(--gut) 0;font-size:44px}
+  .hero .lead{order:5;margin:16px var(--gut) 24px}
+  .cubehit{touch-action:pan-y}
+}
+
+/* 2 LOGOS · ember wall (logos bigger, per the brief).
+   v9 (Sue): pieces of the hero's cube land at the top of this section after it bursts: six of its own cubies (rendered from
+   the hero's engine, tool/cubies9.html) fall in from above as the section scrolls in, then float */
+#s2{overflow:visible;z-index:2}
+.deb{position:absolute;inset:0 0 auto 0;height:clamp(240px,22vw,330px);pointer-events:none;z-index:1}
+@media (max-width:860px){.deb img:nth-child(n+4){display:none}.deb img{scale:.7}}
+.deb img{position:absolute;width:var(--w);height:auto;filter:drop-shadow(0 24px 30px rgba(0,0,0,.65));will-change:transform}
+#s2 .wrap{position:relative;z-index:2}
+.ember{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:34px}
+.ember .t{position:relative;aspect-ratio:16/10;border-radius:18px;display:grid;place-items:center;padding:14px 18px;overflow:hidden;background:#121213;box-shadow:inset 0 0 0 1px var(--line);cursor:pointer}
+.ember .t::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 125%,var(--hot),var(--red) 40%,transparent 80%);opacity:0;transition:opacity .45s}
+.ember .t img{position:relative;max-height:128px;max-width:88%;object-fit:contain;opacity:.92;transition:transform .45s}
+.ember .t:hover::before{opacity:1}.ember .t:hover img{transform:scale(1.1)}
+@media (max-width:760px){.ember{grid-template-columns:repeat(2,minmax(0,1fr))}.ember .t img{max-height:70px}}
+
+/* 3 NUMBERS · deck-style white cards, red figures */
+/* 03 · proven business impact (Sue): two cards filled with a red gradient, two dark ones lifted off the page with a glass
+   object cropped at the corner; a checkerboard of wide and narrow so the eye zigzags. Numbers light and huge, units heavy */
+.kpi{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:44px}
+.kp{position:relative;overflow:hidden;isolation:isolate;border-radius:26px;padding:clamp(26px,2.5vw,40px);min-height:clamp(270px,23vw,340px);
+  display:flex;flex-direction:column;justify-content:space-between;color:#fff}
+.kp.w3{grid-column:span 3}.kp.w2{grid-column:span 2}
+.kp small{font:600 11.5px/1.3 var(--o);letter-spacing:.22em;text-transform:uppercase}
+.kp .num{display:flex;align-items:flex-start;font:300 clamp(92px,10vw,176px)/.82 var(--f);letter-spacing:-.07em;margin:22px 0 18px;font-variant-numeric:tabular-nums}
+.kp .num i{font-style:normal;font-weight:800;font-size:.46em;line-height:1;letter-spacing:-.02em;margin:.1em 0 0 .08em}
+.kp p{max-width:28ch;margin:0;font-size:clamp(15px,1.1vw,17.5px);line-height:1.45}
+.kp.red{background:radial-gradient(130% 150% at 0% 0%,#ff3a3f 0%,#e3000f 36%,#a5000b 70%,#560006 100%)}
+.kp.red::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(118deg,rgba(255,255,255,.2),rgba(255,255,255,0) 30%),
+  radial-gradient(70% 90% at 100% 100%,rgba(30,0,2,.55),transparent 70%)}
+.kp.red small{color:rgba(255,255,255,.8)}.kp.red p{color:rgba(255,255,255,.88)}
+.kp.dark{background:linear-gradient(160deg,#1b1b1f,#111114 60%,#0e0e10);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),inset 0 1px 0 rgba(255,255,255,.07)}
+.kp.dark::after{content:"";position:absolute;z-index:-2;right:-25%;bottom:-35%;width:90%;height:90%;background:radial-gradient(closest-side,rgba(215,0,15,.5),transparent)}
+.kp.dark small{color:var(--hot)}.kp.dark p{color:rgba(255,255,255,.68);max-width:20ch}
+.kp .ico{position:absolute;z-index:-1;right:-14%;bottom:-20%;width:62%;max-width:none;rotate:-9deg;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6));transition:transform .8s var(--ease)}
+.kp:hover .ico{transform:translate(-4%,-5%) rotate(4deg)}
+@media (max-width:860px){.kpi{grid-template-columns:1fr}.kp.w3,.kp.w2{grid-column:auto}.kp .ico{width:46%}}
+
+/* 4 THE MARKETING BATTLE · each problem is cut in two as it scrolls into view (or when you swipe the pointer across it),
+   and the answer wipes in beside it. Reading section on white.
+   v9 (Sue: the red slash felt old-school): one level, crisp cut instead of a glowing diagonal stroke with sparks: a 2 px
+   line with a white-hot head runs straight across, the halves part by a few pixels and go grey, the line settles into a
+   hairline strike-through; the answer wipes in from the left. */
+.mb .mbh{display:flex;justify-content:space-between;align-items:flex-end;gap:20px 40px;flex-wrap:wrap}
+.mb .hint{display:flex;align-items:center;gap:12px;margin:0 0 8px;font-size:14px;color:#6b7079}
+.mb .hint i{position:relative;width:46px;height:18px}.mb .hint i::before{content:"";position:absolute;left:0;right:0;top:50%;height:2px;border-radius:2px;
+  rotate:0deg;background:linear-gradient(90deg,rgba(215,0,15,0),var(--red) 45%,#fff);box-shadow:0 0 6px rgba(255,43,48,.45)}
+.cuts{margin-top:clamp(36px,5vw,64px);border-top:2px solid #111}
+.cut{display:grid;grid-template-columns:clamp(52px,6vw,92px) minmax(0,1.3fr) minmax(0,1fr);gap:clamp(14px,3vw,52px);align-items:center;padding:clamp(34px,4.6vw,70px) 0;border-bottom:1px solid #e6e6e6}
+.cut .no{align-self:start;font:300 clamp(30px,3vw,46px)/1 var(--f);color:var(--red);padding-top:.25em}
+.prob{position:relative;display:grid}
+.prob > span:not(.vh){grid-area:1/1;font:400 clamp(30px,3.8vw,64px)/1.06 var(--f);letter-spacing:-.035em;color:#111;text-wrap:balance}
+.prob .pa{clip-path:polygon(-2% -10%,102% -10%,102% 50%,-2% 50%)}
+.prob .pb{clip-path:polygon(-2% 50%,102% 50%,102% 110%,-2% 110%)}
+.prob .sl{position:absolute;left:-2%;top:50%;width:104%;height:2px;margin-top:-1px;transform-origin:0 50%;pointer-events:none;
+  background:linear-gradient(90deg,rgba(215,0,15,0),var(--red) 18%,#ff2b30);box-shadow:0 0 8px rgba(255,43,48,.35)}
+.prob .sl b{position:absolute;right:-6px;top:50%;width:70px;height:6px;translate:0 -50%;border-radius:50%;
+  background:radial-gradient(closest-side,#fff 0%,rgba(255,200,205,.9) 35%,rgba(255,43,48,0) 100%)}
+.ans{margin:0;font:700 clamp(21px,2vw,31px)/1.2 var(--f);letter-spacing:-.02em;color:#111;text-wrap:balance}
+.ans .k{display:block;font:600 11px var(--o);letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:12px}
+.mb .blade{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
+@media (hover:none),(pointer:coarse){.mb .hint,.mb .blade{display:none}}
+@media (max-width:860px){.cut{grid-template-columns:44px minmax(0,1fr);gap:14px 14px}.cut .ans{grid-column:2}.cut .no{font-size:28px}}
+/* 5 ARMOUR · played like a film: letterbox bars close in, a title card, then the four layers open in turn as the plates lock on, each with a
+   flash, an anamorphic flare and a small shake; embers rise, the camera dollies in, the frame leans toward the pointer */
+.arm{position:relative;background:#030304}
+.arm .pin{position:relative;height:100svh;overflow:hidden;background:#030304;isolation:isolate;--bar:0px}
+.aw{position:absolute;inset:0;display:grid;place-items:center;will-change:transform}
+.haze{position:absolute;inset:-12%;background:radial-gradient(30% 44% at var(--hx,50%) var(--hy,56%),rgba(215,0,15,.36),rgba(120,0,8,.12) 48%,transparent 72%)}
+.gstage{position:relative;height:min(86svh,920px);aspect-ratio:3/4;max-width:100%}
+.gstage canvas,.gstage img{position:absolute;inset:0;width:100%!important;height:100%!important;mix-blend-mode:screen;-webkit-mask-image:radial-gradient(ellipse 60% 64% at 50% 50%,#000 60%,transparent 100%);mask-image:radial-gradient(ellipse 60% 64% at 50% 50%,#000 60%,transparent 100%)}
+.emb{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;mix-blend-mode:screen}
+.aflash{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;mix-blend-mode:screen;background:radial-gradient(36% 48% at 50% 58%,rgba(255,236,236,.7),rgba(255,43,48,.3) 42%,transparent 72%)}
+.aflare{position:absolute;left:-10%;right:-10%;top:58%;height:3px;z-index:3;pointer-events:none;opacity:0;transform:scaleX(0);
+  background:linear-gradient(90deg,transparent,rgba(255,43,48,.55) 28%,#fff 50%,rgba(255,43,48,.55) 72%,transparent);box-shadow:0 0 18px 4px rgba(255,43,48,.6),0 0 70px 16px rgba(255,43,48,.22)}
+.grain{position:absolute;inset:-60%;z-index:6;pointer-events:none;opacity:.075;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain .9s steps(5) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-5%)}60%{transform:translate(-6%,-2%)}80%{transform:translate(5%,4%)}100%{transform:translate(0,0)}}
+.vign{position:absolute;inset:0;z-index:4;pointer-events:none;background:radial-gradient(75% 70% at 50% 52%,transparent 55%,rgba(0,0,0,.75))}
+.lbx{position:absolute;left:0;right:0;z-index:8;height:var(--bar);background:#000;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 var(--gut);
+  font:600 11px var(--o);letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.lbx.t{top:0;align-items:flex-end;padding-bottom:14px}.lbx.b{bottom:0;align-items:flex-start;padding-top:16px}
+.lbx #acnt{font-variant-numeric:tabular-nums;color:rgba(255,255,255,.8)}
+.tcard{position:absolute;inset:0;z-index:5;display:grid;place-content:center;text-align:center;pointer-events:none;padding:0 var(--gut)}
+.tcard h2{font-size:clamp(50px,7.4vw,132px);line-height:.92;margin-top:16px;text-shadow:0 10px 60px rgba(0,0,0,.6)}
+.tcard p{margin:20px auto 0;color:rgba(255,255,255,.72);max-width:36ch}
+/* v9 (Sue: the armour is the growth stack's interactive accordion): the four layers stand as one accordion beside the hand.
+   Every plate that locks on opens its layer (title, story, services) and folds the last one away; no card backgrounds, just
+   hairlines, a red rule growing down the open layer and the open title in full white. Click a layer to jump to it. */
+.acc{position:absolute;z-index:5;right:var(--gut);top:50%;translate:0 -50%;width:min(470px,32vw);border-top:1px solid rgba(255,255,255,.14);opacity:0;visibility:hidden}
+.acc.in{visibility:visible}
+.ai{position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+.ai::before{content:"";position:absolute;left:0;top:-1px;width:2px;height:calc(100% + 1px);background:var(--hot);box-shadow:0 0 14px var(--hot);transform-origin:50% 0;transform:scaleY(0);transition:transform .7s var(--ease)}
+.ai.on::before{transform:scaleY(1)}
+.ah{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:56px minmax(0,1fr);align-items:baseline;width:100%;padding:16px 0 16px 18px}
+.ah:focus-visible{outline:2px solid #fff;outline-offset:-2px}
+.an{font:300 clamp(22px,1.8vw,30px)/1 var(--f);letter-spacing:-.04em;color:rgba(255,255,255,.34);transition:color .5s}
+.ah h3{font:300 clamp(18px,1.45vw,24px)/1.15 var(--f);letter-spacing:-.025em;color:rgba(255,255,255,.5);text-wrap:balance;transition:color .5s,font-size .6s var(--ease)}
+.ai.on .an{color:var(--hot)}.ai.on .ah h3{color:#fff;font-size:clamp(26px,2.3vw,38px)}
+.ah:hover h3{color:#fff}
+.ab{display:grid;grid-template-rows:0fr;transition:grid-template-rows .7s var(--ease)}
+.ai.on .ab{grid-template-rows:1fr}
+.abi{overflow:hidden;padding:0 0 0 74px}
+.abi > *{opacity:0;translate:0 10px;transition:opacity .4s,translate .6s var(--ease)}
+.ai.on .abi > *{opacity:1;translate:none;transition-delay:.18s}
+.abi small{display:block;font:600 11px var(--o);letter-spacing:.24em;text-transform:uppercase;color:var(--hot);margin:0 0 10px}
+.abi p{margin:0;color:rgba(255,255,255,.74);font-size:15px;line-height:1.55}
+.abi .sv{display:block;margin:14px 0 20px;font:500 13px var(--f);color:#fff}
+.pin.still .tcard{inset:0 auto 0 0;width:min(470px,32vw);place-content:center start;text-align:left;padding:0 0 0 var(--gut)}.pin.still .tcard h2{font-size:clamp(40px,4.4vw,74px)}.pin.still .tcard p{margin-left:0}
+.pin.still .acc{opacity:1;visibility:visible}.pin.still .ab{grid-template-rows:1fr}.pin.still .abi > *{opacity:1;translate:none}.pin.still .abi p{display:none}
+@media (max-width:960px){
+  .gstage{height:62svh}
+  .acc{left:var(--gut);right:var(--gut);top:auto;bottom:calc(var(--bar) + 10px);translate:none;width:auto;padding-top:16px;background:linear-gradient(0deg,rgba(3,3,4,.94),rgba(3,3,4,.72) 78%,transparent)}
+  .ah{padding:10px 0 10px 14px;grid-template-columns:40px minmax(0,1fr)}.ah h3{font-size:15px}.ai.on .ah h3{font-size:20px}.abi{padding-left:54px}.abi p{display:none}.abi .sv{margin:4px 0 12px}
+  .lbx.t span:first-child{display:none}.lbx.t{justify-content:flex-end}
+  .pin.still .tcard{width:auto;right:0;place-content:start;padding:96px var(--gut) 0}.pin.still .tcard p{display:none}
+}
+
+/* 6 DATA MADE DIGESTIBLE · played as you scroll (David: "too boring"): a noisy raw export flickers, a red scan settles it row
+   by row and lights up three findings, the noise dissolves until only those three are left, and each one wires itself to
+   the move it leads to. Hover a move to light its finding. The export is a labelled sample (illustrative numbers). */
+.dsec{background:radial-gradient(50% 70% at 20% 62%,rgba(150,0,10,.24),transparent 70%),#08080A;padding:0}
+.dpin{position:relative;min-height:100svh;display:flex;align-items:center;padding:clamp(76px,7vw,104px) 0 clamp(44px,4vw,64px)}
+.dpin > .wrap{width:100%}
+.dhd{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.55fr);gap:14px 56px;align-items:end}
+.dhd .h2{font-size:clamp(38px,4.2vw,70px)}
+.dhd p{margin:0;max-width:42ch;color:rgba(255,255,255,.72);font-size:15.5px;line-height:1.55}
+.dstage{position:relative;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.86fr);gap:clamp(56px,7vw,130px);align-items:center;margin-top:clamp(28px,3.4vw,52px)}
+/* v9 (Sue): the export in dark mode: smoked glass, light figures, hairlines */
+.sheet{position:relative;z-index:1;border-radius:var(--rad);background:linear-gradient(165deg,rgba(30,30,35,.92),rgba(14,14,17,.94));color:#eee;padding:18px 20px 12px;rotate:-2deg;
+  box-shadow:0 50px 90px -40px rgba(0,0,0,.95),inset 0 0 0 1px rgba(255,255,255,.09),inset 0 1px 0 rgba(255,255,255,.1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transform-origin:50% 100%}
+.sheet .top{display:flex;justify-content:space-between;align-items:center;font:600 10px var(--o);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.42)}
+.sheet .top i{font-style:normal;color:var(--hot)}
+.sheet table{width:100%;border-collapse:collapse;font:11.5px/1.95 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(255,255,255,.62);margin-top:8px}
+.sheet th{font-weight:600;color:rgba(255,255,255,.86);text-align:left;border-bottom:1px solid rgba(255,255,255,.14);padding-right:8px}
+.sheet td{border-bottom:1px solid rgba(255,255,255,.055);white-space:nowrap;padding-right:8px;font-variant-numeric:tabular-nums}
+.sheet td.fz{color:rgba(255,255,255,.26)}                         /* still noisy: the scan has not reached this row */
+.sheet td .chl[src*="tiktok"]{border-radius:22%;box-shadow:0 0 0 1px rgba(255,255,255,.3)}   /* TikTok's black tile, outlined so it shows on the dark sheet */
+.sheet td .chl{display:inline-block;width:1.3em;height:1.3em;max-width:none;object-fit:contain;vertical-align:-.32em;margin-right:.6em;transition:filter .35s,opacity .35s}
+.sheet td.fz .chl{filter:grayscale(1);opacity:.5}                  /* the logo colours in as the scan passes */
+.sheet td.hl span{position:relative;display:inline-block;border-radius:3px;padding:1px 4px;transition:box-shadow .35s,color .35s,background .35s}
+.sheet td.hl.hit span{color:#fff;font-weight:700;box-shadow:0 0 0 1.5px var(--hot),0 0 16px rgba(255,43,48,.45)}
+.sheet td.hl.lit span{background:var(--red);color:#fff;box-shadow:0 0 0 1.5px var(--hot),0 0 22px rgba(215,0,15,.75)}
+.sheet td.hl sup{position:absolute;right:-9px;top:-9px;width:15px;height:15px;border-radius:50%;background:var(--red);color:#fff;font:700 9px/15px var(--f);text-align:center;transform:scale(0);transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.sheet td.hl.hit sup{transform:none}
+.sheet .nt2.l{left:auto;right:calc(100% + 12px)}
+.sheet .nt2{position:absolute;left:calc(100% + 12px);top:50%;translate:0 -50%;z-index:2;padding:6px 10px;border-radius:999px;background:#fff;color:#0B0B0D;font:600 11px/1 var(--f);white-space:nowrap;letter-spacing:0;opacity:0;pointer-events:none;box-shadow:0 10px 24px -10px rgba(0,0,0,.6)}
+.sheet .scan{position:absolute;left:0;right:0;height:60px;top:-14%;background:linear-gradient(180deg,transparent,rgba(215,0,15,.22) 70%,rgba(215,0,15,.55) 96%,transparent);pointer-events:none;border-bottom:2px solid rgba(215,0,15,.85);box-shadow:0 8px 22px -6px rgba(215,0,15,.6)}
+.dlinks{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;overflow:visible}
+.dlinks path{fill:none;stroke:var(--hot);stroke-width:1.6;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(255,43,48,.7));transition:stroke-width .3s,opacity .3s}
+.dlinks circle{fill:var(--hot)}
+.dlinks path.lit{stroke-width:3}.dstage.lt .dlinks path:not(.lit){opacity:.25}
+.plan{position:relative;z-index:3;display:grid;gap:12px}
+/* v9 (Sue): the three moves on glass, each with an icon instead of a number. The icon sits in a key of the cube's red glass
+   with a neon line glyph, so the moves carry the hero's material */
+.plan .s{display:grid;grid-template-columns:58px minmax(0,1fr);gap:16px;align-items:center;padding:18px 20px;border-radius:20px;color:#fff;cursor:default;
+  background:linear-gradient(150deg,rgba(255,255,255,.1),rgba(255,255,255,.035));backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.13),inset 0 1px 0 rgba(255,255,255,.16),0 24px 50px -30px rgba(0,0,0,.9);transition:box-shadow .35s,translate .35s}
+.plan .s.lit{box-shadow:inset 0 0 0 1.5px var(--hot),0 0 0 1px rgba(255,43,48,.4),0 24px 50px -24px rgba(255,43,48,.75);translate:-6px 0}   /* translate, not transform: GSAP owns transform */
+.plan .s .key{position:relative;width:58px;height:58px;border-radius:14px;display:grid;place-items:center;
+  background:radial-gradient(90% 90% at 30% 22%,rgba(255,72,84,.28),transparent 60%),linear-gradient(180deg,#3e0006,#a0000e);
+  box-shadow:inset 0 0 0 1.5px rgba(255,52,66,.95),inset 0 0 0 4px rgba(0,0,0,.28),0 0 0 1px rgba(255,255,255,.08),0 10px 24px -10px rgba(215,0,15,.8)}
+.plan .s .key svg{width:30px;height:30px;overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.plan .s .key .g1{stroke:#ff0e24;stroke-width:3.2;filter:blur(1.6px);opacity:.85}.plan .s .key .g2{stroke:#ff1f34;stroke-width:1.9}.plan .s .key .g3{stroke:#ffe0e4;stroke-width:.75}
+.plan .s h4{font:700 clamp(17px,1.5vw,20px)/1.2 var(--f);letter-spacing:-.01em}
+.plan .s p{margin:4px 0 0;font-size:13.5px;line-height:1.45;color:rgba(255,255,255,.7)}
+.plan .s small{display:none;margin-top:8px;font:600 11px/1.3 var(--f);color:var(--hot)}
+.dend{margin:18px 0 0 4px;font:600 12px var(--o);letter-spacing:.24em;text-transform:uppercase;color:var(--hot);opacity:0}
+@media (max-width:960px){
+  .dpin{min-height:0;display:block;padding:clamp(80px,12vw,120px) 0 80px}
+  .dhd,.dstage{grid-template-columns:minmax(0,1fr)}.dstage{gap:28px}
+  .dlinks,.sheet .nt2{display:none}.plan .s small{display:block}.dend{opacity:1}
+  .sheet{rotate:-1deg;overflow-x:auto}.sheet table{font-size:9.5px}.sheet .xm{display:none}.sheet th,.sheet td{padding-right:6px}.sheet td .chl{margin-right:.45em}
+}
+
+/* 7 CASES (v9, Sue: testimonial + key result + a photo of the work + the client's logo, shown more dynamically, ref her
+   slide 12): a cover-flow arc on white. The front card faces you; its neighbours turn away and recede along the arc. It
+   moves on by itself (held while you point at it), and you can drag it, click a side card, use the arrows or the keys.
+   Real numbers from the deck; a card says plainly when its client quote is still to come. */
+.cf{position:relative;height:clamp(620px,50vw,720px);margin-top:clamp(28px,3vw,44px);perspective:1700px;overflow:hidden;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
+.cf:active{cursor:grabbing}
+.cft{position:absolute;inset:0;transform-style:preserve-3d}
+.cc2{position:absolute;left:50%;top:calc(50% - 34px);width:clamp(290px,24vw,370px);height:clamp(500px,40vw,580px);margin:0;translate:-50% -50%;border-radius:26px;overflow:hidden;
+  background:#0d0d10;color:#fff;box-shadow:0 40px 80px -40px rgba(0,0,0,.65),inset 0 0 0 1px rgba(255,255,255,.06);display:flex;flex-direction:column;will-change:transform}
+.cc2::after{content:"";position:absolute;inset:0;background:#fff;opacity:var(--dim,0);pointer-events:none;transition:opacity .3s}
+.cc2 .ph{position:relative;flex:none;aspect-ratio:3/2;overflow:hidden}
+.cc2 .ph img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.cc2 .ph::after{content:"";position:absolute;inset:auto 0 0 0;height:45%;background:linear-gradient(0deg,#0d0d10,transparent)}
+.cc2 .lg{position:absolute;left:18px;bottom:14px;z-index:1;display:grid;place-items:center;height:38px;min-width:38px;padding:0 12px;border-radius:999px;background:#fff;box-shadow:0 8px 20px -8px rgba(0,0,0,.6)}
+.cc2 .lg img{height:24px;max-width:110px;width:auto;object-fit:contain}
+.cc2 .lg.dk{background:#141417;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),0 8px 20px -8px rgba(0,0,0,.6)}   /* Luxe Living's gold mark reads on dark */
+.cc2 .lg b{font:700 12.5px var(--f);color:#111;letter-spacing:-.01em}
+.cc2 .bd{flex:1;display:flex;flex-direction:column;padding:16px 22px 20px;min-height:0}
+.cc2 .k2{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.cc2 .k2 b{font:300 clamp(46px,4vw,62px)/.9 var(--f);letter-spacing:-.06em;color:#fff}
+.cc2 .k2 b small{display:block;margin-bottom:6px;font:600 11px var(--o);letter-spacing:.2em;text-transform:uppercase;color:var(--hot)}
+.cc2 .k2 span{font-size:13px;line-height:1.35;color:rgba(255,255,255,.7);max-width:20ch}
+.cc2 blockquote{margin:16px 0 0;font:500 15px/1.45 var(--f);letter-spacing:-.01em;color:#fff;text-wrap:pretty}
+.cc2 blockquote::before{content:"\201C";display:block;height:22px;font:800 40px/1 var(--f);color:var(--hot)}
+.cc2 cite{display:block;margin-top:10px;font:400 12.5px var(--f);font-style:normal;color:rgba(255,255,255,.6)}
+.cc2 .qp{margin:16px 0 0;font:500 15px/1.45 var(--f);color:rgba(255,255,255,.86);text-wrap:pretty}
+.cc2 .qp small{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:6px 11px;border-radius:999px;font:500 11.5px var(--f);color:rgba(255,255,255,.62);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.cc2 .qp small::before{content:"\201C";font:800 16px/1 var(--f);color:var(--hot)}
+.cc2 .ft{margin-top:auto;padding-top:14px;display:flex;justify-content:space-between;gap:10px;border-top:1px solid rgba(255,255,255,.1);font:600 10.5px var(--o);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.cc2 .ft em{font-style:normal;color:var(--hot)}
+.cfnav{position:absolute;left:50%;bottom:6px;translate:-50% 0;z-index:200;display:flex;align-items:center;gap:16px;font:500 13px var(--f);color:#555;font-variant-numeric:tabular-nums}
+.cfnav button{all:unset;cursor:pointer;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#111;box-shadow:inset 0 0 0 1px rgba(0,0,0,.16);transition:background .3s,color .3s}
+.cfnav button:hover,.cfnav button:focus-visible{background:var(--red);color:#fff;box-shadow:none}
+@media (max-width:760px){.cf{height:600px}.cc2{width:min(300px,78vw);height:520px}}
+/* 07 · layout options (v9, David 22 Oct: "more options for this testimonial module"). One set of cases, four ways to show
+   it, each from one of Sue's slide-12 references: A the arc above (Voyager2), B a concave curve with the client's name set
+   large below (THEO), C the work as tilted tiles with the result stuck on like a sticker (her tagged collage), D slices in
+   red duotone that open one at a time (her slide 18 photo style). Switch with the pills by the heading, or ?cases=a|b|c|d.
+   Only the option on show runs. B, C and D use text-free cuts of the slide backgrounds (v9c_*), so faces stay clear of text. */
+.cshd{display:flex;align-items:flex-end;justify-content:space-between;gap:20px 32px;flex-wrap:wrap}
+.cshd .copt{position:static;flex:none;margin-bottom:8px}
+.copt.lt{background:#f1f1f2;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.copt.lt span{color:#8a8a90}
+.copt.lt button{color:#3a3a3e}.copt.lt button:hover{color:#000}
+.copt.lt button[aria-pressed="true"]{background:var(--red);color:#fff}
+.copt.lt button:focus-visible{outline-color:#111}
+.cvx{position:relative;margin-top:clamp(22px,2.6vw,40px)}
+.cvx:focus-visible{outline:2px solid #111;outline-offset:6px;border-radius:12px}
+/* the shared bits: a logo chip, the result, the client's words, a quiet line of facts, and one progress line that runs while
+   the option is on screen and nobody is pointing at it (when it ends, the next case) */
+.clg{display:inline-grid;place-items:center;height:38px;min-width:38px;padding:0 13px;border-radius:999px;background:#fff;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.clg img{height:24px;width:auto;max-width:112px;object-fit:contain}
+.clg.dk{background:#141417;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16)}
+.ck{display:flex;align-items:baseline;gap:6px 14px;flex-wrap:wrap}
+.ck b{font:300 clamp(48px,4.6vw,76px)/.9 var(--f);letter-spacing:-.06em;white-space:nowrap}
+.ck b small{display:block;margin-bottom:8px;font:600 11px var(--o);letter-spacing:.2em;text-transform:uppercase}
+.ck>span{font-size:14px;line-height:1.35;max-width:24ch}
+.cq{margin:16px 0 0;font:400 17px/1.5 var(--f);letter-spacing:-.01em;text-wrap:pretty;max-width:46ch}
+.cq blockquote{margin:0}
+.cq blockquote::before{content:"\201C";display:block;height:24px;font:800 42px/1 var(--f);color:var(--hot)}
+.cq cite{display:block;margin-top:9px;font:500 13px var(--f);font-style:normal;opacity:.62}
+.cm{display:flex;gap:8px 18px;flex-wrap:wrap;margin-top:14px;font:600 10.5px var(--o);letter-spacing:.18em;text-transform:uppercase}
+.cm em{font-style:normal;color:var(--hot)}
+.cm .tc{opacity:.55;letter-spacing:.14em}
+.pg{display:block;height:2px;border-radius:2px;background:rgba(0,0,0,.12);overflow:hidden}
+.pg::after{content:"";display:block;height:100%;background:var(--red);transform-origin:0 50%;scale:0 1}
+.pg.go::after,.on>.pg::after,.on .cdtx .pg::after{animation:cpg 5.5s linear forwards;animation-play-state:paused}
+.cvx.run:not(.hold) .pg.go::after,.cvx.run:not(.hold) .on>.pg::after,.cvx.run:not(.hold) .on .cdtx .pg::after{animation-play-state:running}
+@keyframes cpg{to{scale:1 1}}
+.cnav{display:flex;align-items:center;gap:14px;font:500 13px var(--f);font-variant-numeric:tabular-nums}
+.cnav button{all:unset;cursor:pointer;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#111;box-shadow:inset 0 0 0 1px rgba(0,0,0,.16);transition:background .3s,color .3s}
+.cnav button:hover,.cnav button:focus-visible{background:var(--red);color:#fff;box-shadow:none}
+
+/* B · Curve (THEO): the work on the inside of a gentle cylinder, so the outer edges turn toward you (A's arc turns them away) */
+.cbs{position:relative;--cw:clamp(200px,17vw,290px);height:calc(var(--cw) * 1.7 + 20px);overflow:hidden;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
+.cbs:active{cursor:grabbing}
+.cbt{position:absolute;inset:0;transform-style:preserve-3d}
+.cbc{position:absolute;left:50%;top:50%;width:var(--cw);aspect-ratio:4/5;margin:0;translate:-50% -50%;border-radius:18px;overflow:hidden;background:#e9e9ec;
+  box-shadow:0 22px 36px -26px rgba(0,0,0,.42);backface-visibility:hidden;will-change:transform;cursor:pointer}
+.cbc img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.cbc .pg{position:absolute;left:14px;right:14px;bottom:14px;height:3px;background:rgba(255,255,255,.38)}
+.cbc .pg::after{background:#fff}
+.cbc:not(.on) .pg{opacity:0}
+.cbx{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px clamp(28px,4.5vw,80px);align-items:end;margin-top:clamp(18px,2.2vw,34px);color:#0B0B0D}
+.cbn{min-width:0}
+.cbn .lgw{display:flex;align-items:center;gap:14px;min-height:38px;margin-bottom:18px;font:600 11px var(--o);letter-spacing:.22em;text-transform:uppercase;color:#8a8a90}
+.cbname{margin:0;overflow:hidden;font:800 clamp(64px,8.6vw,148px)/.9 var(--f);letter-spacing:-.055em;white-space:nowrap;padding-bottom:.06em}
+.cbname span{display:inline-block}
+.cbd{min-width:0;padding-bottom:4px}
+.cbd .ck b{color:var(--red)}.cbd .ck b small{color:#0B0B0D}.cbd .ck>span{color:#55555b}
+.cbd .cq{color:#1a1a1d}.cbd .cm{color:#8a8a90}.cbd .cm em{color:var(--red)}
+.cbd .cnav{margin-top:22px;color:#555}
+
+/* C · Tags (her tagged collage): tilted tiles of the work on a dark board, each result stuck on as a sticker; one lifts at a time */
+.ccb{position:relative;border-radius:32px;padding:clamp(20px,2.8vw,44px);overflow:hidden;color:#fff;
+  background:radial-gradient(90% 70% at 50% 8%,rgba(215,0,15,.32),transparent 70%),#0D131A}
+.cct{position:relative;aspect-ratio:2.94}
+.ccw,.ccq{position:absolute;left:0;top:0;width:0;height:0;z-index:var(--z,1)}
+.ccw.on{z-index:30}.ccq{z-index:40}
+.cci{all:unset;box-sizing:border-box;position:absolute;left:0;top:0;translate:-50% -50%;rotate:var(--r);border-radius:20px;overflow:hidden;cursor:pointer;background:#1b222b;
+  box-shadow:0 26px 50px -22px rgba(0,0,0,.85),inset 0 0 0 1px rgba(255,255,255,.1);transition:rotate .7s var(--ease),scale .7s var(--ease),filter .5s,box-shadow .5s}
+.cci img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.cct.act .cci:not(.on){filter:brightness(.74) saturate(.85)}
+.cci.on{rotate:0deg;scale:1.12;box-shadow:0 44px 80px -26px rgba(0,0,0,.95),0 0 0 2px var(--hot)}
+.cci:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.ccp{position:absolute;left:0;top:0;translate:-50% -50%;rotate:var(--r);pointer-events:none;white-space:nowrap;padding:.75em 1.2em .7em;border-radius:999px;
+  font:800 var(--fs,16px)/1 var(--f);letter-spacing:.005em;text-transform:uppercase;transition:scale .55s cubic-bezier(.3,1.7,.5,1),filter .5s;
+  box-shadow:inset 0 -3px 0 rgba(0,0,0,.22),inset 0 2px 0 rgba(255,255,255,.32),0 14px 28px -10px rgba(0,0,0,.75)}
+.ccp.r{background:linear-gradient(180deg,#ff2b30,#c4000d);color:#fff}
+.ccp.w{background:linear-gradient(180deg,#fff,#e4e4e8);color:#0D131A}
+.ccp.k{background:linear-gradient(180deg,#2a333e,#0D131A);color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.24),inset 0 -3px 0 rgba(0,0,0,.3),0 14px 28px -10px rgba(0,0,0,.75)}
+.cct.act .ccp:not(.on){filter:brightness(.62)}
+.ccp.on{scale:1.16}
+.ccx{position:relative;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1fr) minmax(0,1.5fr);gap:20px 32px;align-items:end;margin-top:clamp(18px,2vw,30px);padding-top:clamp(18px,2vw,26px)}
+.ccx>.pg{position:absolute;left:0;right:0;top:0;background:rgba(255,255,255,.14)}
+.ccx>.pg::after{background:var(--hot)}
+.ccx .cnm h3{margin:14px 0 0;font:700 clamp(24px,2.2vw,34px)/1 var(--f);letter-spacing:-.03em}
+.ccx .ck b{color:#fff}.ccx .ck b small{color:var(--hot)}.ccx .ck>span{color:rgba(255,255,255,.66)}
+.ccx .cq{margin:0;font-size:16px;color:rgba(255,255,255,.9)}.ccx .cm{color:rgba(255,255,255,.5)}
+
+/* D · Panels (her slide 18 photo style): seven slices of the work graded red and black; one opens to its photo in full
+   colour, with the result and the client's words beside it (never over a face), then hands over to the next */
+.cdr{display:flex;gap:10px;height:clamp(440px,36vw,540px)}
+.cdp{position:relative;flex:1 1 0;min-width:0;border-radius:22px;overflow:hidden;background:#0D131A;color:#fff;cursor:pointer;outline:none;transition:flex-grow .8s var(--ease)}
+.cdp.on{flex-grow:8;cursor:default}
+.cdp:focus-visible{box-shadow:0 0 0 3px #fff,0 0 0 5px #111}
+.cdph{position:absolute;inset:0;transition:left .8s var(--ease)}
+.cdp.on .cdph{left:44%}
+.cdph img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.2) brightness(1.05);transition:filter .7s}
+.cdph::after{content:"";position:absolute;inset:0;background:#e3000f;mix-blend-mode:multiply;transition:opacity .7s;pointer-events:none}
+.cdp.on .cdph img{filter:none}.cdp.on .cdph::after{opacity:0}
+.cdp:not(.on):hover .cdph::after{opacity:.8}
+.cdv{position:absolute;left:0;right:0;bottom:0;padding:60px 0 22px;display:flex;flex-direction:column;align-items:center;gap:14px;transition:opacity .35s;
+  background:linear-gradient(0deg,rgba(42,0,0,.75),transparent);pointer-events:none}
+.cdv b{writing-mode:vertical-rl;text-orientation:sideways;rotate:180deg;font:300 28px/1 var(--f);letter-spacing:-.04em;white-space:nowrap}
+.cdv span{writing-mode:vertical-rl;text-orientation:sideways;rotate:180deg;font:600 11px var(--o);letter-spacing:.24em;text-transform:uppercase;white-space:nowrap;opacity:.85}
+.cdp.on .cdv{opacity:0}
+.cdtx{position:absolute;top:0;bottom:0;left:0;width:var(--tw,280px);padding:26px 26px 26px 28px;display:flex;flex-direction:column;opacity:0;translate:-14px 0;pointer-events:none;
+  transition:opacity .3s,translate .5s var(--ease)}
+.cdp.on .cdtx{opacity:1;translate:0 0;pointer-events:auto;transition-delay:.32s}
+.cdtx .clg{align-self:flex-start}
+.cdtx h3{margin:16px 0 0;font:700 24px/1.05 var(--f);letter-spacing:-.03em}
+.cdtx .ck{margin-top:auto}
+.cdtx .ck b{font-size:clamp(46px,4vw,64px)}.cdtx .ck b small{color:var(--hot)}.cdtx .ck>span{color:rgba(255,255,255,.66);max-width:none;flex-basis:100%}
+.cdtx .cq{margin-top:14px;font-size:15px;color:rgba(255,255,255,.9)}
+.cdtx .cq blockquote::before{height:20px;font-size:36px}
+.cdtx .cm{color:rgba(255,255,255,.5)}
+.cdtx .pg{margin-top:18px;background:rgba(255,255,255,.14)}.cdtx .pg::after{background:var(--hot)}
+@media (max-width:760px){
+  .cshd .copt{flex:0 1 auto;max-width:100%;flex-wrap:wrap;border-radius:22px}.cshd .copt span{display:none}
+  .cbx,.ccx{grid-template-columns:minmax(0,1fr)}
+  .cct{aspect-ratio:auto;height:520px}
+  .cdr{flex-direction:column;height:auto}
+  .cdp{flex:none;height:72px;transition:height .8s var(--ease)}
+  .cdp.on{height:560px}
+  .cdp.on .cdph{left:0;top:52%}
+  .cdtx{width:auto;right:0;bottom:48%}
+  .cdtx .cq{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .cdv{top:0;padding:0 20px;flex-direction:row;justify-content:space-between;background:linear-gradient(90deg,rgba(42,0,0,.75),transparent)}
+  .cdv b,.cdv span{writing-mode:horizontal-tb;rotate:0deg}.cdv b{font-size:24px}
+}
+@media (prefers-reduced-motion:reduce){.cdp,.cdph,.cdph img,.cdtx,.cci,.ccp{transition:none}}
+
+/* 9 TEAM · the Battle cast, now dark with red light from below (the gradient stays for the final call) */
+.oc{position:relative;height:min(100svh,940px);min-height:700px;overflow:hidden;background:radial-gradient(70% 55% at 50% 108%,rgba(215,0,15,.55),rgba(120,0,8,.2) 55%,transparent 80%),#070708}
+.ocrow{position:absolute;inset:0;display:flex}
+.ocol{position:relative;flex:1 1 0;min-width:0;overflow:hidden;cursor:pointer;transition:flex-grow .8s cubic-bezier(.2,.8,.2,1),filter .6s}
+.ocol::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,7,8,.55) 22%,rgba(7,7,8,.1) 25%,transparent 29%);pointer-events:none;z-index:2;transition:opacity .6s}
+.ocol img{position:absolute;bottom:0;right:-8%;height:var(--h);width:auto;max-width:none;transition:opacity .6s,transform .8s cubic-bezier(.2,.8,.2,1);z-index:1;filter:grayscale(1) contrast(1.1)}
+.ocol img.pose{opacity:0;right:auto;left:50%;translate:-50% 0;transform:scale(.96);filter:none}
+.ocol.on{flex-grow:3.2}.ocol.on::after{opacity:0}
+.ocol.on img.walk{opacity:0;transform:translateX(-30px)}.ocol.on img.pose{opacity:1;transform:scale(1)}
+.ocrow.act .ocol:not(.on){filter:brightness(.5)}
+.ocn{position:absolute;left:20px;bottom:30%;z-index:3;font:600 clamp(26px,3vw,52px)/1 var(--o);text-transform:uppercase;color:#fff;opacity:0;transform:translateY(20px);transition:opacity .5s .2s,transform .6s .2s}.ocol.on .ocn{opacity:1;transform:none}
+.ocfade{position:absolute;inset:auto 0 0 0;height:34%;background:linear-gradient(0deg,#070708 20%,transparent);z-index:3;pointer-events:none}
+.octitle{position:absolute;left:0;right:0;bottom:7%;z-index:4;text-align:center}
+.octitle b{display:block;font:800 clamp(44px,7vw,120px)/1 var(--f);letter-spacing:-.04em;text-transform:uppercase}
+.octitle span{display:block;margin-top:8px;font:600 12px var(--o);letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+@media (max-width:760px){.ocrow{overflow-x:auto}.ocol{flex:none;width:30vw}.ocol.on{width:70vw}}
+
+/* 9b TEAM, two versions: Dark (v6's line-up, above) and Red. Red keeps the bosses' brand red Sue said they love, and drops
+   everything that read as the Ocean's poster: no profile walk in single file, no vertical panels, no giant title at the
+   bottom. Instead the cast faces you in a staggered formation, three bosses in front; hover one to bring them into focus. */
+.cast{position:relative}
+.copt{position:absolute;top:96px;right:var(--gut);z-index:8;display:flex;gap:2px;padding:5px;border-radius:999px;background:rgba(10,10,11,.55);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16)}
+.copt span{font:500 11px/1 var(--f);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);padding:12px 10px 12px 13px}
+.copt button{all:unset;cursor:pointer;font:500 13px/1 var(--f);color:rgba(255,255,255,.78);padding:12px 16px;border-radius:999px;transition:background .3s,color .3s}
+.copt button:hover{color:#fff}
+.copt button[aria-pressed="true"]{background:var(--red);color:#fff}
+.cast.red .copt{background:rgba(60,0,4,.35)}.cast.red .copt button[aria-pressed="true"]{background:#0B0B0D}
+.copt button:focus-visible{outline:2px solid #fff;outline-offset:-2px}
+.sq{position:relative;height:min(100svh,980px);min-height:740px;overflow:hidden;background:radial-gradient(70% 80% at 50% 62%,#FF1E2A 0%,#E4000F 42%,#C0000C 100%)}
+.sq::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(36% 52% at 50% 70%,rgba(255,120,120,.28),transparent 70%)}   /* a soft key light behind Matthew */
+/* hover anyone: the red floods to black from the pointer (David, 20 Oct), a red spotlight comes up behind them */
+.sq .ink{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(26% 46% at var(--sx,50%) 74%,rgba(225,0,16,.62),rgba(110,0,8,.26) 46%,transparent 74%),#060607;
+  clip-path:circle(0% at var(--mx,50%) var(--my,60%));transition:clip-path .75s cubic-bezier(.65,0,.25,1)}
+.sq.dark .ink{clip-path:circle(150% at var(--mx,50%) var(--my,60%))}
+.sq .ink::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 40% at 50% 100%,rgba(215,0,15,.18),transparent 70%)}
+.sq.dark .gd.on img{filter:drop-shadow(0 0 22px rgba(255,40,52,.55)) drop-shadow(0 0 2px rgba(255,90,100,.6))}
+.sq.dark .sqs.act .gd:not(.on) .gi{filter:brightness(.38) saturate(.7)}
+.sqh{position:relative;z-index:6;text-align:center;padding-top:clamp(92px,9vw,128px)}
+.sqh .lbl{color:#fff;opacity:.85}
+.sqh h2{font-size:clamp(36px,4.2vw,68px);margin-top:12px}
+.sqh p{margin:12px auto 0;max-width:46ch;color:rgba(255,255,255,.88);text-wrap:balance}
+/* one tidy formation: heads evenly spaced on a gentle arc, everyone on one baseline (the section's bottom edge), bosses tallest
+   in front; nobody blurred, nobody hidden. --hx is where the head sits across each cut-out, so the head lands on --x */
+.sqs{position:absolute;left:0;right:0;bottom:0;height:calc(100% - var(--hh,300px));z-index:2}
+.gd{position:absolute;left:var(--x);bottom:0;height:var(--h);width:0;cursor:pointer;outline:none;will-change:transform}
+.gi{position:absolute;left:0;bottom:0;height:100%;width:0;transition:filter .5s,transform .6s var(--ease);transform-origin:50% 100%;filter:brightness(var(--br,1))}
+.gd img{position:absolute;left:0;bottom:0;height:100%;width:auto;max-width:none;translate:calc(var(--hx) * -100%) 0;pointer-events:auto;user-select:none;-webkit-user-drag:none;
+  filter:drop-shadow(0 0 30px rgba(90,0,8,.42)) drop-shadow(0 30px 40px rgba(60,0,5,.3))}
+.sqs.act .gd:not(.on) .gi{filter:brightness(.6) saturate(.9)}
+.gd.on .gi{filter:brightness(1.04);transform:translateY(-10px) scale(1.03)}
+.gd .nm{position:absolute;left:0;top:var(--nt,30%);translate:-50% 0;z-index:2;padding:9px 15px;border-radius:999px;background:#fff;color:#0B0B0D;font:500 13px/1 var(--f);white-space:nowrap;
+  box-shadow:0 12px 30px -12px rgba(0,0,0,.6);opacity:0;transform:translateY(8px);transition:opacity .35s,transform .45s var(--ease);pointer-events:none}
+.gd .nm small{display:block;margin-top:4px;font-size:11px;color:#6b7079}
+.gd.on .nm,.gd:focus-visible .nm{opacity:1;transform:none}
+.gd:focus-visible .gi{outline:2px solid #fff;outline-offset:6px;border-radius:12px}
+@media (max-width:860px){.copt{top:76px}.sqh{padding-top:136px}.sq{min-height:640px;height:auto;padding-bottom:0}.sqs{position:relative;height:420px;margin-top:20px}.gd.side{display:none}
+  .gd[data-n="0"]{--x:50%!important;--h:98%!important}.gd[data-n="2"]{--x:22%!important;--h:84%!important}.gd[data-n="1"]{--x:78%!important;--h:84%!important}}
+/* 10 WHY CLIENTS LOVE TO WORK WITH US · the USP strip (the deck's six points merged to three) */
+.usp{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:40px}
+.usp > div{padding:28px 26px 30px;border-radius:var(--rad);background:rgba(255,255,255,.035);box-shadow:inset 0 0 0 1px var(--line);transition:background .4s,box-shadow .4s}
+.usp > div:hover{background:linear-gradient(150deg,rgba(215,0,15,.22),rgba(255,255,255,.03));box-shadow:inset 0 0 0 1px rgba(226,36,2,.5)}
+.usp b{display:block;font:300 46px/1 var(--f);color:var(--hot)}
+.usp h4{font:700 23px/1.15 var(--f);letter-spacing:-.02em;margin-top:22px}
+.usp p{margin:10px 0 0;color:rgba(255,255,255,.72);font-size:15px}
+@media (max-width:860px){.usp{grid-template-columns:minmax(0,1fr)}}
+/* 09 + 10 (v9, Sue): under the cast, a gallery of the team with clients runs in two ribbons, one each way, and the "why clients
+   love us" message sits between them, so the words and the photos read as one. Every third photo is graded red and black like
+   her slide 18 and comes back to colour under the pointer; the ribbons hold while you point at them. */
+.gal{padding:clamp(70px,8vw,120px) 0;overflow:hidden}
+.grib{position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.gtr{display:flex;gap:14px;width:max-content;animation:gslide 80s linear infinite}
+.gtr.rev{animation-direction:reverse;animation-duration:96s}
+.grib:hover .gtr{animation-play-state:paused}
+@keyframes gslide{to{transform:translateX(calc(-50% - 7px))}}
+.gt{position:relative;flex:none;width:clamp(240px,22vw,340px);aspect-ratio:4/3;margin:0;border-radius:18px;overflow:hidden;background:#111}
+.gt img{width:100%;height:100%;object-fit:cover;transition:filter .6s,transform .8s var(--ease)}
+.gt:hover img{transform:scale(1.05)}
+.gt.rd img{filter:grayscale(1) contrast(1.2) brightness(1.05)}
+.gt.rd::after{content:"";position:absolute;inset:0;background:#e3000f;mix-blend-mode:multiply;transition:opacity .6s;pointer-events:none}
+.gt.rd:hover img{filter:none}.gt.rd:hover::after{opacity:0}
+.gmid{padding-block:clamp(54px,6vw,90px)}
+.gmid .usp{margin-top:34px}
+.gcap{margin:18px auto 0;padding:0 var(--gut);max-width:1320px;font-size:13px;color:rgba(255,255,255,.5)}
+@media (prefers-reduced-motion:reduce){.gtr{animation:none}}
+
+/* 11 WEAPONS (v9, Sue): one weapon is always the main one and scrolling steps to the next, so nobody has to click before
+   they see a service. The ring turns the active weapon to the front (right of centre); beside it the service is named
+   plainly, with its list and one clear button to its page. Steps at the foot: click one to go there. */
+.wo{background:#030304}
+.opin{position:relative;height:100svh;overflow:hidden}
+.opin canvas.orb{position:absolute;inset:0;width:100%;height:100%}
+.opin::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,#030304 0%,rgba(3,3,4,.9) 26%,rgba(3,3,4,0) 50%)}   /* the ring passes behind the service, never over it */
+.otitle{position:absolute;left:var(--gut);top:clamp(92px,12svh,128px);z-index:2;pointer-events:none}
+.otitle h2{font-size:clamp(34px,3.6vw,60px);line-height:.95;margin-top:12px}
+.odet{position:absolute;left:var(--gut);top:54%;translate:0 -50%;z-index:3;width:min(500px,40vw)}
+.odet .wk{display:flex;align-items:center;gap:12px;font:600 12px var(--o);letter-spacing:.22em;text-transform:uppercase;color:var(--hot)}
+.odet .wk i{font-style:normal;color:rgba(255,255,255,.45)}
+.odet h3{font:700 clamp(44px,4.6vw,80px)/.95 var(--f);letter-spacing:-.045em;margin:16px 0 18px;text-wrap:balance}
+.odet p{color:rgba(255,255,255,.76);margin:0 0 18px;font-size:16px;line-height:1.55;max-width:42ch}
+.odet ul{margin:0 0 30px;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}.odet li{font-size:13px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.odet .swap > *{will-change:transform,opacity}
+.osteps{position:absolute;left:var(--gut);right:var(--gut);bottom:clamp(22px,4svh,40px);z-index:3;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-width:1180px}
+.osteps button{all:unset;cursor:pointer;display:grid;gap:10px;font:500 13px var(--f);color:rgba(255,255,255,.45);transition:color .3s}
+.osteps button b{font-weight:500;color:inherit}.osteps button em{font-style:normal;margin-right:10px;color:rgba(255,255,255,.35)}
+.osteps button i{display:block;height:2px;border-radius:2px;background:rgba(255,255,255,.14);overflow:hidden;position:relative}
+.osteps button i::after{content:"";position:absolute;inset:0;transform-origin:0 50%;transform:scaleX(var(--p,0));background:var(--hot);box-shadow:0 0 10px var(--hot)}
+.osteps button.on,.osteps button:hover{color:#fff}.osteps button.on em{color:var(--hot)}.osteps button:focus-visible{outline:2px solid #fff;outline-offset:4px;border-radius:4px}
+.ofb{display:none}
+.opin.flat .ofb{display:block;position:absolute;right:8vw;top:50%;translate:0 -50%;width:min(520px,38vw);mix-blend-mode:screen}
+.ask .chips2 button{all:unset;cursor:pointer;font:500 13px var(--f);padding:9px 15px;border-radius:999px;color:#fff;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2);transition:background .3s,box-shadow .3s}
+.ask .chips2 button:hover,.ask .chips2 button:focus-visible{background:var(--red);box-shadow:inset 0 0 0 1px var(--red)}
+@media (max-width:760px){.opin::before{background:linear-gradient(0deg,#030304 0%,rgba(3,3,4,.92) 42%,rgba(3,3,4,0) 66%)}.otitle{top:84px}.odet{left:var(--gut);right:var(--gut);top:auto;bottom:86px;translate:none;width:auto}.odet h3{font-size:36px;margin:10px 0 10px}.odet p{display:none}.odet ul{margin-bottom:18px}
+  .osteps button span{display:none}.opin.flat .ofb{right:auto;left:50%;top:34%;translate:-50% -50%;width:70vw}}
+
+/* 12 CONNECT (v9, Sue: refine the layout, buttons and type; more of slide 18's red photo style): brand red, the team photo graded
+   black on red across the foot of the section like her slide 18, the headline left and the prompt card right on dark glass,
+   one glass knight on its corner. Buttons in the site's one language: pills, a red circle with an arrow. */
+.cn{position:relative;min-height:96svh;display:flex;align-items:center;overflow:hidden;padding:130px 0 clamp(220px,24vw,330px);isolation:isolate;
+  background:radial-gradient(80% 70% at 18% 20%,#ff2b33 0%,#e3000f 38%,#b8000c 70%,#8d0009 100%)}
+.cn::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.08;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+.cnph{position:absolute;left:0;right:0;bottom:0;height:min(clamp(260px,30vw,420px),44svh);z-index:-1;pointer-events:none;mix-blend-mode:multiply;
+  -webkit-mask-image:linear-gradient(0deg,#000 55%,transparent);mask-image:linear-gradient(0deg,#000 55%,transparent)}
+.cnph img{width:100%;height:100%;object-fit:cover;object-position:50% 72%;filter:grayscale(1) contrast(1.35) brightness(1.08)}
+.cnw{position:relative;z-index:2;width:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);gap:clamp(40px,6vw,110px);align-items:center}
+.cnc .lbl{color:#fff}
+.cn h2{font-size:clamp(48px,5.4vw,96px);line-height:.96;margin-top:16px}
+.cnc p{margin:22px 0 0;max-width:34ch;font-size:clamp(16px,1.25vw,19px);line-height:1.5;color:rgba(255,255,255,.9)}
+.cnalt{margin:16px 6px 0;font-size:13.5px;color:rgba(255,255,255,.82)}.cnalt a{color:#fff;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.45)}.cnalt a:hover{border-color:#fff}
+.askw{position:relative}
+.askw .ask{position:relative;z-index:2}
+.ko{position:absolute;pointer-events:none;will-change:transform}
+.ko > span{display:block}.ko img{display:block;width:100%;height:auto;filter:drop-shadow(0 30px 40px rgba(0,0,0,.55))}
+.ko.bk{z-index:1}.ko.fr{z-index:3}
+.ko.far img{filter:blur(2.5px) brightness(.85) drop-shadow(0 20px 30px rgba(0,0,0,.5))}.ko.near img{filter:blur(7px) drop-shadow(0 30px 40px rgba(0,0,0,.5))}
+.ko.glow{mix-blend-mode:screen}.ko.glow img{filter:none}.ko.glow.far img{filter:blur(2.5px)}.ko.glow.near img{filter:blur(6px)}   /* black art: screen it onto the section itself */
+@media (max-width:760px){.ko.m-hide{display:none}}
+@media (max-width:900px){.cnw{grid-template-columns:minmax(0,1fr)}.cn{padding-bottom:240px}}
+.ask{text-align:left;border-radius:28px;padding:22px 22px 18px;background:linear-gradient(160deg,rgba(20,4,6,.72),rgba(10,10,12,.82));backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),inset 0 1px 0 rgba(255,255,255,.12),0 50px 90px -40px rgba(40,0,0,.9)}
+.ask .ak{display:block;margin:2px 4px 10px;font:600 11px var(--o);letter-spacing:.22em;text-transform:uppercase;color:var(--hot)}
+.ask input{width:100%;border:0;outline:none;background:none;font:400 clamp(20px,1.9vw,26px) var(--f);letter-spacing:-.01em;color:#fff;padding:4px 4px 22px}.ask input::placeholder{color:rgba(255,255,255,.62)}
+.ask .row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.ask .chips2{display:flex;gap:8px;flex-wrap:wrap}.ask .chips2 span{font:600 13px var(--f);padding:9px 14px;border-radius:999px;background:#fff;color:var(--red)}
+.ask .send{all:unset;cursor:pointer;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--red);color:#fff;transition:transform .4s var(--ease),box-shadow .3s}.ask .send svg{width:18px;height:18px}
+.ask .send:hover,.ask .send:focus-visible{transform:rotate(-45deg) scale(1.06);box-shadow:0 10px 26px -8px rgba(255,43,48,.9)}
+/* 13 FOOTER · white, so both lockups read (their wordmarks are dark); every logo and line is a link */
+.foot{background:#fff;color:#0D131A;padding:clamp(64px,7vw,100px) 0 26px;font-size:14.5px}
+.foot .fmain{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));gap:40px}
+.foot .lk{display:flex;flex-wrap:wrap;gap:12px 30px;align-items:center;margin-bottom:22px}
+.foot .lk a{display:block;padding:6px 0;border-radius:8px;transition:transform .4s var(--ease),opacity .3s}
+.foot .lk a:hover,.foot .lk a:focus-visible{transform:translateY(-3px)}
+.foot .lk a:focus-visible{outline:2px solid var(--red);outline-offset:6px}
+.foot .lk img{height:34px;width:auto}
+.foot p{margin:0;color:#4b5058;line-height:1.6;max-width:38ch}
+.foot b{display:block;color:#0D131A;font:600 12px var(--o);letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.foot ul a{color:#4b5058;text-decoration:none;background:linear-gradient(var(--red),var(--red)) 0 100%/0 1.5px no-repeat;padding-bottom:2px;transition:color .25s,background-size .4s var(--ease)}
+.foot ul a:hover,.foot ul a:focus-visible{color:#0D131A;background-size:100% 1.5px;outline:none}
+.foot .addr{font-size:13px;line-height:1.5}
+.foot .fbot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 24px;margin-top:60px;padding-top:22px;border-top:1px solid #e7e7e9;font-size:12.5px;color:#6b7079}
+.foot .fbot a{color:#0D131A;text-decoration:none;font-weight:500}.foot .fbot a:hover{color:var(--red)}
+@media (max-width:860px){.foot .fmain{grid-template-columns:1fr 1fr;gap:36px 24px}.foot .fbrand{grid-column:1/-1}.foot .lk img{height:28px}}
+.foot .fbot .top{display:inline-flex;align-items:center;gap:10px}.foot .fbot .top i{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-style:normal;background:#0D131A;color:#fff;transition:background .3s,transform .4s var(--ease)}
+.foot .fbot .top:hover i{background:var(--red);transform:translateY(-3px)}
+.foot .big{margin:40px 0 -0.16em;font:800 clamp(80px,19.5vw,330px)/.8 var(--f);letter-spacing:-.06em;color:#f1f1f2;text-align:center;user-select:none;white-space:nowrap;overflow:hidden}
+.note{background:#f4f4f5;border-top:1px solid #e7e7e9;padding:16px var(--gut);font-size:12.5px;color:#7a7f87;text-align:center}
+</style></head>
+<body>
+<div class="cur" id="cur" aria-hidden="true"><span id="curT"></span></div>
+<header class="nav" id="nav"><div class="wrap"><a class="home" href="#s1" aria-label="Battle, back to the top"><img src="assets/brand/battle-white.webp" alt="Battle"></a><ul><li>Services</li><li>Work</li><li>About</li><li>Resources</li></ul><a class="cta gl sm" href="#connect" data-mag>Let's talk</a></div></header>
+
+<!-- 1 HERO -->
+<section class="hero" id="s1">
+  <div class="hstage" id="hst">
+    <div class="phw" id="phw"><img class="ph" id="phD" src="assets/img/v8_ian3.webp" alt="Ian from Battle holds out the Battle cube and studies it; only his hand is in focus" fetchpriority="high">
+      <div class="pglow" aria-hidden="true"><i id="pglow"></i></div></div>
+    <div class="cglow" aria-hidden="true"></div><canvas class="cube" id="cube" aria-hidden="true"></canvas><img class="cubefb" id="cubefb" src="assets/img/v9_cube.webp" alt="" hidden>
+    <div class="cubehit" id="cubehit" aria-hidden="true"></div></div>
+  <div class="wrap in"><div class="copy" id="copy">
+    <div class="eyebrow"><i></i>Performance marketing · Kuala Lumpur · Since 2020</div>
+    <h1 id="h1">Win the right battles.<br><b>Scale results.</b></h1>
+    <p class="lead">We turn search, social feeds and AI recommendations into predictable leads and revenue for Malaysian and regional brands.</p>
+    
+  </div></div>
+  <div class="rib" id="rib"><p class="vh">Track record: 160+ clients, 14+ industries, up to 500% client growth in 3 years.</p><div class="trk2" id="trk2" aria-hidden="true"><div class="set"><span class="it"><b>160+</b>clients</span><i class="sp"></i><span class="it"><b>14+</b>industries</span><i class="sp"></i><span class="it"><b>Up to 500%</b>client growth in 3 years</span><i class="sp"></i><span class="it"><b>160+</b>clients</span><i class="sp"></i><span class="it"><b>14+</b>industries</span><i class="sp"></i><span class="it"><b>Up to 500%</b>client growth in 3 years</span><i class="sp"></i></div><div class="set"><span class="it"><b>160+</b>clients</span><i class="sp"></i><span class="it"><b>14+</b>industries</span><i class="sp"></i><span class="it"><b>Up to 500%</b>client growth in 3 years</span><i class="sp"></i><span class="it"><b>160+</b>clients</span><i class="sp"></i><span class="it"><b>14+</b>industries</span><i class="sp"></i><span class="it"><b>Up to 500%</b>client growth in 3 years</span><i class="sp"></i></div></div></div>
+</section>
+
+<!-- 2 PROOF · logos -->
+<section class="sec" id="s2"><div class="deb" id="deb" aria-hidden="true"><img src="assets/img/v9_cubie_1.webp" alt="" style="right:8%;top:228px;--w:150px" data-r="14" loading="lazy"><img src="assets/img/v9_cubie_2.webp" alt="" style="right:30%;top:262px;--w:84px" data-r="-18" loading="lazy"><img src="assets/img/v9_cubie_3.webp" alt="" style="left:47%;top:252px;--w:66px" data-r="22" loading="lazy"><img src="assets/img/v9_cubie_4.webp" alt="" style="right:1.5%;top:118px;--w:104px" data-r="-26" loading="lazy"><img src="assets/img/v9_cubie_5.webp" alt="" style="left:2%;top:92px;--w:74px" data-r="30" loading="lazy"><img src="assets/img/v9_cubie_6.webp" alt="" style="right:22%;top:86px;--w:58px" data-r="-12" loading="lazy"></div><div class="wrap"><h2 class="h2">Trusted by 160+ clients <b class="x">across 14+ industries</b></h2><div class="ember" id="ember"></div></div></section>
+
+<!-- 2 PROOF · numbers -->
+<section class="sec" id="s3" style="padding-top:0"><div class="wrap"><h2 class="h2">Proven <b class="x">business impact</b></h2>
+  <div class="kpi" id="kpi">
+    <article class="kp red w3" data-tilt><small>Up to</small><b class="num"><span data-to="500">500</span><i>%</i></b><p>client business growth in 3 years</p></article>
+    <article class="kp dark w2" data-tilt><small>Up to</small><b class="num"><span data-to="3">3</span><i>×</i></b><p>annual sales for our client</p><img class="ico" src="assets/img/v8g_knight.webp" alt="" loading="lazy"></article>
+    <article class="kp dark w2" data-tilt><small>Up to</small><b class="num"><span data-to="67">67</span><i>%</i></b><p>decrease in cost per result</p><img class="ico" src="assets/img/v8g_target.webp" alt="" loading="lazy"></article>
+    <article class="kp red w3" data-tilt><small>Luxe Living · seasonal campaigns</small><b class="num"><span data-to="22">22</span><i>×</i></b><p>return on ad spend, against an industry benchmark of 8 to 12</p></article></div></div></section>
+
+<!-- 3 THE MARKETING BATTLE -->
+<section class="sec white mb" id="s4"><div class="wrap"><div class="mbh"><div><div class="lbl">The marketing battle</div></div>
+  <p class="hint" id="mbhint"><i aria-hidden="true"></i>Swipe across a problem to cut it down</p></div><div class="cuts" id="cuts"></div></div><canvas class="blade" id="blade" aria-hidden="true"></canvas></section>
+
+<!-- 4 ARMOUR · played like a film -->
+<section class="arm" id="s5"><div class="pin" id="apin">
+  <div class="aw" id="aw"><div class="haze" aria-hidden="true"></div><div class="gstage"><canvas id="gcv" aria-hidden="true"></canvas></div><canvas class="emb" id="emb" aria-hidden="true"></canvas></div>
+  <div class="aflash" id="aflash" aria-hidden="true"></div><div class="aflare" id="aflare" aria-hidden="true"></div><div class="vign" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>
+  <div class="tcard" id="tcard"><div class="lbl">The marketing growth stack</div><h2 class="h2">Put on your <b class="x">battle armour</b></h2><p>Four layers. One suit. Keep scrolling to suit up; scroll back to take it apart.</p></div>
+  <div class="acc" id="acc" role="list" aria-label="The four layers of the growth stack"></div>
+  <div class="lbx t" aria-hidden="true"><span>Battle · The marketing growth stack</span><span id="acnt">Layer 01 / 04</span></div>
+  <div class="lbx b" aria-hidden="true"></div></div></section>
+
+<!-- 5 DATA MADE DIGESTIBLE -->
+<section class="sec dsec" id="data"><div class="dpin" id="dpin"><div class="wrap">
+  <div class="dhd"><div><div class="lbl">Data made digestible</div><h2 class="h2" style="margin-top:12px">From raw analytics <b class="x">to a clear plan.</b></h2></div>
+    <p>No overload of jargon or vanity metrics. We get to the root of what's holding your sales back, and hand you the next three moves.</p></div>
+  <div class="dstage" id="dstage">
+    <div class="sheet" id="sheet"><div class="top"><span>Sample · raw analytics export</span><i>3 findings</i></div><table id="tab"></table><div class="scan" id="scan"></div></div>
+    <div><div class="plan" id="plan">
+      <div class="s" data-n="1"><span class="key" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="g1" d="M3.5 5h17a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-17a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM2.5 8.8h19M5.4 6.9h.01M7.6 6.9h.01M12.5 11.5l6.2 2.3-2.7 1.1 1.9 2.5-1.1.9-1.9-2.5-1.3 2.5z"/><path class="g2" d="M3.5 5h17a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-17a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM2.5 8.8h19M5.4 6.9h.01M7.6 6.9h.01M12.5 11.5l6.2 2.3-2.7 1.1 1.9 2.5-1.1.9-1.9-2.5-1.3 2.5z"/><path class="g3" d="M3.5 5h17a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-17a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM2.5 8.8h19M5.4 6.9h.01M7.6 6.9h.01M12.5 11.5l6.2 2.3-2.7 1.1 1.9 2.5-1.1.9-1.9-2.5-1.3 2.5z"/></svg></span><div><h4>Enhance web UX</h4><p>Fix the leaky bucket: remove what stops visitors buying, before you spend another ringgit on ads.</p><small>From finding 1: 74% of paid visitors bounce</small></div></div>
+      <div class="s" data-n="2"><span class="key" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="g1" d="M10.5 3.5a6.8 6.8 0 1 0 0 13.6 6.8 6.8 0 0 0 0-13.6zM15.4 15.4l5.1 5.1M10.5 6.6l.95 2.25 2.25.95-2.25.95-.95 2.25-.95-2.25-2.25-.95 2.25-.95z"/><path class="g2" d="M10.5 3.5a6.8 6.8 0 1 0 0 13.6 6.8 6.8 0 0 0 0-13.6zM15.4 15.4l5.1 5.1M10.5 6.6l.95 2.25 2.25.95-2.25.95-.95 2.25-.95-2.25-2.25-.95 2.25-.95z"/><path class="g3" d="M10.5 3.5a6.8 6.8 0 1 0 0 13.6 6.8 6.8 0 0 0 0-13.6zM15.4 15.4l5.1 5.1M10.5 6.6l.95 2.25 2.25.95-2.25.95-.95 2.25-.95-2.25-2.25-.95 2.25-.95z"/></svg></span><div><h4>Strengthen SEM</h4><p>Show up where buyers are already searching, on Google and in AI answers.</p><small>From finding 2: Google leads at RM30, Facebook leads at RM63</small></div></div>
+      <div class="s" data-n="3"><span class="key" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="g1" d="M4 4.5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9.5L5 20v-3.5H4a1 1 0 0 1-1-1v-10a1 1 0 0 1 1-1zM12 14c-2.5-1.7-3.4-2.8-3.4-4 0-1 .8-1.7 1.7-1.7.7 0 1.3.4 1.7 1 .4-.6 1-1 1.7-1 .9 0 1.7.7 1.7 1.7 0 1.2-.9 2.3-3.4 4z"/><path class="g2" d="M4 4.5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9.5L5 20v-3.5H4a1 1 0 0 1-1-1v-10a1 1 0 0 1 1-1zM12 14c-2.5-1.7-3.4-2.8-3.4-4 0-1 .8-1.7 1.7-1.7.7 0 1.3.4 1.7 1 .4-.6 1-1 1.7-1 .9 0 1.7.7 1.7 1.7 0 1.2-.9 2.3-3.4 4z"/><path class="g3" d="M4 4.5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9.5L5 20v-3.5H4a1 1 0 0 1-1-1v-10a1 1 0 0 1 1-1zM12 14c-2.5-1.7-3.4-2.8-3.4-4 0-1 .8-1.7 1.7-1.7.7 0 1.3.4 1.7 1 .4-.6 1-1 1.7-1 .9 0 1.7.7 1.7 1.7 0 1.2-.9 2.3-3.4 4z"/></svg></span><div><h4>Engaging, trust-building social ads</h4><p>Stop the scroll, earn trust, then convert.</p><small>From finding 3: a 0.8% click-through rate</small></div></div></div>
+      <p class="dend" id="dend">Three moves. Not thirty metrics.</p></div>
+    <svg class="dlinks" id="dlinks" aria-hidden="true"></svg></div></div></div></section>
+
+<!-- 6 CASES -->
+<section class="sec white" id="cases"><div class="wrap cshd"><div><div class="lbl">Proven results</div><h2 class="h2" style="margin-top:12px">Battles <b class="x">we've won</b></h2></div>
+    <div class="copt lt" id="csopt" role="group" aria-label="Case study layout"><span>Layout</span><button type="button" data-v="a" aria-pressed="true">A · Arc</button><button type="button" data-v="b" aria-pressed="false">B · Curve</button><button type="button" data-v="c" aria-pressed="false">C · Tags</button><button type="button" data-v="d" aria-pressed="false">D · Panels</button></div></div>
+  <div class="cf" id="cf" role="region" aria-roledescription="carousel" aria-label="Case studies" tabindex="0"><div class="cft" id="cft"></div>
+    <div class="cfnav"><button type="button" id="cfp" aria-label="Previous case">←</button><span id="cfn" aria-live="polite">01 / 07</span><button type="button" id="cfx" aria-label="Next case">→</button></div></div>
+  <div class="cvx cvB" id="cvB" hidden role="region" aria-roledescription="carousel" aria-label="Case studies" tabindex="0">
+    <div class="cbs" data-cur="Drag"><div class="cbt"></div></div>
+    <div class="wrap"><div class="cbx"><div class="cbn"><div class="lgw" data-k="logo"></div><h3 class="cbname"><span data-k="name"></span></h3></div>
+      <div class="cbd"><div class="ck"><b data-k="num"></b><span data-k="lab"></span></div><div class="cq" data-k="say"></div><div class="cm" data-k="meta"></div>
+        <div class="cnav"><button type="button" data-go="-1" aria-label="Previous case">←</button><span data-k="count" aria-live="polite">01 / 07</span><button type="button" data-go="1" aria-label="Next case">→</button></div></div></div></div></div>
+  <div class="cvx cvC" id="cvC" hidden role="region" aria-label="Case studies"><div class="wrap"><div class="ccb"><div class="cct"></div>
+    <div class="ccx"><i class="pg" aria-hidden="true"></i><div class="cnm"><span data-k="logo"></span><h3 data-k="name"></h3></div><div class="ck"><b data-k="num"></b><span data-k="lab"></span></div>
+      <div><div class="cq" data-k="say"></div><div class="cm" data-k="meta"></div></div></div></div></div></div>
+  <div class="cvx cvD" id="cvD" hidden><div class="wrap"><div class="cdr" role="group" aria-label="Case studies"></div></div></div>
+  <div class="wrap"><div style="margin-top:30px"><a class="cta dk" href="case-study.html" data-mag>All case studies<span class="ar" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div></div></section>
+
+<!-- 7 TEAM · two versions -->
+<section id="s8" class="cast"><div class="copt" role="group" aria-label="Cast version"><span>Cast</span><button type="button" data-v="dark" aria-pressed="true">Dark</button><button type="button" data-v="red" aria-pressed="false">Red</button></div>
+  <div class="oc" id="oc"><div class="ocrow" id="ocrow"></div><div class="ocfade"></div>
+  <div class="octitle"><b>The Battle cast</b><span>Meet your growth partners · hover a Guardian</span></div></div>
+  <div class="sq" id="sq" hidden><div class="ink" aria-hidden="true"></div><div class="sqh wrap"><div class="lbl">The Battle cast</div><h2>Guardians of <b class="x">your brand.</b></h2><p>Meet your growth partners: the three of us up front, and the heroes behind every service. Hover one to meet them.</p></div>
+    <div class="sqs" id="sqs">
+      <div class="gd side" style="--x:9%;--h:64%;--hx:0.471;--br:0.86;z-index:1" tabindex="0" role="button" aria-label="Guardian of the Brand Guidelaxy"><div class="gi"><img src="assets/img/rc5p_g.webp" alt="" loading="lazy" draggable="false"><b class="nm">Guardian of the Brand Guidelaxy</b></div></div>
+      <div class="gd side" style="--x:23%;--h:76%;--hx:0.449;--br:0.93;z-index:2" tabindex="0" role="button" aria-label="Lord Meteoric ROAS Man"><div class="gi"><img src="assets/img/rc4p_g.webp" alt="" loading="lazy" draggable="false"><b class="nm">Lord Meteoric ROAS Man</b></div></div>
+      <div class="gd fr" data-n="2" style="--x:36.5%;--h:88%;--hx:0.388;--br:1;z-index:3" tabindex="0" role="button" aria-label="Ben"><div class="gi"><img src="assets/img/rc3p_g.webp" alt="" loading="lazy" draggable="false"><b class="nm">Ben</b></div></div>
+      <div class="gd fr" data-n="1" style="--x:63.5%;--h:88%;--hx:0.464;--br:1;z-index:3" tabindex="0" role="button" aria-label="Ian"><div class="gi"><img src="assets/img/rc2p_g.webp" alt="" loading="lazy" draggable="false"><b class="nm">Ian</b></div></div>
+      <div class="gd side" style="--x:77%;--h:76%;--hx:0.462;--br:0.93;z-index:2" tabindex="0" role="button" aria-label="Doom-Scroll Destroyer"><div class="gi"><img src="assets/img/rc6p_g.webp" alt="" loading="lazy" draggable="false"><b class="nm">Doom-Scroll Destroyer</b></div></div>
+      <div class="gd side" style="--x:91%;--h:64%;--hx:0.522;--br:0.86;z-index:1" tabindex="0" role="button" aria-label="Ad Budget Annihilator"><div class="gi"><img src="assets/img/rc7p_g.webp" alt="" loading="lazy" draggable="false"><b class="nm">Ad Budget Annihilator</b></div></div>
+      <div class="gd fr mid" data-n="0" style="--x:50%;--h:98%;--hx:0.438;--br:1;z-index:4" tabindex="0" role="button" aria-label="Matthew"><div class="gi"><img src="assets/img/rc1p_g.webp" alt="" loading="lazy" draggable="false"><b class="nm">Matthew</b></div></div>
+    </div></div></section>
+
+<!-- 7 WHY CLIENTS LOVE US -->
+<section class="sec gal" id="usp">
+  <div class="grib" aria-hidden="true"><div class="gtr"><figure class="gt"><img src="assets/img/v9_g_poiching.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt rd"><img src="assets/img/v9_g_team.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_marcus.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_swet.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt rd"><img src="assets/img/v9_g_bhp.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_cheanu.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_belle.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_poiching.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt rd"><img src="assets/img/v9_g_team.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_marcus.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_swet.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt rd"><img src="assets/img/v9_g_bhp.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_cheanu.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_belle.webp" alt="" loading="lazy" draggable="false"></figure></div></div>
+  <div class="wrap gmid"><div class="lbl">Why clients love to work with us</div><h2 class="h2" style="margin-top:12px">Human first. <b class="x">Results always.</b></h2>
+  <div class="usp">
+    <div data-rise><b>01</b><h4>Human empathy</h4><p>We know what it's like to miss your leads and conversion targets. We understand your pain and your users' needs, and help you craft a voice of your own in a world of AI sameness.</p></div>
+    <div data-rise><b>02</b><h4>Result-driven, made digestible</h4><p>We start with the end goal. Nothing is made just for looks or virality, and complex data comes back simple: the root of the problem and how to sell more.</p></div>
+    <div data-rise><b>03</b><h4>Fun &amp; next-gen</h4><p>Easy to work with, and we celebrate your wins with you. Young and AI-amplified, we turn information into content people actually enjoy.</p></div></div>
+  <div class="grib" aria-hidden="true"><div class="gtr rev"><figure class="gt"><img src="assets/img/v9_g_belle.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt rd"><img src="assets/img/v9_g_bhp.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_poiching.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_cheanu.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt rd"><img src="assets/img/v9_g_team.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_swet.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_marcus.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_belle.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt rd"><img src="assets/img/v9_g_bhp.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_poiching.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_cheanu.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt rd"><img src="assets/img/v9_g_team.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_swet.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_marcus.webp" alt="" loading="lazy" draggable="false"></figure></div></div>
+  <p class="gcap">Our team with our clients: workshops, shoots and wins. Photos from Battle.</p></section>
+
+<!-- 8 WEAPONS -->
+<section class="wo" id="s6"><div class="opin" id="opin"><canvas class="orb" aria-hidden="true"></canvas><img class="ofb" id="ofb" alt="">
+  <div class="otitle"><div class="lbl">Every weapon is a service</div><h2>Choose your <b class="x">weapon</b></h2></div>
+  <aside class="odet" id="odet" aria-live="polite"><div class="swap" id="oswap"><div class="wk"><span id="ok"></span><i id="ow"></i></div><h3 id="on"></h3><p id="od"></p><ul id="ol"></ul>
+    <a class="cta" id="octa" href="service.html" data-mag><span id="octx">View services</span><span class="ar" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div></aside>
+  <div class="osteps" id="osteps" role="tablist" aria-label="Weapons"></div></div></section>
+
+<!-- 9 CONNECT -->
+<section class="cn" id="connect">
+  <div class="cnph" aria-hidden="true"><img src="assets/sue/team_photo.webp" alt="" loading="lazy"></div>
+  <div class="wrap cnw">
+    <div class="cnc"><div class="lbl">Free marketing audit</div><h2>Got 15 minutes?<br><b class="x">Let's talk.</b></h2><p>We'll audit your marketing funnel over a virtual meet, for free.</p></div>
+    <div class="askw">
+      <span class="ko fr" data-d="1.1" style="right:-9%;top:-34%;width:clamp(96px,10vw,156px)"><span data-depth="1.2"><img data-float src="assets/img/v8g_knight.webp" alt="" style="rotate:9deg"></span></span>
+      <form class="ask" onsubmit="return false"><label class="ak" for="askin">Your marketing battle</label><input id="askin" placeholder="What's your marketing battle?">
+        <div class="row"><div class="chips2"><button type="button" data-q="I'd like a free marketing audit">Free audit</button><button type="button" data-q="Our ads cost too much per lead">Ads</button><button type="button" data-q="We need a website that converts">Website</button></div>
+          <button class="send" type="submit" aria-label="Send"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></form>
+      <p class="cnalt">Or write to <a href="mailto:hello@battlemind.my">hello@battlemind.my</a> · call <a href="tel:+60197707927">+6019-770 7927</a></p></div></div></section>
+
+<footer class="foot"><div class="wrap"><div class="fmain">
+  <div class="fbrand"><div class="lk"><a href="#s1" aria-label="Battle Mind, back to the top"><img src="assets/brand/bm-lockup.webp" alt="Battle Mind"></a><a href="service.html?c=web" aria-label="Battle X, web development"><img src="assets/brand/bx-lockup.webp" alt="Battle X"></a></div>
+    <p>Battle Mind Creative · Battle X. Data-intelligent digital marketing in Kuala Lumpur: human first, results always.</p></div>
+  <nav aria-label="Services"><b>Services</b><ul><li><a href="service.html?c=perf">Performance marketing</a></li><li><a href="service.html?c=crea">Creative &amp; content</a></li><li><a href="service.html?c=web">Web development</a></li><li><a href="services.html">Service finder</a></li></ul></nav>
+  <nav aria-label="Company"><b>Company</b><ul><li><a href="case-study.html">Work</a></li><li><a href="about.html">About</a></li><li><a href="about-story.html">Our story</a></li><li><a href="team.html">Team</a></li></ul></nav>
+  <div><b>Talk</b><ul><li><a href="#connect">Book a free audit</a></li><li><a href="tel:+60197707927">+6019-770 7927</a></li><li><a href="mailto:hello@battlemind.my">hello@battlemind.my</a></li>
+    <li><a class="addr" href="https://www.google.com/maps/search/?api=1&amp;query=No.%207-2%2C%20Jalan%202%2F137B%2C%20Resource%20Industrial%20Centre%2C%2058200%20Kuala%20Lumpur" target="_blank" rel="noopener">No. 7-2, Jalan 2/137B, Resource Industrial Centre, Off Jalan Kelang Lama, 58200 Kuala Lumpur</a></li></ul></div></div>
+  <div class="fbot"><span>© 2026 Battle Mind Creative Sdn. Bhd. (1379718-A) · BattleX Sdn. Bhd. (1666567-U)</span><a class="top" href="#s1">Back to top <i aria-hidden="true">↑</i></a></div><div class="big" aria-hidden="true">BATTLE</div></div></footer>
+<div class="note">v9 · v8 after Sue's round-1 notes (22 Oct): platform cube, stats ribbon, impact cards, modern cut, accordion armour, dark data, case layouts A to D (switch by the heading), team gallery, scroll-through weapons, red closing section. Desktop first: not yet optimised for mobile.</div>
+
+<script>
+const { logos, bridge, layers, cases, reviews, nm, R } = LK;
+const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+addEventListener("scroll", () => nav.classList.toggle("sc", scrollY > 40), { passive: true });
+// ---- hero layout: the photo, the cube and its hit area are placed from landmarks measured on the photo ----
+const HERO = (() => {
+  const hero = document.getElementById("s1"), hst = document.getElementById("hst"), copy = document.getElementById("copy");
+  // landmarks on v8_ian (fractions of 1536 x 1024): the cube's column (over his palm, a touch toward the thumb), the top of
+  // the palm, the palm centre, the FACE box (hair edge to hair edge, hair top to chin: the cube never enters it), hair top,
+  // fingertips, and the right edge that stays on screen. He reaches toward you and to his side (v7's angle, his hand moved left), so the cube floats beside his face.
+  // Render j (21 Oct): his head tipped down and turned into the cube (render i looked past it); arm and palm unchanged (IoU
+  // 0.97). The hair on the cube side reaches 0.598 near the top of his head, where the cube's outline already slants in (the
+  // presented cube is at full width only below 0.2 of its height from the top), so the box takes 0.600; the cube's column
+  // moves left to 0.425 to keep its size. Chin 0.31. Only the hand is sharp: a heavy bokeh (disk radius 13) on the rest.
+  const L = { w: 1536, h: 1024, cx: 0.425, palmTop: 0.605, palm: [0.49, 0.67], face: [0.600, 0.062, 0.737, 0.312], hair: 0.065, tips: 0.8, faceR: 0.75 };   // v8_ian3 (render j)
+  const M = 0.05;       // air between the cube and his face, as a share of the cube (covers its drift toward the cursor, 2.4%)
+  const MM = 0.12;      // phones: more air, so a turning cube (up to ~8% wider part-way) rarely has to glide, and never off the left edge
+  const o = { box: null, L, M }, set = (el, v) => Object.entries(v).forEach(([k, x]) => el.style.setProperty(k, x));
+  // v9 (Sue, 22 Oct: the cube and the result card together were too much): the card is gone, so the layout is the biggest
+  // cube that stays clear of his face, the copy and the nav, with his face and hand on screen (and above the stats ribbon).
+  // Bigger photos give a bigger gap between hand and face but cost sharpness, so the smallest photo within 2% of the best
+  // cube is used, never trading 30% of the width away for it.
+  function solve(W, H, mob) {
+    const F = L.face, cr = mob ? 0 : copy.getBoundingClientRect().right - hero.getBoundingClientRect().left, out = [];
+    const navB = mob ? 6 : 84, edge = mob ? 6 : 12, gapL = mob ? 8 : cr + 28, base = mob ? H / (L.tips - L.hair + 0.03) : H;
+    for (let z = mob ? 0.7 : 0.92; z <= (mob ? 1.6001 : 1.3001); z += 0.01) {
+      const ph = base * z, pw = (ph * L.w) / L.h;
+      const ptLo = 4 - L.hair * ph, ptHi = H - (mob ? 6 : 56) - L.tips * ph; if (ptLo > ptHi) break;
+      const pt = Math.max(ptLo, Math.min(ptHi, H - (mob ? 6 : 76) - L.tips * ph));
+      const bottom = pt + L.palmTop * ph - (mob ? 6 : 0.012 * H);
+      let S = Math.min(((F[0] - L.cx) * pw - (mob ? 6 : 10)) / (0.5 + (mob ? MM : M)), bottom - navB, (mob ? 0.8 : 0.36) * W);
+      const plHi = W - edge - L.faceR * pw; let plLo = gapL + S / 2 - L.cx * pw;
+      if (plLo > plHi) { S -= 2 * (plLo - plHi); plLo = plHi; }
+      if (S > 40) out.push({ z, ph, pw, pt, S, pl: plHi - (plHi - plLo) * 0.4, bottom });
+    }
+    const top = Math.max(...out.map((c) => c.S)), need = top >= 0.3 * W ? Math.max(0.3 * W, top * 0.98) : top * 0.98;
+    return out.find((c) => c.S >= need - 0.01);
+  }
+  function run() {
+    const W = hst.clientWidth, H = hst.clientHeight; if (!W || !H) return;
+    const mob = innerWidth <= 860, c = solve(W, H, mob); if (!c) return;
+    const { ph, pw, pt, pl, S } = c, X = pl + L.cx * pw, Y = c.bottom - S * 0.535;   // the 3/4 view hangs 3.5% below its centre
+    const face = { x0: pl + L.face[0] * pw, y0: pt + L.face[1] * ph, x1: pl + L.face[2] * pw, y1: pt + L.face[3] * ph };
+    set(hst, { "--pl": pl + "px", "--pt": pt + "px", "--pw": pw + "px", "--ph": ph + "px", "--gx": pl + L.palm[0] * pw + "px", "--gy": pt + L.palm[1] * ph + "px", "--gs": 0.24 * pw + "px", "--cx": X + "px", "--cy": Y + "px", "--cs": S + "px", "--tf": pt > 0 ? "12%" : "4%" });
+    o.box = { x: X, y: Y, size: S, W, H, face, z: c.z }; hero.dispatchEvent(new CustomEvent("herolayout"));
+  }
+  o.run = run;
+  new ResizeObserver(run).observe(hst); if (document.fonts) document.fonts.ready.then(run); run();
+  return o;
+})();
+// ---- hero motion: the cube's light comes on as it lands; cursor parallax; scroll bursts the cube ----
+// v8, 21 Oct (David): only the hand is ever sharp, a heavy bokeh on everything else, at load and while scrolling (the old
+// focus pulls to a sharp copy of the photo are gone)
+const HX = (window.HX = { ex: 0, lf: 0, glow: 1 }), cgl = document.querySelector(".cglow");
+// the cube's glow: on once it has landed (HX.glow), gone as it bursts apart on scroll (desktop pin and phone scroll alike)
+const heroFocus = (window.heroFocus = () => { cgl.style.opacity = (HX.glow * Math.max(0, 1 - HX.ex * 1.6)).toFixed(3); });
+heroFocus();
+if (!R) {
+  document.fonts.ready.then(() => { const st = SplitText.create("#h1", { type: "lines", mask: "lines", linesClass: "ln" });
+    gsap.from(st.lines, { yPercent: 110, duration: 1.1, ease: "power4.out", stagger: 0.09, delay: 0.15 }); });
+  gsap.from(["#copy .eyebrow", "#copy .lead"], { y: 26, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.08, delay: 0.45 });
+  gsap.from("#rib", { yPercent: 160, duration: 1.1, ease: "power4.out", delay: 0.9 });
+  gsap.from("#phw", { opacity: 0, duration: 1.6, ease: "power2.out" });
+  // the photo drifts against the pointer and the cube (its own canvas) moves with it, so they separate in depth
+  if (fine) { const px = gsap.quickTo("#phw", "x", { duration: 1.2, ease: "power3" }), py = gsap.quickTo("#phw", "y", { duration: 1.2, ease: "power3" });
+    document.getElementById("s1").addEventListener("pointermove", (e) => { const kx = e.clientX / innerWidth - 0.5, ky = e.clientY / innerHeight - 0.5; px(-kx * 22); py(-ky * 12); }); }
+  // scroll: the cube lifts off the palm and bursts into its 26 pieces, Ian stays soft behind it (pinned on laptops).
+  // matchMedia rebuilds this when the window crosses the phone breakpoint, so a resized window never keeps the wrong one
+  const upd = () => { const c = window.__c7; if (c) { c.explode = HX.ex; c.lift = HX.lf; } heroFocus(); };
+  gsap.matchMedia().add({ desk: "(min-width: 861px)", mob: "(max-width: 860px)" }, (ctx) => {
+    if (ctx.conditions.desk) gsap.timeline({ onUpdate: upd, scrollTrigger: { trigger: "#s1", start: "top top", end: "+=85%", pin: true, scrub: 0.7, anticipatePin: 1 } })
+      .to(HX, { lf: 1, duration: 0.6, ease: "power1.inOut" }, 0).to(HX, { ex: 1, duration: 0.8, ease: "power2.in" }, 0.2)
+      .to("#phw", { scale: 1.12, duration: 1, ease: "none" }, 0).to("#copy", { y: -60, opacity: 0, duration: 0.4, ease: "power1.in" }, 0.05)
+      .to(".pglow", { opacity: 0, duration: 0.2 }, 0);
+    else gsap.timeline({ onUpdate: upd, scrollTrigger: { trigger: "#s1", start: "top top", end: "bottom top", scrub: 0.5 } })
+      .to(HX, { lf: 1, duration: 0.5 }, 0).to(HX, { ex: 0.85, duration: 0.8, ease: "power2.in" }, 0.15);
+    return () => { HX.ex = HX.lf = 0; upd(); };
+  });
+}
+{ const tr = document.getElementById("trk2"), rb = document.getElementById("rib");
+  if (!R) { const loop = gsap.to(tr, { xPercent: -50, duration: 38, ease: "none", repeat: -1 });
+    let boost = gsap.to({}, {}); const kick = (v) => { boost.kill(); loop.timeScale(1 + Math.min(5, Math.abs(v) / 400)); boost = gsap.to(loop, { timeScale: 1, duration: 1.4, ease: "power2.out" }); };
+    ScrollTrigger.create({ trigger: "#s1", start: "top top", end: "bottom top", onUpdate: (st) => kick(st.getVelocity()) });
+    rb.addEventListener("pointerenter", () => gsap.to(loop, { timeScale: 0, duration: 0.6 })); rb.addEventListener("pointerleave", () => gsap.to(loop, { timeScale: 1, duration: 0.6 })); } }
+if (!R) { const ks = gsap.utils.toArray("#kpi .kp");
+  gsap.from(ks, { y: 70, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.1, scrollTrigger: { trigger: "#kpi", start: "top 80%", once: true } });
+  ks.forEach((k, i) => { const v = k.querySelector("[data-to]"), o = { n: 0 }, to = +v.dataset.to; v.textContent = "0";
+    gsap.to(o, { n: to, duration: 1.6, delay: 0.15 + i * 0.1, ease: "power3.out", onUpdate: () => (v.textContent = Math.round(o.n)), scrollTrigger: { trigger: "#kpi", start: "top 80%", once: true } }); }); }
+// the cube's pieces fall in from the burst above and settle at the top of 02; then they bob
+if (!R) document.querySelectorAll("#deb img").forEach((im, i) => { const r = +im.dataset.r;
+  gsap.fromTo(im, { y: () => -innerHeight * (0.55 + (i % 3) * 0.12), rotation: r * 5, scale: 1.35, opacity: 0 }, { y: 0, rotation: r, scale: 1, opacity: 1, ease: "power2.out",
+    scrollTrigger: { trigger: "#s2", start: "top bottom", end: "top 35%", scrub: 0.6 } });
+  gsap.to(im, { yPercent: -9, duration: 2.4 + (i % 3) * 0.5, ease: "sine.inOut", yoyo: true, repeat: -1, delay: i * 0.3 }); });
+else document.querySelectorAll("#deb img").forEach((im) => (im.style.rotate = im.dataset.r + "deg"));
+ember.innerHTML = logos.map((l) => `<div class="t"><img src="assets/logos-mono/${l}.webp" alt="${nm(l)}" loading="lazy"></div>`).join("");
+acc.innerHTML = layers.map(([t, p, sv], i) => `<div class="ai" role="listitem" data-k="${i}"><button class="ah" type="button" aria-expanded="false"><span class="an">0${i + 1}</span><h3>${t}</h3></button><div class="ab"><div class="abi"><small>Layer 0${i + 1} · ${["Foundation", "Paid traffic", "Creative", "Authority"][i]}</small><p>${p}</p><span class="sv">${sv}</span></div></div></div>`).join("");
+// ---- data made digestible: a noisy export, a scan finds three things, the noise dissolves, the findings wire to the plan ----
+{ const H = ["Week", "Channel", "Sessions", "Bounce", "CPC", "CTR", "Leads", "CPL"], rows = [
+    // paid rows add up: sessions x CPC / leads = CPL
+    ["W1", "Google", "868", "44%", "1.85", "4.1%", "51", "RM31"], ["W1", "Facebook", "4,342", "71%", "0.42", "0.9%", "38", "RM48"], ["W1", "Instagram", "2,652", "74%", "0.51", "1.1%", "26", "RM52"],
+    ["W1", "TikTok", "3,658", "79%", "0.31", "1.0%", "21", "RM54"], ["W1", "Shopify", "2,140", "38%", "-", "-", "22", "-"], ["W1", "Organic", "5,882", "68%", "-", "-", "9", "-"],
+    ["W2", "Google", "907", "43%", "1.88", "4.2%", "57", "RM30"], ["W2", "Facebook", "4,156", "72%", "0.47", "0.9%", "31", "RM63"], ["W2", "Instagram", "2,581", "73%", "0.53", "1.0%", "24", "RM57"],
+    ["W2", "TikTok", "3,349", "81%", "0.33", "0.8%", "18", "RM61"], ["W2", "Shopify", "2,286", "36%", "-", "-", "25", "-"], ["W2", "Organic", "6,104", "66%", "-", "-", "11", "-"]];
+  const HL = { "2,3": 1, "6,7": 2, "9,5": 3 }, XM = [4], NOTE = { 1: "74% of paid visitors bounce", 2: "Google RM30 vs Facebook RM63", 3: "0.8% CTR: ads don't stop the scroll" }, LEFT = { 2: 1 };
+  const LOGO = { Google: "google_g", Facebook: "facebook", Instagram: "instagram", TikTok: "tiktok", Shopify: "shopify_bag", Organic: "organic" };
+  tab.innerHTML = `<tr>${H.map((h, i) => `<th${XM.includes(i) ? ' class="xm"' : ""}>${h}</th>`).join("")}</tr>` + rows.map((r, y) => `<tr>${r.map((c, x) => { const n = HL[y + "," + x];
+    return `<td data-r="${y}" class="${n ? "hl " : ""}${XM.includes(x) ? "xm" : ""}"${n ? ` data-n="${n}"` : ""}>${n ? `<span>${c}<sup>${n}</sup><em class="nt2${LEFT[n] ? " l" : ""}">${NOTE[n]}</em></span>` : x === 1 ? `<img class="chl" src="assets/brand3p/${LOGO[c]}.svg" alt="" width="14" height="14">${c}` : c}</td>`; }).join("")}</tr>`).join("");
+  const stage = document.getElementById("dstage"), svg = document.getElementById("dlinks"), cards = [...plan.querySelectorAll(".s")];
+  const finds = [1, 2, 3].map((n) => tab.querySelector(`td[data-n="${n}"]`)), noise = [...tab.querySelectorAll("td:not(.hl)")];
+  const NR = rows.length, findRow = finds.map((f) => +f.dataset.r);
+  // light a finding, its line and its move together
+  const lit = (n) => { cards.forEach((c, i) => c.classList.toggle("lit", i + 1 === n)); finds.forEach((f, i) => f.classList.toggle("lit", i + 1 === n));
+    svg.querySelectorAll("path").forEach((p, i) => p.classList.toggle("lit", i + 1 === n)); stage.classList.toggle("lt", !!n); };
+  cards.forEach((c, i) => { c.addEventListener("pointerenter", () => lit(i + 1)); c.addEventListener("pointerleave", () => lit(0)); });
+  finds.forEach((f, i) => { f.addEventListener("pointerenter", () => lit(i + 1)); f.addEventListener("pointerleave", () => lit(0)); });
+  // the wires: from each finding's note to its move, measured once the sheet has settled
+  let wired = false;
+  const wire = () => { const sb = stage.getBoundingClientRect(), pl = plan.getBoundingClientRect().left; svg.setAttribute("viewBox", `0 0 ${sb.width} ${sb.height}`);
+    // a right-hand note that would run into the moves column sits left of its number instead (narrow desktops)
+    finds.forEach((f, i) => { if (LEFT[i + 1]) return; const nt = f.querySelector(".nt2"); nt.classList.remove("l"); nt.classList.toggle("l", nt.getBoundingClientRect().right > pl - 40); });
+    svg.innerHTML = finds.map((f, i) => { const a = (f.querySelector(".nt2").classList.contains("l") ? f.querySelector("span") : f.querySelector(".nt2")).getBoundingClientRect(), b = cards[i].getBoundingClientRect();
+      const x1 = a.right - sb.left + 8, y1 = a.top + a.height / 2 - sb.top, x2 = b.left - sb.left - 10, y2 = b.top + b.height / 2 - sb.top, dx = Math.max(40, (x2 - x1) * 0.5);
+      return `<path pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" d="M${x1} ${y1} C${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}"/><circle cx="${x2}" cy="${y2}" r="3.5" opacity="0"/>`; }).join("");
+    wired = true; };
+  // noise: until the scan reaches a row, its numbers keep flickering. Only cells with digits are ever rewritten
+  // (a channel cell holds its logo, and writing its text would wipe the logo)
+  let scanF = 0, flick = 0;
+  const orig = new Map(noise.filter((td) => /\d/.test(td.textContent)).map((td) => [td, td.textContent]));
+  const restore = () => orig.forEach((t, td) => (td.textContent = t));
+  const jitter = (t) => t.replace(/\d/g, () => Math.floor(Math.random() * 10));
+  const flicker = () => { noise.forEach((td) => { const below = (+td.dataset.r + 1) / NR > scanF; td.classList.toggle("fz", below);
+      if (!orig.has(td)) return;
+      if (below && Math.random() < 0.35) td.textContent = jitter(orig.get(td)); else if (!below && td.textContent !== orig.get(td)) td.textContent = orig.get(td); }); };
+  const hits = (f) => finds.forEach((td, i) => td.classList.toggle("hit", f >= (findRow[i] + 1) / NR));
+  if (R) { hits(1); noise.forEach((td) => td.classList.remove("fz")); cards.forEach((c) => (c.style.opacity = 1)); }
+  else gsap.matchMedia().add({ desk: "(min-width: 961px)", mob: "(max-width: 960px)" }, (ctx) => {
+    if (ctx.conditions.desk) {
+      const pathsOf = () => svg.querySelectorAll("path"), dotsOf = () => svg.querySelectorAll("circle");
+      const tl = gsap.timeline({ scrollTrigger: { trigger: "#data", start: "top top", end: "+=190%", pin: "#dpin", scrub: 0.6, invalidateOnRefresh: true,
+          onRefresh: () => { wired = false; }, onToggle: (s) => { clearInterval(flick); if (s.isActive) flick = setInterval(flicker, 110); else { restore(); noise.forEach((td) => td.classList.toggle("fz", s.progress < 0.5)); } },
+        },
+        // everything below follows the RENDERED timeline (scrub smoothing lags the scroll), so the scan, the lit findings and the
+        // wires always match what is on screen; the wires are measured once the sheet has settled (after its entry)
+        onUpdate: function () { const p = this.progress(); scanF = Math.min(1, Math.max(0, (p - 0.08) / 0.32)); hits(scanF); if (!wired && p > 0.2) wire();
+          const lp = Math.min(1, Math.max(0, (p - 0.6) / 0.24)); pathsOf().forEach((pt, i) => { const v = Math.min(1, Math.max(0, lp * 3 - i * 0.9)); pt.setAttribute("stroke-dashoffset", (1 - v).toFixed(3)); dotsOf()[i].setAttribute("opacity", v > 0.98 ? 1 : 0); }); } })
+        .from("#sheet", { y: 90, rotationX: 24, opacity: 0, duration: 0.1, ease: "power2.out", transformPerspective: 1200 }, 0)
+        .fromTo("#scan", { top: "-14%" }, { top: "100%", duration: 0.32, ease: "none" }, 0.08)
+        .to(noise, { opacity: 0.08, filter: "blur(1.6px)", duration: 0.12, stagger: { each: 0.0012, from: "random" } }, 0.42)
+        .to("#sheet th, #sheet .top", { opacity: 0.18, duration: 0.1 }, 0.42).to("#scan", { opacity: 0, duration: 0.05 }, 0.42)
+        .fromTo("#sheet .nt2", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.08, stagger: 0.04 }, 0.5)
+        .fromTo(cards, { x: 70, opacity: 0 }, { x: 0, opacity: 1, duration: 0.12, stagger: 0.075, ease: "power3.out" }, 0.62)
+        .fromTo("#dend", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.08 }, 0.9).to({}, { duration: 0.001 }, 1);
+      return () => { clearInterval(flick); restore(); noise.forEach((td) => td.classList.remove("fz")); };
+    }
+    // phones: no pin; the export slides in, the scan lights the findings, the moves follow (each says which finding it answers)
+    noise.forEach((td) => td.classList.remove("fz"));
+    gsap.timeline({ scrollTrigger: { trigger: "#data .dstage", start: "top 75%" } })
+      .fromTo("#sheet", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" })
+      .fromTo("#scan", { top: "-14%" }, { top: "100%", duration: 1, ease: "power1.inOut", onUpdate: function () { hits(this.progress()); } }, "-=0.2")
+      .to("#scan", { opacity: 0, duration: 0.2 })
+      .fromTo(cards, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, stagger: 0.12, ease: "power3.out" }, "-=0.3");
+  }); }
+// team: real cut-outs, names on hover
+{ const NM = ["Matthew", "Ian", "Ben"];
+  ocrow.innerHTML = Array.from({ length: 7 }, (_, i) => `<div class="ocol" tabindex="0" role="button" aria-label="${NM[i] || "Battle Guardian"}"><img class="walk" src="assets/img/rc${i + 1}_g.webp" alt="" style="--h:${88 - i * 6}%"><img class="pose" src="assets/img/rc${i + 1}p_g.webp" alt="" style="--h:${84 - i * 2}%">${NM[i] ? `<b class="ocn">${NM[i]}</b>` : ""}</div>`).join("");
+  const cs = [...ocrow.children], on = (c) => { cs.forEach((x) => x.classList.toggle("on", x === c)); ocrow.classList.toggle("act", !!c); };
+  cs.forEach((c) => { c.addEventListener("pointerenter", (e) => e.pointerType === "mouse" && on(c)); c.addEventListener("focus", () => on(c)); c.addEventListener("click", () => on(c.classList.contains("on") ? null : c)); });
+  ocrow.addEventListener("pointerleave", (e) => e.pointerType === "mouse" && on(null));
+  const fit = () => cs.forEach((c) => { const w = c.querySelector(".walk"); if (!w.naturalWidth) return; const iw = w.getBoundingClientRect().height * (w.naturalWidth / w.naturalHeight); w.style.right = "auto"; w.style.left = Math.round(c.clientWidth * 0.62 - iw * 0.58) + "px"; });
+  cs.forEach((c) => c.querySelector(".walk").addEventListener("load", fit)); addEventListener("resize", fit); fit();
+  if (!R) gsap.from("#ocrow .ocol", { yPercent: 18, opacity: 0, duration: 1.1, stagger: 0.09, ease: "power3.out", scrollTrigger: { trigger: "#oc", start: "top 65%" } }); }
+// ---- 07 cases: a cover-flow arc. Real figures from the deck (slides 20-26) and the one client quote we hold (Write-Edge);
+// the other clients' quotes are still to come from Battle, and the cards say so ----
+const CS = [
+    { k: "yakisoul", logo: "v9_logo_yakisoul", name: "Yaki Soul", n: "RM1.8M+", l: "single-outlet monthly ROI, up from RM300K", short: "monthly ROI", fp: "50% 30%", say: "Seasonal campaigns turned an izakaya off the main street into a KL destination.", tag: "F&B", x: "7,000+ customers a month" },
+    { k: "writeedge", logo: "v9_logo_writeedge", name: "Write-Edge", pre: "Almost", n: "4×", l: "growth in under two years", alt: "Poi Ching of Write-Edge with the Battle team", short: "growth", fp: "48% 30%", q: "Targeting the right audience helped us scale almost 4-fold in less than two years.", who: "Poi Ching, General Manager, Write-Edge", tag: "Client review", x: "" },
+    { k: "bhpetrol", logo: "v9_logo_bhppetrol", name: "BHPetrol", n: "7M+", l: "organic reach, nationwide", short: "organic reach", fp: "53% 30%", say: "Creative partner for Malaysia's RON95 subsidy rollout: an early educator in a crowded feed.", tag: "Energy", x: "Campaign videos · KV" },
+    { k: "easyeurope", logo: "v9_logo_easyeurope", name: "Easy Europe", n: "700+", l: "leads a week, under RM15 each", short: "leads a week", fp: "54% 30%", say: "Travel revival: from the pandemic to RM3.8M+ peak monthly revenue.", tag: "Travel", x: "65% lower cost per result" },
+    { k: "careconcierge", logo: "", name: "Care Concierge", n: "23%", l: "more monthly sales", short: "more sales", fp: "46% 45%", say: "Senior care beyond Google search: Meta retargeting and a multi-state expansion.", tag: "Senior care", x: "37% lower cost per acquisition" },
+    { k: "furniture", logo: "v9_logo_luxeliving", dark: 1, name: "Luxe Living", n: "22×", l: "ROAS, against an industry 8 to 12", short: "ROAS", fp: "50% 62%", say: "Year-round seasonal campaigns, from Shopee and Lazada to Meta.", tag: "Furniture", x: "2-3× revenue growth" },
+    { k: "lalaport", logo: "", name: "LaLaport BBCC", n: "3×", l: "more vendor inclusions", short: "vendor inclusions", fp: "49% 55%", say: "One Japanese narrative for a mall of monthly events.", tag: "Retail mall", x: "Social media retainer" }];
+{   const N = CS.length, cf = document.getElementById("cf"), track = document.getElementById("cft"), cfn = document.getElementById("cfn");
+  track.innerHTML = CS.map((c, i) => `<article class="cc2" data-i="${i}" aria-label="${c.name}: ${c.pre ? c.pre + " " : ""}${c.n} ${c.l}">
+    <div class="ph"><img src="assets/img/v9_case_${c.k}.webp" alt="${c.alt || c.name + ': our work'}" loading="lazy" draggable="false"><span class="lg${c.dark ? " dk" : ""}">${c.logo ? `<img src="assets/img/${c.logo}.webp" alt="${c.name}">` : `<b>${c.name}</b>`}</span></div>
+    <div class="bd"><div class="k2"><b>${c.pre ? `<small>${c.pre}</small>` : ""}${c.n}</b><span>${c.l}</span></div>
+      ${c.q ? `<blockquote>${c.q}<cite>${c.who}</cite></blockquote>` : `<p class="qp">${c.say}<br><small>Client quote to come</small></p>`}
+      <div class="ft"><span>${c.tag}</span><em>${c.x}</em></div></div></article>`).join("");
+  const cards = [...track.children]; let f = 0, auto = null, hover = false, seen = false, drag = null;
+  const wrap = (d) => ((d % N) + N + N / 2) % N - N / 2;           // shortest signed distance on the loop
+  const lay = () => { const w = cards[0].offsetWidth, sp = Math.min(w * 0.74, innerWidth * 0.2 + 40);
+    cards.forEach((c, i) => { const d = wrap(i - f), a = Math.abs(d);
+      c.style.transform = `translateX(${d * sp}px) translateZ(${-a * 170}px) rotateY(${Math.max(-50, Math.min(50, -d * 24))}deg) scale(${1 - Math.min(a, 3) * 0.04})`;
+      c.style.zIndex = String(100 - Math.round(a * 10)); c.style.opacity = a > 2.6 ? Math.max(0, 1 - (a - 2.6) * 1.6).toFixed(3) : "1"; c.style.setProperty("--dim", Math.min(0.55, a * 0.2).toFixed(3)); });
+    const k = ((Math.round(f) % N) + N) % N; cfn.textContent = `${String(k + 1).padStart(2, "0")} / ${String(N).padStart(2, "0")}`; };
+  const to = (t, d = 0.9) => gsap.to({ v: f }, { v: t, duration: R ? 0 : d, ease: "power3.out", onUpdate: function () { f = this.targets()[0].v; lay(); } });
+  let tw = null; const go = (t) => { if (tw) tw.kill(); tw = to(t); };
+  const tick = () => { if (!hover && seen && !drag) go(Math.round(f) + 1); };
+  document.getElementById("cfx").addEventListener("click", () => go(Math.round(f) + 1)); document.getElementById("cfp").addEventListener("click", () => go(Math.round(f) - 1));
+  cf.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") go(Math.round(f) + 1); if (e.key === "ArrowLeft") go(Math.round(f) - 1); });
+  cards.forEach((c, i) => c.addEventListener("click", () => { if (drag && drag.moved) return; const d = wrap(i - f); if (Math.abs(d) > 0.5) go(Math.round(f + d)); }));
+  cf.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") hover = true; }); cf.addEventListener("pointerleave", () => { hover = false; });
+  cf.addEventListener("pointerdown", (e) => { if (e.target.closest("button")) return; if (tw) tw.kill(); drag = { x: e.clientX, f0: f, moved: false }; cf.setPointerCapture(e.pointerId); });
+  cf.addEventListener("pointermove", (e) => { if (!drag) return; const dx = e.clientX - drag.x; if (Math.abs(dx) > 4) drag.moved = true; f = drag.f0 - dx / (cards[0].offsetWidth * 0.8); lay(); });
+  const up = () => { if (!drag) return; const m = drag.moved; go(Math.round(f)); setTimeout(() => { drag = null; }, m ? 50 : 0); };
+  cf.addEventListener("pointerup", up); cf.addEventListener("pointercancel", up);
+  addEventListener("resize", lay); lay(); cf.lay = lay;
+  // the arc fans out as it arrives, then moves on every 4.5 s while it is on screen
+  new IntersectionObserver((es) => { const on = es[es.length - 1].isIntersecting; if (on && !seen) { seen = true; if (!R) { const f0 = f; f = f0 - 2.5; lay(); go(f0); } }
+    clearInterval(auto); if (on && !R) auto = setInterval(tick, 4500); }, { threshold: 0.35 }).observe(cf); }
+// ---- 07 cases, layouts B, C and D (A is the arc above). Same cases, same numbers; text-free cuts of the slide backgrounds
+// (v9c_*, 6:5) placed by each photo's focal point (fp). One progress line per option runs while it is on screen and nobody
+// is pointing at it (or dragging, or moving through it with the keyboard); when it ends, the next case ----
+const NUMP = (s) => { const m = /^([^\d]*)([\d.,]+)(.*)$/.exec(s); return m && { a: m[1], v: +m[2].replace(/,/g, ""), d: (m[2].split(".")[1] || "").length, b: m[3] }; };
+const countUp = (el, s) => { if (el._tw) el._tw.kill(); const p = NUMP(s); if (!p || R) { el.textContent = s; return; }
+  const o = { v: 0 }; el._tw = gsap.to(o, { v: p.v, duration: 1.1, ease: "power3.out", onUpdate: () => (el.textContent = p.a + o.v.toFixed(p.d) + p.b), onComplete: () => (el.textContent = s) }); };
+const pad2 = (i) => String(i).padStart(2, "0");
+const C_LOGO = (c) => (c.logo ? `<span class="clg${c.dark ? " dk" : ""}"><img src="assets/img/${c.logo}.webp" alt="${c.name}"></span>` : "");
+const C_NUM = (c) => `${c.pre ? `<small>${c.pre}</small>` : ""}<span class="v">${c.n}</span>`;
+const C_SAY = (c) => (c.q ? `<blockquote>${c.q}<cite>${c.who}</cite></blockquote>` : c.say);
+const C_META = (c, tag) => `${tag ? `<span>${c.tag}</span>` : ""}${c.x ? `<em>${c.x}</em>` : ""}${c.q ? "" : `<span class="tc">Client quote to come</span>`}`;
+const caseRun = (root, first, vis, hov = root) => { let seen = false;   // .run while on screen; .hold while pointed at (the cards, not the margins), dragged or keyed through
+  new IntersectionObserver((es) => { const on = es[es.length - 1].isIntersecting; root.classList.toggle("run", on && !R); if (vis) vis(on);
+    if (on && !seen) { seen = true; if (first) first(); } }, { threshold: 0.3 }).observe(root);
+  hov.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") root.classList.add("hold"); });
+  hov.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") root.classList.remove("hold"); });
+  root.addEventListener("focusin", (e) => { if (e.target.matches(":focus-visible")) root.classList.add("hold"); });
+  root.addEventListener("focusout", (e) => { if (!root.contains(e.relatedTarget)) root.classList.remove("hold"); }); };
+const CASE_UI = {
+  // B · Curve (THEO): cards on the inside of a cylinder (radius 4.2 cards, eye 3.9 cards back), the client's name set large below
+  b() { const root = document.getElementById("cvB"), st = root.querySelector(".cbs"), tr = root.querySelector(".cbt"), N = CS.length, $ = (k) => root.querySelector(`[data-k="${k}"]`);
+    tr.innerHTML = CS.map((c, i) => `<figure class="cbc" data-i="${i}"><img src="assets/img/v9c_${c.k}.webp" alt="${c.alt || c.name + ": our work"}" style="object-position:${c.fp}" draggable="false"><i class="pg" aria-hidden="true"></i></figure>`).join("");
+    const cards = [...tr.children], h3 = root.querySelector(".cbname"), nm = $("name"); let f = 0, k = -1, tw = null, drag = null, quiet = false;
+    const wrap = (d) => ((d % N) + N + N / 2) % N - N / 2;
+    const fit = () => { h3.style.fontSize = ""; const base = parseFloat(getComputedStyle(h3).fontSize), w = nm.offsetWidth, cw = h3.clientWidth; if (cw && w > cw) h3.style.fontSize = ((base * cw) / w * 0.98).toFixed(1) + "px"; };
+    const show = (c, i) => { $("logo").innerHTML = C_LOGO(c) + `<span>${pad2(i + 1)} · ${c.tag}</span>`; nm.textContent = c.name; fit();
+      $("num").innerHTML = C_NUM(c); countUp($("num").querySelector(".v"), c.n); $("lab").textContent = c.l; $("say").innerHTML = C_SAY(c); $("meta").innerHTML = C_META(c); $("count").textContent = `${pad2(i + 1)} / ${pad2(N)}`;
+      if (!R) { gsap.fromTo(nm, { yPercent: 105 }, { yPercent: 0, duration: 0.85, ease: "expo.out" }); gsap.fromTo([$("lab"), $("say"), $("meta")], { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.06, ease: "power3.out" }); } };
+    const lay = () => { const w = cards[0].offsetWidth; if (!w) return; const rr = 4.2 * w, dt = (1.08 * w) / rr; st.style.perspective = 3.9 * w + "px";
+      cards.forEach((c, i) => { const d = wrap(i - f), a = d * dt;
+        c.style.transform = `translate3d(${(rr * Math.sin(a)).toFixed(1)}px,0,${(rr * (1 - Math.cos(a))).toFixed(1)}px) rotateY(${(-a).toFixed(4)}rad)`;
+        c.style.visibility = Math.abs(d) > 2.9 ? "hidden" : ""; c.style.zIndex = String(100 - Math.round(Math.abs(d) * 10)); });
+      const nk = ((Math.round(f) % N) + N) % N; if (nk !== k) { k = nk; cards.forEach((c, i) => c.classList.toggle("on", i === k)); if (!quiet) show(CS[k], k); } };
+    const go = (t, d = 0.9) => { if (quiet) { quiet = false; show(CS[k], k); } if (tw) tw.kill(); tw = gsap.to({ v: f }, { v: t, duration: R ? 0 : d, ease: "power3.out", onUpdate() { f = this.targets()[0].v; lay(); } }); };
+    root.querySelectorAll("[data-go]").forEach((b) => b.addEventListener("click", () => go(Math.round(f) + +b.dataset.go)));
+    root.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") go(Math.round(f) + 1); if (e.key === "ArrowLeft") go(Math.round(f) - 1); });
+    cards.forEach((c) => c.querySelector(".pg").addEventListener("animationend", () => go(Math.round(f) + 1)));
+    // drag the curve; a press without a drag on a side card brings that card to the front (the capture keeps clicks on the stage)
+    st.addEventListener("pointerdown", (e) => { if (tw) tw.kill(); if (quiet) { quiet = false; show(CS[k], k); } drag = { x: e.clientX, f0: f, moved: false, card: e.target.closest(".cbc") }; st.setPointerCapture(e.pointerId); root.classList.add("hold"); });
+    st.addEventListener("pointermove", (e) => { if (!drag) return; const dx = e.clientX - drag.x; if (Math.abs(dx) > 4) drag.moved = true; f = drag.f0 - dx / (cards[0].offsetWidth * 1.1); lay(); });
+    const up = (e) => { if (!drag) return; const { moved, card } = drag; drag = null; if (e.pointerType !== "mouse") root.classList.remove("hold");
+      if (!moved && card) { const d = wrap(+card.dataset.i - f); go(Math.round(f + d)); } else go(Math.round(f)); };
+    st.addEventListener("pointerup", up); st.addEventListener("pointercancel", up);
+    new ResizeObserver(() => { lay(); fit(); }).observe(root); lay();
+    // on arrival the curve sweeps in from the left; the facts below settle once, on the case it lands on
+    caseRun(root, () => { if (R) return; quiet = true; f = -2.4; lay(); if (tw) tw.kill();
+      tw = gsap.to({ v: f }, { v: 0, duration: 1.6, ease: "power3.out", onUpdate() { f = this.targets()[0].v; lay(); }, onComplete() { quiet = false; show(CS[k], k); } }); }); },
+  // C · Tags (her tagged collage): tilted tiles on a dark board, each result stuck on as a sticker; one lifts at a time
+  c() { const root = document.getElementById("cvC"), area = root.querySelector(".cct"), bar = root.querySelector(".ccx > .pg"), N = CS.length, $ = (k) => root.querySelector(`[data-k="${k}"]`);
+    // tile centre (x, y: % of the board), width (% of its width), aspect, turn; the sticker's anchor on its tile, turn and colour
+    const L = [{ x: 9.5, y: 47, w: 18, ar: 0.8, r: -7, px: 0.5, py: 0.92, pr: -7, s: "r" }, { x: 24, y: 55, w: 18.5, ar: 1, r: 5, px: 0.5, py: -0.03, pr: 5, s: "w" },
+      { x: 38, y: 47, w: 16.5, ar: 0.8, r: -4, px: 0.5, py: 0.94, pr: 6, s: "k" }, { x: 51.5, y: 56, w: 18, ar: 0.85, r: 6, px: 0.5, py: -0.05, pr: -6, s: "r" },
+      { x: 65.5, y: 46, w: 18, ar: 1, r: -6, px: 0.55, py: 0.93, pr: -5, s: "w" }, { x: 79, y: 55, w: 17.5, ar: 1.1, r: 4, px: 0.5, py: -0.02, pr: 7, s: "r" },
+      { x: 91.5, y: 47, w: 15.5, ar: 0.8, r: -5, px: 0.45, py: 0.93, pr: -6, s: "w" }];
+    const LM = [{ x: 22, y: 17, w: 40, ar: 0.95 }, { x: 70, y: 18, w: 42, ar: 1.05 }, { x: 28, y: 46, w: 40, ar: 0.95 }, { x: 74, y: 47, w: 40, ar: 0.95 },
+      { x: 21, y: 77, w: 38, ar: 1 }, { x: 54, y: 82, w: 34, ar: 1.1 }, { x: 84, y: 77, w: 30, ar: 0.85 }].map((m, i) => ({ ...L[i], ...m }));
+    area.innerHTML = CS.map((c, i) => `<div class="ccw"><button type="button" class="cci" data-i="${i}" aria-label="${c.name}: ${c.pre ? c.pre + " " : ""}${c.n} ${c.l}"><img src="assets/img/v9c_${c.k}.webp" alt="" style="object-position:${c.fp}" draggable="false"></button></div>`).join("")
+      + CS.map((c, i) => `<div class="ccq"><span class="ccp ${L[i].s}" data-i="${i}" aria-hidden="true">${c.pre ? c.pre + " " : ""}${c.n} ${c.short}</span></div>`).join("");
+    // GSAP moves the wrappers (arrival, float); the tile and the sticker inside keep their CSS turn and lift
+    const wr = [...area.querySelectorAll(".ccw")], qs = [...area.querySelectorAll(".ccq")], tiles = wr.map((w) => w.firstElementChild), pills = qs.map((q) => q.firstElementChild); let k = -1, bob = [];
+    const place = () => { const W = area.clientWidth, H = area.clientHeight, P = W < 560 ? LM : L; if (!W) return; area.style.setProperty("--fs", (W < 560 ? 11 : W * 0.0144).toFixed(2) + "px");
+      tiles.forEach((t, i) => { const l = P[i], w = (l.w / 100) * W, h = w / l.ar, x = (l.x / 100) * W, y = (l.y / 100) * H;
+        Object.assign(wr[i].style, { left: x + "px", top: y + "px" }); wr[i].style.setProperty("--z", String(1 + (i % 2))); Object.assign(t.style, { width: w + "px", height: h + "px" }); t.style.setProperty("--r", l.r + "deg");
+        const pw = pills[i].offsetWidth / 2 + 6, px = Math.min(W - pw, Math.max(pw, x + (l.px - 0.5) * w));   // a sticker never runs off the board
+        Object.assign(qs[i].style, { left: px + "px", top: y + (l.py - 0.5) * h + "px" }); pills[i].style.setProperty("--r", l.pr + "deg"); }); };
+    const show = (c) => { $("logo").innerHTML = C_LOGO(c); $("name").textContent = c.name; $("num").innerHTML = C_NUM(c); countUp($("num").querySelector(".v"), c.n);
+      $("lab").textContent = c.l; $("say").innerHTML = C_SAY(c); $("meta").innerHTML = C_META(c, true);
+      if (!R) gsap.fromTo([$("name"), $("lab"), $("say"), $("meta")], { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, ease: "power3.out" }); };
+    const pick = (i) => { if (i === k) return; k = i; area.classList.add("act"); tiles.forEach((t, j) => { t.classList.toggle("on", j === i); wr[j].classList.toggle("on", j === i); }); pills.forEach((p, j) => p.classList.toggle("on", j === i));
+      show(CS[i]); bar.classList.remove("go"); void bar.offsetWidth; bar.classList.add("go"); };
+    tiles.forEach((t, i) => { t.addEventListener("click", () => pick(i)); t.addEventListener("focus", () => pick(i)); t.addEventListener("pointerenter", (e) => e.pointerType === "mouse" && pick(i)); });
+    root.addEventListener("keydown", (e) => { const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (d) { e.preventDefault(); tiles[(k + d + N) % N].focus(); } });
+    bar.addEventListener("animationend", () => pick((k + 1) % N));
+    new ResizeObserver(place).observe(area); place(); pick(0);
+    caseRun(root, () => { if (R) return;
+      gsap.from(wr, { y: 150, opacity: 0, duration: 1.1, ease: "expo.out", stagger: 0.07 });
+      gsap.from(qs, { scale: 2.3, opacity: 0, duration: 0.75, ease: "back.out(2.4)", stagger: 0.07, delay: 0.6 });
+      bob = wr.map((w, i) => gsap.to([w, qs[i]], { y: i % 2 ? 7 : -7, duration: 2.6 + (i % 3) * 0.4, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 1.8 + i * 0.12 })); },
+      (on) => bob.forEach((b) => (on ? b.resume() : b.pause())), root.querySelector(".ccb")); },
+  // D · Panels (her slide 18 photo style): slices graded red and black; one opens to full colour with its result beside it
+  d() { const root = document.getElementById("cvD"), row = root.querySelector(".cdr"), N = CS.length;
+    row.innerHTML = CS.map((c, i) => `<article class="cdp" data-i="${i}" tabindex="0" aria-expanded="false" aria-label="${c.name}: ${c.pre ? c.pre + " " : ""}${c.n} ${c.l}">
+      <div class="cdph"><img src="assets/img/v9c_${c.k}.webp" alt="${c.alt || c.name + ": our work"}" style="object-position:${c.fp}" draggable="false"></div>
+      <div class="cdv" aria-hidden="true"><b>${c.pre ? c.pre + " " : ""}${c.n}</b><span>${c.name}</span></div>
+      <div class="cdtx">${C_LOGO(c)}<h3>${c.name}</h3><div class="ck"><b>${C_NUM(c)}</b><span>${c.l}</span></div><div class="cq">${C_SAY(c)}</div><div class="cm">${C_META(c, true)}</div><i class="pg" aria-hidden="true"></i></div></article>`).join("");
+    const ps = [...row.children]; let k = -1, cand = -1, hov = 0, last = null;
+    const open = (i) => { if (i === k) return; k = i; ps.forEach((p, j) => { p.classList.toggle("on", j === i); p.setAttribute("aria-expanded", String(j === i)); }); countUp(ps[i].querySelector(".ck .v"), CS[i].n); };
+    // hover opens a slice after a short rest; only a real pointer move counts (the slices resize under a still pointer)
+    row.addEventListener("pointermove", (e) => { if (e.pointerType !== "mouse" || (last && last[0] === e.clientX && last[1] === e.clientY)) return; last = [e.clientX, e.clientY];
+      const p = e.target.closest(".cdp"), i = p ? +p.dataset.i : -1; if (i === cand) return; cand = i; clearTimeout(hov); if (i >= 0 && i !== k) hov = setTimeout(() => open(i), 130); });
+    row.addEventListener("pointerleave", () => { clearTimeout(hov); cand = -1; });
+    ps.forEach((p, i) => { p.addEventListener("click", () => open(i)); p.addEventListener("focus", () => open(i));
+      p.addEventListener("keydown", (e) => { const d = /Right|Down/.test(e.key) ? 1 : /Left|Up/.test(e.key) ? -1 : 0; if (d) { e.preventDefault(); ps[(i + d + N) % N].focus(); } });
+      p.querySelector(".pg").addEventListener("animationend", () => open((i + 1) % N)); });
+    const tw = () => row.style.setProperty("--tw", Math.round((((row.clientWidth - 10 * (N - 1)) * 8) / (N + 7)) * 0.44) + "px");
+    new ResizeObserver(tw).observe(row); tw(); open(0);
+    caseRun(root, () => { if (!R) gsap.from(ps, { yPercent: 12, opacity: 0, duration: 1, ease: "expo.out", stagger: 0.06 }); }, null, row); } };
+// the layout switch by the heading (and ?cases=b|c|d): only the option on show is built and runs
+{ const opt = document.getElementById("csopt"), bs = [...opt.querySelectorAll("button")], V = { a: document.getElementById("cf"), b: document.getElementById("cvB"), c: document.getElementById("cvC"), d: document.getElementById("cvD") }, built = {};
+  const set = (v, url) => { if (!V[v]) v = "a"; bs.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === v))); for (const [x, el] of Object.entries(V)) el.hidden = x !== v;
+    if (CASE_UI[v] && !built[v]) { built[v] = 1; CASE_UI[v](); } if (v === "a" && V.a.lay) V.a.lay(); ScrollTrigger.refresh();
+    if (url) { const q = new URLSearchParams(location.search); if (v === "a") q.delete("cases"); else q.set("cases", v); const s = q.toString(); history.replaceState(history.state, "", location.pathname + (s ? "?" + s : "") + location.hash); } };
+  bs.forEach((b) => b.addEventListener("click", () => set(b.dataset.v, true)));
+  set(new URLSearchParams(location.search).get("cases") || "a"); }
+// ---- the marketing battle: a clean cut runs through each problem as it scrolls in (or as you swipe across it) ----
+{ const sec = document.getElementById("s4"), host = document.getElementById("cuts");
+  host.innerHTML = bridge.map(([q, a], i) => `<article class="cut"><span class="no">0${i + 1}</span><div class="prob"><span class="vh">${q}</span><span class="pa" aria-hidden="true">${q}</span><span class="pb" aria-hidden="true">${q}</span><i class="sl" aria-hidden="true"><b></b></i></div><p class="ans"><span class="k">Our answer</span>${a}</p></article>`).join("");
+  const rows = [...host.children].map((el) => {
+    const pr = el.querySelector(".prob"), pa = pr.querySelector(".pa"), pb = pr.querySelector(".pb"), sl = pr.querySelector(".sl"), hd = sl.querySelector("b"), ans = el.querySelector(".ans");
+    const tl = gsap.timeline({ paused: true })
+      .fromTo(sl, { scaleX: 0, opacity: 1 }, { scaleX: 1, duration: 0.46, ease: "expo.inOut" }, 0)
+      .fromTo(hd, { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power1.out" }, 0.4)
+      .to(pa, { y: -6, color: "#c2c2c7", duration: 0.7, ease: "expo.out" }, 0.34)
+      .to(pb, { y: 6, x: 3, color: "#c2c2c7", duration: 0.7, ease: "expo.out" }, 0.34)
+      .to(sl, { scaleY: 0.6, opacity: 0.9, duration: 0.5, ease: "power2.out" }, 0.46)
+      .fromTo(ans, { clipPath: "inset(-10% 100% -10% 0%)", x: -14 }, { clipPath: "inset(-10% 0% -10% 0%)", x: 0, duration: 0.8, ease: "expo.out" }, 0.4);
+    return { el, pr, sl, tl, swiped: false };
+  });
+  if (R) rows.forEach((r) => r.tl.progress(1));
+  else rows.forEach((r) => ScrollTrigger.create({ trigger: r.el, start: "top 68%", onEnter: () => r.tl.timeScale(1).play(), onLeaveBack: () => { if (!r.swiped) r.tl.timeScale(1.6).reverse(); } }));
+  // a blade follows a fine pointer; a fast swipe across most of a problem cuts it there and then
+  if (!R && fine) {
+    const cv = document.getElementById("blade"), cx = cv.getContext("2d"), pts = []; let raf = 0, dpr = 1;
+    const size = () => { dpr = Math.min(2, devicePixelRatio || 1); cv.width = sec.clientWidth * dpr; cv.height = sec.clientHeight * dpr; };
+    new ResizeObserver(size).observe(sec); size();
+    const draw = () => { raf = 0; const now = performance.now(); while (pts.length && now - pts[0].t > 130) pts.shift();
+      cx.setTransform(dpr, 0, 0, dpr, 0, 0); cx.clearRect(0, 0, cv.width, cv.height); if (pts.length < 2) return;
+      cx.lineCap = "round"; cx.shadowColor = "rgba(255,43,48,.5)"; cx.shadowBlur = 5;   // v9: a crisp hairline trail, white at the tip
+      for (let i = 1; i < pts.length; i++) { const a = pts[i - 1], b = pts[i], f = i / pts.length;
+        cx.strokeStyle = `rgba(255,${Math.round(43 + 200 * f * f)},${Math.round(48 + 200 * f * f)},${f})`; cx.lineWidth = 0.6 + 1.8 * f; cx.beginPath(); cx.moveTo(a.x, a.y); cx.lineTo(b.x, b.y); cx.stroke(); }
+      raf = requestAnimationFrame(draw); };
+    sec.addEventListener("pointermove", (e) => { if (e.pointerType !== "mouse") return; const b = sec.getBoundingClientRect(), t = performance.now();
+      pts.push({ x: e.clientX - b.left, y: e.clientY - b.top, cx: e.clientX, cy: e.clientY, t }); if (!raf) raf = requestAnimationFrame(draw);
+      rows.forEach((r) => { if (r.swiped || r.tl.progress() > 0.3) return; const pb = r.pr.getBoundingClientRect(), inn = pts.filter((p) => t - p.t < 200 && p.cy > pb.top - 10 && p.cy < pb.bottom + 10);
+        if (inn.length < 2) return; const xs = inn.map((p) => p.cx), span = Math.max(...xs) - Math.min(...xs), dt = t - inn[0].t;
+        if (span > pb.width * 0.45 && span / Math.max(dt, 1) > 1.1) { r.swiped = true; r.tl.timeScale(1.3).play(); document.getElementById("mbhint").style.opacity = 0; } }); });
+    sec.addEventListener("pointerleave", () => { pts.length = 0; });
+  } }
+if (!R) document.querySelectorAll("#connect .ko").forEach((el) => gsap.to(el, { y: () => -90 * +el.dataset.d, ease: "none", scrollTrigger: { trigger: "#connect", start: "top bottom", end: "bottom top", scrub: true } }));
+if (!R && window.Lenis) { const lenis = new Lenis({ lerp: 0.09 }); lenis.on("scroll", ScrollTrigger.update); gsap.ticker.add((t) => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0); }
+// ---- cast: Dark (v6's line-up) or Red (a new formation); the red one is wired the first time it is shown ----
+{ const sec = document.getElementById("s8"), bs = [...sec.querySelectorAll(".copt button")], dark = document.getElementById("oc"), red = document.getElementById("sq"); let wired = false;
+  const wire = () => { wired = true; const sqs = document.getElementById("sqs"), gs = [...sqs.children];
+    const at = (e) => { if (!e || e.clientX === undefined) return; const b = red.getBoundingClientRect(); red.style.setProperty("--mx", e.clientX - b.left + "px"); red.style.setProperty("--my", e.clientY - b.top + "px"); };
+    const on = (g, e) => { gs.forEach((x) => x.classList.toggle("on", x === g)); sqs.classList.toggle("act", !!g); at(e);
+      if (g) red.style.setProperty("--sx", g.style.getPropertyValue("--x")); red.classList.toggle("dark", !!g); };
+    gs.forEach((g) => { g.addEventListener("pointerenter", (e) => e.pointerType === "mouse" && on(g, e)); g.addEventListener("focus", () => on(g)); g.addEventListener("click", (e) => on(g.classList.contains("on") ? null : g, e)); });
+    sqs.addEventListener("pointerleave", (e) => e.pointerType === "mouse" && on(null, e));
+    if (R) return;
+    // they step into formation as the section arrives: the back row first, then the three in front, Matthew last
+    // they rise into formation from the outside in, Matthew last
+    gsap.timeline({ scrollTrigger: { trigger: red, start: "top 85%", end: "top 15%", scrub: 0.6 } })
+      .from(".sqh > *", { y: 30, opacity: 0, duration: 0.4, stagger: 0.08 }, 0)
+      .from(gs.filter((g) => !g.classList.contains("fr")), { yPercent: 18, opacity: 0, duration: 0.5, stagger: 0.05 }, 0.05)
+      .from(gs.filter((g) => g.classList.contains("fr") && !g.classList.contains("mid")), { yPercent: 16, opacity: 0, duration: 0.55, stagger: 0.08 }, 0.25)
+      .from(".gd.mid", { yPercent: 16, opacity: 0, duration: 0.6 }, 0.42);
+    // depth on the pointer: the taller (nearer) someone stands, the more they move
+    if (fine) { const mv = gs.map((g) => ({ f: gsap.quickTo(g, "x", { duration: 1, ease: "power3" }), d: parseFloat(g.style.getPropertyValue("--h")) / 100 }));
+      red.addEventListener("pointermove", (e) => { const kx = e.clientX / innerWidth - 0.5; mv.forEach((m) => m.f(kx * 60 * (m.d - 0.55))); }); } };
+  const hh = () => { const h = red.querySelector(".sqh"); red.style.setProperty("--hh", h.offsetTop + h.offsetHeight + 20 + "px"); };
+  new ResizeObserver(hh).observe(red);
+  const set = (v) => { bs.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === v))); dark.hidden = v !== "dark"; red.hidden = v !== "red"; sec.classList.toggle("red", v === "red"); hh();
+    if (v === "red" && !wired) wire(); ScrollTrigger.refresh(); };
+  bs.forEach((b) => b.addEventListener("click", () => set(b.dataset.v)));
+  if (new URLSearchParams(location.search).get("cast") === "red") set("red"); }
+document.querySelectorAll(".ask .chips2 button").forEach((b) => b.addEventListener("click", () => { const i = document.getElementById("askin"); i.value = b.dataset.q; i.focus(); }));
+// ---- touch and feel: a cursor label, magnetic buttons, cards that tilt toward the pointer, headings that rise line by line ----
+const CUR = (window.CUR = (() => {
+  const el = document.getElementById("cur"), tx = document.getElementById("curT");
+  if (R || !fine) return { on() {}, off() {} };
+  const xTo = gsap.quickTo(el, "x", { duration: 0.35, ease: "power3" }), yTo = gsap.quickTo(el, "y", { duration: 0.35, ease: "power3" });
+  addEventListener("pointermove", (e) => { xTo(e.clientX); yTo(e.clientY); }, { passive: true });
+  const api = { on(t) { tx.textContent = t; el.classList.add("on"); }, off() { el.classList.remove("on"); } };
+  document.addEventListener("pointerover", (e) => { const n = e.target.closest("[data-cur]"); if (n) api.on(n.dataset.cur); });
+  document.addEventListener("pointerout", (e) => { const n = e.target.closest("[data-cur]"); if (n && !n.contains(e.relatedTarget)) api.off(); });
+  return api;
+})());
+document.querySelectorAll(".usp > div, .plan .s").forEach((el) => el.setAttribute("data-tilt", ""));
+if (!R && fine) {
+  document.querySelectorAll("[data-mag]").forEach((el) => {
+    const q = (t, p) => gsap.quickTo(t, p, { duration: 0.6, ease: "power3" }), xTo = q(el, "x"), yTo = q(el, "y"), ar = el.querySelector(".ar"), ax = ar && q(ar, "x"), ay = ar && q(ar, "y");
+    el.addEventListener("pointermove", (e) => { const b = el.getBoundingClientRect(), dx = e.clientX - b.left - b.width / 2, dy = e.clientY - b.top - b.height / 2; xTo(dx * 0.22); yTo(dy * 0.3); if (ar) { ax(dx * 0.12); ay(dy * 0.16); } });
+    el.addEventListener("pointerleave", () => { xTo(0); yTo(0); if (ar) { ax(0); ay(0); } }); });
+  document.querySelectorAll("[data-tilt]").forEach((el) => {
+    const rx = gsap.quickTo(el, "rotationX", { duration: 0.6, ease: "power3" }), ry = gsap.quickTo(el, "rotationY", { duration: 0.6, ease: "power3" }); gsap.set(el, { transformPerspective: 900 });
+    el.addEventListener("pointermove", (e) => { const b = el.getBoundingClientRect(), x = (e.clientX - b.left) / b.width, y = (e.clientY - b.top) / b.height; ry((x - 0.5) * 9); rx(-(y - 0.5) * 9); el.style.setProperty("--mx", x * 100 + "%"); el.style.setProperty("--my", y * 100 + "%"); });
+    el.addEventListener("pointerleave", () => { rx(0); ry(0); }); });
+}
+if (!R) document.fonts.ready.then(() => document.querySelectorAll("h2.h2").forEach((h) => { const st = SplitText.create(h, { type: "lines", mask: "lines", linesClass: "ln" });
+  gsap.from(st.lines, { yPercent: 110, duration: 1, ease: "power4.out", stagger: 0.08, scrollTrigger: { trigger: h, start: "top 88%" } }); }));
+LK.motion();
+</script>
+<script type="module">
+import { mountCube } from "./lib/cube9.js";
+import { mountGauntlet } from "./lib/gauntlet9.js";
+import { mountOrbit } from "./lib/orbit9.js";
+const R = LK.R, gl = (() => { try { const c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); } catch (e) { return false; } })();
+// ---- hero cube (v9, Sue): every key carries a platform's mark. One family per pair of opposite faces, each in its own
+// glass: social (front, back; red), web & e-commerce (right, left; smoked), AI & search (top, bottom; wine). So any 3/4 view
+// shows all three families, a scramble mixes the platforms and a solve sorts them back. Marks: white silhouettes of the
+// official logos (assets/brand3p/cube, see ../SOURCES.txt) ----
+const MARKS = ["facebook", "instagram", "tiktok", "shopify", "wordpress", "woocommerce", "magento", "shopee", "lazada", "google", "gemini", "chatgpt", "copilot"];
+const loadMark = (n) => new Promise((ok) => { const im = new Image(); im.onload = () => ok([n, im]); im.onerror = () => ok([n, null]); im.src = `assets/brand3p/cube/${n}.png`; });
+const MK = Object.fromEntries(await Promise.all(MARKS.map(loadMark)));
+const K = (...ns) => ns.map((n) => MK[n]);
+// face order = the cube's frames: front, right, top, back, left, bottom; keys row by row from the top left
+const FACES = [
+  { glass: "red", keys: K("facebook", "instagram", "tiktok", "tiktok", "facebook", "instagram", "instagram", "tiktok", "facebook") },
+  { glass: "smoke", keys: K("shopify", "wordpress", "woocommerce", "shopee", "shopify", "lazada", "magento", "woocommerce", "shopee") },
+  { glass: "wine", keys: K("google", "gemini", "chatgpt", "copilot", "google", "gemini", "chatgpt", "copilot", "google") },
+  { glass: "red", keys: K("instagram", "tiktok", "facebook", "facebook", "instagram", "tiktok", "tiktok", "facebook", "instagram") },
+  { glass: "smoke", keys: K("lazada", "magento", "wordpress", "woocommerce", "shopee", "shopify", "wordpress", "lazada", "magento") },
+  { glass: "wine", keys: K("gemini", "chatgpt", "copilot", "google", "chatgpt", "gemini", "copilot", "google", "gemini") }];
+const HOLD = 3.6, hero = document.getElementById("s1"), E = (id) => document.getElementById(id);
+const pulse = () => { if (!R) gsap.fromTo("#pglow", { scale: 0.85, opacity: 0.45 }, { scale: 1.12, opacity: 1, duration: 0.45, yoyo: true, repeat: 1, ease: "sine.inOut" }); };
+const Q = new URLSearchParams(location.search), canvas = E("cube"), hitEl = E("cubehit");
+// v9: no result card any more (Sue), so a beat only pulses the palm's glow as a face lands; tests read the solved beats
+let cubeRef = null;
+const onBeat = (k, st) => { if (st !== "solved") return; pulse(); if (window.__solved && cubeRef) window.__solved.push([k, +cubeRef.homeErr().toFixed(6)]); };
+const cube = gl ? mountCube(canvas, FACES, { onBeat, onHover: (v) => (v ? CUR.on("Drag to twist") : CUR.off()), hold: HOLD, still: R, hit: hitEl, drift: 0.1, away: 0.9, beats: 0 }) : null;
+cubeRef = cube;
+// keep-out line beside his face: the solver's face box sits ~7 px outside his hair; 8 px more covers the photo's parallax
+// (up to 11 px toward the cube), so even at full parallax the cube keeps a few px of air from his hair
+const lay = () => { const b = HERO.box; if (cube && b) cube.layout({ x: b.x, y: b.y, size: b.size, rel: false, keep: [b.face.x0 - 8, b.face.y1 + 6] }); };
+hero.addEventListener("herolayout", lay); lay();
+if (cube) {
+  window.__c7 = cube;
+  if (Q.has("beat")) cube.freeze(+Q.get("beat"), Q.has("mid"));
+  if (Q.has("test")) { window.__cube = cube; window.__solved = []; }
+  const hold = (v) => { cube.paused = v; hero.classList.toggle("hold", v); };
+  hitEl.addEventListener("pointerenter", (e) => e.pointerType === "mouse" && hold(true)); hitEl.addEventListener("pointerleave", () => hold(false));
+  // the cube drops into his palm
+  if (!R && !Q.has("beat")) { HX.glow = 0; heroFocus();                     // the cube's light comes on as it lands
+    cube.intro().then(() => { gsap.to(HX, { glow: 1, duration: 1.2, ease: "power2.out", onUpdate: heroFocus }); pulse(); }); }
+  else heroFocus();
+} else { canvas.hidden = true; E("cubefb").hidden = false; hitEl.hidden = true; heroFocus(); }   // no WebGL: a still of the cube
+// ---- armour, played like a film. The pin runs 320% of a screen: bars close (0-6%), the title card leaves (6-14%), then the
+// clip (Jimeng plates flying onto the hand) is scrubbed across 12-92% and each layer opens in the accordion as its plate locks on ----
+{ const NF = 96, src = Array.from({ length: NF }, (_, i) => `assets/gauntlet/f${String(i + 1).padStart(3, "0")}.webp`);
+  const pin = E("apin"), ais = [...document.querySelectorAll("#acc .ai")], accEl = E("acc"), cnt = E("acnt");
+  const g = (!R && gl) ? mountGauntlet(E("gcv"), src, { aspect: 0.75, wrist: [0, 0.19] }) : null;
+  let at = -2, st = null;
+  const chap = (k) => {                    // one layer open at a time: the accordion folds the last one away as the next opens
+    if (k === at) return; const up = k > at, was = at; at = k;
+    if (k >= 0 && was < 0) { accEl.classList.add("in"); gsap.fromTo(accEl, { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.8, ease: "power3.out" }); }
+    if (k < 0 && was >= 0) gsap.to(accEl, { opacity: 0, x: 40, duration: 0.4, onComplete: () => { if (at < 0) accEl.classList.remove("in"); } });
+    ais.forEach((c, i) => { c.classList.toggle("on", i === k); c.querySelector(".ah").setAttribute("aria-expanded", String(i === k)); });
+    if (k >= 0) cnt.textContent = `Layer 0${k + 1} / 04`;
+    if (up && k >= 0 && !R) {                // the plate locks on: flash, flare, a short shake, a burst of embers
+      gsap.fromTo("#aflash", { opacity: 0.9 }, { opacity: 0, duration: 0.8, ease: "power2.out" });
+      gsap.fromTo("#aflare", { opacity: 1, scaleX: 0.15 }, { scaleX: 1.25, opacity: 0, duration: 0.9, ease: "power3.out" });
+      gsap.fromTo(".gstage", { x: -7, y: 5 }, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1.1, 0.3)" }); EMB.burst(); }
+  };
+  // embers: a few dozen sparks drift up through the haze; each lock-on throws a burst out of the wrist
+  const EMB = (() => { const cv = E("emb"), cx = cv.getContext("2d"), P = []; let raf = 0, on = false, W = 0, H = 0, dpr = 1;
+    const size = () => { dpr = Math.min(1.5, devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; };
+    const add = (b) => P.push(b ? { x: W / 2 + (Math.random() - 0.5) * 60, y: H * 0.6, vx: (Math.random() - 0.5) * 7, vy: -2 - Math.random() * 7, l: 1, d: 0.012 + Math.random() * 0.02, r: 1 + Math.random() * 2.2 }
+      : { x: Math.random() * W, y: H + 10, vx: (Math.random() - 0.5) * 0.4, vy: -0.4 - Math.random() * 1.1, l: 1, d: 0.002 + Math.random() * 0.004, r: 0.6 + Math.random() * 1.8 });
+    const tick = () => { raf = 0; if (!on) return; if (P.length < 70 && Math.random() < 0.5) add(false);
+      cx.setTransform(dpr, 0, 0, dpr, 0, 0); cx.clearRect(0, 0, W, H); cx.globalCompositeOperation = "lighter";
+      for (let i = P.length - 1; i >= 0; i--) { const p = P[i]; p.x += p.vx + Math.sin((p.y + i) * 0.02) * 0.3; p.y += p.vy; p.vy *= 0.995; p.l -= p.d; if (p.l <= 0 || p.y < -20) { P.splice(i, 1); continue; }
+        const a = p.l * (0.6 + 0.4 * Math.random()); cx.fillStyle = `rgba(255,${60 + Math.round(150 * p.l * p.l)},${70 + Math.round(140 * p.l * p.l)},${a})`; cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, 6.283); cx.fill(); }
+      raf = requestAnimationFrame(tick); };
+    if (!R) { new ResizeObserver(size).observe(cv); size();
+      new IntersectionObserver((es) => { on = es[es.length - 1].isIntersecting; if (on && !raf) raf = requestAnimationFrame(tick); }).observe(pin); }
+    return { burst() { if (!R) for (let i = 0; i < 46; i++) add(true); } }; })();
+  if (g) {
+    st = ScrollTrigger.create({ trigger: "#s5", start: "top top", end: "+=320%", pin: "#apin", scrub: 0.5, invalidateOnRefresh: true, onToggle: (s) => E("nav").classList.toggle("film", s.isActive), animation: gsap.timeline()
+        .fromTo(pin, { "--bar": "0px" }, { "--bar": () => Math.round(innerHeight * 0.095) + "px", duration: 0.06, ease: "power2.inOut" }, 0)
+        .to("#tcard", { opacity: 0, scale: 1.12, filter: "blur(14px)", duration: 0.08, ease: "power1.in" }, 0.06)
+        .fromTo(".gstage", { opacity: 0.35, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.1 }, 0.04)
+        .to("#aw", { scale: 1.1, duration: 0.9, ease: "none" }, 0.1).to({}, { duration: 0.001 }, 1),
+      onUpdate: (s) => { const p = s.progress, gp = Math.min(1, Math.max(0, (p - 0.12) / 0.8)); g.progress = gp;
+        chap(p < 0.13 ? -1 : Math.min(3, Math.floor(gp * 4.4))); } });
+    ais.forEach((c, i) => c.querySelector(".ah").addEventListener("click", () => { const y = st.start + (st.end - st.start) * (0.12 + 0.8 * ((i + 0.35) / 4.4)); scrollTo({ top: y, behavior: "smooth" }); }));
+    // the frame leans toward the pointer and the haze follows it
+    if (fine) { const ry = gsap.quickTo("#aw", "rotationY", { duration: 1, ease: "power3" }), rx = gsap.quickTo("#aw", "rotationX", { duration: 1, ease: "power3" }); gsap.set("#aw", { transformPerspective: 1400 });
+      pin.addEventListener("pointermove", (e) => { const b = pin.getBoundingClientRect(), kx = (e.clientX - b.left) / b.width - 0.5, ky = (e.clientY - b.top) / b.height - 0.5;
+        ry(kx * 7); rx(-ky * 4); pin.style.setProperty("--hx", 50 + kx * 30 + "%"); pin.style.setProperty("--hy", 56 + ky * 24 + "%"); }); }
+  } else {                                   // still: the finished suit, the four layers as a list
+    pin.classList.add("still"); const im = new Image(); im.src = "assets/img/v8_arm_still.webp"; im.alt = "";   /* the last frame with the armour grade baked in */ E("gcv").replaceWith(im); pin.style.setProperty("--bar", "0px");
+  } }
+{ const pin = document.getElementById("opin"), sec = document.getElementById("s6"), E2 = (id) => document.getElementById(id);
+  const SERV = [["Paid ads", "SEO & SEM", "AI search", "Lead generation", "Tactical campaigns"], ["Social media", "Video production", "KOL & UGC", "Branding", "AIGC"], ["Website & e-commerce", "Apps", "Hosting", "AI chatbot", "Loyalty"]];
+  const NAME = ["Performance Marketing", "Creative & Content", "Web Development"], URL = ["service.html?c=perf", "service.html?c=crea", "service.html?c=web"];
+  const W = LK.weapons, img = (n) => `assets/img/${n}.webp`, WIMG = ["v5_w_sword", "v5_w_brush", "v5_w_shield"];
+  const items = [["v5_w_sword", 0], ["v5_d1"], ["v5_d2"], ["v5_w_brush", 1], ["v5_d3"], ["v5_d4"], ["v5_w_shield", 2], ["v5_d5"], ["v5_d6"]].map(([n, wi]) => ({ src: img(n), weapon: wi !== undefined, wi }));
+  E2("osteps").innerHTML = NAME.map((n, i) => `<button type="button" role="tab" data-i="${i}" aria-selected="false"><i></i><span><em>0${i + 1}</em><b>${n}</b></span></button>`).join("");
+  const steps = [...E2("osteps").children]; let cur = -1, st = null;
+  // the service beside the weapon: the old one slides out, the new one in
+  const fill = (wi, anim) => { if (wi === cur) return; const dir = wi > cur ? 1 : -1; cur = wi;
+    const put = () => { const [, n, c, d] = W[wi]; E2("ok").textContent = `Weapon 0${wi + 1}`; E2("ow").textContent = n; E2("on").textContent = NAME[wi]; E2("od").textContent = d;
+      E2("ol").innerHTML = SERV[wi].map((x) => `<li>${x}</li>`).join(""); E2("octx").textContent = `View ${NAME[wi]} services`; E2("octa").href = URL[wi]; E2("ofb").src = img(WIMG[wi]); E2("ofb").alt = n; };
+    steps.forEach((b, i) => { b.classList.toggle("on", i === wi); b.setAttribute("aria-selected", String(i === wi)); });
+    if (!anim || R) { put(); return; }
+    const kids = E2("oswap").children; gsap.killTweensOf(kids);
+    gsap.to(kids, { y: -18 * dir, opacity: 0, duration: 0.22, stagger: 0.03, ease: "power2.in", onComplete: () => { put(); gsap.fromTo(kids, { y: 22 * dir, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, stagger: 0.05, ease: "power3.out" }); } }); };
+  fill(0, false);
+  const o = (!R && gl) ? mountOrbit(pin, items, { onPick: (u) => go(u.wi) }) : null;
+  const go = (i) => { if (st) scrollTo({ top: st.start + (st.end - st.start) * ((i + 0.5) / 3), behavior: "smooth" }); else fill(i, true); };
+  steps.forEach((b, i) => b.addEventListener("click", () => go(i)));
+  if (o) st = ScrollTrigger.create({ trigger: "#s6", start: "top top", end: "+=240%", pin: "#opin", scrub: 0.5,
+      onUpdate: (s) => { const p = s.progress * 3, k = Math.min(2, Math.floor(p)); o.active = k; o.progress = Math.min(1, p - k); fill(k, true);
+        steps.forEach((b, i) => b.style.setProperty("--p", Math.min(1, Math.max(0, p - i)).toFixed(3))); } });
+  else { pin.classList.add("flat"); steps.forEach((b) => b.style.setProperty("--p", "1")); } }
+ScrollTrigger.sort(); ScrollTrigger.refresh();
+if (document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());   // headings rewrap when the fonts land: re-measure every trigger
+</script>
+</body></html>

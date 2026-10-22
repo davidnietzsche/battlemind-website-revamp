@@ -7,3 +7,21 @@ only (no redrawing); trademarks belong to their owners and are shown only to nam
 - shopify_bag.svg    <- Shopify_logo_2018.svg (bag only: viewBox crop)
 - shopify_white.svg  <- Shopify_logo_2018.svg (wordmark filled white for the dark admin bar)
 Fetched 2026-10-20 via https://commons.wikimedia.org/wiki/Special:FilePath/<file>
+
+Channel logos in the "Data made digestible" export table (home-v8), added 2026-10-21, same sourcing rule (as is, no redrawing):
+- facebook.svg       <- 2023_Facebook_icon.svg
+- google_g.svg       <- Google_"G"_logo.svg
+- instagram.svg      <- Instagram_logo_2022.svg
+- tiktok.svg         <- Tiktok_icon.svg (TikTok's monochrome app-icon variant)
+- shopify_bag.svg    (above)
+- organic.svg        our own sprout glyph, not a brand: "Organic" means unpaid traffic
+
+cube/*.png: the hero cube's platform marks (home-v9), added 2026-10-22. White silhouettes (256 px, alpha) rendered from the
+official marks, unaltered in shape; the cube lights them red. Marks that come with a wordmark were cut out of it.
+- facebook, instagram, tiktok, shopify, wordpress, shopee, google, gemini (googlegemini)
+                     <- Simple Icons 16.35.0 (CC0; monochrome versions of each brand's official mark), cdn.jsdelivr.net/npm/simple-icons
+- woocommerce        <- Simple Icons woocommerce, the "Woo" bubble only (the word COMMERCE cut off)
+- magento            <- Commons Magento_Logo.svg, the orange mark only
+- lazada             <- Commons Lazada_(2019).svg, the heart mark only
+- chatgpt            <- Commons ChatGPT-Logo.svg
+- copilot            <- Commons Microsoft_365_Copilot_Icon_one-color.svg

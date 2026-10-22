@@ -384,6 +384,8 @@ b.x{font-weight:800}
 .sheet th{font-weight:600;color:#444;text-align:left;border-bottom:1px solid #ddd;padding-right:8px}
 .sheet td{border-bottom:1px solid #f1f1f1;white-space:nowrap;padding-right:8px;font-variant-numeric:tabular-nums}
 .sheet td.fz{color:#c3c3c3}                                       /* still noisy: the scan has not reached this row */
+.sheet td .chl{display:inline-block;width:1.3em;height:1.3em;max-width:none;object-fit:contain;vertical-align:-.32em;margin-right:.6em;transition:filter .35s,opacity .35s}
+.sheet td.fz .chl{filter:grayscale(1);opacity:.5}                  /* the logo colours in as the scan passes */
 .sheet td.hl span{position:relative;display:inline-block;border-radius:3px;padding:1px 4px;transition:box-shadow .35s,color .35s,background .35s}
 .sheet td.hl.hit span{color:var(--red);font-weight:700;box-shadow:0 0 0 1.5px var(--red)}
 .sheet td.hl.lit span{background:var(--red);color:#fff;box-shadow:0 0 0 1.5px var(--red),0 0 22px rgba(215,0,15,.55)}
@@ -408,7 +410,7 @@ b.x{font-weight:800}
   .dpin{min-height:0;display:block;padding:clamp(80px,12vw,120px) 0 80px}
   .dhd,.dstage{grid-template-columns:minmax(0,1fr)}.dstage{gap:28px}
   .dlinks,.sheet .nt2{display:none}.plan .s small{display:block}.dend{opacity:1}
-  .sheet{rotate:-1deg;overflow-x:auto}.sheet table{font-size:9.5px}.sheet .xm{display:none}
+  .sheet{rotate:-1deg;overflow-x:auto}.sheet table{font-size:9.5px}.sheet .xm{display:none}.sheet th,.sheet td{padding-right:6px}.sheet td .chl{margin-right:.45em}
 }
 
 /* 7 CASES · white reading section, so proven results don't get scrolled past */
@@ -627,7 +629,7 @@ b.x{font-weight:800}
     <div class="sheet" id="sheet"><div class="top"><span>Sample · raw analytics export</span><i>3 findings</i></div><table id="tab"></table><div class="scan" id="scan"></div></div>
     <div><div class="plan" id="plan">
       <div class="s" data-n="1"><b>01</b><div><h4>Enhance web UX</h4><p>Fix the leaky bucket: remove what stops visitors buying, before you spend another ringgit on ads.</p><small>From finding 1: 74% of paid visitors bounce</small></div></div>
-      <div class="s" data-n="2"><b>02</b><div><h4>Strengthen SEM</h4><p>Show up where buyers are already searching, on Google and in AI answers.</p><small>From finding 2: Google leads at RM30, Meta leads at RM63</small></div></div>
+      <div class="s" data-n="2"><b>02</b><div><h4>Strengthen SEM</h4><p>Show up where buyers are already searching, on Google and in AI answers.</p><small>From finding 2: Google leads at RM30, Facebook leads at RM63</small></div></div>
       <div class="s" data-n="3"><b>03</b><div><h4>Engaging, trust-building social ads</h4><p>Stop the scroll, earn trust, then convert.</p><small>From finding 3: a 0.8% click-through rate</small></div></div></div>
       <p class="dend" id="dend">Three moves. Not thirty metrics.</p></div>
     <svg class="dlinks" id="dlinks" aria-hidden="true"></svg></div></div></div></section>
@@ -813,13 +815,15 @@ atl.innerHTML = layers.map(([t], i) => `<button type="button" data-k="${i}" aria
 cg.innerHTML = cases.map(([img, n, t, b, s]) => `<a class="cc" href="case-study.html" data-rise data-tilt data-cur="View case"><img src="assets/sue/${img}.webp" alt="" loading="lazy"><div class="in"><b>${b}</b><small>${s}</small><h4>${t}</h4><span>${n}</span></div></a>`).join("");
 // ---- data made digestible: a noisy export, a scan finds three things, the noise dissolves, the findings wire to the plan ----
 { const H = ["Week", "Channel", "Sessions", "Bounce", "CPC", "CTR", "Leads", "CPL"], rows = [
-    ["W1", "Meta", "12,408", "71%", "0.42", "0.9%", "38", "RM48"], ["W1", "Google", "3,114", "44%", "1.85", "4.1%", "51", "RM31"], ["W1", "Organic", "5,882", "68%", "-", "-", "9", "-"],
-    ["W2", "Meta", "13,020", "74%", "0.44", "0.9%", "35", "RM55"], ["W2", "Google", "2,960", "41%", "1.92", "4.4%", "54", "RM29"], ["W2", "Organic", "6,104", "66%", "-", "-", "11", "-"],
-    ["W3", "Meta", "12,771", "73%", "0.47", "0.9%", "31", "RM63"], ["W3", "Google", "3,402", "43%", "1.88", "4.2%", "57", "RM30"], ["W3", "Organic", "5,950", "69%", "-", "-", "8", "-"],
-    ["W4", "Meta", "12,960", "72%", "0.45", "0.8%", "33", "RM60"], ["W4", "Google", "3,280", "42%", "1.90", "4.3%", "56", "RM30"], ["W4", "Organic", "6,020", "67%", "-", "-", "10", "-"]];
-  const HL = { "3,3": 1, "7,7": 2, "9,5": 3 }, XM = [4], NOTE = { 1: "74% of paid visitors bounce", 2: "Google RM30 vs Meta RM63", 3: "0.8% CTR: ads don't stop the scroll" }, LEFT = { 2: 1 };
+    // paid rows add up: sessions x CPC / leads = CPL
+    ["W1", "Google", "868", "44%", "1.85", "4.1%", "51", "RM31"], ["W1", "Facebook", "4,342", "71%", "0.42", "0.9%", "38", "RM48"], ["W1", "Instagram", "2,652", "74%", "0.51", "1.1%", "26", "RM52"],
+    ["W1", "TikTok", "3,658", "79%", "0.31", "1.0%", "21", "RM54"], ["W1", "Shopify", "2,140", "38%", "-", "-", "22", "-"], ["W1", "Organic", "5,882", "68%", "-", "-", "9", "-"],
+    ["W2", "Google", "907", "43%", "1.88", "4.2%", "57", "RM30"], ["W2", "Facebook", "4,156", "72%", "0.47", "0.9%", "31", "RM63"], ["W2", "Instagram", "2,581", "73%", "0.53", "1.0%", "24", "RM57"],
+    ["W2", "TikTok", "3,349", "81%", "0.33", "0.8%", "18", "RM61"], ["W2", "Shopify", "2,286", "36%", "-", "-", "25", "-"], ["W2", "Organic", "6,104", "66%", "-", "-", "11", "-"]];
+  const HL = { "2,3": 1, "6,7": 2, "9,5": 3 }, XM = [4], NOTE = { 1: "74% of paid visitors bounce", 2: "Google RM30 vs Facebook RM63", 3: "0.8% CTR: ads don't stop the scroll" }, LEFT = { 2: 1 };
+  const LOGO = { Google: "google_g", Facebook: "facebook", Instagram: "instagram", TikTok: "tiktok", Shopify: "shopify_bag", Organic: "organic" };
   tab.innerHTML = `<tr>${H.map((h, i) => `<th${XM.includes(i) ? ' class="xm"' : ""}>${h}</th>`).join("")}</tr>` + rows.map((r, y) => `<tr>${r.map((c, x) => { const n = HL[y + "," + x];
-    return `<td data-r="${y}" class="${n ? "hl " : ""}${XM.includes(x) ? "xm" : ""}"${n ? ` data-n="${n}"` : ""}>${n ? `<span>${c}<sup>${n}</sup><em class="nt2${LEFT[n] ? " l" : ""}">${NOTE[n]}</em></span>` : c}</td>`; }).join("")}</tr>`).join("");
+    return `<td data-r="${y}" class="${n ? "hl " : ""}${XM.includes(x) ? "xm" : ""}"${n ? ` data-n="${n}"` : ""}>${n ? `<span>${c}<sup>${n}</sup><em class="nt2${LEFT[n] ? " l" : ""}">${NOTE[n]}</em></span>` : x === 1 ? `<img class="chl" src="assets/brand3p/${LOGO[c]}.svg" alt="" width="14" height="14">${c}` : c}</td>`; }).join("")}</tr>`).join("");
   const stage = document.getElementById("dstage"), svg = document.getElementById("dlinks"), cards = [...plan.querySelectorAll(".s")];
   const finds = [1, 2, 3].map((n) => tab.querySelector(`td[data-n="${n}"]`)), noise = [...tab.querySelectorAll("td:not(.hl)")];
   const NR = rows.length, findRow = finds.map((f) => +f.dataset.r);
@@ -830,24 +834,29 @@ cg.innerHTML = cases.map(([img, n, t, b, s]) => `<a class="cc" href="case-study.
   finds.forEach((f, i) => { f.addEventListener("pointerenter", () => lit(i + 1)); f.addEventListener("pointerleave", () => lit(0)); });
   // the wires: from each finding's note to its move, measured once the sheet has settled
   let wired = false;
-  const wire = () => { const sb = stage.getBoundingClientRect(); svg.setAttribute("viewBox", `0 0 ${sb.width} ${sb.height}`);
-    svg.innerHTML = finds.map((f, i) => { const a = (LEFT[i + 1] ? f.querySelector("span") : f.querySelector(".nt2")).getBoundingClientRect(), b = cards[i].getBoundingClientRect();
+  const wire = () => { const sb = stage.getBoundingClientRect(), pl = plan.getBoundingClientRect().left; svg.setAttribute("viewBox", `0 0 ${sb.width} ${sb.height}`);
+    // a right-hand note that would run into the moves column sits left of its number instead (narrow desktops)
+    finds.forEach((f, i) => { if (LEFT[i + 1]) return; const nt = f.querySelector(".nt2"); nt.classList.remove("l"); nt.classList.toggle("l", nt.getBoundingClientRect().right > pl - 40); });
+    svg.innerHTML = finds.map((f, i) => { const a = (f.querySelector(".nt2").classList.contains("l") ? f.querySelector("span") : f.querySelector(".nt2")).getBoundingClientRect(), b = cards[i].getBoundingClientRect();
       const x1 = a.right - sb.left + 8, y1 = a.top + a.height / 2 - sb.top, x2 = b.left - sb.left - 10, y2 = b.top + b.height / 2 - sb.top, dx = Math.max(40, (x2 - x1) * 0.5);
       return `<path pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" d="M${x1} ${y1} C${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}"/><circle cx="${x2}" cy="${y2}" r="3.5" opacity="0"/>`; }).join("");
     wired = true; };
-  // noise: until the scan reaches a row, its numbers keep flickering
+  // noise: until the scan reaches a row, its numbers keep flickering. Only cells with digits are ever rewritten
+  // (a channel cell holds its logo, and writing its text would wipe the logo)
   let scanF = 0, flick = 0;
-  const orig = new Map(noise.map((td) => [td, td.textContent]));
+  const orig = new Map(noise.filter((td) => /\d/.test(td.textContent)).map((td) => [td, td.textContent]));
+  const restore = () => orig.forEach((t, td) => (td.textContent = t));
   const jitter = (t) => t.replace(/\d/g, () => Math.floor(Math.random() * 10));
   const flicker = () => { noise.forEach((td) => { const below = (+td.dataset.r + 1) / NR > scanF; td.classList.toggle("fz", below);
-      if (below && Math.random() < 0.35 && /\d/.test(orig.get(td))) td.textContent = jitter(orig.get(td)); else if (!below && td.textContent !== orig.get(td)) td.textContent = orig.get(td); }); };
+      if (!orig.has(td)) return;
+      if (below && Math.random() < 0.35) td.textContent = jitter(orig.get(td)); else if (!below && td.textContent !== orig.get(td)) td.textContent = orig.get(td); }); };
   const hits = (f) => finds.forEach((td, i) => td.classList.toggle("hit", f >= (findRow[i] + 1) / NR));
   if (R) { hits(1); noise.forEach((td) => td.classList.remove("fz")); cards.forEach((c) => (c.style.opacity = 1)); }
   else gsap.matchMedia().add({ desk: "(min-width: 961px)", mob: "(max-width: 960px)" }, (ctx) => {
     if (ctx.conditions.desk) {
       const pathsOf = () => svg.querySelectorAll("path"), dotsOf = () => svg.querySelectorAll("circle");
       const tl = gsap.timeline({ scrollTrigger: { trigger: "#data", start: "top top", end: "+=190%", pin: "#dpin", scrub: 0.6, invalidateOnRefresh: true,
-          onRefresh: () => { wired = false; }, onToggle: (s) => { clearInterval(flick); if (s.isActive) flick = setInterval(flicker, 110); else noise.forEach((td) => { td.textContent = orig.get(td); td.classList.toggle("fz", s.progress < 0.5); }); },
+          onRefresh: () => { wired = false; }, onToggle: (s) => { clearInterval(flick); if (s.isActive) flick = setInterval(flicker, 110); else { restore(); noise.forEach((td) => td.classList.toggle("fz", s.progress < 0.5)); } },
         },
         // everything below follows the RENDERED timeline (scrub smoothing lags the scroll), so the scan, the lit findings and the
         // wires always match what is on screen; the wires are measured once the sheet has settled (after its entry)
@@ -860,7 +869,7 @@ cg.innerHTML = cases.map(([img, n, t, b, s]) => `<a class="cc" href="case-study.
         .fromTo("#sheet .nt2", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.08, stagger: 0.04 }, 0.5)
         .fromTo(cards, { x: 70, opacity: 0 }, { x: 0, opacity: 1, duration: 0.12, stagger: 0.075, ease: "power3.out" }, 0.62)
         .fromTo("#dend", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.08 }, 0.9).to({}, { duration: 0.001 }, 1);
-      return () => { clearInterval(flick); noise.forEach((td) => { td.textContent = orig.get(td); td.classList.remove("fz"); }); };
+      return () => { clearInterval(flick); restore(); noise.forEach((td) => td.classList.remove("fz")); };
     }
     // phones: no pin; the export slides in, the scan lights the findings, the moves follow (each says which finding it answers)
     noise.forEach((td) => td.classList.remove("fz"));
