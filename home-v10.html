@@ -1,0 +1,926 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><script src="lib/gate.js"></script><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Homepage v10 · Battle Website</title><meta name="robots" content="noindex"><link rel="icon" href="assets/brand/bm-mark.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;700;800&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
+<script src="lib/gsap.min.js"></script><script src="lib/ScrollTrigger.min.js"></script><script src="lib/SplitText.min.js"></script><script src="lib/look.js"></script><script src="lib/lenis.min.js"></script>
+<script type="importmap">{"imports":{"three":"./lib/t166/three.module.min.js","three/addons/":"./lib/t166/addons/"}}</script>
+<style>
+/* Homepage v10 · v9.1 (v9's glass cube, its scroll moments and Sue's flow after the round-2 notes) with the layer a
+   marketing agency's site needs on top (David, 1 Nov: "the best experience and UI/UX for a marketing agency"):
+   - navigation that works: the menu items are links to the sections, the section you are in is marked, and on phones a
+     full-screen menu opens from a button (Escape closes it; the page behind does not scroll);
+   - the hero has its calls to action (Let's talk, See our work) and a scroll cue; both step aside with the burst;
+   - the story spine Ian asked for: every section label says which half of "Human First. Results Always." it serves
+     (Human first = the people, how we help and how we think; Results always = the clients, the numbers, the cases);
+   - the client's own service diagnostic from the new deck (slide 25, "Match your marketing headache"): pick the line
+     that sounds like you and the matching service lights up, with the deck's answer and a link to find out more;
+   - the contact form carries the deck's goal chips (slide 28: Leads, Traffic, Brand, Not sure) into the WhatsApp message;
+   - the team section carries the deck's own line about working together; the case cards no longer each say a quote
+     is to come (one line under the carousel says it once).
+   Round 2 the same day (David: improve the hero; use the cube to present the weapon and equip it):
+   - the hero cube ASSEMBLES: its 26 pieces fly in from beyond the frame, tumbling, and lock into one cube before it
+     solves into the face; far pieces of other cubes drift behind the hero (depth), lean with the pointer and fade as
+     the cube bursts; the cube is a little bigger;
+   - the services section is built around a second, calm copy of the cube (lib/cube91.js calm mode, faces91
+     servicesFaces): each side is one service's ground (web & e-commerce, creative, paid traffic, AI & search). Hover a
+     service and the cube turns and DRAWS that layer out like a blade; pick your headache in the diagnostic and the cube
+     draws the matching layer, holds it, then pushes it home with a flash: EQUIPPED (the card says so). Round 3: the services
+     sit one per row beside the cube and scrolling focuses the cube on each in turn; the solved face is the BM mark in neon
+     (?face=word|portrait|smile keeps the other looks for comparison). The cube stays
+     in view beside the cards and the diagnostic on laptops (sticky inside its own section; nothing holds the page).
+   Kept from v9.1 unchanged: the cube and its face, the burst held on laptops, the analytics story scrubbed by the
+   scroll, the logo keys, the impact keys, the cover-flow, the photo ribbons, the red Let's Talk and the footer.
+   v8's rules still hold: one material (red and smoked glass, chrome, red neon), brand red not orange. */
+:root{--red:#D7000F;--hot:#FF2B30;--crim:#7A0000;--deep:#2A0000;--ink:#0A0A0B;--paper:#fff;--grey:#5f6368;--line:rgba(255,255,255,.1);
+  --f:"Archivo",system-ui,sans-serif;--o:"Oswald",sans-serif;--gut:clamp(16px,4vw,64px);--rad:22px;--ease:cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--ink);color:#fff;font:16px/1.6 var(--f);-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%}a{color:inherit}[hidden]{display:none!important}
+h1,h2,h3,h4{font-family:var(--f);font-weight:300;letter-spacing:-.03em;line-height:1;margin:0}
+b.x{font-weight:800}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.wrap{max-width:1320px;margin:0 auto;padding:0 var(--gut)}
+.lbl{font:600 12px var(--o);letter-spacing:.22em;text-transform:uppercase;color:var(--hot)}
+.sec{position:relative;padding:clamp(90px,11vw,160px) 0;overflow:hidden}
+.h2{font-size:clamp(40px,5.2vw,84px)}
+.white{background:var(--paper);color:#111}
+.white .lbl{color:var(--red)}
+.ln{padding-bottom:.06em}                                   /* SplitText line masks: room for descenders */
+
+/* buttons (ref: v3 Hero C, "clean af"): a pill with a circle arrow; glass pills for the quiet ones; dark pills on light */
+.cta{position:relative;display:inline-flex;align-items:center;gap:16px;height:58px;padding:0 7px 0 26px;border-radius:999px;background:#fff;color:#0B0B0D;
+  font:500 15.5px/1 var(--f);letter-spacing:-.01em;text-decoration:none;border:0;cursor:pointer;white-space:nowrap;transition:background .35s,color .35s,box-shadow .35s}
+.cta .ar{position:relative;flex:none;width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;overflow:hidden}
+.cta .ar svg{grid-area:1/1;width:16px;height:16px;transition:transform .5s cubic-bezier(.7,0,.2,1)}
+.cta .ar svg+svg{transform:translate(-170%,170%)}
+.cta:hover .ar svg:first-child{transform:translate(170%,-170%)}.cta:hover .ar svg+svg{transform:none}
+.cta:hover{box-shadow:0 18px 44px -20px rgba(255,255,255,.55)}
+.cta.gl{padding:0 26px;background:rgba(255,255,255,.07);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.cta.gl:hover{background:rgba(255,255,255,.13);box-shadow:inset 0 0 0 1px rgba(255,255,255,.3)}
+.cta.dk{background:#0B0B0D;color:#fff}.cta.dk.gh{background:none;color:#111;box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)}.cta.dk.gh:hover{box-shadow:inset 0 0 0 1px #111}.cta.dk:hover{box-shadow:0 18px 44px -20px rgba(0,0,0,.55)}
+.cta.sm{height:44px;padding:0 5px 0 18px;gap:12px;font-size:14px}.cta.sm .ar{width:34px;height:34px}.cta.gl.sm{padding:0 20px}
+.cta:focus-visible{outline:2px solid #fff;outline-offset:3px}.white .cta:focus-visible{outline-color:#111}
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;transition:background .4s,backdrop-filter .4s}
+.nav.sc{background:rgba(10,10,11,.6);backdrop-filter:blur(16px)}
+.nav{transition:background .4s,backdrop-filter .4s,opacity .5s,translate .5s var(--ease)}.nav.film{opacity:0;translate:0 -100%;pointer-events:none}   /* the armour film runs full frame */
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+.nav img{height:22px;width:auto}.nav .home{display:block;border-radius:6px}.nav .home:focus-visible{outline:2px solid #fff;outline-offset:6px}
+.nav ul{display:flex;gap:30px;list-style:none;margin:0;padding:0;font:500 14px var(--f);color:rgba(255,255,255,.9)}
+@media (max-width:860px){.nav ul{display:none}.nav .wrap{height:64px}}
+
+/* cursor label: a small pill that follows the pointer over things you can drag or open */
+.cur{position:fixed;left:0;top:0;z-index:90;pointer-events:none;opacity:0;transition:opacity .25s}
+.cur span{display:block;padding:9px 14px;border-radius:999px;background:#fff;color:#0B0B0D;font:500 12.5px/1 var(--f);white-space:nowrap;box-shadow:0 12px 30px -12px rgba(0,0,0,.7);transform:translate(16px,16px) scale(.85);transition:transform .35s var(--ease)}
+.cur.on{opacity:1}.cur.on span{transform:translate(16px,16px) scale(1)}
+@media (hover:none),(pointer:coarse){.cur{display:none}}
+/* cards that tilt toward the pointer, with a soft sheen where it is */
+[data-tilt]{position:relative;transform-style:preserve-3d}
+[data-tilt]::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.16),transparent 45%)}
+[data-tilt]:hover::after{opacity:1}
+.white [data-tilt]::after{background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(215,0,15,.08),transparent 45%)}
+
+/* 1 HERO (v9.1): the cube on a slow moving gradient (lib/flow91.js; a still red glow without WebGL), Sue's title and copy.
+   One transparent canvas covers the stage, so the cube can float, roll, hop and burst apart without clipping */
+.hero{position:relative;height:100svh;min-height:640px;overflow:hidden;background:radial-gradient(55% 65% at 70% 52%,#4a0007,#0a0a0b 72%)}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:110px;background:linear-gradient(0deg,var(--ink),transparent);z-index:2;pointer-events:none}
+.flow{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0}
+.hstage{position:absolute;inset:0;z-index:1;--cx:70%;--cy:52%;--cs:420px}
+/* the glass cube is a light source: its red glow on the backdrop */
+.cglow{position:absolute;z-index:1;left:var(--cx);top:var(--cy);width:calc(var(--cs) * 1.75);height:calc(var(--cs) * 1.5);translate:-50% -50%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(225,0,20,.32),rgba(215,0,15,.1) 52%,transparent);mix-blend-mode:screen}
+.cube{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.cubefb{position:absolute;z-index:1;left:var(--cx);top:var(--cy);width:calc(var(--cs) * 1.12);height:auto;translate:-50% -50%;pointer-events:none}
+.cubehit{position:absolute;z-index:4;left:calc(var(--cx) - var(--cs) * .6);top:calc(var(--cy) - var(--cs) * .6);width:calc(var(--cs) * 1.2);height:calc(var(--cs) * 1.2);
+  border-radius:50%;cursor:grab;touch-action:pan-y;-webkit-tap-highlight-color:transparent}
+.cubehit:active{cursor:grabbing}.cubehit:focus-visible{outline:2px solid #fff;outline-offset:-10%}
+.hero .in{position:relative;z-index:3;height:100%;display:flex;align-items:flex-start;padding-top:76px;pointer-events:none}
+.hero .copy{width:min(580px,40vw);margin-block:auto;pointer-events:auto}   /* auto margins: centred, but never above the nav */
+.eyebrow{display:flex;align-items:center;gap:10px;font:500 12px/1.3 var(--f);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+.eyebrow i{flex:none;width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 12px var(--red)}
+.hero h1{font-size:clamp(48px,5.2vw,90px);line-height:.94;letter-spacing:-.045em;margin-top:22px;font-weight:500}
+.hero h1 b{font-weight:800}
+.hero .lead{max-width:44ch;color:rgba(255,255,255,.8);font-size:clamp(16px,1.2vw,19px);line-height:1.55;margin:24px 0 0;text-wrap:pretty}
+.hhint{position:absolute;z-index:3;left:var(--cx);top:calc(var(--cy) + var(--cs) * .66);translate:-50% 0;display:flex;align-items:center;gap:9px;font:500 12.5px var(--f);color:rgba(255,255,255,.62);pointer-events:none;white-space:nowrap;transition:opacity .5s}
+.hhint i{width:7px;height:7px;border-radius:50%;background:var(--hot);box-shadow:0 0 10px var(--hot)}
+.hhint.off,.hhint.away{opacity:0}
+@media (min-width:861px) and (max-width:1100px){.hero .copy{width:min(460px,44vw)}}
+@media (max-width:860px){
+  .hero{height:auto;min-height:0;display:flex;flex-direction:column;padding:64px 0 64px}
+  .hero::after{display:none}
+  .hstage{position:relative;inset:auto;order:0;flex:none;height:max(400px,50svh)}
+  .hero .in,.hero .copy{display:contents}
+  .eyebrow{display:none}
+  .hero h1{order:4;margin:18px var(--gut) 0;font-size:clamp(42px,11vw,56px)}
+  .hero .lead{order:5;margin:16px var(--gut) 0}
+}
+
+/* 2 LOGOS (v9.1, Ian + Sue: the logos in their own colours, on white). The pieces of the hero's cube still land at the
+   top of this section after it bursts (six of its cubies, rendered from the hero engine, tool/cubies9.html). The logos sit
+   on white keys with the cube's frost bevel; every few seconds one row turns over like a twisted layer (each incoming logo
+   is decoded first, so no key turns to a blank side) */
+#s2{overflow:visible;z-index:2}
+.deb{position:absolute;inset:0 0 auto 0;height:clamp(240px,22vw,330px);pointer-events:none;z-index:1}
+@media (max-width:860px){.deb img:nth-child(n+4){display:none}.deb img{scale:.7}}
+.deb img{position:absolute;width:var(--w);height:auto;filter:drop-shadow(0 24px 30px rgba(0,0,0,.65));will-change:transform}
+#s2 .wrap{position:relative;z-index:2}
+.lgrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;margin-top:44px}
+.lc{position:relative;aspect-ratio:16/10;perspective:800px}
+.lc .fl{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.3,1.25,.4,1)}
+.lc .sd{position:absolute;inset:0;display:grid;place-items:center;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;
+  background:linear-gradient(180deg,#fff,#eeeaeb);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.95),inset 0 0 0 5px rgba(0,0,0,.04),0 0 0 1px rgba(255,255,255,.08),0 20px 34px -22px rgba(0,0,0,.9)}
+.lc .sd+.sd{transform:rotateY(180deg)}
+.lc img{width:84%;height:auto}
+.lc:hover .sd{box-shadow:inset 0 0 0 1.5px var(--hot),0 0 0 1px rgba(255,43,48,.35),0 20px 40px -18px rgba(255,43,48,.6)}
+@media (max-width:1100px){.lgrid{grid-template-columns:repeat(4,minmax(0,1fr))}.lc:nth-child(n+17){display:none}}
+@media (max-width:620px){.lgrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.lc:nth-child(n+13){display:none}.lc .sd{border-radius:12px}}
+
+/* 4 PROVEN BUSINESS IMPACT (v9.1, Sue: four in one row, made like the cube): each figure is a key of the cube's glass set
+   in its chrome, so the row reads as a strip of the cube: red, smoked, frost and wine. A neon glyph lights each one;
+   the keys lean toward the pointer. Real figures from the deck */
+.kpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:44px}
+.kp{position:relative;isolation:isolate;border-radius:30px;padding:7px;aspect-ratio:1/1.04;
+  background:linear-gradient(145deg,#f4f4f6 0%,#8b8b93 22%,#2a2a2f 48%,#d9d9df 70%,#5b5b62 100%);box-shadow:0 34px 60px -30px rgba(0,0,0,.95),0 0 0 1px rgba(0,0,0,.5)}
+.kp .gk{position:relative;height:100%;border-radius:24px;overflow:hidden;padding:clamp(20px,2vw,30px);display:flex;flex-direction:column;justify-content:space-between;color:#fff;
+  box-shadow:inset 0 0 0 2px var(--rim),inset 0 0 0 7px rgba(0,0,0,.26),inset 0 1px 0 9px rgba(255,255,255,.03)}
+.kp .gk::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(70% 55% at 30% 18%,var(--hi),transparent 70%)}
+.kp.g-red .gk{--rim:rgba(255,52,66,.95);--hi:rgba(255,90,100,.34);background:linear-gradient(180deg,#3e0006,#a0000e)}
+.kp.g-smoke .gk{--rim:rgba(255,40,58,.5);--hi:rgba(255,235,238,.09);background:linear-gradient(180deg,#070304,#18060b)}
+.kp.g-wine .gk{--rim:rgba(255,44,60,.8);--hi:rgba(255,80,92,.16);background:linear-gradient(180deg,#140002,#4c0008)}
+.kp.g-frost .gk{--rim:rgba(255,255,255,.95);--hi:rgba(255,255,255,.8);background:linear-gradient(180deg,#ece7e9,#bdb3b7);color:#2a0004}
+.kp small{font:600 11.5px/1.3 var(--o);letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+.kp.g-frost small{color:var(--red)}
+.kp .num{display:flex;align-items:flex-start;font:300 clamp(60px,6.4vw,118px)/.82 var(--f);letter-spacing:-.07em;margin:12px 0 10px;font-variant-numeric:tabular-nums;text-shadow:0 0 28px rgba(255,31,52,.35)}
+.kp.g-frost .num{color:#a0000e;text-shadow:none}
+.kp .num i{font-style:normal;font-weight:800;font-size:.46em;line-height:1;letter-spacing:-.02em;margin:.1em 0 0 .08em}
+.kp p{max-width:24ch;margin:0;font-size:clamp(14px,1vw,16px);line-height:1.42;color:rgba(255,255,255,.84)}
+.kp.g-frost p{color:#3a1418}
+.kp .gl{position:absolute;right:clamp(16px,1.6vw,26px);top:clamp(16px,1.6vw,26px);width:clamp(40px,3.6vw,58px);height:auto;filter:drop-shadow(0 0 8px rgba(255,0,25,.75)) drop-shadow(0 0 2px rgba(255,31,52,.9))}
+@media (max-width:1100px){.kpi{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.kpi{gap:12px}.kp{border-radius:24px;padding:6px;aspect-ratio:auto;min-height:220px}.kp .gk{border-radius:19px}}
+
+/* 3 OUR SERVICES (v9.1, Sue: where the armour was, with the cubes from the hero; her four titles, no layer labels): one card
+   of smoked glass per service, each crowned by a piece of the hero's cube (rendered by its own engine, tool/stills91.html)
+   that lifts and turns toward you on hover. One clear way on: the card opens its service; "Find your service" for the unsure */
+.svs .shd{display:flex;justify-content:space-between;align-items:flex-end;gap:20px 40px;flex-wrap:wrap}
+.svs .shd p{margin:0 0 6px;max-width:40ch;color:rgba(255,255,255,.7);font-size:15.5px;line-height:1.55}
+.svg4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:clamp(70px,7vw,110px)}
+.svc{position:relative;display:flex;flex-direction:column;padding:clamp(96px,8.4vw,126px) 24px 24px;border-radius:26px;color:#fff;text-decoration:none;
+  background:linear-gradient(160deg,rgba(255,255,255,.085),rgba(255,255,255,.025));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.12),inset 0 1px 0 rgba(255,255,255,.14),0 30px 60px -36px rgba(0,0,0,.95);transition:box-shadow .4s,background .4s}
+.svc:hover,.svc:focus-visible{background:linear-gradient(160deg,rgba(215,0,15,.2),rgba(255,255,255,.03));box-shadow:inset 0 0 0 1.5px var(--hot),0 0 0 1px rgba(255,43,48,.3),0 30px 60px -26px rgba(255,43,48,.55);outline:none}
+.svc .pc{position:absolute;left:50%;top:0;width:clamp(150px,13vw,200px);translate:-50% -52%;filter:drop-shadow(0 26px 30px rgba(0,0,0,.7));transition:transform .7s cubic-bezier(.3,1.4,.4,1)}
+.svc:hover .pc,.svc:focus-visible .pc{transform:translateY(-10px) rotate(-8deg) scale(1.06)}
+.svc .no{font:300 15px var(--f);color:var(--hot)}
+.svc h3{margin-top:8px;font:700 clamp(21px,1.75vw,27px)/1.12 var(--f);letter-spacing:-.025em;text-wrap:balance}
+.svc p{margin:12px 0 0;color:rgba(255,255,255,.7);font-size:14.5px;line-height:1.5}
+.svc small{display:block;margin-top:14px;font:600 11px/1.5 var(--o);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.svc .go{margin-top:auto;padding-top:22px;display:inline-flex;align-items:center;gap:10px;font:500 14px var(--f)}
+.svc .go i{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--red);font-style:normal;transition:transform .4s var(--ease)}
+.svc:hover .go i{transform:rotate(-45deg)}
+.smid{display:flex;align-items:center;justify-content:space-between;gap:16px 30px;flex-wrap:wrap;margin-top:22px;padding:20px 22px 20px 28px;border-radius:22px;background:rgba(255,255,255,.035);box-shadow:inset 0 0 0 1px var(--line)}
+.smid p{margin:0;font:500 clamp(17px,1.4vw,21px)/1.3 var(--f);letter-spacing:-.01em}
+.smid div{display:flex;gap:10px;flex-wrap:wrap}
+@media (max-width:1100px){.svg4{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:96px}}
+@media (max-width:620px){.svg4{grid-template-columns:minmax(0,1fr);row-gap:88px}.svc{padding-top:100px}}
+
+/* 6 DATA MADE DIGESTIBLE · played as you scroll (David: "too boring"): a noisy raw export flickers, a red scan settles it row
+   by row and lights up three findings, the noise dissolves until only those three are left, and each one wires itself to
+   the move it leads to. Hover a move to light its finding. The export is a labelled sample (illustrative numbers). */
+.dsec{background:radial-gradient(50% 70% at 20% 62%,rgba(150,0,10,.24),transparent 70%),#08080A;padding:0}
+.dpin{position:relative;min-height:100svh;display:flex;align-items:center;padding:clamp(76px,7vw,104px) 0 clamp(44px,4vw,64px)}
+.dpin > .wrap{width:100%}
+.dhd{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.55fr);gap:14px 56px;align-items:end}
+.dhd .h2{font-size:clamp(38px,4.2vw,70px)}
+.dhd p{margin:0;max-width:42ch;color:rgba(255,255,255,.72);font-size:15.5px;line-height:1.55}
+.dstage{position:relative;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.86fr);gap:clamp(56px,7vw,130px);align-items:center;margin-top:clamp(28px,3.4vw,52px)}
+/* v9 (Sue): the export in dark mode: smoked glass, light figures, hairlines */
+.sheet{position:relative;z-index:1;border-radius:var(--rad);background:linear-gradient(165deg,rgba(30,30,35,.92),rgba(14,14,17,.94));color:#eee;padding:18px 20px 12px;rotate:-2deg;
+  box-shadow:0 50px 90px -40px rgba(0,0,0,.95),inset 0 0 0 1px rgba(255,255,255,.09),inset 0 1px 0 rgba(255,255,255,.1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transform-origin:50% 100%}
+.sheet .top{display:flex;justify-content:space-between;align-items:center;font:600 10px var(--o);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.42)}
+.sheet .top i{font-style:normal;color:var(--hot)}
+.sheet table{width:100%;border-collapse:collapse;font:11.5px/1.95 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(255,255,255,.62);margin-top:8px}
+.sheet th{font-weight:600;color:rgba(255,255,255,.86);text-align:left;border-bottom:1px solid rgba(255,255,255,.14);padding-right:8px}
+.sheet td{border-bottom:1px solid rgba(255,255,255,.055);white-space:nowrap;padding-right:8px;font-variant-numeric:tabular-nums}
+.sheet td.fz{color:rgba(255,255,255,.26)}                         /* still noisy: the scan has not reached this row */
+.sheet td .chl[src*="tiktok"]{border-radius:22%;box-shadow:0 0 0 1px rgba(255,255,255,.3)}   /* TikTok's black tile, outlined so it shows on the dark sheet */
+.sheet td .chl{display:inline-block;width:1.3em;height:1.3em;max-width:none;object-fit:contain;vertical-align:-.32em;margin-right:.6em;transition:filter .35s,opacity .35s}
+.sheet td.fz .chl{filter:grayscale(1);opacity:.5}                  /* the logo colours in as the scan passes */
+.sheet td.hl span{position:relative;display:inline-block;border-radius:3px;padding:1px 4px;transition:box-shadow .35s,color .35s,background .35s}
+.sheet td.hl.hit span{color:#fff;font-weight:700;box-shadow:0 0 0 1.5px var(--hot),0 0 16px rgba(255,43,48,.45)}
+.sheet td.hl.lit span{background:var(--red);color:#fff;box-shadow:0 0 0 1.5px var(--hot),0 0 22px rgba(215,0,15,.75)}
+.sheet td.hl sup{position:absolute;right:-9px;top:-9px;width:15px;height:15px;border-radius:50%;background:var(--red);color:#fff;font:700 9px/15px var(--f);text-align:center;transform:scale(0);transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.sheet td.hl.hit sup{transform:none}
+.sheet .nt2.l{left:auto;right:calc(100% + 12px)}
+.sheet .nt2{position:absolute;left:calc(100% + 12px);top:50%;translate:0 -50%;z-index:2;padding:6px 10px;border-radius:999px;background:#fff;color:#0B0B0D;font:600 11px/1 var(--f);white-space:nowrap;letter-spacing:0;opacity:0;pointer-events:none;box-shadow:0 10px 24px -10px rgba(0,0,0,.6)}
+.sheet .scan{position:absolute;left:0;right:0;height:60px;top:-14%;background:linear-gradient(180deg,transparent,rgba(215,0,15,.22) 70%,rgba(215,0,15,.55) 96%,transparent);pointer-events:none;border-bottom:2px solid rgba(215,0,15,.85);box-shadow:0 8px 22px -6px rgba(215,0,15,.6)}
+.dlinks{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;overflow:visible}
+.dlinks path{fill:none;stroke:var(--hot);stroke-width:1.6;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(255,43,48,.7));transition:stroke-width .3s,opacity .3s}
+.dlinks circle{fill:var(--hot)}
+.dlinks path.lit{stroke-width:3}.dstage.lt .dlinks path:not(.lit){opacity:.25}
+.plan{position:relative;z-index:3;display:grid;gap:12px}
+/* v9 (Sue): the three moves on glass, each with an icon instead of a number. The icon sits in a key of the cube's red glass
+   with a neon line glyph, so the moves carry the hero's material */
+.plan .s{display:grid;grid-template-columns:58px minmax(0,1fr);gap:16px;align-items:center;padding:18px 20px;border-radius:20px;color:#fff;cursor:default;
+  background:linear-gradient(150deg,rgba(255,255,255,.1),rgba(255,255,255,.035));backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.13),inset 0 1px 0 rgba(255,255,255,.16),0 24px 50px -30px rgba(0,0,0,.9);transition:box-shadow .35s,translate .35s}
+.plan .s.lit{box-shadow:inset 0 0 0 1.5px var(--hot),0 0 0 1px rgba(255,43,48,.4),0 24px 50px -24px rgba(255,43,48,.75);translate:-6px 0}   /* translate, not transform: GSAP owns transform */
+.plan .s .key{position:relative;width:58px;height:58px;border-radius:14px;display:grid;place-items:center;
+  background:radial-gradient(90% 90% at 30% 22%,rgba(255,72,84,.28),transparent 60%),linear-gradient(180deg,#3e0006,#a0000e);
+  box-shadow:inset 0 0 0 1.5px rgba(255,52,66,.95),inset 0 0 0 4px rgba(0,0,0,.28),0 0 0 1px rgba(255,255,255,.08),0 10px 24px -10px rgba(215,0,15,.8)}
+.plan .s .key svg{width:30px;height:30px;overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.plan .s .key .g1{stroke:#ff0e24;stroke-width:3.2;filter:blur(1.6px);opacity:.85}.plan .s .key .g2{stroke:#ff1f34;stroke-width:1.9}.plan .s .key .g3{stroke:#ffe0e4;stroke-width:.75}
+.plan .s h4{font:700 clamp(17px,1.5vw,20px)/1.2 var(--f);letter-spacing:-.01em}
+.plan .s p{margin:4px 0 0;font-size:13.5px;line-height:1.45;color:rgba(255,255,255,.7)}
+.plan .s small{display:none;margin-top:8px;font:600 11px/1.3 var(--f);color:var(--hot)}
+.dend{margin:18px 0 0 4px;font:600 12px var(--o);letter-spacing:.24em;text-transform:uppercase;color:var(--hot);opacity:0}
+@media (max-width:960px){
+  .dpin{min-height:0;display:block;padding:clamp(80px,12vw,120px) 0 80px}
+  .dhd,.dstage{grid-template-columns:minmax(0,1fr)}.dstage{gap:28px}
+  .dlinks,.sheet .nt2{display:none}.plan .s small{display:block}.dend{opacity:1}
+  .sheet{rotate:-1deg;overflow-x:auto}.sheet table{font-size:9.5px}.sheet .xm{display:none}.sheet th,.sheet td{padding-right:6px}.sheet td .chl{margin-right:.45em}
+}
+
+/* 7 CASES (v9, Sue: testimonial + key result + a photo of the work + the client's logo, shown more dynamically, ref her
+   slide 12): a cover-flow arc on white. The front card faces you; its neighbours turn away and recede along the arc. It
+   moves on by itself (held while you point at it), and you can drag it, click a side card, use the arrows or the keys.
+   Real numbers from the deck; a card says plainly when its client quote is still to come. */
+.cf{position:relative;height:clamp(560px,40vw,640px);margin-top:clamp(28px,3vw,44px);perspective:1700px;overflow:hidden;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
+.cf:active{cursor:grabbing}
+.cft{position:absolute;inset:0;transform-style:preserve-3d}
+.cc2{position:absolute;left:50%;top:calc(50% - 34px);width:clamp(300px,25vw,390px);height:auto;aspect-ratio:100/114;margin:0;translate:-50% -50%;border-radius:26px;overflow:hidden;
+  background:#0d0d10;color:#fff;box-shadow:0 40px 80px -40px rgba(0,0,0,.65),inset 0 0 0 1px rgba(255,255,255,.06);display:flex;flex-direction:column;will-change:transform}
+.cc2::after{content:"";position:absolute;inset:0;background:#fff;opacity:var(--dim,0);pointer-events:none;transition:opacity .3s}
+.cc2 .ph{position:relative;flex:none;height:42%;overflow:hidden}
+.cc2 .ph img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.cc2 .ph::after{content:"";position:absolute;inset:auto 0 0 0;height:45%;background:linear-gradient(0deg,#0d0d10,transparent)}
+.cc2 .lg{position:absolute;left:18px;bottom:14px;z-index:1;display:grid;place-items:center;height:38px;min-width:38px;padding:0 12px;border-radius:999px;background:#fff;box-shadow:0 8px 20px -8px rgba(0,0,0,.6)}
+.cc2 .lg img{height:24px;max-width:110px;width:auto;object-fit:contain}
+.cc2 .lg.dk{background:#141417;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),0 8px 20px -8px rgba(0,0,0,.6)}   /* Luxe Living's gold mark reads on dark */
+.cc2 .lg b{font:700 12.5px var(--f);color:#111;letter-spacing:-.01em}
+.cc2 .bd{flex:1;display:flex;flex-direction:column;padding:16px 22px 20px;min-height:0}
+.cc2 .k2{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.cc2 .k2 b{font:300 clamp(40px,3.4vw,54px)/.9 var(--f);letter-spacing:-.06em;color:#fff}
+.cc2 .k2 b small{display:block;margin-bottom:6px;font:600 11px var(--o);letter-spacing:.2em;text-transform:uppercase;color:var(--hot)}
+.cc2 .k2 span{font-size:13px;line-height:1.35;color:rgba(255,255,255,.7);max-width:20ch}
+.cc2 blockquote{margin:12px 0 0;font:500 13.5px/1.42 var(--f);letter-spacing:-.01em;color:#fff;text-wrap:pretty}
+.cc2 blockquote::before{content:"\201C";display:block;height:16px;font:800 40px/1 var(--f);color:var(--hot)}
+.cc2 cite{display:block;margin-top:10px;font:400 12.5px var(--f);font-style:normal;color:rgba(255,255,255,.6)}
+.cc2 .qp{margin:12px 0 0;font:500 14px/1.42 var(--f);color:rgba(255,255,255,.86);text-wrap:pretty}
+.cc2 .qp small{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:6px 11px;border-radius:999px;font:500 11.5px var(--f);color:rgba(255,255,255,.62);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.cc2 .qp small::before{content:"\201C";font:800 16px/1 var(--f);color:var(--hot)}
+.cc2 .ft{margin-top:auto;padding-top:14px;display:flex;justify-content:space-between;gap:10px;border-top:1px solid rgba(255,255,255,.1);font:600 10.5px var(--o);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.cc2 .ft em{font-style:normal;color:var(--hot)}
+.cfnav{position:absolute;left:50%;bottom:6px;translate:-50% 0;z-index:200;display:flex;align-items:center;gap:16px;font:500 13px var(--f);color:#555;font-variant-numeric:tabular-nums}
+.cfnav button{all:unset;cursor:pointer;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#111;box-shadow:inset 0 0 0 1px rgba(0,0,0,.16);transition:background .3s,color .3s}
+.cfnav button:hover,.cfnav button:focus-visible{background:var(--red);color:#fff;box-shadow:none}
+@media (max-width:760px){.cf{height:540px}.cc2{width:min(320px,82vw)}}
+.cshd{display:flex;align-items:flex-end;justify-content:space-between;gap:20px 32px;flex-wrap:wrap}
+
+/* 09 + 10 (v9, Sue): under the cast, a gallery of the team with clients runs in two ribbons, one each way, and the "why clients
+   love us" message sits between them, so the words and the photos read as one. Every third photo is graded red and black like
+   her slide 18 and comes back to colour under the pointer; the ribbons hold while you point at them. */
+.gal{padding:clamp(70px,8vw,120px) 0;overflow:hidden}
+.grib{position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.gtr{display:flex;gap:14px;width:max-content;animation:gslide 80s linear infinite}
+.gtr.rev{animation-direction:reverse;animation-duration:96s}
+.grib:hover .gtr{animation-play-state:paused}
+@keyframes gslide{to{transform:translateX(calc(-50% - 7px))}}
+.gt{position:relative;flex:none;width:clamp(200px,18vw,280px);aspect-ratio:1/1;margin:0;border-radius:18px;overflow:hidden;background:#111}
+.gt img{width:100%;height:100%;object-fit:cover;transition:filter .6s,transform .8s var(--ease)}
+.gt:hover img{transform:scale(1.05)}
+.gt.rd img{filter:grayscale(1) contrast(1.2) brightness(1.05)}
+.gt.rd::after{content:"";position:absolute;inset:0;background:#e3000f;mix-blend-mode:multiply;transition:opacity .6s;pointer-events:none}
+.gt.rd:hover img{filter:none}.gt.rd:hover::after{opacity:0}
+.gmid{padding-block:clamp(54px,6vw,90px)}
+.gmid{display:flex;align-items:flex-end;justify-content:space-between;gap:20px 40px;flex-wrap:wrap}
+.gcap{margin:18px auto 0;padding:0 var(--gut);max-width:1320px;font-size:13px;color:rgba(255,255,255,.5)}
+@media (prefers-reduced-motion:reduce){.gtr{animation:none}}
+
+/* 8 LET'S TALK (v9.1, Sue: no audit label or sentence, no team photo): brand red, the headline left and the prompt card
+   right on dark glass, a piece of the hero's cube on its corner (the knight is gone: one motif). Sending opens WhatsApp
+   with the message, ready to send to Battle's number. Buttons in the site's one language. */
+.cn{position:relative;min-height:80svh;display:flex;align-items:center;overflow:hidden;padding:clamp(110px,11vw,160px) 0;isolation:isolate;
+  background:radial-gradient(80% 70% at 18% 20%,#ff2b33 0%,#e3000f 38%,#b8000c 70%,#8d0009 100%)}
+.cn::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.08;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+.cnw{position:relative;z-index:2;width:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);gap:clamp(40px,6vw,110px);align-items:center}
+.cnc .lbl{color:#fff}
+.cn h2{font-size:clamp(48px,5.4vw,96px);line-height:.96;margin-top:16px}
+.cnc p{margin:22px 0 0;max-width:34ch;font-size:clamp(16px,1.25vw,19px);line-height:1.5;color:rgba(255,255,255,.9)}
+.cnalt{margin:16px 6px 0;font-size:13.5px;color:rgba(255,255,255,.82)}.cnalt a{color:#fff;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.45)}.cnalt a:hover{border-color:#fff}
+.askw{position:relative}
+.askw .ask{position:relative;z-index:2}
+.ko{position:absolute;pointer-events:none;will-change:transform}
+.ko > span{display:block}.ko img{display:block;width:100%;height:auto;filter:drop-shadow(0 30px 40px rgba(0,0,0,.55))}
+.ko.bk{z-index:1}.ko.fr{z-index:3}
+.ko.far img{filter:blur(2.5px) brightness(.85) drop-shadow(0 20px 30px rgba(0,0,0,.5))}.ko.near img{filter:blur(7px) drop-shadow(0 30px 40px rgba(0,0,0,.5))}
+.ko.glow{mix-blend-mode:screen}.ko.glow img{filter:none}.ko.glow.far img{filter:blur(2.5px)}.ko.glow.near img{filter:blur(6px)}   /* black art: screen it onto the section itself */
+@media (max-width:760px){.ko.m-hide{display:none}}
+@media (max-width:900px){.cnw{grid-template-columns:minmax(0,1fr)}.askw .ko{display:none}}
+.ask{text-align:left;border-radius:28px;padding:22px 22px 18px;background:linear-gradient(160deg,rgba(20,4,6,.72),rgba(10,10,12,.82));backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),inset 0 1px 0 rgba(255,255,255,.12),0 50px 90px -40px rgba(40,0,0,.9)}
+.ask .ak{display:block;margin:2px 4px 10px;font:600 11px var(--o);letter-spacing:.22em;text-transform:uppercase;color:var(--hot)}
+.ask input{width:100%;border:0;outline:none;background:none;font:400 clamp(20px,1.9vw,26px) var(--f);letter-spacing:-.01em;color:#fff;padding:4px 4px 22px}.ask input::placeholder{color:rgba(255,255,255,.62)}
+.ask .row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.ask .chips2{display:flex;gap:8px;flex-wrap:wrap}.ask .chips2 button:focus-visible{outline:2px solid #fff;outline-offset:2px}.ask .chips2 button{all:unset;cursor:pointer;font:600 13px var(--f);padding:9px 14px;border-radius:999px;background:#fff;color:var(--red)}
+.ask .send{all:unset;cursor:pointer;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--red);color:#fff;transition:transform .4s var(--ease),box-shadow .3s}.ask .send svg{width:18px;height:18px}
+.ask .send:hover,.ask .send:focus-visible{transform:rotate(-45deg) scale(1.06);box-shadow:0 10px 26px -8px rgba(255,43,48,.9)}
+/* 13 FOOTER · white, so both lockups read (their wordmarks are dark); every logo and line is a link */
+.foot{background:#fff;color:#0D131A;padding:clamp(64px,7vw,100px) 0 26px;font-size:14.5px}
+.foot .fmain{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));gap:40px}
+.foot .lk{display:flex;flex-wrap:wrap;gap:12px 30px;align-items:center;margin-bottom:22px}
+.foot .lk a{display:block;padding:6px 0;border-radius:8px;transition:transform .4s var(--ease),opacity .3s}
+.foot .lk a:hover,.foot .lk a:focus-visible{transform:translateY(-3px)}
+.foot .lk a:focus-visible{outline:2px solid var(--red);outline-offset:6px}
+.foot .lk img{height:34px;width:auto}
+.foot p{margin:0;color:#4b5058;line-height:1.6;max-width:38ch}
+.foot b{display:block;color:#0D131A;font:600 12px var(--o);letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.foot ul a{color:#4b5058;text-decoration:none;background:linear-gradient(var(--red),var(--red)) 0 100%/0 1.5px no-repeat;padding-bottom:2px;transition:color .25s,background-size .4s var(--ease)}
+.foot ul a:hover,.foot ul a:focus-visible{color:#0D131A;background-size:100% 1.5px;outline:none}
+.foot .addr{font-size:13px;line-height:1.5}
+.foot .fbot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 24px;margin-top:60px;padding-top:22px;border-top:1px solid #e7e7e9;font-size:12.5px;color:#6b7079}
+.foot .fbot a{color:#0D131A;text-decoration:none;font-weight:500}.foot .fbot a:hover{color:var(--red)}
+@media (max-width:860px){.foot .fmain{grid-template-columns:1fr 1fr;gap:36px 24px}.foot .fbrand{grid-column:1/-1}.foot .lk img{height:28px}}
+.foot .fbot .top{display:inline-flex;align-items:center;gap:10px}.foot .fbot .top i{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-style:normal;background:#0D131A;color:#fff;transition:background .3s,transform .4s var(--ease)}
+.foot .fbot .top:hover i{background:var(--red);transform:translateY(-3px)}
+.foot .big{margin:40px 0 -0.16em;font:800 clamp(80px,19.5vw,330px)/.8 var(--f);letter-spacing:-.06em;color:#f1f1f2;text-align:center;user-select:none;white-space:nowrap;overflow:hidden}
+.note{background:#f4f4f5;border-top:1px solid #e7e7e9;padding:16px var(--gut);font-size:12.5px;color:#7a7f87;text-align:center}
+
+/* ---------------- v10 ---------------- */
+/* navigation: links, the section you are in, the phone menu */
+.nav ul a{color:inherit;text-decoration:none;position:relative;padding:8px 0;transition:color .3s}
+.nav ul a::after{content:"";position:absolute;left:50%;bottom:-2px;width:5px;height:5px;border-radius:50%;background:var(--hot);box-shadow:0 0 10px var(--hot);translate:-50% 5px;opacity:0;transition:opacity .3s,translate .45s var(--ease)}
+.nav ul a:hover,.nav ul a.on{color:#fff}.nav ul a.on::after{opacity:1;translate:-50% 0}
+.nav ul a:focus-visible{outline:2px solid #fff;outline-offset:4px;border-radius:4px}
+.nav .nr{display:flex;align-items:center;gap:10px}
+.nb{all:unset;box-sizing:border-box;cursor:pointer;display:none;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);place-items:center;-webkit-tap-highlight-color:transparent}
+.nb span{display:block;width:18px}.nb i{display:block;width:18px;height:2px;background:#fff;border-radius:2px;transition:transform .4s var(--ease),opacity .3s}
+.nb i+i{margin-top:5px}
+.nb[aria-expanded=true] i:first-child{transform:translateY(7px) rotate(45deg)}.nb[aria-expanded=true] i:nth-child(2){opacity:0}.nb[aria-expanded=true] i:last-child{transform:translateY(-7px) rotate(-45deg)}
+.nb:focus-visible{outline:2px solid #fff;outline-offset:3px}
+@media (max-width:860px){.nb{display:grid}}
+.drawer{position:fixed;inset:0;z-index:58;background:rgba(10,10,11,.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);display:flex;flex-direction:column;justify-content:center;padding:84px var(--gut) 40px;opacity:0;visibility:hidden;translate:0 -4%;transition:opacity .4s,translate .55s var(--ease),visibility 0s .5s}
+.drawer.open{opacity:1;visibility:visible;translate:0;transition:opacity .4s,translate .55s var(--ease),visibility 0s}
+.drawer ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.drawer ul a{display:flex;align-items:baseline;gap:16px;font:500 clamp(32px,8.5vw,44px)/1.1 var(--f);letter-spacing:-.03em;text-decoration:none;padding:10px 0;border-bottom:1px solid var(--line)}
+.drawer ul a small{font:500 12px var(--o);letter-spacing:.2em;color:var(--hot)}
+.drawer .dct{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.drawer .dln{margin-top:26px;font-size:14px;color:rgba(255,255,255,.65);display:grid;gap:6px}.drawer .dln a{color:#fff;text-decoration:none}
+body.lock{overflow:hidden}
+/* hero: calls to action and a scroll cue; both step aside with the burst */
+.hero .ctas{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:32px}
+.scue{position:absolute;z-index:3;left:var(--gut);bottom:36px;display:flex;align-items:center;gap:14px;font:500 11.5px var(--f);letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);pointer-events:none;transition:opacity .5s}
+.scue i{position:relative;display:block;width:1px;height:46px;background:rgba(255,255,255,.14);overflow:hidden}
+.scue i::after{content:"";position:absolute;left:0;top:0;width:100%;height:40%;background:var(--hot);animation:scue 2.2s cubic-bezier(.6,0,.2,1) infinite}
+@keyframes scue{0%{transform:translateY(-100%)}60%,100%{transform:translateY(260%)}}
+.scue.away{opacity:0}
+@media (max-width:860px){.hero .ctas{order:6;margin:24px var(--gut) 0}.scue{display:none}}
+@media (prefers-reduced-motion:reduce){.scue i::after{animation:none;transform:none}}
+/* the story spine: each label names the half of "Human First. Results Always." its section serves */
+.lbl.sp{color:rgba(255,255,255,.55)}.lbl .act{color:#fff}.lbl .act.ra{color:var(--hot)}.lbl .act::after{content:"·";margin:0 .7em;color:rgba(255,255,255,.35)}
+.white .lbl.sp{color:#5f6368}.white .lbl .act{color:#111}.white .lbl .act.ra{color:var(--red)}.white .lbl .act::after{color:rgba(0,0,0,.3)}
+.cnc .lbl.sp,.cnc .lbl .act,.cnc .lbl .act.ra{color:#fff}.cnc .lbl .act::after{color:rgba(255,255,255,.5)}
+.cnc .lbl{color:#fff}.lbl .act.last::after{content:none}
+/* the service diagnostic (the deck, slide 25): pick the line that sounds like you */
+.svs .shd p{max-width:44ch}
+.diag{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(20px,3vw,44px);margin-top:clamp(56px,6vw,90px);align-items:stretch}
+.dq{margin-bottom:18px}
+.dq h3{font:600 clamp(22px,2vw,30px)/1.15 var(--f);letter-spacing:-.025em;margin:10px 0 0}
+.dq p{margin:8px 0 0;color:rgba(255,255,255,.62);font-size:15px}
+.dopts{display:grid;gap:8px}
+.dopt{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:16px;padding:14px 18px 14px 14px;border-radius:18px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1),inset 0 1px 0 rgba(255,255,255,.06);font:500 15px/1.4 var(--f);color:rgba(255,255,255,.8);transition:background .35s,box-shadow .35s,transform .45s var(--ease),color .3s;text-wrap:pretty;-webkit-tap-highlight-color:transparent}
+.dopt b{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);font:600 13px var(--o);letter-spacing:.06em;color:#fff;transition:background .3s,box-shadow .3s}
+.dopt:hover{background:rgba(255,255,255,.075);transform:translateX(4px);color:#fff}
+.dopt[aria-pressed=true]{color:#fff;background:linear-gradient(160deg,rgba(215,0,15,.42),rgba(60,0,4,.5));box-shadow:inset 0 0 0 1px rgba(255,70,80,.7),inset 0 1px 0 rgba(255,255,255,.18),0 24px 50px -30px rgba(255,43,48,.8);transform:translateX(6px)}
+.dopt[aria-pressed=true] b{background:var(--red);box-shadow:0 0 14px rgba(255,43,48,.8)}
+.dopt:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.dans{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:12px;min-height:360px;padding:clamp(24px,2.4vw,34px);border-radius:28px;
+  background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12),inset 0 1px 0 rgba(255,255,255,.14),0 30px 60px -36px rgba(0,0,0,.95);transition:background .5s,box-shadow .5s}
+.dans.on{background:linear-gradient(160deg,rgba(215,0,15,.22),rgba(255,255,255,.03));box-shadow:inset 0 0 0 1px rgba(255,70,80,.55),inset 0 1px 0 rgba(255,255,255,.14),0 40px 80px -40px rgba(255,43,48,.55)}
+.dans::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(60% 50% at 80% 10%,rgba(215,0,15,.35),transparent);opacity:0;transition:opacity .6s}
+.dans.on::before{opacity:1}
+.dans .pc{position:absolute;right:clamp(14px,2vw,30px);top:clamp(14px,2vw,26px);width:clamp(120px,11vw,170px);height:auto;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6));transition:transform .7s var(--ease),opacity .5s}
+.dans.pop .pc{animation:dpop .8s var(--ease)}
+@keyframes dpop{0%{transform:translateY(16px) rotate(10deg) scale(.86);opacity:0}100%{transform:none;opacity:1}}
+.dans .lbl{color:var(--hot)}
+.dans h3{font:700 clamp(24px,2.2vw,34px)/1.1 var(--f);letter-spacing:-.03em;margin:0;max-width:14ch;text-wrap:balance}
+.dans.idle h3{font-weight:500;max-width:16ch}
+.dans p{margin:0;color:rgba(255,255,255,.72);font-size:15.5px;line-height:1.5;max-width:36ch}
+.dans p b{color:#fff;font-weight:600}
+.dans .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.dans.pop h3,.dans.pop p,.dans.pop .acts{animation:drise .7s var(--ease) both}.dans.pop p{animation-delay:.06s}.dans.pop .acts{animation-delay:.12s}
+@keyframes drise{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:none}}
+.svc{transition:box-shadow .4s,background .4s,opacity .45s,transform .55s var(--ease)}
+.svc.hit{background:linear-gradient(160deg,rgba(215,0,15,.26),rgba(255,255,255,.04));box-shadow:inset 0 0 0 1.5px var(--hot),0 0 0 1px rgba(255,43,48,.3),0 40px 80px -40px rgba(255,43,48,.6);transform:translateY(-6px)}
+.svc.hit .pc{transform:translateY(-10px) rotate(-8deg) scale(1.06)}
+.svg4.pick .svc:not(.hit){opacity:.5}.svg4.pick .svc:not(.hit):hover{opacity:1}
+@media (max-width:1000px){.diag{grid-template-columns:minmax(0,1fr)}.dans{min-height:300px}}
+@media (max-width:560px){.dopt{font-size:14px;padding:12px 14px 12px 12px;gap:12px}.dans{min-height:0;padding-top:130px}.dans .pc{width:130px}}
+/* far pieces behind the hero */
+.hdr{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.hdr img{position:absolute;width:var(--w);height:auto;opacity:.55;filter:blur(var(--b)) brightness(.8) drop-shadow(0 20px 24px rgba(0,0,0,.6));rotate:calc(var(--r) * 1deg);will-change:transform}
+@media (max-width:860px){.hdr img:nth-child(n+3){display:none}.hdr img{opacity:.4}}
+/* the services cube between the cards; the cards compact; the diagnostic in the last row */
+.eqw{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,1.3fr) minmax(0,1fr);grid-template-rows:repeat(6,auto);gap:44px 22px;margin-top:clamp(64px,6.5vw,96px);align-items:start}
+.svg4,.diag{display:contents}
+.svc:nth-child(1){grid-area:1/1}.svc:nth-child(2){grid-area:2/3}.svc:nth-child(3){grid-area:3/1}.svc:nth-child(4){grid-area:4/3}
+#services{overflow:visible}   /* an overflow:hidden section would pin the sticky cube to the section, not the window */
+.eqc{grid-area:1/2/span 6/3;position:sticky;top:84px;align-self:start;display:flex;flex-direction:column-reverse;align-items:center;gap:6px}
+.eqhit{position:absolute;z-index:3;left:14%;top:6%;width:72%;height:88%;border-radius:40%;cursor:pointer;-webkit-tap-highlight-color:transparent}.eqhit:focus-visible{outline:2px solid #fff;outline-offset:-12%}
+.eqc.robot .eqs::before{height:84%;width:56%}
+.eqcap{transition:opacity .5s}.eqcap b{font-weight:600;color:#fff}
+.eqs{position:relative;width:92%;aspect-ratio:1;isolation:isolate}
+.eqs::before{content:"";position:absolute;left:50%;top:50%;width:76%;height:66%;translate:-50% -50%;border-radius:50%;background:radial-gradient(closest-side,rgba(225,0,20,.3),rgba(215,0,15,.08) 55%,transparent);mix-blend-mode:screen;pointer-events:none}
+.eqcv{position:absolute;left:-14%;top:-14%;width:128%;height:128%;pointer-events:none}
+.eqfb{position:absolute;left:50%;top:50%;width:64%;height:auto;translate:-50% -50%}
+.eqcap{margin:0;display:flex;align-items:center;gap:9px;font:500 12.5px var(--f);color:rgba(255,255,255,.55);white-space:nowrap}
+.eqcap i{width:7px;height:7px;border-radius:50%;background:var(--hot);box-shadow:0 0 10px var(--hot)}
+.dql{grid-area:5/1}.dans{grid-area:5/3;min-height:0;height:100%}.eqw .smid{grid-area:6/1/7/4}
+.svc{padding:30px 22px 20px;border-radius:24px}
+.svc .pc{left:auto;right:14px;top:-28px;translate:none;width:clamp(96px,8vw,118px);transform:rotate(6deg)}
+.svc h3{padding-right:104px;font-size:clamp(20px,1.5vw,24px)}
+.svc p{font-size:14px;margin-top:10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.svc small{margin-top:10px}.svc .go{padding-top:16px}
+.svc .eqb{position:absolute;left:22px;top:-13px;font:600 11px var(--o);letter-spacing:.18em;text-transform:uppercase;color:#fff;background:var(--red);padding:5px 11px;border-radius:999px;box-shadow:0 0 16px rgba(255,43,48,.7);opacity:0;translate:0 6px;transition:opacity .4s,translate .5s var(--ease)}
+.svc.eq .eqb{opacity:1;translate:0}
+@media (max-width:1000px){
+  .eqw{display:flex;flex-direction:column;gap:22px}
+  .svg4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:44px 14px}.svc:nth-child(n){grid-area:auto}
+  .eqc{order:-1;position:relative;top:auto;width:min(460px,100%);margin:0 auto}
+  .diag{display:grid;gap:14px}.dql,.dans,.eqw .smid{grid-area:auto}.dans{min-height:300px}}
+@media (max-width:620px){.svg4{grid-template-columns:minmax(0,1fr);row-gap:40px}.svc h3{padding-right:96px}}
+/* results on the cards: dim until the card is hovered or focused, then lit and counting; a neon line under the title */
+.svc .res{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+.svc .res b{display:block;font:300 clamp(24px,2vw,30px)/1 var(--f);letter-spacing:-.035em;color:rgba(255,255,255,.5);transition:color .45s,text-shadow .45s}
+.svc .res span{display:block;margin-top:4px;font-size:12px;line-height:1.35;color:rgba(255,255,255,.55);transition:color .45s}
+.svc .res small{display:block;margin-top:3px;font:600 10px var(--o);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,43,48,.6);transition:color .45s}
+.svc:hover .res b,.svc.hit .res b{color:#fff;text-shadow:0 0 18px rgba(255,43,48,.65)}
+.svc:hover .res span,.svc.hit .res span{color:rgba(255,255,255,.78)}.svc:hover .res small,.svc.hit .res small{color:var(--hot)}
+.svc h3::after{content:"";display:block;width:0;height:2px;margin-top:8px;border-radius:2px;background:var(--hot);box-shadow:0 0 12px var(--hot);transition:width .6s var(--ease)}
+.svc:hover h3::after,.svc.hit h3::after{width:44px}
+.svc .pc{transition:transform .6s var(--ease),filter .5s}.svc:hover .pc,.svc.hit .pc{filter:drop-shadow(0 26px 30px rgba(0,0,0,.6)) drop-shadow(0 0 22px rgba(255,43,48,.55))}
+@media (max-width:620px){.svc .res b{font-size:24px}}
+/* the diagnostic's lines as glass keys */
+.dopts{gap:10px}
+.dopt{display:grid;grid-template-columns:46px minmax(0,1fr);grid-template-rows:auto auto;column-gap:14px;row-gap:3px;align-items:center;padding:13px 16px 13px 13px;border-radius:22px;
+  background:linear-gradient(180deg,#151214,#0c0a0b);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1),inset 0 1px 0 rgba(255,255,255,.07),0 20px 40px -30px rgba(0,0,0,.9);color:rgba(255,255,255,.78);font:400 13px/1.4 var(--f)}
+.dopt .dg{grid-row:1/span 2;box-sizing:border-box;width:46px;height:46px;border-radius:13px;padding:9px;background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);filter:drop-shadow(0 0 7px rgba(255,0,25,.7));transition:background .35s,box-shadow .35s,transform .45s var(--ease)}
+.dopt .dt{display:flex;align-items:baseline;gap:10px;font:600 15.5px/1.2 var(--f);letter-spacing:-.01em;color:#fff}
+.dopt .dt b{display:inline;width:auto;height:auto;background:none;box-shadow:none;font:inherit;color:#fff;letter-spacing:inherit}
+.dopt .dt small{font:600 11px var(--o);letter-spacing:.18em;color:rgba(255,255,255,.4);transition:color .3s}
+.dopt .dq2{font:400 13px/1.4 var(--f);color:rgba(255,255,255,.55);text-wrap:pretty;transition:color .3s}
+.dopt:hover{background:linear-gradient(180deg,#1c1719,#0e0b0c);transform:translateX(4px)}.dopt:hover .dg{transform:scale(1.08)}
+.dopt[aria-pressed=true]{background:linear-gradient(180deg,#6a0009,#2a0004);box-shadow:inset 0 0 0 1.5px var(--hot),inset 0 1px 0 rgba(255,255,255,.18),0 0 0 1px rgba(255,43,48,.3),0 24px 50px -28px rgba(255,43,48,.9);transform:translateX(6px)}
+.dopt[aria-pressed=true] .dg{background:rgba(255,255,255,.14);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
+.dopt[aria-pressed=true] .dq2{color:rgba(255,255,255,.82)}.dopt[aria-pressed=true] .dt small{color:rgba(255,255,255,.7)}
+@media (max-width:560px){.dopt{grid-template-columns:40px minmax(0,1fr);column-gap:12px}.dopt .dg{width:40px;height:40px;padding:8px}}
+/* the team's own line; the case note once */
+.gsay{margin:14px 0 0;max-width:36ch;color:rgba(255,255,255,.72);font-size:16px;line-height:1.5}
+.cnote{margin:18px 0 0;font-size:13px;color:#6b7076}
+/* the goal chips in the contact form */
+.ask .gl2{display:block;margin:0 4px 8px;font:600 11px var(--o);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.ask .chips2 button[aria-pressed=true]{background:var(--red);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.35) inset,0 8px 20px -8px rgba(255,43,48,.8)}
+</style></head>
+<body>
+<div class="cur" id="cur" aria-hidden="true"><span id="curT"></span></div>
+<header class="nav" id="nav"><div class="wrap"><a class="home" href="#s1" aria-label="Battle, back to the top"><img src="assets/brand/battle-white.webp" alt="Battle"></a><ul><li><a href="#services">Services</a></li><li><a href="#cases">Work</a></li><li><a href="#team">Team</a></li><li><a href="#connect">Contact</a></li></ul><div class="nr"><a class="cta gl sm" href="#connect" data-mag>Let's talk</a><button class="nb" id="nb" type="button" aria-label="Menu" aria-expanded="false" aria-controls="drawer"><span><i></i><i></i><i></i></span></button></div></div></header>
+<nav class="drawer" id="drawer" aria-label="Menu"><ul><li><a href="#services"><small>01</small>Services</a></li><li><a href="#s3"><small>02</small>Impact</a></li><li><a href="#cases"><small>03</small>Work</a></li><li><a href="#team"><small>04</small>Team</a></li><li><a href="#connect"><small>05</small>Contact</a></li></ul><div class="dct"><a class="cta" href="https://wa.me/60197707927?text=Hi%20Battle%2C%20I%27d%20like%20a%2015-minute%20call%20about%20my%20marketing." target="_blank" rel="noopener">Chat on WhatsApp<span class="ar" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div><div class="dln"><a href="tel:+60197707927">+6019-770 7927</a><a href="mailto:hello@battlemind.my">hello@battlemind.my</a></div></nav>
+
+<!-- 1 HERO -->
+<section class="hero" id="s1"><canvas class="flow" id="flow" aria-hidden="true"></canvas>
+  <div class="hdr" id="hdr" aria-hidden="true"><img src="assets/img/v9_cubie_3.webp" alt="" style="left:44%;top:84%;--w:84px;--d:.45;--b:2.5px;--r:-16"><img src="assets/img/v9_cubie_5.webp" alt="" style="left:51%;top:13%;--w:56px;--d:.7;--b:4px;--r:12"><img src="assets/img/v9_cubie_6.webp" alt="" style="right:4%;top:15%;--w:66px;--d:.6;--b:3.5px;--r:28"><img src="assets/img/v9_cubie_2.webp" alt="" style="right:5%;top:76%;--w:112px;--d:.3;--b:2px;--r:-22"><img src="assets/img/v9_cubie_4.webp" alt="" style="left:63%;top:90%;--w:46px;--d:.85;--b:5px;--r:40"></div>
+  <div class="hstage" id="hst">
+    <div class="cglow" aria-hidden="true"></div><canvas class="cube" id="cube" aria-hidden="true"></canvas><img class="cubefb" id="cubefb" src="assets/img/v91_cube.webp" alt="The Battle cube, solved, the Battle Mind mark on its front" hidden>
+    <div class="cubehit" id="cubehit" role="button" tabindex="0" aria-label="The Battle cube: tap it to mix it up and watch it solve itself"></div>
+    <p class="hhint" id="hhint" aria-hidden="true"><i></i>Tap the cube</p></div>
+  <div class="wrap in"><div class="copy" id="copy">
+    <div class="eyebrow"><i></i>Data-intelligent digital marketing · Kuala Lumpur</div>
+    <h1 id="h1">Human First.<br><b>Results Always.</b></h1>
+    <p class="lead">We know what it's like to miss your leads and conversion targets. We understand your pain and your users' needs. Let us help you. We turn information into content people actually enjoy.</p>
+    <div class="ctas"><a class="cta" href="#connect" data-mag>Let's talk<span class="ar" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a><a class="cta gl" href="#cases" data-mag>See our work</a></div>
+  </div></div>
+  <div class="scue" id="scue" aria-hidden="true"><i></i>Scroll</div>
+</section>
+
+<!-- 2 PROOF · logos -->
+<section class="sec" id="s2"><div class="deb" id="deb" aria-hidden="true"><img src="assets/img/v9_cubie_1.webp" alt="" style="right:8%;top:228px;--w:150px" data-r="14" loading="lazy"><img src="assets/img/v9_cubie_2.webp" alt="" style="right:30%;top:262px;--w:84px" data-r="-18" loading="lazy"><img src="assets/img/v9_cubie_3.webp" alt="" style="left:47%;top:252px;--w:66px" data-r="22" loading="lazy"><img src="assets/img/v9_cubie_4.webp" alt="" style="right:1.5%;top:118px;--w:104px" data-r="-26" loading="lazy"><img src="assets/img/v9_cubie_5.webp" alt="" style="left:2%;top:92px;--w:74px" data-r="30" loading="lazy"><img src="assets/img/v9_cubie_6.webp" alt="" style="right:22%;top:86px;--w:58px" data-r="-12" loading="lazy"></div><div class="wrap"><div class="lbl sp"><span class="act ra">Results always</span>Our clients</div><h2 class="h2" style="margin-top:12px">Trusted by <b class="x">160+ Clients</b><br>Across <b class="x">14+ Industries</b></h2><div class="lgrid" id="lgrid" role="list" aria-label="Some of our clients"></div></div></section>
+
+<!-- 3 SERVICES · where the armour was, with the cube's own pieces -->
+<section class="sec svs" id="services"><div class="wrap">
+  <div class="shd"><div><div class="lbl sp"><span class="act hf">Human first</span>How we help</div><h2 class="h2" style="margin-top:12px">Our <b class="x">Services</b></h2></div><p>Not sure what your marketing actually needs right now? You're not alone, and we're here to help.</p></div>
+  <div class="eqw" id="eqw"><div class="svg4" id="svg4"></div>
+  <div class="eqc" id="eqc"><div class="eqs" id="eqs"><canvas class="eqcv" id="eqcv" aria-hidden="true"></canvas><div class="eqhit" id="eqhit" role="button" tabindex="0" aria-label="The Battle cube: tap it to transform into the figure of the service in focus, and back"></div><img class="eqfb" id="eqfb" src="assets/img/v91_cube.webp" alt="The Battle cube, solved" hidden></div><p class="eqcap" id="eqcap"><i></i>Hover a service to draw its layer · tap the cube to transform</p></div>
+  <div class="diag" id="diag"><div class="dql" id="dql"><div class="dq"><div class="lbl">Quick diagnostic</div><h3>Match your marketing headache</h3><p>What is your biggest challenge today?</p></div><div class="dopts" id="dopts" role="group" aria-label="Your biggest challenge"></div></div><div class="dans idle" id="dans" aria-live="polite"><div class="lbl">Your weapon</div><h3>Pick the line that sounds like you.</h3><p>We'll point you straight to the solution.</p></div></div>
+  <div class="smid"><p>Still not sure? Let's figure it out together.</p><div><a class="cta" href="services.html" data-mag>All services<span class="ar" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a><a class="cta gl" href="#connect" data-mag>Talk to us</a></div></div></div></div></section>
+
+<!-- 4 PROOF · numbers -->
+<section class="sec" id="s3" style="padding-top:0"><div class="wrap"><div class="lbl sp"><span class="act ra">Results always</span>The numbers</div><h2 class="h2" style="margin-top:12px">Proven <b class="x">Business Impact</b></h2>
+  <div class="kpi" id="kpi">
+    <article class="kp g-red" data-tilt><div class="gk"><canvas class="gl" data-g="trend" aria-hidden="true"></canvas><small>Up to</small><div><b class="num"><span data-to="500">500</span><i>%</i></b><p>client business growth in 3 years</p></div></div></article>
+    <article class="kp g-smoke" data-tilt><div class="gk"><canvas class="gl" data-g="bars" aria-hidden="true"></canvas><small>Up to</small><div><b class="num"><span data-to="3">3</span><i>×</i></b><p>annual sales for our client</p></div></div></article>
+    <article class="kp g-frost" data-tilt><div class="gk"><canvas class="gl" data-g="target" aria-hidden="true"></canvas><small>Up to</small><div><b class="num"><span data-to="67">67</span><i>%</i></b><p>decrease in cost per result</p></div></div></article>
+    <article class="kp g-wine" data-tilt><div class="gk"><canvas class="gl" data-g="crown" aria-hidden="true"></canvas><small>Luxe Living</small><div><b class="num"><span data-to="22">22</span><i>×</i></b><p>return on ad spend, against an industry benchmark of 8 to 12</p></div></div></article></div></div></section>
+
+<!-- 5 DATA MADE DIGESTIBLE -->
+<section class="sec dsec" id="data"><div class="dpin" id="dpin"><div class="wrap">
+  <div class="dhd"><div><div class="lbl sp"><span class="act hf">Human first</span>How we think</div><h2 class="h2" style="margin-top:12px">From Confusing Analytics <b class="x">to Clear Plan</b></h2></div>
+    <p>No overload of jargon or vanity metrics. We get to the root of what's holding your sales back, and hand you the next three moves.</p></div>
+  <div class="dstage" id="dstage">
+    <div class="sheet" id="sheet"><div class="top"><span>Sample · raw analytics export</span><i>3 findings</i></div><table id="tab"></table><div class="scan" id="scan"></div></div>
+    <div><div class="plan" id="plan">
+      <div class="s" data-n="1"><span class="key" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="g1" d="M3.5 5h17a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-17a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM2.5 8.8h19M5.4 6.9h.01M7.6 6.9h.01M12.5 11.5l6.2 2.3-2.7 1.1 1.9 2.5-1.1.9-1.9-2.5-1.3 2.5z"/><path class="g2" d="M3.5 5h17a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-17a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM2.5 8.8h19M5.4 6.9h.01M7.6 6.9h.01M12.5 11.5l6.2 2.3-2.7 1.1 1.9 2.5-1.1.9-1.9-2.5-1.3 2.5z"/><path class="g3" d="M3.5 5h17a1 1 0 0 1 1 1v11.5a1 1 0 0 1-1 1h-17a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM2.5 8.8h19M5.4 6.9h.01M7.6 6.9h.01M12.5 11.5l6.2 2.3-2.7 1.1 1.9 2.5-1.1.9-1.9-2.5-1.3 2.5z"/></svg></span><div><h4>Enhance web UX</h4><p>Fix the leaky bucket: remove what stops visitors buying, before you spend another ringgit on ads.</p><small>From finding 1: 74% of Instagram visitors bounce</small></div></div>
+      <div class="s" data-n="2"><span class="key" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="g1" d="M10.5 3.5a6.8 6.8 0 1 0 0 13.6 6.8 6.8 0 0 0 0-13.6zM15.4 15.4l5.1 5.1M10.5 6.6l.95 2.25 2.25.95-2.25.95-.95 2.25-.95-2.25-2.25-.95 2.25-.95z"/><path class="g2" d="M10.5 3.5a6.8 6.8 0 1 0 0 13.6 6.8 6.8 0 0 0 0-13.6zM15.4 15.4l5.1 5.1M10.5 6.6l.95 2.25 2.25.95-2.25.95-.95 2.25-.95-2.25-2.25-.95 2.25-.95z"/><path class="g3" d="M10.5 3.5a6.8 6.8 0 1 0 0 13.6 6.8 6.8 0 0 0 0-13.6zM15.4 15.4l5.1 5.1M10.5 6.6l.95 2.25 2.25.95-2.25.95-.95 2.25-.95-2.25-2.25-.95 2.25-.95z"/></svg></span><div><h4>Strengthen SEM</h4><p>Show up where buyers are already searching, on Google and in AI answers.</p><small>From finding 2: Google leads at RM30, Facebook leads at RM63</small></div></div>
+      <div class="s" data-n="3"><span class="key" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="g1" d="M4 4.5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9.5L5 20v-3.5H4a1 1 0 0 1-1-1v-10a1 1 0 0 1 1-1zM12 14c-2.5-1.7-3.4-2.8-3.4-4 0-1 .8-1.7 1.7-1.7.7 0 1.3.4 1.7 1 .4-.6 1-1 1.7-1 .9 0 1.7.7 1.7 1.7 0 1.2-.9 2.3-3.4 4z"/><path class="g2" d="M4 4.5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9.5L5 20v-3.5H4a1 1 0 0 1-1-1v-10a1 1 0 0 1 1-1zM12 14c-2.5-1.7-3.4-2.8-3.4-4 0-1 .8-1.7 1.7-1.7.7 0 1.3.4 1.7 1 .4-.6 1-1 1.7-1 .9 0 1.7.7 1.7 1.7 0 1.2-.9 2.3-3.4 4z"/><path class="g3" d="M4 4.5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9.5L5 20v-3.5H4a1 1 0 0 1-1-1v-10a1 1 0 0 1 1-1zM12 14c-2.5-1.7-3.4-2.8-3.4-4 0-1 .8-1.7 1.7-1.7.7 0 1.3.4 1.7 1 .4-.6 1-1 1.7-1 .9 0 1.7.7 1.7 1.7 0 1.2-.9 2.3-3.4 4z"/></svg></span><div><h4>Engaging, trust-building social ads</h4><p>Stop the scroll, earn trust, then convert.</p><small>From finding 3: a 0.8% click-through rate</small></div></div></div>
+      <p class="dend" id="dend">Three moves. Not thirty metrics.</p></div>
+    <svg class="dlinks" id="dlinks" aria-hidden="true"></svg></div></div></div></section>
+
+<!-- 6 CASES -->
+<section class="sec white" id="cases"><div class="wrap cshd"><div><div class="lbl sp"><span class="act ra">Results always</span>Case studies</div><h2 class="h2" style="margin-top:12px">Battles <b class="x">We've Won</b></h2></div>
+</div>
+  <div class="cf" id="cf" role="region" aria-roledescription="carousel" aria-label="Case studies" tabindex="0"><div class="cft" id="cft"></div>
+    <div class="cfnav"><button type="button" id="cfp" aria-label="Previous case">←</button><span id="cfn" aria-live="polite">01 / 07</span><button type="button" id="cfx" aria-label="Next case">→</button></div></div>
+  <div class="wrap"><div style="margin-top:30px;display:flex;gap:12px;flex-wrap:wrap"><a class="cta dk" href="case-study.html" data-mag>All case studies<span class="ar" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a><a class="cta dk gh" href="#connect" data-mag>Start your own battle</a></div><p class="cnote">Figures from Battle's case studies. Client quotes to follow.</p></div></section>
+
+<!-- 7 TEAM · the people, with the clients they grow alongside -->
+<section class="sec gal" id="team">
+  <div class="grib" aria-hidden="true"><div class="gtr"><figure class="gt"><img src="assets/img/v9_g_poiching.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt rd"><img src="assets/img/v9_g_marcus.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_swet.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_bhp.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt rd"><img src="assets/img/v9_g_cheanu.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_belle.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_poiching.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt rd"><img src="assets/img/v9_g_marcus.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_swet.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_bhp.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt rd"><img src="assets/img/v9_g_cheanu.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_belle.webp" alt="" loading="lazy" draggable="false"></figure></div></div>
+  <div class="wrap gmid"><div><div class="lbl sp"><span class="act hf">Human first</span>The people</div><h2 class="h2" style="margin-top:12px">Meet Your <b class="x">Growth Partners</b></h2><p class="gsay">We're easy to work with &amp; we celebrate your wins with you.</p></div>
+    <a class="cta" href="team.html" data-mag>Meet the team<span class="ar" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>
+  <div class="grib" aria-hidden="true"><div class="gtr rev"><figure class="gt"><img src="assets/img/v9_g_belle.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt rd"><img src="assets/img/v9_g_bhp.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_poiching.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_cheanu.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt rd"><img src="assets/img/v9_g_swet.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_marcus.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_belle.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt rd"><img src="assets/img/v9_g_bhp.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_poiching.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_cheanu.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt rd"><img src="assets/img/v9_g_swet.webp" alt="" loading="lazy" draggable="false"></figure><figure class="gt"><img src="assets/img/v9_g_marcus.webp" alt="" loading="lazy" draggable="false"></figure></div></div>
+  <p class="gcap">Our team with our clients: workshops, shoots and wins. Photos from Battle.</p></section>
+
+<!-- 8 LET'S TALK -->
+<section class="cn" id="connect">
+  <div class="wrap cnw">
+    <div class="cnc"><div class="lbl sp"><span class="act hf">Human first</span><span class="act ra last">Results always</span></div><h2>Got 15 Minutes?<br><b class="x">Let's Talk</b></h2></div>
+    <div class="askw">
+      <span class="ko fr" data-d="1.1" style="right:-7%;top:-38%;width:clamp(110px,11vw,170px)"><span data-depth="1.2"><img data-float src="assets/img/v91_cubie_talk.webp" alt="" style="rotate:12deg"></span></span>
+      <form class="ask" id="ask"><label class="ak" for="askin">Your marketing battle</label><input id="askin" placeholder="What's your marketing battle?" autocomplete="off">
+        <span class="gl2" id="gl2">Your primary goal</span><div class="row"><div class="chips2" role="group" aria-labelledby="gl2"><button type="button" data-g="Leads" aria-pressed="false">Leads</button><button type="button" data-g="Traffic" aria-pressed="false">Traffic</button><button type="button" data-g="Brand" aria-pressed="false">Brand</button><button type="button" data-g="Not sure" aria-pressed="false">Not sure</button></div>
+          <button class="send" type="submit" aria-label="Send on WhatsApp"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></form>
+      <p class="cnalt">Sends on WhatsApp. Or write to <a href="mailto:hello@battlemind.my">hello@battlemind.my</a> · call <a href="tel:+60197707927">+6019-770 7927</a></p></div></div></section>
+
+<footer class="foot"><div class="wrap"><div class="fmain">
+  <div class="fbrand"><div class="lk"><a href="#s1" aria-label="Battle Mind, back to the top"><img src="assets/brand/bm-lockup.webp" alt="Battle Mind"></a><a href="service.html?c=web" aria-label="Battle X, web development"><img src="assets/brand/bx-lockup.webp" alt="Battle X"></a></div>
+    <p>Battle Mind Creative · Battle X. Data-intelligent digital marketing in Kuala Lumpur: human first, results always.</p></div>
+  <nav aria-label="Services"><b>Services</b><ul><li><a href="service.html?c=perf">Performance marketing</a></li><li><a href="service.html?c=crea">Creative &amp; content</a></li><li><a href="service.html?c=web">Web development</a></li><li><a href="services.html">Service finder</a></li></ul></nav>
+  <nav aria-label="Company"><b>Company</b><ul><li><a href="case-study.html">Work</a></li><li><a href="about.html">About</a></li><li><a href="about-story.html">Our story</a></li><li><a href="team.html">Team</a></li></ul></nav>
+  <div><b>Talk</b><ul><li><a href="#connect">Book a 15-minute call</a></li><li><a href="tel:+60197707927">+6019-770 7927</a></li><li><a href="mailto:hello@battlemind.my">hello@battlemind.my</a></li>
+    <li><a class="addr" href="https://www.google.com/maps/search/?api=1&amp;query=No.%207-2%2C%20Jalan%202%2F137B%2C%20Resource%20Industrial%20Centre%2C%2058200%20Kuala%20Lumpur" target="_blank" rel="noopener">No. 7-2, Jalan 2/137B, Resource Industrial Centre, Off Jalan Kelang Lama, 58200 Kuala Lumpur</a></li></ul></div></div>
+  <div class="fbot"><span>© 2026 Battle Mind Creative Sdn. Bhd. (1379718-A) · BattleX Sdn. Bhd. (1666567-U)</span><a class="top" href="#s1">Back to top <i aria-hidden="true">↑</i></a></div><div class="big" aria-hidden="true">BATTLE</div></div></footer>
+<div class="note">v10 · v9.1 (the glass cube, the burst, the analytics story on the scroll, Sue's flow) with the agency-site layer on top: a menu that works on every screen, calls to action from the hero down, every section labelled with the half of "Human First. Results Always." it serves, the deck's "Match your marketing headache" diagnostic wired to the service cards, and the deck's goal chips in the form; the hero cube assembles from its pieces and solves into the Battle Mind mark; a second, calm cube in Services turns to each service as you scroll past it, draws its layer out like a blade when you hover (the card's results light up and count), and equips the one your headache needs, then stands up into that service's figure: a monitor that renders, a funnel that turns leads into coins, a heart that beats with likes rising, a magnifier with a climbing chart (tap the cube to transform it yourself). Moving on their own: the hero cube and its gradient, the logo keys (a row turns now and then), the case cards, the photo ribbons</div>
+
+<script>
+const { logos, bridge, layers, cases, reviews, nm, R } = LK;
+const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+addEventListener("scroll", () => nav.classList.toggle("sc", scrollY > 40), { passive: true });
+// ---- hero layout (v9.1): no photo any more, so the cube simply takes the space beside the copy (above it on phones) ----
+const HERO = (() => {
+  const hero = document.getElementById("s1"), hst = document.getElementById("hst"), copy = document.getElementById("copy");
+  const o = { box: null }, set = (el, v) => Object.entries(v).forEach(([k, x]) => el.style.setProperty(k, x));
+  function run() {
+    const W = hst.clientWidth, H = hst.clientHeight; if (!W || !H) return;
+    let X, Y, S;
+    if (innerWidth <= 860) { S = Math.min(W * 0.64, H * 0.66); X = W / 2; Y = H * 0.53; }
+    else { const cr = copy.getBoundingClientRect().right - hst.getBoundingClientRect().left, free = Math.max(200, W - cr - 60);
+      S = Math.min(free * 0.62, H * 0.6, 600); X = cr + 60 + free / 2; Y = 76 + (H - 76) * 0.5; }   // centred under the nav
+    set(hst, { "--cx": X + "px", "--cy": Y + "px", "--cs": S + "px" });
+    o.box = { x: X, y: Y, size: S, W, H }; hero.dispatchEvent(new CustomEvent("herolayout"));
+  }
+  o.run = run;
+  new ResizeObserver(run).observe(hst); if (document.fonts) document.fonts.ready.then(run); run();
+  return o;
+})();
+// ---- hero motion: the title rises, the cube's light comes on as it lands, scrolling on bursts the cube into its 26 pieces
+// (v9's moment, kept: held for a short beat on laptops so the burst plays out; on phones it bursts as the hero scrolls away) ----
+const HX = (window.HX = { ex: 0, lf: 0, glow: 1 }), cgl = document.querySelector(".cglow");
+const heroFocus = (window.heroFocus = () => { cgl.style.opacity = (HX.glow * Math.max(0, 1 - HX.ex * 1.6)).toFixed(3); });
+heroFocus();
+if (!R) {
+  document.fonts.ready.then(() => { const st = SplitText.create("#h1", { type: "lines", mask: "lines", linesClass: "ln" });
+    gsap.from(st.lines, { yPercent: 110, duration: 1.1, ease: "power4.out", stagger: 0.09, delay: 0.15 }); });
+  gsap.from(["#copy .eyebrow", "#copy .lead"], { y: 26, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.08, delay: 0.45 });
+  // v10: far pieces of other cubes behind the hero: they float, lean with the pointer (the nearer, the more) and fade as the cube bursts
+  { const ps = [...document.querySelectorAll("#hdr img")];
+    ps.forEach((im, i) => gsap.to(im, { y: "+=" + (8 + i * 3), duration: 3.4 + i * 0.6, yoyo: true, repeat: -1, ease: "sine.inOut" }));
+    if (fine) { const mv = ps.map((im) => gsap.quickTo(im, "x", { duration: 1.6, ease: "power3" }));
+      document.getElementById("s1").addEventListener("pointermove", (e) => { const kx = e.clientX / innerWidth - 0.5; ps.forEach((im, i) => mv[i](-kx * 70 * +im.style.getPropertyValue("--d"))); }); } }
+  const hh = document.getElementById("hhint");   // the tap hint steps aside while the cube is in pieces
+  const upd = () => { const c = window.__c7; if (c) { c.explode = HX.ex; c.lift = HX.lf; } heroFocus(); hh.classList.toggle("away", HX.ex > 0.04); document.getElementById("scue").classList.toggle("away", HX.ex > 0.04); document.getElementById("hdr").style.opacity = Math.max(0, 1 - HX.ex * 2.2).toFixed(2); };
+  // matchMedia rebuilds this when the window crosses the phone breakpoint, so a resized window never keeps the wrong one
+  gsap.matchMedia().add({ desk: "(min-width: 861px)", mob: "(max-width: 860px)" }, (ctx) => {
+    if (ctx.conditions.desk) gsap.timeline({ onUpdate: upd, scrollTrigger: { trigger: "#s1", start: "top top", end: "+=85%", pin: true, scrub: 0.7, anticipatePin: 1 } })
+      .to(HX, { lf: 1, duration: 0.6, ease: "power1.inOut" }, 0).to(HX, { ex: 1, duration: 0.8, ease: "power2.in" }, 0.2)
+      .to("#copy", { y: -60, opacity: 0, duration: 0.4, ease: "power1.in" }, 0.05);
+    else gsap.timeline({ onUpdate: upd, scrollTrigger: { trigger: "#s1", start: "top top", end: "bottom top", scrub: 0.5 } })
+      .to(HX, { lf: 1, duration: 0.5 }, 0).to(HX, { ex: 0.9, duration: 0.75, ease: "power2.in" }, 0.2).to("#copy", { y: -50, opacity: 0.2, duration: 0.6, ease: "power1.in" }, 0.1);
+    return () => { HX.ex = HX.lf = 0; upd(); };
+  });
+}
+// ---- 4 impact: the keys rise in as the row arrives and their figures count up once; each key lights its neon glyph ----
+if (!R) { const ks = gsap.utils.toArray("#kpi .kp");
+  gsap.from(ks, { y: 60, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.08, scrollTrigger: { trigger: "#kpi", start: "top 90%", once: true } });
+  ks.forEach((k, i) => { const v = k.querySelector("[data-to]"), o = { n: 0 }, to = +v.dataset.to; v.textContent = "0";
+    gsap.to(o, { n: to, duration: 1.6, delay: 0.15 + i * 0.1, ease: "power3.out", onUpdate: () => (v.textContent = Math.round(o.n)), scrollTrigger: { trigger: "#kpi", start: "top 90%", once: true } }); }); }
+// the cube's pieces fall in from the burst above and settle at the top of 02; then they bob
+if (!R) document.querySelectorAll("#deb img").forEach((im, i) => { const r = +im.dataset.r;
+  gsap.fromTo(im, { y: () => -innerHeight * (0.55 + (i % 3) * 0.12), rotation: r * 5, scale: 1.35, opacity: 0 }, { y: 0, rotation: r, scale: 1, opacity: 1, ease: "power2.out",
+    scrollTrigger: { trigger: "#s2", start: () => (innerWidth <= 860 ? "top 70%" : "top bottom"), end: () => (innerWidth <= 860 ? "top 10%" : "top 35%"), scrub: 0.6, invalidateOnRefresh: true } });
+  gsap.to(im, { yPercent: -9, duration: 2.4 + (i % 3) * 0.5, ease: "sine.inOut", yoyo: true, repeat: -1, delay: i * 0.3 }); });
+else document.querySelectorAll("#deb img").forEach((im) => (im.style.rotate = im.dataset.r + "deg"));
+// ---- 2 logos: the clients' own colours (assets/img/v10l_*, tool/logos10.py: trimmed, optically sized, on white) on white
+// keys; every 3.8 s while on screen (and nobody is pointing at it) one row turns to the next clients ----
+const LOGOS = [["Tesla-logo", "Tesla"], ["Colgate-logo-v2", "Colgate"], ["Manchester-United-logo-v2", "Manchester United"], ["Liverpool-logo-v2", "Liverpool FC"], ["Good-Year-logo-v2", "Goodyear"], ["Arla-logo-v2", "Arla"],
+  ["Maxis-Business-logo", "Maxis Business"], ["Grab-Express-logo-v2", "GrabExpress"], ["Tupperware-logo", "Tupperware"], ["BHP-Petrol-logo", "BHPetrol"], ["Hovid-logo-v2", "Hovid"], ["Naturel-logo-v2", "Naturel"],
+  ["Yaki-Soul-logo-v2", "Yaki Soul"], ["Write-Edge-logo-v2", "Write-Edge"], ["Easy-Europe-logo-v2", "Easy Europe"], ["Citrex-logo-v2", "Citrex"], ["Dasiy-logo-v2", "Daisy"], ["Entropia-logo-v2", "Entropia"],
+  ["Luxe-Living-logo-v2", "Luxe Living"], ["Softlan-logo-v2", "Softlan"], ["Puck-logo-v2", "Puck"], ["Mr-Fish-logo-v2", "Mr Fish"], ["Oktopurs-logo-v2", "Oktopurs"], ["JOJO-logo-v2", "JOJO"],
+  ["Zero-Healthcare-logo", "Zero Healthcare"], ["glo-logo-v2", "glo"], ["marcus-logo-client-2", "Marcus Teoh"], ["SWET-logo", "SWET Image"], ["Teien-logo", "Teien"], ["Yosen-logo", "Yosen"],
+  ["CR8-Melaka-logo-v2", "CR8 Melaka"], ["Seng-Cars-World-logo", "Seng Cars World"], ["Campus-Rangers-logo", "Campus Rangers"], ["Magnet-Experiential-logo", "Magnet Experiential"], ["BO-Capital-logo", "BO Capital"], ["Bio-home-logo-v2", "Bio-home"],
+  ["La-Gourmet-logo", "La Gourmet"], ["Gemini-Spacecraft-logo", "Gemini Spacecraft"], ["Fujian-Association-logo", "Fujian Association"], ["Tiga-ikan-logo-v2", "Tiga Ikan"], ["UBCT-logo", "UBCT"], ["KAIA-logo", "KAIA"],
+  ["Aurea-logo", "Aurea"], ["sd-labs-logo-v2", "SD Labs"]];
+{ const grid = document.getElementById("lgrid"), N = 18, img = ([f, n], eager) => `<img src="assets/img/v10l_${f}.webp" alt="${n}" loading="${eager ? "eager" : "lazy"}" draggable="false">`;
+  grid.innerHTML = LOGOS.slice(0, N).map((l) => `<div class="lc" role="listitem"><div class="fl"><div class="sd">${img(l)}</div><div class="sd" aria-hidden="true"></div></div></div>`).join("");
+  const cells = [...grid.children], state = cells.map(() => ({ deg: 0 })); let next = N, lastRow = -1, hover = false, onScreen = false;
+  const turnRow = () => { const c = getComputedStyle(grid).gridTemplateColumns.split(" ").length, shown = cells.filter((el) => el.offsetParent), rows = Math.ceil(shown.length / c); if (!rows) return;
+    let r = Math.floor(Math.random() * rows); if (r === lastRow) r = (r + 1) % rows; lastRow = r;
+    shown.slice(r * c, r * c + c).forEach((el, j) => { const st = state[cells.indexOf(el)], sides = el.querySelectorAll(".sd"), back = st.deg % 360 === 0 ? sides[1] : sides[0], front = back === sides[1] ? sides[0] : sides[1];
+      back.innerHTML = img(LOGOS[next++ % LOGOS.length], true); back.removeAttribute("aria-hidden"); front.setAttribute("aria-hidden", "true");
+      const go = () => setTimeout(() => { st.deg += 180; el.querySelector(".fl").style.transform = `rotateY(${st.deg}deg)`; }, j * 70);
+      back.querySelector("img").decode().then(go, go); }); };
+  if (!R) { new IntersectionObserver((es) => { onScreen = es[es.length - 1].isIntersecting; }).observe(grid);
+    grid.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") hover = true; }); grid.addEventListener("pointerleave", () => (hover = false));
+    setInterval(() => { if (onScreen && !hover && !document.hidden) turnRow(); }, 3800);
+    gsap.from(cells, { y: 24, opacity: 0, duration: 0.7, ease: "power3.out", stagger: { each: 0.025, from: "start" }, scrollTrigger: { trigger: grid, start: "top 92%", once: true } }); } }
+// ---- 3 services: Sue's four titles; the words are v9's growth stack without its "layers" ----
+// results per service, from the deck's case studies (slides 44-52): [figure, counts to, prefix, suffix, label, client]
+const RES = { web: [["700+", 700, "", "+", "leads a week after the funnel redesign", "Easy Europe"], ["RM3.8M+", 3.8, "RM", "M+", "peak monthly revenue", "Easy Europe"]],
+  ads: [["22×", 22, "", "×", "ROAS, against an industry 8 to 12", "Luxe Living"], ["37%", 37, "", "%", "lower cost per acquisition", "Care Concierge"]],
+  content: [["7M+", 7, "", "M+", "organic reach, nationwide", "BHPetrol"], ["3×", 3, "", "×", "more vendor inclusions", "LaLaport BBCC"]],
+  organic: [["6+", 6, "", "+", "countries of SEO and SEM coverage", "Luxe Living"], ["No.1", 1, "No.", "", "izakaya in KL, from zero", "Yaki Soul"]] };
+const resHtml = (k) => `<div class="res">${RES[k].map(([f, n, pre, suf, l, who]) => `<div><b data-n="${n}" data-pre="${pre}" data-suf="${suf}">${f}</b><span>${l}</span><small>${who}</small></div>`).join("")}</div>`;
+{ const SV = [["web", "Build Your Conversion Engine", "service.html?c=web"], ["ads", "High-Intent Paid Traffic", "service.html?c=perf"], ["content", "Scroll-Stopping Creative Content", "service.html?c=crea"], ["organic", "Organic Brand Authority", "services.html"]];
+  const txt = (p) => p.replace("Layer 1 builds", "We build").replace("Layer 4 builds", "We build");
+  document.getElementById("svg4").innerHTML = SV.map(([k, t, h], i) => { const [, p, sv] = layers[i];
+    return `<a class="svc" href="${h}" data-k="${k}"><span class="eqb">Equipped</span><img class="pc" src="assets/img/v91_cubie_${k}.webp" alt="" loading="lazy" draggable="false"><span class="no">0${i + 1}</span><h3>${t}</h3><p>${txt(p)}</p><small>${sv}</small>${resHtml(k)}<span class="go">Explore<i aria-hidden="true">→</i></span></a>`; }).join("");
+  if (!R) gsap.from("#svg4 .svc", { y: 50, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.08, scrollTrigger: { trigger: "#svg4", start: "top 92%", once: true } }); }
+// ---- data made digestible: a noisy export, a scan finds three things, the noise dissolves, the findings wire to the plan ----
+{ const H = ["Week", "Channel", "Sessions", "Bounce", "CPC", "CTR", "Leads", "CPL"], rows = [
+    // paid rows add up: sessions x CPC / leads = CPL
+    ["W1", "Google", "868", "44%", "1.85", "4.1%", "51", "RM31"], ["W1", "Facebook", "4,342", "71%", "0.42", "0.9%", "38", "RM48"], ["W1", "Instagram", "2,652", "74%", "0.51", "1.1%", "26", "RM52"],
+    ["W1", "TikTok", "3,658", "79%", "0.31", "1.0%", "21", "RM54"], ["W1", "Shopify", "2,140", "38%", "-", "-", "22", "-"], ["W1", "Organic", "5,882", "68%", "-", "-", "9", "-"],
+    ["W2", "Google", "907", "43%", "1.88", "4.2%", "57", "RM30"], ["W2", "Facebook", "4,156", "72%", "0.47", "0.9%", "31", "RM63"], ["W2", "Instagram", "2,581", "73%", "0.53", "1.0%", "24", "RM57"],
+    ["W2", "TikTok", "3,349", "81%", "0.33", "0.8%", "18", "RM61"], ["W2", "Shopify", "2,286", "36%", "-", "-", "25", "-"], ["W2", "Organic", "6,104", "66%", "-", "-", "11", "-"]];
+  const HL = { "2,3": 1, "6,7": 2, "9,5": 3 }, XM = [4], NOTE = { 1: "74% of Instagram visitors bounce", 2: "Google RM30 vs Facebook RM63", 3: "0.8% CTR: ads don't stop the scroll" }, LEFT = { 2: 1 };
+  const LOGO = { Google: "google_g", Facebook: "facebook", Instagram: "instagram", TikTok: "tiktok", Shopify: "shopify_bag", Organic: "organic" };
+  tab.innerHTML = `<tr>${H.map((h, i) => `<th${XM.includes(i) ? ' class="xm"' : ""}>${h}</th>`).join("")}</tr>` + rows.map((r, y) => `<tr>${r.map((c, x) => { const n = HL[y + "," + x];
+    return `<td data-r="${y}" class="${n ? "hl " : ""}${XM.includes(x) ? "xm" : ""}"${n ? ` data-n="${n}"` : ""}>${n ? `<span>${c}<sup>${n}</sup><em class="nt2${LEFT[n] ? " l" : ""}">${NOTE[n]}</em></span>` : x === 1 ? `<img class="chl" src="assets/brand3p/${LOGO[c]}.svg" alt="" width="14" height="14">${c}` : c}</td>`; }).join("")}</tr>`).join("");
+  const stage = document.getElementById("dstage"), svg = document.getElementById("dlinks"), cards = [...plan.querySelectorAll(".s")];
+  const finds = [1, 2, 3].map((n) => tab.querySelector(`td[data-n="${n}"]`)), noise = [...tab.querySelectorAll("td:not(.hl)")];
+  const NR = rows.length, findRow = finds.map((f) => +f.dataset.r);
+  // light a finding, its line and its move together
+  const lit = (n) => { cards.forEach((c, i) => c.classList.toggle("lit", i + 1 === n)); finds.forEach((f, i) => f.classList.toggle("lit", i + 1 === n));
+    svg.querySelectorAll("path").forEach((p, i) => p.classList.toggle("lit", i + 1 === n)); stage.classList.toggle("lt", !!n); };
+  cards.forEach((c, i) => { c.addEventListener("pointerenter", () => lit(i + 1)); c.addEventListener("pointerleave", () => lit(0)); });
+  finds.forEach((f, i) => { f.addEventListener("pointerenter", () => lit(i + 1)); f.addEventListener("pointerleave", () => lit(0)); });
+  // the wires: from each finding's note to its move, measured once the sheet has settled
+  let wired = false;
+  const wire = () => { const sb = stage.getBoundingClientRect(), pl = plan.getBoundingClientRect().left; svg.setAttribute("viewBox", `0 0 ${sb.width} ${sb.height}`);
+    // a right-hand note that would run into the moves column sits left of its number instead (narrow desktops)
+    finds.forEach((f, i) => { if (LEFT[i + 1]) return; const nt = f.querySelector(".nt2"); nt.classList.remove("l"); nt.classList.toggle("l", nt.getBoundingClientRect().right > pl - 40); });
+    svg.innerHTML = finds.map((f, i) => { const a = (f.querySelector(".nt2").classList.contains("l") ? f.querySelector("span") : f.querySelector(".nt2")).getBoundingClientRect(), b = cards[i].getBoundingClientRect();
+      const x1 = a.right - sb.left + 8, y1 = a.top + a.height / 2 - sb.top, x2 = b.left - sb.left - 10, y2 = b.top + b.height / 2 - sb.top, dx = Math.max(40, (x2 - x1) * 0.5);
+      return `<path pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" d="M${x1} ${y1} C${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}"/><circle cx="${x2}" cy="${y2}" r="3.5" opacity="0"/>`; }).join("");
+    wired = true; };
+  // noise: until the scan reaches a row, its numbers keep flickering. Only cells with digits are ever rewritten
+  // (a channel cell holds its logo, and writing its text would wipe the logo)
+  let scanF = 0, flick = 0;
+  const orig = new Map(noise.filter((td) => /\d/.test(td.textContent)).map((td) => [td, td.textContent]));
+  const restore = () => orig.forEach((t, td) => (td.textContent = t));
+  const jitter = (t) => t.replace(/\d/g, () => Math.floor(Math.random() * 10));
+  const flicker = () => { noise.forEach((td) => { const below = (+td.dataset.r + 1) / NR > scanF; td.classList.toggle("fz", below);
+      if (!orig.has(td)) return;
+      if (below && Math.random() < 0.35) td.textContent = jitter(orig.get(td)); else if (!below && td.textContent !== orig.get(td)) td.textContent = orig.get(td); }); };
+  const hits = (f) => finds.forEach((td, i) => td.classList.toggle("hit", f >= (findRow[i] + 1) / NR));
+  if (R) { hits(1); noise.forEach((td) => td.classList.remove("fz")); cards.forEach((c) => (c.style.opacity = 1)); }
+  else gsap.matchMedia().add({ desk: "(min-width: 961px)", mob: "(max-width: 960px)" }, (ctx) => {
+    if (ctx.conditions.desk) {
+      const pathsOf = () => svg.querySelectorAll("path"), dotsOf = () => svg.querySelectorAll("circle");
+      const tl = gsap.timeline({ scrollTrigger: { trigger: "#data", start: "top top", end: "+=190%", pin: "#dpin", scrub: 0.6, invalidateOnRefresh: true,
+          onRefresh: () => { wired = false; }, onToggle: (s) => { clearInterval(flick); if (s.isActive) flick = setInterval(flicker, 110); else { restore(); noise.forEach((td) => td.classList.toggle("fz", s.progress < 0.5)); } },
+        },
+        // everything below follows the RENDERED timeline (scrub smoothing lags the scroll), so the scan, the lit findings and the
+        // wires always match what is on screen; the wires are measured once the sheet has settled (after its entry)
+        onUpdate: function () { const p = this.progress(); scanF = Math.min(1, Math.max(0, (p - 0.08) / 0.32)); hits(scanF); if (!wired && p > 0.2) wire();
+          const lp = Math.min(1, Math.max(0, (p - 0.6) / 0.24)); pathsOf().forEach((pt, i) => { const v = Math.min(1, Math.max(0, lp * 3 - i * 0.9)); pt.setAttribute("stroke-dashoffset", (1 - v).toFixed(3)); dotsOf()[i].setAttribute("opacity", v > 0.98 ? 1 : 0); }); } })
+        .from("#sheet", { y: 90, rotationX: 24, opacity: 0, duration: 0.1, ease: "power2.out", transformPerspective: 1200 }, 0)
+        .fromTo("#scan", { top: "-14%" }, { top: "100%", duration: 0.32, ease: "none" }, 0.08)
+        .to(noise, { opacity: 0.08, filter: "blur(1.6px)", duration: 0.12, stagger: { each: 0.0012, from: "random" } }, 0.42)
+        .to("#sheet th, #sheet .top", { opacity: 0.18, duration: 0.1 }, 0.42).to("#scan", { opacity: 0, duration: 0.05 }, 0.42)
+        .fromTo("#sheet .nt2", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.08, stagger: 0.04 }, 0.5)
+        .fromTo(cards, { x: 70, opacity: 0 }, { x: 0, opacity: 1, duration: 0.12, stagger: 0.075, ease: "power3.out" }, 0.62)
+        .fromTo("#dend", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.08 }, 0.9).to({}, { duration: 0.001 }, 1);
+      const rw = () => { if (wired) wire(); }; addEventListener("resize", rw);
+      return () => { removeEventListener("resize", rw); clearInterval(flick); restore(); noise.forEach((td) => td.classList.remove("fz")); };
+    }
+    // phones: no pin; the export slides in, the scan lights the findings, the moves follow (each says which finding it answers)
+    noise.forEach((td) => td.classList.remove("fz"));
+    gsap.timeline({ scrollTrigger: { trigger: "#data .dstage", start: "top 75%" } })
+      .fromTo("#sheet", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" })
+      .fromTo("#scan", { top: "-14%" }, { top: "100%", duration: 1, ease: "power1.inOut", onUpdate: function () { hits(this.progress()); } }, "-=0.2")
+      .to("#scan", { opacity: 0, duration: 0.2 })
+      .fromTo(cards, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, stagger: 0.12, ease: "power3.out" }, "-=0.3");
+  }); }
+// ---- 07 cases: a cover-flow arc. Real figures from the deck (slides 20-26) and the one client quote we hold (Write-Edge);
+// the other clients' quotes are still to come from Battle, and the cards say so ----
+const CS = [
+    { k: "yakisoul", logo: "v9_logo_yakisoul", name: "Yaki Soul", n: "RM1.8M+", l: "single-outlet monthly ROI, up from RM300K", short: "monthly ROI", fp: "50% 30%", say: "Seasonal campaigns turned an izakaya off the main street into a KL destination.", tag: "F&B", x: "7,000+ customers a month" },
+    { k: "writeedge", logo: "v9_logo_writeedge", name: "Write-Edge", pre: "Almost", n: "4×", l: "growth in under two years", alt: "Poi Ching of Write-Edge with the Battle team", short: "growth", fp: "48% 30%", q: "Taking meticulous care on what the organization provides and targeting the right audience has help us to scale almost coming to 4 folds in less than 2 yrs.", who: "Poi Ching, General Manager, Write-Edge", tag: "Client review", x: "" },
+    { k: "bhpetrol", logo: "v9_logo_bhppetrol", name: "BHPetrol", n: "7M+", l: "organic reach, nationwide", short: "organic reach", fp: "53% 30%", say: "Creative partner for Malaysia's RON95 subsidy rollout: an early educator in a crowded feed.", tag: "Energy", x: "Campaign videos · KV" },
+    { k: "easyeurope", logo: "v9_logo_easyeurope", name: "Easy Europe", n: "700+", l: "leads a week, under RM15 each", short: "leads a week", fp: "54% 30%", say: "Travel revival: from the pandemic to RM3.8M+ peak monthly revenue.", tag: "Travel", x: "65% lower cost per result" },
+    { k: "careconcierge", logo: "", name: "Care Concierge", n: "23%", l: "more monthly sales", short: "more sales", fp: "46% 45%", say: "Senior care beyond Google search: Meta retargeting and a multi-state expansion.", tag: "Senior care", x: "37% lower cost per acquisition" },
+    { k: "furniture", logo: "v9_logo_luxeliving", dark: 1, name: "Luxe Living", n: "22×", l: "ROAS, against an industry 8 to 12", short: "ROAS", fp: "50% 62%", say: "Year-round seasonal campaigns, from Shopee and Lazada to Meta.", tag: "Furniture", x: "2-3× revenue growth" },
+    { k: "lalaport", logo: "", name: "LaLaport BBCC", n: "3×", l: "more vendor inclusions", short: "vendor inclusions", fp: "49% 55%", say: "One Japanese narrative for a mall of monthly events.", tag: "Retail mall", x: "Social media retainer" }];
+{   const N = CS.length, cf = document.getElementById("cf"), track = document.getElementById("cft"), cfn = document.getElementById("cfn");
+  track.innerHTML = CS.map((c, i) => `<article class="cc2" data-i="${i}" aria-label="${c.name}: ${c.pre ? c.pre + " " : ""}${c.n} ${c.l}">
+    <div class="ph"><img src="assets/img/v9_case_${c.k}.webp" alt="${c.alt || c.name + ': our work'}" loading="lazy" draggable="false"><span class="lg${c.dark ? " dk" : ""}">${c.logo ? `<img src="assets/img/${c.logo}.webp" alt="${c.name}">` : `<b>${c.name}</b>`}</span></div>
+    <div class="bd"><div class="k2"><b>${c.pre ? `<small>${c.pre}</small>` : ""}${c.n}</b><span>${c.l}</span></div>
+      ${c.q ? `<blockquote>${c.q}<cite>${c.who}</cite></blockquote>` : `<p class="qp">${c.say}</p>`}
+      <div class="ft"><span>${c.tag}</span><em>${c.x}</em></div></div></article>`).join("");
+  const cards = [...track.children]; let f = 0, auto = null, hover = false, seen = false, drag = null;
+  const wrap = (d) => ((d % N) + N + N / 2) % N - N / 2;           // shortest signed distance on the loop
+  const lay = () => { const w = cards[0].offsetWidth, sp = Math.min(w * 0.74, innerWidth * 0.2 + 40);
+    cards.forEach((c, i) => { const d = wrap(i - f), a = Math.abs(d);
+      c.style.transform = `translateX(${d * sp}px) translateZ(${-a * 170}px) rotateY(${Math.max(-50, Math.min(50, -d * 24))}deg) scale(${1 - Math.min(a, 3) * 0.04})`;
+      c.style.zIndex = String(100 - Math.round(a * 10)); c.style.opacity = a > 2.6 ? Math.max(0, 1 - (a - 2.6) * 1.6).toFixed(3) : "1"; c.style.setProperty("--dim", Math.min(0.55, a * 0.2).toFixed(3)); });
+    const k = ((Math.round(f) % N) + N) % N; cfn.textContent = `${String(k + 1).padStart(2, "0")} / ${String(N).padStart(2, "0")}`; };
+  const to = (t, d = 0.9) => gsap.to({ v: f }, { v: t, duration: R ? 0 : d, ease: "power3.out", onUpdate: function () { f = this.targets()[0].v; lay(); } });
+  let tw = null; const go = (t) => { if (tw) tw.kill(); tw = to(t); };
+  const tick = () => { if (!hover && seen && !drag) go(Math.round(f) + 1); };
+  document.getElementById("cfx").addEventListener("click", () => go(Math.round(f) + 1)); document.getElementById("cfp").addEventListener("click", () => go(Math.round(f) - 1));
+  cf.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") go(Math.round(f) + 1); if (e.key === "ArrowLeft") go(Math.round(f) - 1); });
+  cards.forEach((c, i) => c.addEventListener("click", () => { if (drag && drag.moved) return; const d = wrap(i - f); if (Math.abs(d) > 0.5) go(Math.round(f + d)); }));
+  cf.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") hover = true; }); cf.addEventListener("pointerleave", () => { hover = false; });
+  cf.addEventListener("pointerdown", (e) => { if (e.target.closest("button")) return; if (tw) tw.kill(); drag = { x: e.clientX, f0: f, moved: false }; cf.setPointerCapture(e.pointerId); });
+  cf.addEventListener("pointermove", (e) => { if (!drag) return; const dx = e.clientX - drag.x; if (Math.abs(dx) > 4) drag.moved = true; f = drag.f0 - dx / (cards[0].offsetWidth * 0.8); lay(); });
+  const up = () => { if (!drag) return; const m = drag.moved; go(Math.round(f)); setTimeout(() => { drag = null; }, m ? 50 : 0); };
+  cf.addEventListener("pointerup", up); cf.addEventListener("pointercancel", up);
+  addEventListener("resize", lay); lay(); cf.lay = lay;
+  // the arc fans out as it arrives, then moves on every 4.5 s while it is on screen
+  new IntersectionObserver((es) => { const on = es[es.length - 1].isIntersecting; if (on && !seen) { seen = true; if (!R) { const f0 = f; f = f0 - 2.5; lay(); go(f0); } }
+    clearInterval(auto); if (on && !R) auto = setInterval(tick, 4500); }, { threshold: 0.35 }).observe(cf); }
+if (!R) document.querySelectorAll("#connect .ko").forEach((el) => gsap.to(el, { y: () => -90 * +el.dataset.d, ease: "none", scrollTrigger: { trigger: "#connect", start: "top bottom", end: "bottom top", scrub: true } }));
+if (!R && window.Lenis) { const lenis = (window.__lenis = new Lenis({ lerp: 0.09 })); lenis.on("scroll", ScrollTrigger.update); gsap.ticker.add((t) => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0); }
+// the goal chips (the deck's form, slide 28): one at a time, and it rides along in the message
+let goal = ""; const chips = [...document.querySelectorAll(".ask .chips2 button")];
+chips.forEach((b) => b.addEventListener("click", () => { goal = goal === b.dataset.g ? "" : b.dataset.g; chips.forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.g === goal))); document.getElementById("askin").focus(); }));
+// sending opens WhatsApp with the message, ready to send to Battle's number (the one on the site); nothing is sent for them
+document.getElementById("ask").addEventListener("submit", (e) => { e.preventDefault(); const v = document.getElementById("askin").value.trim();
+  const g = goal ? `My primary goal: ${goal}. ` : "";
+  open("https://wa.me/60197707927?text=" + encodeURIComponent(`Hi Battle, ${g}${v || "I'd like a 15-minute call about my marketing."}`), "_blank", "noopener"); });
+// ---- touch and feel: a cursor label, magnetic buttons, cards that tilt toward the pointer, headings that rise line by line ----
+const CUR = (window.CUR = (() => {
+  const el = document.getElementById("cur"), tx = document.getElementById("curT");
+  if (R || !fine) return { on() {}, off() {} };
+  const xTo = gsap.quickTo(el, "x", { duration: 0.35, ease: "power3" }), yTo = gsap.quickTo(el, "y", { duration: 0.35, ease: "power3" });
+  addEventListener("pointermove", (e) => { xTo(e.clientX); yTo(e.clientY); }, { passive: true });
+  const api = { on(t) { tx.textContent = t; el.classList.add("on"); }, off() { el.classList.remove("on"); } };
+  document.addEventListener("pointerover", (e) => { const n = e.target.closest("[data-cur]"); if (n) api.on(n.dataset.cur); });
+  document.addEventListener("pointerout", (e) => { const n = e.target.closest("[data-cur]"); if (n && !n.contains(e.relatedTarget)) api.off(); });
+  return api;
+})());
+document.querySelectorAll(".plan .s").forEach((el) => el.setAttribute("data-tilt", ""));
+if (!R && fine) {
+  document.querySelectorAll("[data-mag]").forEach((el) => {
+    const q = (t, p) => gsap.quickTo(t, p, { duration: 0.6, ease: "power3" }), xTo = q(el, "x"), yTo = q(el, "y"), ar = el.querySelector(".ar"), ax = ar && q(ar, "x"), ay = ar && q(ar, "y");
+    el.addEventListener("pointermove", (e) => { const b = el.getBoundingClientRect(), dx = e.clientX - b.left - b.width / 2, dy = e.clientY - b.top - b.height / 2; xTo(dx * 0.22); yTo(dy * 0.3); if (ar) { ax(dx * 0.12); ay(dy * 0.16); } });
+    el.addEventListener("pointerleave", () => { xTo(0); yTo(0); if (ar) { ax(0); ay(0); } }); });
+  document.querySelectorAll("[data-tilt]").forEach((el) => {
+    const rx = gsap.quickTo(el, "rotationX", { duration: 0.6, ease: "power3" }), ry = gsap.quickTo(el, "rotationY", { duration: 0.6, ease: "power3" }); gsap.set(el, { transformPerspective: 900 });
+    el.addEventListener("pointermove", (e) => { const b = el.getBoundingClientRect(), x = (e.clientX - b.left) / b.width, y = (e.clientY - b.top) / b.height; ry((x - 0.5) * 9); rx(-(y - 0.5) * 9); el.style.setProperty("--mx", x * 100 + "%"); el.style.setProperty("--my", y * 100 + "%"); });
+    el.addEventListener("pointerleave", () => { rx(0); ry(0); }); });
+}
+if (!R) document.fonts.ready.then(() => document.querySelectorAll("h2.h2").forEach((h) => { const st = SplitText.create(h, { type: "lines", mask: "lines", linesClass: "ln" });
+  gsap.from(st.lines, { yPercent: 110, duration: 1, ease: "power4.out", stagger: 0.08, scrollTrigger: { trigger: h, start: "top 88%" } }); }));
+LK.motion();
+</script>
+<script type="module">
+import { mountCube } from "./lib/cube91.js";
+import { heroFaces, glyphMark, servicesFaces, SERVICE_FACE } from "./lib/faces91.js";
+import { mountFlow } from "./lib/flow91.js";
+const R = LK.R, E = (id) => document.getElementById(id), Q = new URLSearchParams(location.search);
+// v10: what the solved cube shows in front. "mark" (the BM monogram in neon) by default; ?face=word|portrait|smile to compare
+const FACE_STYLE = ["mark", "word", "portrait", "smile"].includes(Q.get("face")) ? Q.get("face") : "mark";
+const FACE_SRC = { mark: "assets/brand/bm-mark.webp", word: "assets/brand/battle-white.webp" }[FACE_STYLE];
+const faceImg = FACE_SRC ? await new Promise((ok) => { const im = new Image(); im.onload = () => ok(im); im.onerror = () => ok(null); im.src = FACE_SRC; }) : null;
+const gl = (() => { try { const c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); } catch (e) { return false; } })();
+// the impact keys' neon glyphs: the cube's own glyphs, lit red
+document.querySelectorAll("#kpi .gl, #dopts .dg").forEach((cv) => { const m = glyphMark(cv.dataset.g, 128); cv.width = cv.height = 128; const g = cv.getContext("2d");
+  g.drawImage(m, 0, 0); g.globalCompositeOperation = "source-in"; g.fillStyle = cv.closest(".g-frost") ? "#d7000f" : "#ff3646"; g.fillRect(0, 0, 128, 128); });
+// ---- hero (v9.1): the moving gradient, then the cube. It arrives mixed up, the face lost among the platform marks, stats and
+// trends; it solves into the face, which blinks, follows the cursor and beams; every few seconds (or when you tap it) it
+// mixes itself up again and solves back to the face ----
+const hero = E("s1"), canvas = E("cube"), hitEl = E("cubehit"), hint = E("hhint");
+const flow = gl ? mountFlow(E("flow"), { still: R }) : null;
+const lay = (c) => { const b = HERO.box; if (!b) return; const hb = hero.getBoundingClientRect(), sb = E("hst").getBoundingClientRect();
+  if (flow) flow.focus((sb.left - hb.left + b.x) / hb.width, (sb.top - hb.top + b.y) / hb.height, b.size / hb.height / 2);
+  if (c) c.layout({ x: b.x, y: b.y, size: b.size, rel: false }); };
+let cube = null;
+const hintOff = () => hint.classList.add("off");
+if (gl) {
+  const faces = await heroFaces();
+  cube = mountCube(canvas, faces, { onHover: (v) => (v ? CUR.on("Drag to twist · tap to mix") : CUR.off()), onTap: hintOff, hold: 6.5, still: R, hit: hitEl, drift: 0.16, beats: 1, tumble: true, scramble: 6, enter: "assemble", faceStyle: FACE_STYLE, faceImg });
+}
+hero.addEventListener("herolayout", () => lay(cube)); lay(cube);
+if (cube) {
+  window.__c7 = cube;
+  if (Q.has("freeze")) cube.freeze(0);
+  if (Q.has("test")) window.__cube = cube;
+  hitEl.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); if (cube.tap()) hintOff(); } });
+  hitEl.addEventListener("pointerdown", hintOff, { once: true });
+  if (!R && !Q.has("freeze")) { HX.glow = 0; heroFocus(); cube.intro().then(() => gsap.to(HX, { glow: 1, duration: 1.2, ease: "power2.out", onUpdate: heroFocus })); }
+  else heroFocus();
+  if (R) { hint.hidden = true; hitEl.removeAttribute("role"); hitEl.removeAttribute("tabindex"); hitEl.setAttribute("aria-hidden", "true"); }
+} else {                                                             // no WebGL: a still of the cube, solved, smiling
+  canvas.hidden = true; E("cubefb").hidden = false; hint.hidden = true;
+  hitEl.removeAttribute("role"); hitEl.removeAttribute("tabindex"); hitEl.setAttribute("aria-hidden", "true"); heroFocus();
+}
+// ---- v10: the services cube. The hero's cube again, solved and calm, each side one service's ground. Hover a service and the
+// cube turns and draws that layer out like a blade; the diagnostic equips the one you need: draws it, holds it, pushes it home
+// with a flash (the card says Equipped). Without WebGL the solved still stands in ----
+const EQ = (window.__eq = { cube: null, k: -1, busy: 0, draw() {}, equip() {} });
+{ const cv = E("eqcv"), cap = E("eqcap"), FACE = SERVICE_FACE, cards = [...document.querySelectorAll("#svg4 .svc")];
+  if (gl) { try { const f2 = await servicesFaces(); EQ.cube = mountCube(cv, f2, { still: R, hit: null, drift: 0, beats: 0, hold: 1e9, tumble: false, calm: true, maxDpr: 2, budget: 2.2e6, faceStyle: FACE_STYLE, faceImg }); } catch (e) { EQ.cube = null; } }
+  const lay2 = () => { const c = EQ.cube; if (!c) return; const r = cv.getBoundingClientRect(); if (r.width && r.height) c.layout({ x: 0.5, y: 0.5, size: Math.min(r.width, r.height) * 0.6, rel: true }); };
+  if (EQ.cube) { new ResizeObserver(lay2).observe(cv); lay2(); if (Q.has("freeze")) EQ.cube.freeze(0); if (!fine) cap.innerHTML = "<i></i>Pick your headache below to equip · tap the cube to transform"; if (R) cap.hidden = true; }
+  else { cv.hidden = true; E("eqfb").hidden = false; cap.hidden = true; }
+  let seq = 0;
+  const say = (card, what) => { if (!card) { if (what) cap.innerHTML = `<i></i>${what}`; return; } cap.innerHTML = `<i></i><b>${card.querySelector(".no").textContent} · ${card.querySelector("h3").textContent}</b>${what ? " · " + what : ""}`; };   // the caption names what the cube shows
+  // the results on a card light up and count up (hover, the scroll focus, the equip)
+  const light = (card) => { if (!card || card.dataset.lit === "1") return; card.dataset.lit = "1"; setTimeout(() => { card.dataset.lit = "0"; }, 1500);
+    card.querySelectorAll(".res b[data-n]").forEach((b) => { const n = +b.dataset.n, o = { v: 0 }, fmt = (v) => b.dataset.pre + (Number.isInteger(n) ? Math.round(v) : v.toFixed(1)) + b.dataset.suf;
+      if (R) { b.textContent = fmt(n); return; } gsap.to(o, { v: n, duration: 1.1, ease: "power3.out", onUpdate: () => { b.textContent = fmt(o.v); } }); }); };
+  EQ.light = light;
+  // the figures (David): the cube stands up into the service's own shape; moving on folds it back
+  const SHAPE = { web: "screen", ads: "funnel", content: "heart", organic: "lens" };
+  EQ.morph = (kind) => { const c = EQ.cube; if (!c || R) return; if (kind && EQ.k >= 0) c.draw(EQ.k, false); if (kind) c.show(0); c.morph(kind); E("eqc").classList.toggle("robot", !!kind); };
+  const fold = () => { const c = EQ.cube; if (c && (c.robot > 0.01 || c.shape)) EQ.morph(null); };
+  E("eqhit").addEventListener("click", () => { const c = EQ.cube; if (!c || R) return; if (c.shape) { EQ.morph(null); return; }
+    const h = document.querySelector("#svg4 .svc.hit"); EQ.morph(h ? SHAPE[h.dataset.k] : "robot"); say(h, h ? "transforming" : "the Battle robot"); });
+  E("eqhit").addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); E("eqhit").click(); } });
+  // turn: the cube shows the service's side, closed (the scroll focus); draw: the layer comes out like a blade and flashes (the hover)
+  EQ.turn = (k, card) => { const c = EQ.cube; if (!c || R) return; fold(); if (EQ.k >= 0) c.draw(EQ.k, false); if (k < 0) return; EQ.k = k; c.show(k); say(card); };
+  EQ.draw = (k, card) => { const c = EQ.cube; if (!c || R) return; fold(); if (k < 0) { c.draw(EQ.k, false); return; } EQ.k = k; c.show(k); c.draw(k, true); c.pulse(k); say(card); };
+  EQ.equip = (card) => { const k = FACE[card.dataset.k], c = EQ.cube, my = ++seq; cards.forEach((x) => x.classList.toggle("eq", x === card));
+    light(card); if (!c || R || k == null) return; fold(); EQ.k = k; c.show(k); c.draw(k, true); EQ.busy = my; say(card, "equipped");
+    setTimeout(() => { if (seq !== my) return; c.draw(k, false); c.pulse(k); }, 1400);                  // the layer locks home with a flash...
+    setTimeout(() => { if (seq !== my) return; EQ.morph(SHAPE[card.dataset.k]); say(card, "armed"); EQ.busy = 0; }, 2100); };   // ...and the cube stands up as that service's figure
+  // scrolling through the services focuses the cube on each one in turn: the card nearest the middle of the window; a hovered card
+  // wins while the pointer is on it, and past the cards (the diagnostic) the cube is left as it is
+  let focusK = -1, hovering = false;
+  const focus = () => { if (R || EQ.busy || hovering) return; const mid = innerHeight * 0.5; if (E("dql").getBoundingClientRect().top < mid) return;
+    let best = -1, bd = 1e9; cards.forEach((a, i) => { const r = a.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return; const d = Math.abs((r.top + r.bottom) / 2 - mid); if (d < bd) { bd = d; best = i; } });
+    if (best === focusK) return; focusK = best; cards.forEach((a, i) => a.classList.toggle("hit", i === best)); E("svg4").classList.toggle("pick", best >= 0);
+    if (best >= 0) { EQ.turn(FACE[cards[best].dataset.k], cards[best]); light(cards[best]); } else EQ.turn(-1); };
+  addEventListener("scroll", focus, { passive: true }); addEventListener("resize", focus); focus(); EQ.focus = focus;
+  if (fine && !R) cards.forEach((a) => { a.addEventListener("pointerenter", () => { hovering = true; light(a); cards.forEach((x) => x.classList.toggle("hit", x === a)); E("svg4").classList.add("pick"); if (!EQ.busy) EQ.draw(FACE[a.dataset.k], a); });
+    a.addEventListener("pointerleave", () => { hovering = false; if (EQ.busy) return; EQ.draw(-1); focusK = -1; focus(); }); });
+}
+ScrollTrigger.sort(); ScrollTrigger.refresh();
+if (document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());   // headings rewrap when the fonts land: re-measure every trigger
+</script>
+<script>
+// ---- v10: navigation that works, and the service diagnostic ----
+(() => {
+  const drawer = document.getElementById("drawer"), nb = document.getElementById("nb");
+  const setOpen = (o) => { drawer.classList.toggle("open", o); nb.setAttribute("aria-expanded", String(o)); document.body.classList.toggle("lock", o); if (o) drawer.querySelector("a").focus(); };
+  nb.addEventListener("click", () => setOpen(!drawer.classList.contains("open")));
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && drawer.classList.contains("open")) { setOpen(false); nb.focus(); } });
+  // in-page links glide (Lenis when it runs, the browser otherwise); the menu closes first
+  const goTo = (el) => { const L = window.__lenis; if (L) L.scrollTo(el, { offset: -64, duration: 1.3 }); else el.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); };
+  document.addEventListener("click", (e) => { const a = e.target.closest('a[href^="#"]'); if (!a) return; const t = document.querySelector(a.getAttribute("href")); if (!t) return;
+    e.preventDefault(); if (drawer.classList.contains("open")) setOpen(false); history.replaceState(null, "", a.getAttribute("href")); goTo(t); });
+  // the section you are in: the last one whose top has passed the upper half of the window
+  const links = [...document.querySelectorAll(".nav ul a")], secs = links.map((a) => document.querySelector(a.getAttribute("href")));
+  const mark = () => { const y = innerHeight * 0.45; let cur = -1; secs.forEach((el, i) => { if (el && el.getBoundingClientRect().top <= y) cur = i; }); links.forEach((a, i) => a.classList.toggle("on", i === cur)); };
+  addEventListener("scroll", mark, { passive: true }); addEventListener("resize", mark); mark();
+  // the diagnostic: the deck's five lines (slide 25), each answered with the deck's own label and the service card it maps to
+  // [letter, the deck's line, the deck's answer, the service card it maps to, a short title, its glyph]
+  const DG = [["A", "We need sales, calls, and qualified inquiries right away.", "Performance Marketing & Customer Acquisition", 1, "Leads, now", "target"],
+    ["B", "Our social media is dry, and our ads look like generic AI graphics. People are scrolling past us.", "Creative Performance & Social Proof", 2, "Ads get scrolled past", "mega"],
+    ["C", "We get website visitors, but nobody converts or fills out the form.", "Web Infrastructure & Conversion Optimization", 0, "Visitors don't convert", "cursor"],
+    ["D", "We spend all our budget getting new customers but rate of returning customers are low.", "CRM Solutions", 3, "Customers don't return", "heart"],
+    ["E", "We're launching a new brand, or competitors look way more legit than us.", "Brand Authority & Strategy", 2, "We don't look legit yet", "crown"]];
+  const dopts = document.getElementById("dopts"), dans = document.getElementById("dans"), svg4 = document.getElementById("svg4");
+  const AR = '<span class="ar" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><svg viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+  dopts.innerHTML = DG.map(([k, q, , , ttl, gl], i) => `<button type="button" class="dopt" aria-pressed="false" data-i="${i}"><canvas class="dg" data-g="${gl}" aria-hidden="true"></canvas><span class="dt"><b>${ttl}</b><small>${k}</small></span><span class="dq2">“${q}”</span></button>`).join("");
+  const pick = (i) => { const cards = [...svg4.querySelectorAll(".svc")], [, , ans, ci] = DG[i], c = cards[ci]; if (!c) return;
+    dopts.querySelectorAll(".dopt").forEach((b, j) => b.setAttribute("aria-pressed", String(j === i)));
+    cards.forEach((x) => x.classList.toggle("hit", x === c)); svg4.classList.add("pick");
+    dans.innerHTML = `<img class="pc" src="${c.querySelector(".pc").getAttribute("src")}" alt=""><div class="lbl">Your weapon</div><h3>${ans}</h3><p>Equipped: <b>${c.querySelector(".no").textContent} · ${c.querySelector("h3").textContent}</b>. ${c.querySelector("p").textContent.split(". ")[0]}.</p>
+      <div class="acts"><a class="cta" href="${c.getAttribute("href")}">Find out more${AR}</a><a class="cta gl" href="#connect">Talk to us</a></div>`;
+    dans.classList.remove("idle"); dans.classList.add("on"); dans.classList.remove("pop"); void dans.offsetWidth; dans.classList.add("pop");
+    if (window.__eq && window.__eq.equip) window.__eq.equip(c); };
+  dopts.addEventListener("click", (e) => { const b = e.target.closest(".dopt"); if (b) pick(+b.dataset.i); });
+})();
+</script>
+</body></html>
